@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maanyata Gate Check</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #fff; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 12px; }
+  video, canvas { width: 100%; max-height: 300px; background: #000; border-radius: 8px; }
+  textarea { width: 100%; height: 80px; font-size: 16px; box-sizing: border-box; }
+  button { font-size: 18px; padding: 14px; width: 100%; margin-top: 8px; min-height: 56px; border: 0; border-radius: 8px; background: #222; color: #fff; }
+  #result { margin-top: 16px; padding: 24px 16px; border-radius: 8px; text-align: center; font-size: 22px; font-weight: 600; }
+  .ok { background: #1b8a3a; color: #fff; }
+  .bad { background: #b3261e; color: #fff; }
+  .idle { background: #eee; color: #333; }
+</style>
+</head>
+<body>
+<h1>Gate check</h1>
+
+<!-- Paste the output of: node issue.mjs pubkey -->
+<script>
+  const ISSUER_PUBLIC_KEY_B64URL = "nDSxM880-_l5Vtzjkhp_Mj6D7kfx4fp0zWKWl66Alps";
+</script>
+
+<video id="cam" playsinline muted></video>
+<canvas id="frame" hidden></canvas>
+<button id="startCam">Start camera scan</button>
+
+<p>Or paste the code:</p>
+<textarea id="manual" placeholder="Paste worker code here"></textarea>
+<button id="checkManual">Check code</button>
+
+<div id="result" class="idle">Waiting for a code</div>
+
+<!-- jsQR: offline-capable QR decoder loaded locally -->
+<script src="./jsQR.js"></script>
+<script>
+  const resultEl = document.getElementById("result");
+
+  function b64urlToBytes(s) {
+    s = s.replace(/-/g, "+").replace(/_/g, "/");
+    while (s.length % 4) s += "=";
+    return Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+  }
+
+  function show(kind, text) {
+    resultEl.className = kind;
+    resultEl.textContent = text;
+  }
+
+  async function checkCode(raw) {
+    try {
+      const [body, sig] = raw.trim().split(".");
+      if (!body || !sig) return show("bad", "NOT VALID: malformed code");
+      if (ISSUER_PUBLIC_KEY_B64URL.startsWith("PASTE")) {
+        return show("bad", "Setup needed: add the issuer public key");
+      }
+      const key = await crypto.subtle.importKey(
+        "raw",
+        b64urlToBytes(ISSUER_PUBLIC_KEY_B64URL),
+        { name: "Ed25519" },
+        false,
+        ["verify"]
+      );
+      const ok = await crypto.subtle.verify(
+        "Ed25519",
+        key,
+        b64urlToBytes(sig),
+        new TextEncoder().encode(body)
+      );
+      if (!ok) return show("bad", "NOT VALID: edited or forged");
+      const data = JSON.parse(new TextDecoder().decode(b64urlToBytes(body)));
+      const now = Math.floor(Date.now() / 1000);
+      if (data.exp < now) return show("bad", "EXPIRED: ask worker to renew");
+      show("ok", "VALID\nWorker ID: " + data.wid);
+    } catch (e) {
+      show("bad", "NOT VALID: " + e.message);
+    }
+  }
+
+  document.getElementById("checkManual").onclick = () =>
+    checkCode(document.getElementById("manual").value);
+
+  let scanning = false;
+  document.getElementById("startCam").onclick = async () => {
+    if (scanning) return;
+    const video = document.getElementById("cam");
+    const canvas = document.getElementById("frame");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+      });
+      video.srcObject = stream;
+      await video.play();
+      scanning = true;
+      show("idle", "Point the camera at the code");
+      const tick = () => {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0);
+          const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(img.data, img.width, img.height);
+          if (code) {
+            scanning = false;
+            stream.getTracks().forEach((t) => t.stop());
+            return checkCode(code.data);
+          }
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    } catch (e) {
+      show("bad", "Camera unavailable: use the paste box instead");
+    }
+  };
+</script>
+</body>
+</html>
