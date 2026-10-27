@@ -1,0 +1,37 @@
+MAANYATA COMMUNITY VERIFIER & ANTI-WHITELABELING LICENSE
+Version 1.0 (October 2026)
+
+Copyright (c) 2026 Krishiv (also known as "Krishiv Skull", "The Master", "The Grandmaster").
+All Rights Reserved.
+
+1. PURPOSE & PERMITTED USE
+Permission is hereby granted, free of charge, to any individual, venue staff, security guard, 
+or gate operator ("User") to run, host, and execute this client verification software 
+(specifically `verify.html` and accompanying client-side verification scripts) solely for 
+the purpose of scanning and verifying cryptographic passes issued under the Maanyata protocol.
+
+2. PROHIBITION OF WHITELABELING & REBRANDING
+You may NOT:
+a. Remove, alter, obscure, or replace any reference to "Maanyata", the project author ("Krishiv"), 
+   or official project notices from the user interface, source code, or documentation.
+b. Rebrand, repackage, or whitelabel this software, in whole or in part, under another name, trademark, 
+   or commercial moniker.
+c. Misrepresent this software or any modified fork as an official, certified, or endorsed Maanyata product, 
+   or pretend to be the official issuing authority.
+
+3. COMMERCIAL & ENTERPRISE RESTRICTIONS
+a. No Resale: Third parties may NOT sell, sublicense, lease, or charge fees for this software, 
+   its source code, or hosted deployments thereof.
+b. Enterprise Systems: Enterprise integration, commercial bundling, automated issuance backends, 
+   and proprietary commercial deployments require an explicit commercial license agreement directly 
+   from the Copyright Holder.
+
+4. TRADEMARKS & REPUTATION
+All rights, title, and interest in and to the name "Maanyata", associated branding, and the identities 
+and aliases of the Copyright Holder remain exclusively reserved.
+
+5. DISCLAIMER OF WARRANTY & LIMITATION OF LIABILITY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND 
+NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, LOSS 
+OF PHYSICAL ENTRY, SECURITY BREACH, OR OTHER LIABILITY ARISING FROM THE USE OF THIS SOFTWARE.
