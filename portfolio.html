@@ -6,7 +6,7 @@
   <title>Sovereign Work Portfolio | Maanyata</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
        MAANYATA — SOVEREIGN WORKER PORTFOLIO & RECOGNITION ENGINE
@@ -58,12 +58,10 @@
       --amber-border: #FDE68A;
 
       /* Typography Hierarchy */
-      --font-display: 'Yatra One', system-ui, sans-serif;
-      --font-ui: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'Sarala', monospace;
-
-      --font-heading: var(--font-display);
-      --font-body: var(--font-ui);
+      --font-brand: 'Yatra One', cursive, serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,9 +111,9 @@
       border-radius: 8px;
       background: var(--terracotta);
       color: #FFFFFF;
-      font-family: var(--font-heading);
+      font-family: var(--font-brand);
       font-weight: 800;
-      font-size: 16px;
+      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -125,6 +123,10 @@
       font-weight: 800;
       font-size: 17px;
       letter-spacing: -0.01em;
+    }
+    html[lang="hi"] .brand-name {
+      font-family: var(--font-brand);
+      font-size: 19px;
     }
     #headerActions {
       display: flex;
@@ -1060,16 +1062,16 @@
           <div class="tap-liveness-toast" id="tapToast">✓ LIVE ACTIVE PASS</div>
         </div>
         
-        <!-- Live Worker Action Controls (Killed the Dummies) -->
+        <!-- Live Worker Action Controls -->
         <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
-          <button class="btn-action" onclick="openCustomizeModal()" style="background:var(--terracotta); color:#FFFFFF; border:none; padding:12px 14px; font-size:14px; font-weight:700;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            <span data-i18n="btnCustomize">Customize Profile & Dignity Boundaries</span>
+          <button class="btn-action" onclick="sharePassbookWhatsApp()" style="background:#16A34A; color:#FFFFFF; border:none; padding:12px 14px; font-size:14px; font-weight:700;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+            <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
           </button>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <button class="btn-action" onclick="openPhysicalCard()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
-              <span data-i18n="btnPrintPass">Print PVC Pass</span>
+            <button class="btn-action" onclick="openCustomizeModal()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <span data-i18n="btnDignityTerms">Dignity Terms</span>
             </button>
             <a href="verify.html" class="btn-action" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
@@ -1079,34 +1081,33 @@
         </div>
       </div>
 
-      <!-- Modal: Profile & Dignity Boundary Customization -->
+      <!-- Modal: Dignity Charter & Working Terms Sovereignty -->
       <div id="customizeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); z-index:1000; align-items:center; justify-content:center; padding:16px;">
         <div class="card" style="max-width:480px; width:100%; max-height:90vh; overflow-y:auto; background:var(--card-bg); border-radius:20px; padding:22px; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.3);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <h2 style="font-family:var(--font-heading); font-size:18px; font-weight:800; color:var(--ink-primary); margin:0;" data-i18n="modalTitle">Customize Profile & Boundaries</h2>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h2 style="font-family:var(--font-heading); font-size:18px; font-weight:800; color:var(--ink-primary); margin:0;" data-i18n="modalTitle">Dignity Charter & Working Terms</h2>
             <button onclick="closeCustomizeModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-muted); line-height:1;">&times;</button>
           </div>
+          
+          <!-- Protocol Verification Lock Notice -->
+          <div style="background:var(--emerald-bg); border:1px solid var(--emerald-border); border-radius:10px; padding:10px 12px; margin-bottom:16px; font-size:12px; color:var(--emerald); line-height:1.4;">
+            <div style="font-weight:700; display:flex; align-items:center; gap:6px;">
+              <span>🛡️ Cryptographically Anchored Identity</span>
+            </div>
+            <div id="custModalIdentityDesc" style="color:var(--ink-secondary); font-size:11px; margin-top:4px;">
+              Identity and tenure are validated by resident attestations and cannot be modified locally. Workers exercise sovereign rights over their working terms and safety boundaries below.
+            </div>
+          </div>
+
           <form id="customizeForm" onsubmit="saveCustomProfile(event)">
-            <div style="margin-bottom:12px;">
-              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblWorkerName">Worker Name</label>
-              <input type="text" id="custName" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
-            </div>
-            <div style="margin-bottom:12px;">
-              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblPrimaryCraft">Primary Craft / Specialization</label>
-              <input type="text" id="custRole" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
-            </div>
-            <div style="margin-bottom:12px;">
-              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblTenureBaseline">Career Seniority (Years)</label>
-              <input type="text" id="custTenure" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
-            </div>
             <div style="margin-bottom:16px;">
-              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:6px;" data-i18n="lblBoundaries">Dignity Charter (Select Working Terms)</label>
+              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:8px;" data-i18n="lblBoundaries">Select Your Non-Negotiable Working Terms</label>
               <div id="custBoundariesList" style="display:flex; flex-direction:column; gap:8px;">
                 <!-- dynamic checkboxes -->
               </div>
             </div>
             <div style="display:flex; gap:8px;">
-              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta); color:#FFFFFF; border:none; padding:12px; font-size:14px; font-weight:700;" data-i18n="btnSaveProfile">Save Changes</button>
+              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta); color:#FFFFFF; border:none; padding:12px; font-size:14px; font-weight:700;" data-i18n="btnSaveProfile">Save Working Terms</button>
               <button type="button" onclick="closeCustomizeModal()" class="btn-action" style="background:var(--card-subtle); color:var(--ink-secondary); border:1px solid var(--border); padding:12px; font-size:14px; font-weight:600;" data-i18n="btnCancel">Cancel</button>
             </div>
           </form>
@@ -2125,15 +2126,12 @@
         descHighRisk: "Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.",
         secTrustSignals: "Community Trust Signals",
         secEndorsements: "Household Endorsements",
-        btnCustomize: "Customize Profile & Dignity Boundaries",
-        btnPrintPass: "Print PVC Pass",
+        btnShareWhatsApp: "Share Passbook on WhatsApp",
+        btnDignityTerms: "Dignity Terms",
         btnVerifyGate: "Gate Check",
-        modalTitle: "Customize Profile & Boundaries",
-        lblWorkerName: "Worker Name",
-        lblPrimaryCraft: "Primary Craft / Specialization",
-        lblTenureBaseline: "Career Seniority (Years)",
-        lblBoundaries: "Dignity Charter (Select Working Terms)",
-        btnSaveProfile: "Save Changes",
+        modalTitle: "Dignity Charter & Working Terms",
+        lblBoundaries: "Select Your Non-Negotiable Working Terms",
+        btnSaveProfile: "Save Working Terms",
         btnCancel: "Cancel"
       },
       hi: {
@@ -2163,15 +2161,12 @@
         descHighRisk: "प्रत्यक्ष शारीरिक सुरक्षा एवं घर की चाबियां। सत्यापित कार्यकाल + पूर्व परिवार सत्यापन + निगरानी आवश्यक।",
         secTrustSignals: "सामुदायिक विश्वास संकेत",
         secEndorsements: "पारिवारिक अनुशंसाएं",
-        btnCustomize: "प्रोफाइल और गरिमा नियम अनुकूलित करें",
-        btnPrintPass: "PVC पास प्रिंट करें",
+        btnShareWhatsApp: "व्हाट्सएप पर पासबुक साझा करें",
+        btnDignityTerms: "गरिमा नियम",
         btnVerifyGate: "गेट जांच",
-        modalTitle: "प्रोफाइल एवं कार्य नियम अनुकूलित करें",
-        lblWorkerName: "कार्यकर्ता का नाम",
-        lblPrimaryCraft: "मुख्य कार्य / विशेषज्ञता",
-        lblTenureBaseline: "कार्य अनुभव (वर्ष)",
-        lblBoundaries: "गरिमा चार्टर (कार्य नियम चुनें)",
-        btnSaveProfile: "परिवर्तन सहेजें",
+        modalTitle: "गरिमा चार्टर एवं कार्य नियम",
+        lblBoundaries: "अपने गैर-परक्राम्य कार्य नियम चुनें",
+        btnSaveProfile: "कार्य नियम सहेजें",
         btnCancel: "रद्द करें"
       }
     };
@@ -2215,13 +2210,27 @@
       renderPortfolio();
     }
 
-    // Modal: Profile & Boundary Customization
+    // WhatsApp Sharing for Frontline Domestic Workers & Employers
+    function sharePassbookWhatsApp() {
+      const workerName = portfolio.name || 'Sunita Devi';
+      const workerRole = portfolio.role || 'Senior Household Specialist';
+      const tenure = portfolio.tenure || '8.5 Yrs';
+      const url = window.location.href.split('#')[0];
+      const msg = `Namaste, I am sharing my verified frontline work passbook on Project Maanyata:\n\n👤 *${workerName}*\n🛠️ ${workerRole}\n⏳ Seniority: ${tenure} (Verified by local residents)\n\nView my live authenticated passbook here:\n${url}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Modal: Sovereign Dignity Charter & Working Terms
     function openCustomizeModal() {
       const modal = document.getElementById("customizeModal");
       if (!modal) return;
-      document.getElementById("custName").value = portfolio.name || "";
-      document.getElementById("custRole").value = portfolio.role || "";
-      document.getElementById("custTenure").value = (portfolio.tenure || "8.5").toString().replace(/[^0-9.]/g, '') || "8.5";
+
+      const descEl = document.getElementById("custModalIdentityDesc");
+      if (descEl) {
+        descEl.textContent = currentLang === 'hi' 
+          ? `कार्यकर्ता: ${portfolio.name} • ई-श्रम सत्यापित • कार्यकाल एवं अनुभव स्थानीय निवासियों के सत्यापन पर आधारित है। कार्यकर्ता नीचे अपने कार्य नियम व सुरक्षा सीमाएं तय करते हैं।`
+          : `Worker: ${portfolio.name} • e-Shram Verified • Tenure and identity are anchored by verified resident attestations. Workers exercise sovereign rights over their working terms below.`;
+      }
 
       const bList = document.getElementById("custBoundariesList");
       if (bList) {
@@ -2248,13 +2257,6 @@
 
     function saveCustomProfile(event) {
       if (event) event.preventDefault();
-      const nameInput = document.getElementById("custName").value.trim();
-      const roleInput = document.getElementById("custRole").value.trim();
-      const tenureInput = document.getElementById("custTenure").value.trim();
-
-      if (nameInput) portfolio.name = nameInput;
-      if (roleInput) portfolio.role = roleInput;
-      if (tenureInput) portfolio.tenure = tenureInput.includes("Yr") ? tenureInput : `${tenureInput} Yrs`;
 
       const checked = [];
       document.querySelectorAll("#custBoundariesList input[type='checkbox']:checked").forEach(cb => {
@@ -2265,13 +2267,7 @@
       savePortfolio();
       closeCustomizeModal();
       renderPortfolio();
-      renderOfflineQR();
-      showToast(currentLang === 'hi' ? "✓ प्रोफाइल और गरिमा नियम अपडेट किए गए" : "✓ Profile & Dignity Boundaries Updated");
-    }
-
-    function openPhysicalCard() {
-      const workerId = portfolio.id || 'sunita-devi-01';
-      window.open(`physical_pass_card.html?id=${encodeURIComponent(workerId)}`, '_blank');
+      showToast(currentLang === 'hi' ? "✓ गरिमा कार्य नियम अपडेट किए गए" : "✓ Dignity Working Terms Updated");
     }
 
     // Initialize on load
