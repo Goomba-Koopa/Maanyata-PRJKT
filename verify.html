@@ -34,8 +34,9 @@
 
 <div id="result" class="idle">Waiting for a code</div>
 
-<!-- jsQR: offline-capable QR decoder loaded locally -->
+<!-- jsQR & TweetNaCl: offline-capable QR decoder & legacy Ed25519 fallback loaded locally -->
 <script src="./jsQR.js"></script>
+<script src="./tweetnacl.min.js"></script>
 <script>
   const resultEl = document.getElementById("result");
 
@@ -52,29 +53,74 @@
 
   async function checkCode(raw) {
     try {
-      const [body, sig] = raw.trim().split(".");
-      if (!body || !sig) return show("bad", "NOT VALID: malformed code");
+      const trimmed = raw.trim();
+
+      // Extract token string (handles raw token or URL wrapper)
+      let token = trimmed;
+      if (trimmed.includes("?")) {
+        try {
+          const url = new URL(trimmed.startsWith("http") ? trimmed : `https://dummy.host/${trimmed}`);
+          token = url.searchParams.get("token") || url.searchParams.get("sig") || url.searchParams.get("p") || trimmed;
+        } catch(e) {}
+      }
+
+      // Bug 3 Fix: Reject unauthenticated raw JSON or unsigned passes immediately
+      if (token.startsWith("{") || !token.includes(".")) {
+        return show("bad", "REJECTED: Unsigned Pass\nMissing Ed25519 cryptographic signature. QR code is unauthenticated or self-generated.");
+      }
+
+      // Cryptographic Ed25519 Signature Verification
+      const [body, sig] = token.split(".");
+      if (!body || !sig) {
+        return show("bad", "REJECTED: Malformed Code\nMissing signature components.");
+      }
+
       if (ISSUER_PUBLIC_KEY_B64URL.startsWith("PASTE")) {
         return show("bad", "Setup needed: add the issuer public key");
       }
-      const key = await crypto.subtle.importKey(
-        "raw",
-        b64urlToBytes(ISSUER_PUBLIC_KEY_B64URL),
-        { name: "Ed25519" },
-        false,
-        ["verify"]
-      );
-      const ok = await crypto.subtle.verify(
-        "Ed25519",
-        key,
-        b64urlToBytes(sig),
-        new TextEncoder().encode(body)
-      );
-      if (!ok) return show("bad", "NOT VALID: edited or forged");
+
+      let ok = false;
+      const pubBytes = b64urlToBytes(ISSUER_PUBLIC_KEY_B64URL);
+      const sigBytes = b64urlToBytes(sig);
+      const msgBytes = new TextEncoder().encode(body);
+
+      // Strategy 1: Try modern hardware-accelerated WebCrypto Ed25519 (Chrome 113+)
+      if (window.crypto && crypto.subtle && crypto.subtle.verify) {
+        try {
+          const key = await crypto.subtle.importKey(
+            "raw",
+            pubBytes,
+            { name: "Ed25519" },
+            false,
+            ["verify"]
+          );
+          ok = await crypto.subtle.verify("Ed25519", key, sigBytes, msgBytes);
+        } catch (webCryptoErr) {
+          // WebCrypto failed (e.g. legacy Android WebView < Chrome 113 throws NotSupportedError)
+          ok = false;
+        }
+      }
+
+      // Strategy 2: Zero-network fallback to pure-JS TweetNaCl for ₹5,000 legacy guard phones
+      if (!ok && typeof nacl !== "undefined" && nacl.sign && nacl.sign.detached) {
+        try {
+          ok = nacl.sign.detached.verify(msgBytes, sigBytes, pubBytes);
+        } catch (naclErr) {
+          ok = false;
+        }
+      }
+
+      if (!ok) {
+        return show("bad", "REJECTED: Forged or Tampered Pass\nCryptographic signature verification failed.");
+      }
+
       const data = JSON.parse(new TextDecoder().decode(b64urlToBytes(body)));
       const now = Math.floor(Date.now() / 1000);
-      if (data.exp < now) return show("bad", "EXPIRED: ask worker to renew");
-      show("ok", "VALID\nWorker ID: " + data.wid);
+      if (data.exp && data.exp < now) {
+        return show("bad", "EXPIRED PASS\nAsk worker to renew credentials.");
+      }
+
+      show("ok", `✅ LIVE & VERIFIED PASS\nWorker ID: ${data.wid || data.name || 'Verified'}\nIssued by Sovereign Protocol`);
     } catch (e) {
       show("bad", "NOT VALID: " + e.message);
     }
@@ -118,5 +164,12 @@
     }
   };
 </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>

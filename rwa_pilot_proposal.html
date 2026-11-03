@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RWA Society Pilot Proposal • Project Maanyata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #E8E2D5;
+      --border-strong: #D6CEBE;
+      --ink-primary: #1C1917;
+      --ink-secondary: #44403C;
+      --ink-muted: #78716C;
+      --terracotta: #C2410C;
+      --terracotta-bg: #FFF7ED;
+      --terracotta-border: #FFEDD5;
+      --emerald: #047857;
+      --emerald-bg: #ECFDF5;
+      --emerald-border: #A7F3D0;
+      --amber: #B45309;
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      line-height: 1.35;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    /* Screen Action Bar */
+    .action-bar {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .action-bar .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink-primary);
+    }
+    .action-bar .brand-glyph {
+      width: 28px;
+      height: 28px;
+      background: var(--terracotta);
+      color: #fff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover {
+      background: #9A3412;
+    }
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--ink-secondary);
+      border-color: var(--border-strong);
+    }
+    .btn-secondary:hover {
+      background: #F5F1E9;
+    }
+
+    /* Single A4 Page Sheet */
+    .page-sheet {
+      width: 100%;
+      max-width: 820px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    /* Letterhead */
+    .letterhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--terracotta);
+      padding-bottom: 10px;
+    }
+    .org-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .org-logo {
+      width: 36px;
+      height: 36px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .org-names h1 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .org-names p {
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+    .ref-block {
+      text-align: right;
+      font-size: 11px;
+      color: var(--ink-secondary);
+    }
+    .ref-block .ref-no {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--terracotta);
+    }
+
+    /* Memo Meta Header */
+    .memo-meta {
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: grid;
+      grid-template-columns: 80px 1fr 60px 140px;
+      gap: 4px 8px;
+      font-size: 11.5px;
+    }
+    .memo-label {
+      font-weight: 700;
+      color: var(--ink-secondary);
+      text-transform: uppercase;
+      font-size: 10.5px;
+    }
+    .memo-val {
+      color: var(--ink-primary);
+      font-weight: 500;
+    }
+
+    /* Section Headers */
+    .sec-heading {
+      font-family: var(--font-heading);
+      font-size: 12.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--terracotta);
+      border-left: 3px solid var(--terracotta);
+      padding-left: 6px;
+      margin-bottom: 4px;
+    }
+
+    .prose {
+      font-size: 11.5px;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+      text-align: justify;
+    }
+
+    /* 4 Core Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .pillar-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .pillar-card.p1 { border-top: 3px solid var(--terracotta); }
+    .pillar-card.p2 { border-top: 3px solid var(--emerald); }
+    .pillar-card.p3 { border-top: 3px solid #2563EB; }
+    .pillar-card.p4 { border-top: 3px solid #7C3AED; }
+    
+    .pillar-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pillar-card.p1 .pillar-title { color: var(--terracotta); }
+    .pillar-card.p2 .pillar-title { color: var(--emerald); }
+    .pillar-card.p3 .pillar-title { color: #2563EB; }
+    .pillar-card.p4 .pillar-title { color: #7C3AED; }
+
+    .pillar-desc {
+      font-size: 10.5px;
+      color: var(--ink-secondary);
+      line-height: 1.35;
+    }
+
+    /* Timeline & KPI Table */
+    .table-container {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .pilot-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      text-align: left;
+    }
+    .pilot-table th {
+      background: #F5F1E9;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      padding: 5px 8px;
+      color: var(--ink-primary);
+      border-bottom: 1px solid var(--border);
+    }
+    .pilot-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-secondary);
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .pilot-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Scorecard Strip */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: var(--canvas);
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .kpi-box {
+      text-align: center;
+    }
+    .kpi-val {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--emerald);
+      line-height: 1.1;
+    }
+    .kpi-lbl {
+      font-size: 9.5px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* Sign-off Block */
+    .signoff-section {
+      border-top: 1px dashed var(--border-strong);
+      padding-top: 8px;
+      margin-top: 2px;
+    }
+    .signoff-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .sign-box {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px;
+      text-align: center;
+      background: #FAF8F5;
+      height: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sign-line {
+      border-bottom: 1px solid #94A3B8;
+      width: 80%;
+      margin: 14px auto 2px;
+    }
+    .sign-role {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 9.5px;
+      color: var(--ink-primary);
+      text-transform: uppercase;
+    }
+
+    /* Strict A4 Print Styling */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 14mm 12mm 14mm;
+    }
+
+    @media print {
+      html, body {
+        background: #FFFFFF !important;
+        color: #1C1917 !important;
+        font-size: 9.5pt !important;
+        line-height: 1.32 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .break-avoid {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+      .sign-box {
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Action Bar (Hidden in Print) -->
+  <aside class="action-bar no-print">
+    <div class="brand-badge">
+      <div class="brand-glyph">M</div>
+      <span>Project Maanyata • RWA Pilot Proposal</span>
+    </div>
+    <div class="action-buttons">
+      <a href="portfolio.html" class="btn btn-secondary">← Back to Passbook</a>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Print Proposal / Save PDF</button>
+    </div>
+  </aside>
+
+  <!-- Single A4 Printable Page Sheet -->
+  <main class="page-sheet">
+
+    <!-- Executive Letterhead -->
+    <header class="letterhead break-avoid">
+      <div class="org-title">
+        <div class="org-logo">M</div>
+        <div class="org-names">
+          <h1>PROJECT MAANYATA (मान्यता)</h1>
+          <p>Sovereign Digital Trust & Worker Dignity Protocol • Mira Road Innovation Lab</p>
+        </div>
+      </div>
+      <div class="ref-block">
+        <div>Ref: <span class="ref-no">PM-RWA-2026/MP-01</span></div>
+        <div>Date: <strong>November 1, 2026</strong></div>
+      </div>
+    </header>
+
+    <!-- Formal Memo Metadata -->
+    <section class="memo-meta break-avoid">
+      <div class="memo-label">TO:</div>
+      <div class="memo-val">The Management Committee, Maryland Palms CHS Ltd., Silver Park, Mira Road (East) – 401107</div>
+      <div class="memo-label">FROM:</div>
+      <div class="memo-val">Krishiv (Lead Architect & Student Builder)</div>
+      <div class="memo-label">SUBJECT:</div>
+      <div class="memo-val" style="grid-column: 2 / span 3; font-weight: 700; color: var(--terracotta);">
+        Proposal for a 30-Day Zero-Cost Sovereign Gate Verification & Domestic Staff Trust Pilot
+      </div>
+    </section>
+
+    <!-- Executive Problem & Context -->
+    <section class="break-avoid">
+      <h2 class="sec-heading">1. Executive Summary & The Problem with Proprietary Gate Apps</h2>
+      <p class="prose">
+        Housing societies across Mira Road face mounting challenges with commercial gate SaaS platforms: recurring annual subscriptions (₹25,000–₹60,000 AMC), intrusive resident advertising, gate lockouts during monsoon cellular/power outages, and significant legal liability under India's <strong>Digital Personal Data Protection (DPDP) Act 2023</strong> due to centralized biometric data harvesting. Furthermore, arbitrary 1-star ratings and gate disputes destabilize domestic staffing across Maryland Palms. <strong>Project Maanyata</strong> proposes a <strong>30-day, zero-risk ground pilot (Nov 5 – Dec 4, 2026)</strong> offering high-speed gate verification, zero cloud surveillance, and authentic worker dignity at <strong>₹0 financial cost</strong> and <strong>zero hardware procurement</strong>.
+      </p>
+    </section>
+
+    <!-- The 4 Core Operational Pillars -->
+    <section class="break-avoid">
+      <h2 class="sec-heading">2. Four Core Operational Pillars</h2>
+      <div class="pillars-grid">
+        <article class="pillar-card p1">
+          <div class="pillar-title"><span>💰</span> Zero Recurring Cost & Hardware-Free</div>
+          <p class="pillar-desc">₹0 software license forever. Operates entirely on security guards' existing smartphones via <code>verify.html</code>. Non-smartphone staff carry durable ₹10 laminated CR80 physical cards.</p>
+        </article>
+        <article class="pillar-card p2">
+          <div class="pillar-title"><span>🔒</span> Zero Surveillance & DPDP Compliance</div>
+          <p class="pillar-desc">No central biometric database or cloud honeypot. Automatic address masking (<code>B-402</code> $\to$ <code>B-***</code>) prevents casing of vacant flats. Cryptographic 8-character ID prevents identity spoofing.</p>
+        </article>
+        <article class="pillar-card p3">
+          <div class="pillar-title"><span>⚡</span> 100% Offline Reliability (Sub-300ms)</div>
+          <p class="pillar-desc">Ed25519 cryptographic signatures and localized <code>jsQR</code> verify credentials entirely client-side. 100% operational in basement/stilt parking dead zones and severe monsoon blackouts.</p>
+        </article>
+        <article class="pillar-card p4">
+          <div class="pillar-title"><span>🤝</span> Worker Dignity & Reverse Attestation</div>
+          <p class="pillar-desc">Eliminates toxic 1-star blacklists. Residents attest positive skills and tenure. Incorporates the 10 Dignity Charter principles (water, lunch break, lift access) to minimize staff turnover.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 30-Day Ground Pilot Timeline -->
+    <section class="break-avoid">
+      <h2 class="sec-heading">3. 30-Day Phased Pilot Timeline (November 5 – December 4, 2026)</h2>
+      <div class="table-container">
+        <table class="pilot-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Phase & Window</th>
+              <th style="width: 48%;">Operational Scope & Activities</th>
+              <th style="width: 27%;">Milestone Deliverable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Phase 1: Setup & Cohort</strong><br><span style="color:var(--ink-muted);">Nov 5 – Nov 9 (Days 1–5)</span></td>
+              <td>15-min guard orientation; onboard pilot cohort of 25–30 domestic workers (cooks, maids, drivers) via <code>onboard.html</code>; print & laminate CR80 physical pass cards.</td>
+              <td>Guard scanner operational; zero app downloads needed.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 2: Live Rollout</strong><br><span style="color:var(--ink-muted);">Nov 10 – Nov 24 (Days 6–20)</span></td>
+              <td>Active morning gate scans (6:30–9:30 AM); residents affirm verified tenure and positive skills via 1-tap WhatsApp deep link; directory populates verified staff.</td>
+              <td>Fast-track morning entry; verified resident endorsements.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 3: Stress-Testing</strong><br><span style="color:var(--ink-muted);">Nov 25 – Dec 1 (Days 21–27)</span></td>
+              <td>Peak-rush throughput audit (<3s per entry); full offline resilience test with phone in airplane mode; worker check-in on water & lift access.</td>
+              <td>100% offline verification; zero gate bottlenecks.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 4: Synthesis & Audit</strong><br><span style="color:var(--ink-muted);">Dec 2 – Dec 4 (Days 28–30)</span></td>
+              <td>Compile final Pilot Performance Audit; gather guard & resident satisfaction feedback; executive presentation to Maryland Palms Management Committee.</td>
+              <td>Joint Pilot Completion Certificate & National Showcase.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Quantitative Committee KPIs -->
+    <section class="break-avoid">
+      <h2 class="sec-heading">4. Quantitative Committee Scorecard (Guaranteed KPIs)</h2>
+      <div class="kpi-strip">
+        <div class="kpi-box">
+          <div class="kpi-val">&lt; 3.0s</div>
+          <div class="kpi-lbl">Gate Turnaround</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">100%</div>
+          <div class="kpi-lbl">Offline Uptime</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">₹0.00</div>
+          <div class="kpi-lbl">Society Outlay</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">&ge; 80%</div>
+          <div class="kpi-lbl">Resident Endorsement</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-val">0</div>
+          <div class="kpi-lbl">Unfair Blacklists</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grand Finale Showcase & Commitments -->
+    <section class="break-avoid">
+      <p class="prose" style="font-size:10.5px; margin-top:2px;">
+        <strong>Mutual Commitments:</strong> Project Maanyata supplies software, 30 laminated passes, and technical support. Maryland Palms CHS provides gate trial permission for 25–30 workers with zero financial liability. The society will be honored as our Pioneering Partner Complex at the <strong>LQ Ideathon Grand Finale @ IIT Bombay (Dec 15–16)</strong> and in our <strong>Veer Bal Diwas PMRBP</strong> submission.
+      </p>
+    </section>
+
+    <!-- Formal Sign-Off Acceptance Block -->
+    <footer class="signoff-section break-avoid">
+      <div style="font-size:10.5px; font-weight:700; color:var(--ink-secondary); margin-bottom:4px;">
+        ACCEPTED & AUTHORIZED ON BEHALF OF MARYLAND PALMS CHS LTD.:
+      </div>
+      <div class="signoff-grid">
+        <div class="sign-box">
+          <div class="sign-role">Chairman</div>
+          <div class="sign-line"></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-role">Hon. Secretary</div>
+          <div class="sign-line"></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-role">Treasurer</div>
+          <div class="sign-line"></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-role">Security In-Charge</div>
+          <div class="sign-line"></div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

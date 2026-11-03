@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker Onboarding • Project Maanyata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       MAANYATA — SOVEREIGN WORKER ONBOARDING (DIGNITY FIRST)
+       Locked Authority Architecture • Unadvertised Master Key Protected
+       ========================================================================== */
+
+    :root {
+      --canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F5F1E9;
+      --border: #E8E2D5;
+      --border-strong: #D6CEBE;
+      
+      --ink-primary: #1C1917;
+      --ink-secondary: #44403C;
+      --ink-muted: #78716C;
+      --ink-faint: #A8A29E;
+
+      --terracotta: #C2410C;
+      --terracotta-hover: #9A3412;
+      --terracotta-bg: #FFF7ED;
+      --terracotta-border: #FFEDD5;
+
+      --emerald: #047857;
+      --emerald-bg: #ECFDF5;
+      --emerald-border: #A7F3D0;
+
+      --amber: #B45309;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Masthead Navigation */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 2px;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink-primary);
+    }
+    .brand-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    .auth-btn {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .auth-btn:hover {
+      color: var(--ink-primary);
+      border-color: var(--ink-muted);
+      background: var(--card-subtle);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
+    }
+
+    .step-header {
+      margin-bottom: 20px;
+    }
+    .step-tag {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--terracotta);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .step-subtitle {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--ink-primary);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .form-input:focus {
+      border-color: var(--terracotta);
+      background: #FFFFFF;
+    }
+
+    /* Native OS Drum / Clock Time Pickers */
+    .time-picker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .time-picker-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .time-picker-field span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+    .native-time-input {
+      width: 100%;
+      background: var(--card-subtle);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-primary);
+      outline: none;
+      cursor: pointer;
+    }
+    .native-time-input:focus {
+      border-color: var(--terracotta);
+      background: #FFFFFF;
+    }
+
+    /* Tappable Badges for Crafts & Dignity Charter */
+    .tag-selector-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .tag-choice {
+      background: var(--card-subtle);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .tag-choice.selected {
+      background: var(--terracotta-bg);
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+
+    /* Buttons */
+    .btn-submit {
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { background: var(--terracotta-hover); }
+
+    /* Informational Notice */
+    .dignity-notice {
+      background: var(--card-subtle);
+      border-left: 3px solid var(--emerald);
+      border-radius: 0 12px 12px 0;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+      margin-top: 14px;
+    }
+    .dignity-notice strong { color: var(--ink-primary); }
+
+    /* Modal for Authority Activation (Guard / Resident) */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #FFFFFF;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-faint);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <a href="portfolio.html" class="brand-mark">
+        <div class="brand-glyph">म</div>
+        <div class="brand-name">Maanyata</div>
+      </a>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="auth-btn" onclick="openAuthorityModal()">
+          <span>🔒 Authority Access</span>
+        </button>
+        <a href="portfolio.html" class="auth-btn" style="text-decoration:none;">
+          <span>Portfolio →</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- MAIN ONBOARDING: SOVEREIGN WORKER ONLY (SUNITA'S CRAFT) -->
+    <main class="card">
+      <div class="step-header">
+        <span class="step-tag">SOVEREIGN WORKER ONBOARDING</span>
+        <h1 class="step-title">Your craft & boundaries</h1>
+        <p class="step-subtitle">You are the author of this pass. Set your trade, shift hours, and the dignity terms under which you work.</p>
+      </div>
+
+      <form onsubmit="createWorkerPass(event)">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="wName" class="form-input" placeholder="e.g. Ramesh Kumar, Sunita Devi" required>
+        </div>
+
+        <!-- Worker Portrait / Live Camera Selfie (Tier 1 Sovereign Identity) -->
+        <div class="form-group">
+          <label class="form-label">Pass Portrait / Live Photo (Optional)</label>
+          <div style="display:flex; align-items:center; gap:14px; margin-top:8px;">
+            <div id="selfiePreviewBox" style="width:68px; height:68px; border-radius:14px; background:var(--card-subtle); border:1.5px dashed var(--border-strong); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+              <span id="selfiePlaceholder" style="font-size:26px;">📷</span>
+              <img id="selfieImg" style="width:100%; height:100%; object-fit:cover; display:none;">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <button type="button" onclick="startCamera()" style="background:var(--terracotta-bg); color:var(--terracotta); border:1px solid var(--terracotta-border); font-family:var(--font-body); font-size:12px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <span>📸 Take Live Selfie</span>
+              </button>
+              <input type="file" id="filePhotoInput" accept="image/*" style="display:none;" onchange="handleFilePhoto(event)">
+              <button type="button" onclick="document.getElementById('filePhotoInput').click()" style="background:none; border:none; color:var(--ink-muted); font-size:11px; font-weight:600; cursor:pointer; text-align:left; padding:0;">
+                <span>Or select photo from phone</span>
+              </button>
+            </div>
+          </div>
+          <!-- Live Camera Viewport -->
+          <div id="cameraModal" style="display:none; margin-top:12px; padding:12px; background:var(--card-subtle); border-radius:14px; border:1px solid var(--border);">
+            <video id="cameraVideo" autoplay playsinline style="width:100%; max-height:220px; border-radius:10px; background:#000; object-fit:cover;"></video>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button type="button" onclick="captureSelfie()" style="flex:1; background:var(--terracotta); color:#FFF; border:none; padding:10px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
+                <span>📸 Capture Selfie</span>
+              </button>
+              <button type="button" onclick="stopCamera()" style="background:var(--card-bg); border:1px solid var(--border); padding:10px 14px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;">
+                <span>Cancel</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your Craft & Specific Skills</label>
+          <input type="text" id="wCraft" class="form-input" placeholder="e.g. Crispy Dosa Specialist, Satvik Cooking, Dog Walker" required>
+          <span style="font-size:11px; color:var(--ink-muted); margin-top:4px; display:block; line-height:1.4;">
+            Tap common specialties below or write your exact custom craft in the box above:
+          </span>
+          <div class="tag-selector-grid" style="margin-top:8px;">
+            <span class="tag-choice" onclick="appendCraft('🍳 Dosa & South Indian Breakfast')">🍳 Dosa & Breakfast</span>
+            <span class="tag-choice" onclick="appendCraft('🍲 North Indian Home Cooking')">🍲 North Indian Cooking</span>
+            <span class="tag-choice" onclick="appendCraft('🥗 Jain & Satvik Pure-Veg')">🥗 Satvik Cuisine</span>
+            <span class="tag-choice" onclick="appendCraft('🧹 Deep Floor & Kitchen Sanitization')">🧹 Deep Cleaning</span>
+            <span class="tag-choice" onclick="appendCraft('👶 Pediatric & Infant Care')">👶 Childcare / Nanny</span>
+            <span class="tag-choice" onclick="appendCraft('👵 Elder Companion & Nurse Aide')">👵 Elder Care</span>
+            <span class="tag-choice" onclick="appendCraft('🚗 City Chauffeur & Driver')">🚗 Driver</span>
+            <span class="tag-choice" onclick="appendCraft('🧺 Laundry & Fine Ironing')">🧺 Laundry & Ironing</span>
+            <span class="tag-choice" onclick="appendCraft('🐕 Pet Care & Canine Handler')">🐕 Dog Walker</span>
+            <span class="tag-choice" onclick="appendCraft('🌿 Balcony & Garden Maintenance')">🌿 Gardening</span>
+          </div>
+        </div>
+
+        <!-- Native iOS Drum Roller / Android Clock Dial -->
+        <div class="form-group">
+          <label class="form-label">Available Shift Window (iOS Drum / Android Clock)</label>
+          <div class="time-picker-grid">
+            <div class="time-picker-field">
+              <span>Start Time:</span>
+              <input type="time" id="wStart" class="native-time-input" value="06:30" required>
+            </div>
+            <div class="time-picker-field">
+              <span>End Time:</span>
+              <input type="time" id="wEnd" class="native-time-input" value="11:30" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Dignity Charter (Her Non-Negotiable Boundaries) -->
+        <div class="form-group">
+          <label class="form-label">Your Dignity Charter (Working Terms)</label>
+          <div class="tag-selector-grid" id="boundaryTags">
+            <span class="tag-choice selected" onclick="toggleTag(this)">📅 Mandatory Sunday Off</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">💳 Direct Resident UPI on 1st/5th of Month</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">🧤 Zero Acid / Hazardous Chemical Cleaning</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">☕ 30-Min Midday Lunch Break on Full Shifts</span>
+            <span class="tag-choice" onclick="toggleTag(this)">🛗 Unrestricted Main Lift Access</span>
+            <span class="tag-choice" onclick="toggleTag(this)">🚪 Pre-Agreed Overtime Pay (Extra Hours)</span>
+            <span class="tag-choice" onclick="toggleTag(this)">💧 Clean Drinking Water & Restroom Access</span>
+            <span class="tag-choice" onclick="toggleTag(this)">🌧️ Extreme Weather Late-Arrival Relief</span>
+            <span class="tag-choice" onclick="toggleTag(this)">🎁 Annual Festival Bonus (Diwali / Eid)</span>
+            <span class="tag-choice" onclick="toggleTag(this)">🏥 Paid Sick Leave (Up to 7 Days / Year)</span>
+          </div>
+
+          <!-- Free-Text Custom Boundary Addition -->
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <input type="text" id="customBoundaryInput" class="form-input" style="padding:10px 12px; font-size:13px;" placeholder="Add custom boundary (e.g. Vegetarian kitchen only, No pet handling)...">
+            <button type="button" onclick="addCustomBoundary()" class="auth-btn" style="padding:10px 16px; font-size:12px; background:var(--card-subtle); white-space:nowrap; cursor:pointer;">
+              + Add
+            </button>
+          </div>
+        </div>
+
+        <div class="dignity-notice">
+          <strong>Protected Tenure Integrity:</strong> Your pass initializes at <em>New Pass (0 Months Verified)</em>. Random users cannot award you fake experience. Only verified households with physical authority keys can reverse-attest your years.
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Create My Sovereign Pass ✨</span>
+        </button>
+      </form>
+    </main>
+
+    <footer>
+      Project Maanyata • Built with Warmth & Dignity for India's Essential Labor Force
+    </footer>
+
+  </div>
+
+  <!-- ====================================================================
+       AUTHORITY ACTIVATION MODAL (LOCKED BEHIND MASTER KEY)
+       No hints. No advertising the key. Must be typed each time.
+       ==================================================================== -->
+  <div id="authModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-family:var(--font-heading); font-size:18px; font-weight:800;">🔒 Authority Provisioning</h3>
+        <button onclick="closeAuthorityModal()" style="background:none; border:0; font-size:18px; cursor:pointer; color:var(--ink-muted);">&times;</button>
+      </div>
+
+      <p style="font-size:13px; color:var(--ink-muted); line-height:1.4; margin-bottom:16px;">
+        Gate officers and society resident credentials require physical authorization from the master root authority.
+      </p>
+
+      <form onsubmit="verifyAuthority(event)">
+        <div class="form-group">
+          <label class="form-label">Master Security Key</label>
+          <input type="password" id="masterKeyInput" class="form-input" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Authority Role To Activate</label>
+          <select id="authRoleSelect" class="form-input" style="cursor:pointer; font-weight:600;">
+            <option value="guard">Campus Gate Officer (Terminal Verification Access)</option>
+            <option value="resident">Authorized Resident Household (Tenure Attestation Power)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Unit / Station Name</label>
+          <input type="text" id="authTargetName" class="form-input" placeholder="e.g. Gate 01 or Flat B-402" required>
+        </div>
+
+        <div id="authErrorMsg" style="display:none; color:#DC2626; font-size:12px; font-weight:700; margin-bottom:12px;"></div>
+
+        <button type="submit" class="btn-submit" style="background:var(--ink-primary);">
+          <span>Authenticate & Provision Authority 🛡️</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // THE MASTER KEY (Unadvertised, verified on each attempt)
+    // Legacy master key backdoor removed for production security.
+    const MASTER_KEY_HASH = null;
+
+    function toggleTag(el) {
+      el.classList.toggle("selected");
+    }
+
+    function getSelectedTags(containerId) {
+      const selected = [];
+      document.querySelectorAll(`#${containerId} .tag-choice.selected`).forEach(el => {
+        selected.push(el.textContent.trim());
+      });
+      return selected;
+    }
+
+    function appendCraft(craftName) {
+      const input = document.getElementById("wCraft");
+      const cleanName = craftName.replace(/^[^\s]+\s/, '');
+      if (!input.value.trim()) {
+        input.value = cleanName;
+      } else if (!input.value.includes(cleanName)) {
+        input.value += ", " + cleanName;
+      }
+    }
+
+    function addCustomBoundary() {
+      const input = document.getElementById("customBoundaryInput");
+      const val = input.value.trim();
+      if (!val) return;
+      const container = document.getElementById("boundaryTags");
+      const span = document.createElement("span");
+      span.className = "tag-choice selected";
+      span.textContent = "⭐ " + val;
+      span.onclick = function() { toggleTag(this); };
+      container.appendChild(span);
+      input.value = "";
+    }
+
+    // Camera & Photo Handling
+    let activeStream = null;
+    let capturedPhotoBase64 = null;
+
+    async function startCamera() {
+      const modal = document.getElementById("cameraModal");
+      const video = document.getElementById("cameraVideo");
+      try {
+        activeStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user", width: { ideal: 480 }, height: { ideal: 480 } }
+        });
+        video.srcObject = activeStream;
+        modal.style.display = "block";
+      } catch (err) {
+        alert("Camera access denied or unavailable. You can upload a photo from your gallery instead.");
+      }
+    }
+
+    function stopCamera() {
+      if (activeStream) {
+        activeStream.getTracks().forEach(t => t.stop());
+        activeStream = null;
+      }
+      const modal = document.getElementById("cameraModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function captureSelfie() {
+      const video = document.getElementById("cameraVideo");
+      const canvas = document.createElement("canvas");
+      canvas.width = 240;
+      canvas.height = 240;
+      const ctx = canvas.getContext("2d");
+      
+      // Center crop square
+      const minDim = Math.min(video.videoWidth || 240, video.videoHeight || 240);
+      const sx = ((video.videoWidth || 240) - minDim) / 2;
+      const sy = ((video.videoHeight || 240) - minDim) / 2;
+      ctx.drawImage(video, sx, sy, minDim, minDim, 0, 0, 240, 240);
+
+      capturedPhotoBase64 = canvas.toDataURL("image/jpeg", 0.75);
+      showPhotoPreview(capturedPhotoBase64);
+      stopCamera();
+    }
+
+    function handleFilePhoto(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          canvas.width = 240;
+          canvas.height = 240;
+          const ctx = canvas.getContext("2d");
+          const minDim = Math.min(img.width, img.height);
+          const sx = (img.width - minDim) / 2;
+          const sy = (img.height - minDim) / 2;
+          ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, 240, 240);
+          capturedPhotoBase64 = canvas.toDataURL("image/jpeg", 0.75);
+          showPhotoPreview(capturedPhotoBase64);
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function showPhotoPreview(dataUrl) {
+      const img = document.getElementById("selfieImg");
+      const ph = document.getElementById("selfiePlaceholder");
+      img.src = dataUrl;
+      img.style.display = "block";
+      ph.style.display = "none";
+    }
+
+    // Worker Self-Onboarding
+    function createWorkerPass(e) {
+      e.preventDefault();
+      const name = document.getElementById("wName").value.trim();
+      const craft = document.getElementById("wCraft").value.trim() || "Independent Specialist";
+      const start = document.getElementById("wStart").value;
+      const end = document.getElementById("wEnd").value;
+      const boundaries = getSelectedTags("boundaryTags");
+      const ageCheck = document.getElementById("calpraCheck");
+      if (ageCheck && !ageCheck.checked) {
+        alert("Statutory Requirement: You must be 18 years of age or older to register an independent work passbook.");
+        return;
+      }
+
+      const workerData = {
+        name: name,
+        role: craft,
+        photo: capturedPhotoBase64,
+        uan: "UAN ****-****-" + Math.floor(1000 + Math.random() * 9000),
+        tenure: "New Pass (0 Months Verified)",
+        households: 0,
+        shift: `${start} – ${end}`,
+        crafts: [craft],
+        boundaries: boundaries,
+        traits: {
+          "Always On Time": { count: 0, icon: "🕒" },
+          "Trusted With House Keys": { count: 0, icon: "🤝" },
+          "Exceptional Skill": { count: 0, icon: "⭐" }
+        },
+        references: []
+      };
+
+      try {
+        localStorage.setItem("maanyata_sunita_portfolio_v1", JSON.stringify(workerData));
+        localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", name: name }));
+      } catch (err) {
+        // QuotaExceededError fallback on budget phones: drop large photo to preserve identity
+        if (workerData.photo) {
+          try {
+            workerData.photo = null;
+            localStorage.setItem("maanyata_sunita_portfolio_v1", JSON.stringify(workerData));
+            localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", name: name }));
+            alert("Storage Notice: Device memory low. Passbook created without photo to preserve credentials.");
+          } catch (e2) {
+            alert("Device Storage Full: Please clear browser cache to create your passbook.");
+            return;
+          }
+        } else {
+          alert("Device Storage Full: Please clear browser cache to create your passbook.");
+          return;
+        }
+      }
+
+      // Edge API sync
+      fetch("/api/workers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, role: craft, boundaries: boundaries })
+      }).then(r => r.json()).then(res => {
+        if (res.success && res.worker) {
+          window.location.href = "portfolio.html?id=" + encodeURIComponent(res.worker.id);
+        } else {
+          window.location.href = "portfolio.html";
+        }
+      }).catch(() => {
+        window.location.href = "portfolio.html";
+      });
+    }
+
+    // Authority Modal Functions
+    function openAuthorityModal() {
+      document.getElementById("authErrorMsg").style.display = "none";
+      document.getElementById("masterKeyInput").value = "";
+      document.getElementById("authModal").classList.add("open");
+    }
+
+    function closeAuthorityModal() {
+      document.getElementById("authModal").classList.remove("open");
+    }
+
+    function verifyAuthority(e) {
+      e.preventDefault();
+      const enteredKey = document.getElementById("masterKeyInput").value.trim();
+      const role = document.getElementById("authRoleSelect").value;
+      const targetName = document.getElementById("authTargetName").value.trim();
+      const errBox = document.getElementById("authErrorMsg");
+
+      if (!MASTER_KEY_HASH || enteredKey !== MASTER_KEY_HASH) {
+        errBox.textContent = "ACCESS DENIED: Invalid Master Security Key.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      // Success: Provision Authority
+      sessionStorage.setItem("maanyata_authorized_session", JSON.stringify({
+        role: role,
+        name: targetName,
+        timestamp: Date.now()
+      }));
+
+      alert(`AUTHORITY PROVISIONED: ${role.toUpperCase()} credentials activated for [${targetName}].`);
+      closeAuthorityModal();
+      window.location.href = "portfolio.html";
+    }
+  </script>
+</body>
+</html>

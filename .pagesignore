@@ -1,0 +1,5 @@
+.env*
+*.mjs
+*.md
+.git*
+evidence/

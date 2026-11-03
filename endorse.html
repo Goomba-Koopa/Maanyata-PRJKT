@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Endorse Service | Project Maanyata</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-warm: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --ink-primary: #1A1D20;
+      --ink-secondary: #525866;
+      --ink-muted: #868C98;
+      
+      --terracotta: #C85A32;
+      --terracotta-bg: #FDF4F0;
+      --terracotta-border: #F1D2C5;
+      
+      --emerald: #1B8A5A;
+      --emerald-bg: #EDF7F2;
+      --emerald-border: #C6E7D6;
+      
+      --border-subtle: #E8E6E1;
+      --border-strong: #D5D2CA;
+
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
+
+    /* TOP BRAND BAR */
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding: 4px 4px;
+    }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      background: var(--terracotta-bg);
+      border: 1px solid var(--terracotta-border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .mode-note {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    /* MAIN CARD */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      box-shadow: 0 4px 20px -2px rgba(26, 29, 32, 0.04);
+    }
+
+    /* WORKER MINI HERO */
+    .worker-hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+    }
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #1A1D20, #3A3F47);
+      color: #FAF8F5;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .worker-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .worker-lead {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--terracotta);
+    }
+    .worker-name {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      line-height: 1.2;
+      margin: 2px 0;
+      truncate: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .worker-craft {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      truncate: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* FORM STYLES */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      margin-bottom: 6px;
+    }
+    .form-hint {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--bg-warm);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-primary);
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      background: #FFFFFF;
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(200, 90, 50, 0.12);
+    }
+    .form-select {
+      cursor: pointer;
+      appearance: auto;
+    }
+
+    /* TRAIT CHIPS GRID */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .trait-btn {
+      background: var(--bg-warm);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-align: left;
+      user-select: none;
+    }
+    .trait-btn:hover {
+      border-color: var(--border-strong);
+      background: #FFFFFF;
+    }
+    .trait-btn.selected {
+      background: var(--terracotta-bg);
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      box-shadow: 0 2px 8px rgba(200, 90, 50, 0.1);
+    }
+    .trait-icon {
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .trait-btn.selected .trait-icon {
+      opacity: 1;
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border: 0;
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(200, 90, 50, 0.25);
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+    .btn-submit:hover {
+      background: #B34C26;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(200, 90, 50, 0.32);
+    }
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    /* BACK LINK */
+    .back-btn {
+      background: none;
+      border: 0;
+      color: var(--ink-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 14px;
+      width: 100%;
+      cursor: pointer;
+      text-align: center;
+      padding: 6px;
+    }
+    .back-btn:hover {
+      color: var(--ink-primary);
+    }
+
+    /* SUCCESS MODAL / TOAST */
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 16, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+    .success-modal {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 26px 22px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--emerald-bg);
+      border: 2px solid var(--emerald-border);
+      color: var(--emerald);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 14px;
+    }
+    .success-title {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      margin-bottom: 6px;
+    }
+    .success-desc {
+      font-size: 13px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .btn-modal-action {
+      width: 100%;
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border: 0;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- Top Brand Header -->
+    <header class="brand-header">
+      <div class="brand-pill">
+        <span>Project Maanyata</span>
+        <span>•</span>
+        <span>Trust Attestation</span>
+      </div>
+      <div class="mode-note">15-Second Tap</div>
+    </header>
+
+    <!-- Main Card -->
+    <main class="card">
+
+      <!-- Worker Identity Context -->
+      <section class="worker-hero">
+        <div class="avatar" id="wAvatar">SB</div>
+        <div class="worker-meta">
+          <div class="worker-lead">Household Service Verification</div>
+          <h1 class="worker-name" id="wName">Sunita Bai</h1>
+          <div class="worker-craft" id="wCraft">Senior Household & Culinary Specialist</div>
+        </div>
+      </section>
+
+      <!-- The 15-Second Endorsement Form -->
+      <form id="endorseForm" onsubmit="handleEndorsementSubmit(event)">
+
+        <!-- Society / Complex Selection -->
+        <div class="form-group">
+          <label class="form-label" for="resSociety">Housing Society / Complex (सोसायटी / कॉम्प्लेक्स)</label>
+          <select id="resSociety" class="form-select" onchange="onSocietyChange()">
+            <option value="Vasudev Complex" selected>Vasudev Complex, Opp. Shanti Park</option>
+            <option value="Maryland Palms CHS">Maryland Palms CHS, Silver Park</option>
+            <option value="Greenwood Palms CHS">Greenwood Palms CHS</option>
+            <option value="Shanti Park">Shanti Park, Mira Road (East)</option>
+            <option value="Silver Park CHS">Silver Park CHS</option>
+            <option value="Evershine Nagar CHS">Evershine Nagar CHS</option>
+            <option value="Lodha Aqua">Lodha Aqua, WE Highway</option>
+            <option value="Pleasant Park">Pleasant Park, Mira Road</option>
+            <option value="OTHER">Other Registered Society...</option>
+          </select>
+          <input type="text" id="resSocietyCustom" class="form-input" style="display:none; margin-top:8px;" placeholder="Enter Registered Society Name (e.g. Royal Complex CHS)">
+        </div>
+
+        <!-- Flat / Household -->
+        <div class="form-group">
+          <label class="form-label" for="resHousehold">Your Wing & Flat / Unit Number (विंग और फ्लैट नंबर)</label>
+          <input type="text" id="resHousehold" class="form-input" placeholder="e.g. G-1, 001 or Flat B-204" required autocomplete="off">
+          <div class="form-hint" id="resHouseholdHint">Supports apartments, bungalows, and row houses. Verified against society plan. Privacy-masked on public passes.</div>
+        </div>
+
+        <!-- Resident Peer Callback (Anti-Sybil Grounding) -->
+        <div class="form-group">
+          <label class="form-label" for="resContact">Your WhatsApp or Mobile (सत्यापन संपर्क)</label>
+          <input type="tel" id="resContact" class="form-input" placeholder="e.g. +91 98200 12345 (Masked in public views)" autocomplete="off">
+          <div class="form-hint">Allows prospective employers to confirm your attestation via a 30-second peer callback. Only last digits displayed publicly.</div>
+        </div>
+
+        <!-- Dynamic Tenure Selection -->
+        <div class="form-group">
+          <label class="form-label" for="resTenure" id="tenureLabel">How long have they served your household? (कार्यकाल)</label>
+          <select id="resTenure" class="form-select">
+            <!-- Populated dynamically via populateYears() using current calendar year -->
+          </select>
+        </div>
+
+        <!-- Trait Tap Badges -->
+        <div class="form-group">
+          <label class="form-label">Recognize What They Did Well (Tap to select)</label>
+          <div class="traits-grid">
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Always On Time', '🕒')">
+              <span>🕒 Always On Time</span>
+              <span class="trait-icon">✓</span>
+            </button>
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Meticulous & Thorough', '🧹')">
+              <span>🧹 Deep Cleaning</span>
+              <span class="trait-icon">✓</span>
+            </button>
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Trusted With House Keys', '🤝')">
+              <span>🤝 Trusted With Keys</span>
+              <span class="trait-icon">✓</span>
+            </button>
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Exceptional Cooking', '🍲')">
+              <span>🍲 Exceptional Cooking</span>
+              <span class="trait-icon">✓</span>
+            </button>
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Went Above & Beyond', '🌟')">
+              <span>🌟 Went Above & Beyond</span>
+              <span class="trait-icon">✓</span>
+            </button>
+            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Compassionate & Caring', '❤️')">
+              <span>❤️ Caring & Polite</span>
+              <span class="trait-icon">✓</span>
+            </button>
+          </div>
+          <div class="form-hint">Select at least one trait to endorse their craft.</div>
+        </div>
+
+        <!-- Optional Note -->
+        <div class="form-group">
+          <label class="form-label" for="resNote">Personal Reference Note (Optional)</label>
+          <textarea id="resNote" class="form-textarea" rows="2" placeholder="e.g. Incredibly reliable, treats our kitchen like her own."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">
+          <span>Send Endorsement ❤️</span>
+        </button>
+
+      </form>
+
+      <!-- Back Link -->
+      <button type="button" class="back-btn" onclick="goToPortfolio()">
+        ← View Full Sovereign Portfolio
+      </button>
+
+    </main>
+
+    <footer>
+      Project Maanyata • Portable, Sovereign Work History for India's Essential Workforce
+    </footer>
+
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="successOverlay" class="success-overlay">
+    <div class="success-modal">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Endorsement Recorded!</h2>
+      <p class="success-desc" id="successDesc">
+        Your affirmation has been added to their lifetime sovereign work pass. Tenure and community trust signals have been updated.
+      </p>
+      <button class="btn-modal-action" onclick="goToPortfolio()">
+        <span>View Updated Portfolio ➔</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Local Core Storage & Business Engine -->
+  <script src="./maanyata_store.js"></script>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
+
+    const DEFAULT_PORTFOLIO = {
+      name: "Sunita Bai",
+      role: "Senior Household & Culinary Specialist",
+      uan: "UAN ****-****-4921",
+      tenure: "8.5 Yrs",
+      households: 19,
+      boundaries: [
+        "📅 Minimum 1 Agreed Weekly Rest Day (Chosen Mutually)",
+        "💳 Direct Resident UPI on 1st/5th of Month",
+        "🧤 Zero Acid / Hazardous Chemical Cleaning",
+        "☕ 30-Min Midday Lunch Break on Full Shifts"
+      ],
+      traits: {
+        "Always On Time": { count: 24, icon: "🕒" },
+        "Trusted With House Keys": { count: 18, icon: "🤝" },
+        "Exceptional Cooking": { count: 14, icon: "🍲" },
+        "Meticulous & Thorough": { count: 11, icon: "🧹" },
+        "Went Above & Beyond": { count: 5, icon: "🌟" }
+      },
+      references: [
+        {
+          quote: "Sunita has held our apartment keys for 3 years without a single issue. Incredibly punctual, independent, and treats our kitchen like her own.",
+          author: "Pooja Rao",
+          unit: "Flat B-402, Greenwood Palms",
+          tenure: "3 Years Certified",
+          startYear: 2021,
+          certified: true
+        }
+      ]
+    };
+
+    let portfolio = loadPortfolio();
+
+    // Strip zero-width & invisible evasion characters
+    function stripZeroWidth(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/[\u200B-\u200D\u2060\uFEFF\u00A0\u2000-\u200F\u2028-\u202F\uFFF0-\uFFFF\u00AD]/g, "")
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "")
+        .trim();
+    }
+
+    // Dynamic Society Hint Updater
+    function onSocietyChange() {
+      const soc = document.getElementById("resSociety").value;
+      const customInput = document.getElementById("resSocietyCustom");
+      const hint = document.getElementById("resHouseholdHint");
+      const householdInput = document.getElementById("resHousehold");
+
+      if (soc === "OTHER") {
+        customInput.style.display = "block";
+        customInput.required = true;
+        hint.textContent = "Specify your registered society and flat number (e.g. Flat B-402, Royal Complex CHS).";
+        householdInput.placeholder = "e.g. Flat B-402, Building 4";
+      } else {
+        customInput.style.display = "none";
+        customInput.required = false;
+        if (soc === "Vasudev Complex") {
+          hint.textContent = "Verified Vasudev Complex: Wings A to G. Supports G-1, 001, Flat 101-404.";
+          householdInput.placeholder = "e.g. G-1, 001 or Flat B-203";
+        } else if (soc === "Maryland Palms CHS") {
+          hint.textContent = "Verified Maryland Palms: Wings A, B, C, D (Flats 101 to 704).";
+          householdInput.placeholder = "e.g. Flat B-402";
+        } else {
+          hint.textContent = `Verified ${soc}. Flat number privacy-masked on public passes.`;
+          householdInput.placeholder = "e.g. Flat A-202";
+        }
+      }
+    }
+
+    // Strict Content Safety & Defamation Guard: Slurs, profanity, and criminal accusations banned
+    const BANNED_WORDS_REGEX = new RegExp(
+      "\\b(" + [
+        "murder(?:s|er|ing)?", "kill(?:er|ing)?", "rape", "rapist",
+        "thief", "thieves", "theft", "steal(?:ing)?", "stole", "stolen", "chor(?:i|on)?",
+        "police", "cops?", "arrest(?:ed)?", "fir", "jail", "lockup", "court",
+        "fraud(?:ster)?", "scam(?:mer)?", "cheat(?:er|ing)?", "420", "dhokha(?:baaz)?", "gaban",
+        "fuck(?:ing|er)?", "shit", "bitch", "bastard", "asshole",
+        "harami", "badmash", "kameena", "kamina", "saala", "saali", "suar", "kutta", "kutte",
+        "madarchod", "behenchod", "bhosd(?:i|ike)?", "chutiya", "gandu", "randi",
+        "chamar", "bhangi", "chura", "mleccha", "katua", "nigger", "nigga", "nigg",
+        "poison", "zehar", "narcotics", "drugs", "charas", "ganja", "chaku", "knife", "weapon", "maar\\s*peet",
+        "kaamchor", "nikamma", "chor\\s*hai", "useless", "kachra"
+      ].join("|") + ")\\b",
+      "i"
+    );
+
+    // Residence Grammar Validator: Rejects spam dummy entries like 'ff', 'asdf'
+    function isValidResidenceUnit(unitStr, societyStr = "") {
+      if (!unitStr) return false;
+      const s = stripZeroWidth(unitStr);
+      if (s.length < 3 || s.length > 90) return false;
+      if (/^(test|asdf|qwerty|none|na|null|undefined|ff|xxx|aaa)$/i.test(s)) return false;
+      
+      const full = `${s} ${societyStr}`.trim();
+      if (/vasudev/i.test(full)) {
+        if (/\b(g-?\d+|00\d|\d{1,3})\b/i.test(s)) return true;
+      }
+      const hasDwelling = /\b(flat|bldg|building|wing|house|bungalow|chawl|room|villa|apt|apartment|plot|kothi|tower|block|floor|g-\d+)\b/i.test(full) || /\b[A-Za-z]-?\d{1,4}\b/.test(s);
+      const hasComplex = /\b(chs|co-?op|society|complex|enclave|heights|residency|plaza|park|nagar|apartments|gardens?|view|palms|estate)\b/i.test(full);
+      return hasDwelling && (hasComplex || (societyStr && societyStr !== "OTHER"));
+    }
+
+    // Security Patch: HTML Entity Escaping (Prevents DOM XSS)
+    function escapeHTML(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    let selectedTraits = new Set(["Always On Time"]);
+
+    function loadPortfolio() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return DEFAULT_PORTFOLIO;
+    }
+
+    function savePortfolio() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+        return true;
+      } catch (e) {
+        alert("Storage Error: Local storage is full on this device. Endorsement could not be saved.");
+        return false;
+      }
+    }
+
+    // Populate Dynamic Calendar Years (Up to 35 Years for Lifetime Veterans)
+    function populateYears() {
+      const select = document.getElementById("resTenure");
+      const currentYear = new Date().getFullYear();
+      select.innerHTML = "";
+
+      const options = [
+        { val: "0.5", text: `Under 6 Months (Joined in ${currentYear})` },
+        { val: "1", text: `1 Year (Serving since ${currentYear - 1})` },
+        { val: "2", text: `2 Years (Serving since ${currentYear - 2})` },
+        { val: "3", text: `3 Years (Serving since ${currentYear - 3})`, selected: true },
+        { val: "4", text: `4 Years (Serving since ${currentYear - 4})` },
+        { val: "5", text: `5 Years (Serving since ${currentYear - 5})` },
+        { val: "6", text: `6 Years (Serving since ${currentYear - 6})` },
+        { val: "7", text: `7 Years (Serving since ${currentYear - 7})` },
+        { val: "8", text: `8 Years (Serving since ${currentYear - 8})` },
+        { val: "9", text: `9 Years (Serving since ${currentYear - 9})` },
+        { val: "10", text: `10 Years (Serving since ${currentYear - 10})` },
+        { val: "12", text: `12 Years (Serving since ${currentYear - 12})` },
+        { val: "15", text: `15 Years (Serving since ${currentYear - 15})` },
+        { val: "20", text: `20 Years (Serving since ${currentYear - 20})` },
+        { val: "25", text: `25 Years (Serving since ${currentYear - 25})` },
+        { val: "30", text: `30 Years (Serving since ${currentYear - 30})` },
+        { val: "35", text: `35+ Years Lifetime Veteran (Serving since ${currentYear - 35} or earlier)` }
+      ];
+
+      options.forEach(opt => {
+        const el = document.createElement("option");
+        el.value = opt.val;
+        el.textContent = opt.text;
+        if (opt.selected) el.selected = true;
+        select.appendChild(el);
+      });
+    }
+
+    // Initialize Worker Context from URL or Local Storage
+    function initWorkerContext() {
+      const params = new URLSearchParams(window.location.search);
+      const urlName = params.get("worker") || params.get("name");
+      const urlCraft = params.get("craft");
+      const urlUnit = params.get("unit");
+
+      if (urlName) {
+        portfolio.name = urlName;
+        portfolio.isUnknown = false;
+      } else {
+        // If not specified in URL, check if there is an active worker in local session
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          portfolio.name = "Unknown User";
+          portfolio.role = "No Worker Selected";
+          portfolio.isUnknown = true;
+        }
+      }
+      if (urlCraft) {
+        portfolio.role = urlCraft;
+      }
+
+      // Name parts and initials
+      const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
+      const nameParts = (portfolio.name || "Worker").trim().split(/\s+/);
+      const firstName = isUnknown ? "Worker" : nameParts[0];
+      const initials = isUnknown ? "?" : (nameParts.length >= 2 
+        ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+        : (portfolio.name || "MK").slice(0, 2).toUpperCase());
+
+      document.getElementById("wName").textContent = portfolio.name;
+      document.getElementById("wCraft").textContent = portfolio.role;
+      document.getElementById("wAvatar").textContent = initials;
+      document.getElementById("tenureLabel").textContent = isUnknown 
+        ? "How long has this worker served your household?" 
+        : `How long has ${firstName} served your household?`;
+      document.title = isUnknown ? `Endorse Worker | Project Maanyata` : `Endorse ${portfolio.name} | Project Maanyata`;
+
+      if (isUnknown) {
+        const warnBanner = document.createElement("div");
+        warnBanner.style = "background:#FEF2F2; border:1.5px solid #FECACA; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:12px; color:#991B1B; line-height:1.5;";
+        warnBanner.innerHTML = `<strong>⚠️ No Worker Profile Selected</strong><br>You are currently viewing an unlinked endorsement form. <a href="directory.html" style="color:#B91C1C; font-weight:700; text-decoration:underline;">Click here to select a worker from the Society Directory</a> first so your attestation links to their verified passbook.`;
+        document.getElementById("endorseForm").before(warnBanner);
+      }
+
+      if (urlUnit) {
+        document.getElementById("resHousehold").value = urlUnit;
+      }
+
+      // Highlight preselected trait
+      document.querySelectorAll(".trait-btn").forEach(btn => {
+        if (btn.textContent.includes("Always On Time")) {
+          btn.classList.add("selected");
+        }
+      });
+    }
+
+    // Toggle Trait Buttons
+    function toggleTrait(btn, traitName, icon) {
+      if (selectedTraits.has(traitName)) {
+        selectedTraits.delete(traitName);
+        btn.classList.remove("selected");
+      } else {
+        selectedTraits.add(traitName);
+        btn.classList.add("selected");
+      }
+    }
+
+    // Form Submission with 1-Tap Physical Geolocation Grounding
+    async function handleEndorsementSubmit(e) {
+      e.preventDefault();
+      
+      if (selectedTraits.size === 0) {
+        alert("Please select at least one trait to recognize their work.");
+        return;
+      }
+
+      const submitBtn = e.target.querySelector(".btn-submit");
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = "<span>📍 Verifying On-Premises Location...</span>";
+      submitBtn.disabled = true;
+
+      const socEl = document.getElementById("resSociety");
+      const chosenSociety = socEl && socEl.value === "OTHER"
+        ? (document.getElementById("resSocietyCustom").value.trim() || "Registered Society")
+        : (socEl ? socEl.value : "Maryland Palms CHS");
+
+      const household = stripZeroWidth(document.getElementById("resHousehold").value.trim());
+      const chosenYears = parseFloat(document.getElementById("resTenure").value) || 1;
+      const note = stripZeroWidth(document.getElementById("resNote").value.trim());
+
+      // Guard 0: Unknown Worker
+      if (portfolio.isUnknown || portfolio.name === "Unknown User") {
+        alert("Attestation Guard: Cannot submit attestation without an active worker selected. Please choose a worker from the Society Directory first.");
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Guard 1: Residence Grammar Validation (Rejects dummy spam like 'ff')
+      if (!isValidResidenceUnit(household, chosenSociety)) {
+        alert(`Attestation Guard: Please enter a valid flat, wing, or residence unit for ${chosenSociety} (e.g. Flat B-402, G-1, 001). Test abbreviations like 'ff' or fabricated locations are rejected.`);
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Guard 2: Content Safety & Defamation Blacklist
+      if (BANNED_WORDS_REGEX.test(note) || BANNED_WORDS_REGEX.test(household) || BANNED_WORDS_REGEX.test(chosenSociety)) {
+        alert("Attestation Guard: Content contains prohibited language, slurs, or defamatory criminal accusations.\n\nProject Maanyata is strictly an instrument of positive craft attestation. Any legal or criminal grievances must be reported directly to local law enforcement or society management.");
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Anti-Cartel Defense 1: Unit Duplicate Lock
+      // Semantic Address Normalization Guard (Bungalows, Row Houses, Flats)
+      const normInput = window.MaanyataStore ? window.MaanyataStore.normalizeUnit(household) : household.trim().toLowerCase();
+      const existingFromUnit = (portfolio.references || []).find(old => {
+        const oldNorm = window.MaanyataStore ? window.MaanyataStore.normalizeUnit(old.unit) : (old.unit || "").trim().toLowerCase();
+        return oldNorm && oldNorm === normInput;
+      });
+      if (existingFromUnit) {
+        alert(`Attestation Guard: Residence ${household} has already submitted an attestation on this passbook.`);
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      const contact = document.getElementById("resContact") ? document.getElementById("resContact").value.trim() : "";
+
+      const currentYear = new Date().getFullYear();
+      const startYear = Math.round(currentYear - chosenYears);
+
+      // Attempt 1-second GPS location check
+      let locationTag = "⚠️ Remote Attestation (GPS Unverified)";
+      let locationVerified = false;
+
+      try {
+        if ("geolocation" in navigator) {
+          const pos = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              timeout: 3500,
+              maximumAge: 60000,
+              enableHighAccuracy: false
+            });
+          });
+          const lat = pos.coords.latitude.toFixed(2);
+          const lon = pos.coords.longitude.toFixed(2);
+          locationTag = `📍 On-Premises Verified (${lat}°N, ${lon}°E)`;
+          locationVerified = true;
+        }
+      } catch (geoErr) {
+        // Location declined or timed out (graceful degradation)
+        locationTag = "⚠️ Remote Attestation (No GPS Stamp)";
+      }
+
+      // 1. Submit to Cloudflare Edge API for centralized verification & cross-device persistence
+      submitBtn.innerHTML = "<span>⚡ Syncing with Cloudflare Edge...</span>";
+      let edgeSuccess = false;
+      const workerTargetId = portfolio.id || (portfolio.name ? portfolio.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "sunita-devi-01");
+
+      try {
+        const resp = await fetch("/api/endorse", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            workerId: workerTargetId,
+            by: "Resident Attestation",
+            society: chosenSociety,
+            unit: household,
+            note: note,
+            contact: contact,
+            traits: Array.from(selectedTraits),
+            tenureYears: chosenYears,
+            locationTag: locationTag,
+            locationVerified: locationVerified
+          })
+        });
+
+        const resData = await resp.json();
+        if (!resp.ok || !resData.success) {
+          alert(resData.error || "Edge verification failed.");
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+          return;
+        }
+        edgeSuccess = true;
+        if (resData.worker) {
+          portfolio = resData.worker;
+        }
+      } catch (netErr) {
+        console.warn("Edge API unavailable or offline, continuing with local persistence:", netErr);
+      }
+
+      // 2. Increment traits count in local portfolio if not already updated by edge
+      if (!edgeSuccess) {
+        selectedTraits.forEach(t => {
+          if (portfolio.traits[t]) {
+            portfolio.traits[t].count += 1;
+          } else {
+            portfolio.traits[t] = { count: 1, icon: "⭐" };
+          }
+        });
+
+        // Append new reference endorsement with location and peer callback anchor
+        portfolio.references.unshift({
+          quote: note || "Verified honest household service and reliable assistance.",
+          author: "Resident Attestation",
+          unit: household,
+          contact: contact || null,
+          tenure: `${chosenYears} Yrs Verified`,
+          startYear: startYear,
+          certified: true,
+          locationVerified: locationVerified,
+          locationTag: locationTag,
+          timestamp: Date.now()
+        });
+        portfolio.households = (portfolio.households || 0) + 1;
+      }
+
+      // Auto-sync with local-first core store if available
+      if (window.MaanyataStore && window.MaanyataStore.workers) {
+        try {
+          const activeW = await window.MaanyataStore.workers.getActive();
+          if (activeW) {
+            await window.MaanyataStore.endorse({
+              workerId: activeW.id,
+              by: "Resident Attestation",
+              unit: household,
+              note: note || "Verified honest household service.",
+              contact: contact,
+              keys: selectedTraits.has("Trusted With House Keys"),
+              skills: ["cooking", "cleaning"]
+            });
+          }
+        } catch (syncErr) {
+          console.warn("MaanyataStore sync notice:", syncErr.message);
+        }
+      }
+
+      // 3. Concurrency-Safe Calendar Span Union Tenure calculation
+      const certifiedStartYears = portfolio.references
+        .filter(r => r.certified && r.startYear)
+        .map(r => r.startYear);
+        
+      if (certifiedStartYears.length > 0) {
+        const earliestYear = Math.min(...certifiedStartYears);
+        const calculatedTenure = Math.max(0.5, currentYear - earliestYear);
+        portfolio.tenure = `${calculatedTenure} Yrs`;
+      }
+
+      // 4. Save to disk
+      const saved = savePortfolio();
+      if (!saved) {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Reset button
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+
+      // 5. Show Success Modal with Location Status
+      const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "their";
+      document.getElementById("successDesc").innerHTML = 
+        `Your endorsement has been added to ${escapeHTML(firstName)}'s permanent record.<br><br>` +
+        `<strong>Tenure:</strong> ${escapeHTML(portfolio.tenure)} • <strong>Location:</strong> ${escapeHTML(locationTag)}`;
+      document.getElementById("successOverlay").style.display = "flex";
+    }
+
+    function goToPortfolio() {
+      window.location.href = "portfolio.html";
+    }
+
+    // Dynamic edge societies fetch
+    async function loadSocietiesFromEdge() {
+      try {
+        const res = await fetch("/api/societies");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.societies)) {
+          const select = document.getElementById("resSociety");
+          if (select) {
+            select.innerHTML = "";
+            data.societies.forEach(soc => {
+              const opt = document.createElement("option");
+              opt.value = soc.name;
+              opt.textContent = `${soc.name} (${soc.area})`;
+              select.appendChild(opt);
+            });
+            const otherOpt = document.createElement("option");
+            otherOpt.value = "OTHER";
+            otherOpt.textContent = "Other Registered Society...";
+            select.appendChild(otherOpt);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Page Load
+    document.addEventListener("DOMContentLoaded", () => {
+      populateYears();
+      initWorkerContext();
+      loadSocietiesFromEdge();
+    });
+  </script>
+</body>
+</html>

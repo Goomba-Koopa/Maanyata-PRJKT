@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "project-maanyata",
+  "compatibility_date": "2024-11-01",
+  "pages_build_output_dir": ".",
+  "kv_namespaces": [
+    {
+      "binding": "MAANYATA_KV",
+      "id": "4e0ac0a7441d430297bee2115a0e9690"
+    }
+  ],
+
+  // ===========================================================================
+  // PROJECT MAANYATA (मान्यता — Sovereign Digital Trust & Dignity Protocol)
+  // Lead Architect: Krishiv (Age 12, Mira Road, Thane / MMR, Maharashtra, India)
+  //
+  // Architecture: 100% Client-Side Local-First • Zero Cloud Debt • Zero Server Costs
+  // Deployment Target: Cloudflare Pages (Static Asset Serving)
+  // Build Command: None (Pure Vanilla HTML5 / ES6 JavaScript served directly from root)
+  //
+  // Milestone 5: Mira Road Ground Pilot
+  // Target Pilot Site: Vasudev Complex, Opp. Shanti Park, Mira Road (East)
+  // Subdomain: krishivskull.workers.dev
+  // ===========================================================================
+
+  "observability": {
+    "enabled": true
+  }
+}

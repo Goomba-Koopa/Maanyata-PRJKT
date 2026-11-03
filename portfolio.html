@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sovereign Work Portfolio | Maanyata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       MAANYATA — SOVEREIGN WORKER PORTFOLIO & RECOGNITION ENGINE
+       Aesthetic: Warm AXIOM Daylight (Parchment, Terracotta, Forest Emerald)
+       Zero Corporate Taxidermy • 100% Focused on Worker Dignity
+       ========================================================================== */
+
+    :root {
+      --canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F5F1E9;
+      --border: #E8E2D5;
+      --border-strong: #D6CEBE;
+      
+      --ink-primary: #1C1917;
+      --ink-secondary: #44403C;
+      --ink-muted: #78716C;
+      --ink-faint: #A8A29E;
+
+      --terracotta: #C2410C;
+      --terracotta-hover: #9A3412;
+      --terracotta-bg: #FFF7ED;
+      --terracotta-border: #FFEDD5;
+
+      --emerald: #047857;
+      --emerald-bg: #ECFDF5;
+      --emerald-border: #A7F3D0;
+
+      --amber: #B45309;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Masthead Navigation */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4px;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
+      z-index: 50;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink-primary);
+      flex-shrink: 0;
+    }
+    .brand-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    #headerActions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .mode-toggle-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--terracotta);
+      background: var(--terracotta-bg);
+      border: 1px solid var(--terracotta-border);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 32px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mode-toggle-btn:hover {
+      background: #FFEDD5;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
+    }
+
+    /* Worker Profile Header */
+    .profile-header {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .avatar-wrap {
+      position: relative;
+    }
+    .avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      background: #F3E8D8;
+      border: 2px solid #E6D8C4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 26px;
+      color: var(--terracotta);
+      flex-shrink: 0;
+    }
+    .verified-seal {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      background: var(--emerald);
+      color: #fff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .profile-meta h1 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .profile-role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .profile-gov-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--emerald-bg);
+      color: var(--emerald);
+      border: 1px solid var(--emerald-border);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* 3-Column Dignity Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .metric-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: center;
+    }
+    .metric-val {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-title span.count-badge {
+      font-size: 11px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      background: var(--card-subtle);
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    /* Recognition Cluster Tags */
+    .traits-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .trait-badge {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 1px 2px rgba(28, 25, 23, 0.02);
+    }
+    .trait-count {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 11px;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    /* Verified Written References */
+    .reference-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .reference-quote {
+      background: var(--card-subtle);
+      border-left: 3px solid var(--terracotta);
+      border-radius: 0 12px 12px 0;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .quote-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      font-style: italic;
+    }
+    .quote-author {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .quote-tenure {
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+
+    /* Portable Card Presentation */
+    .card-presentation {
+      background: linear-gradient(145deg, #FFFDFB 0%, #F5EFE6 100%);
+      border: 1.5px solid #D8CFC0;
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+    .qr-canvas-wrap {
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #BBF7D0;
+      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: heartbeat-pulse 2.5s infinite ease-in-out;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    @keyframes heartbeat-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); border-color: #22C55E; }
+      70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); border-color: #16A34A; }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); border-color: #22C55E; }
+    }
+    .liveness-ticker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: #EDF7F2;
+      border: 1px solid #BBF7D0;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #16A34A;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .liveness-dot {
+      width: 8px;
+      height: 8px;
+      background: #16A34A;
+      border-radius: 50%;
+      animation: liveness-blink 1s infinite alternate;
+    }
+    @keyframes liveness-blink {
+      from { opacity: 0.25; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1.15); }
+    }
+    .tap-liveness-toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(22, 163, 74, 0.95);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #workerQrCanvas {
+      width: 140px;
+      height: 140px;
+      image-rendering: pixelated;
+    }
+    .card-help {
+      font-size: 12px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      max-width: 320px;
+    }
+    .btn-action {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s ease;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn-action:hover { background: #292524; }
+
+    /* ==========================================================================
+       RESIDENT RECOGNITION SCREEN (10-SECOND TAP FLOW)
+       ========================================================================== */
+    #view-recognition {
+      display: none;
+    }
+    .tap-lead {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .tap-lead h2 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .tap-lead p {
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+    .tap-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .tap-btn {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .tap-btn:hover {
+      border-color: var(--terracotta);
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      transform: translateY(-1px);
+    }
+    .tap-btn.selected {
+      border-color: var(--terracotta);
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.15);
+    }
+    .tap-icon {
+      font-size: 18px;
+    }
+    .note-box {
+      width: 100%;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--ink-primary);
+      outline: none;
+      resize: none;
+      margin-bottom: 14px;
+    }
+    .note-box:focus { border-color: var(--terracotta); }
+    .household-field {
+      width: 100%;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--ink-primary);
+      outline: none;
+      margin-bottom: 14px;
+    }
+    .household-field:focus { border-color: var(--terracotta); }
+    .btn-submit-tap {
+      background: var(--terracotta);
+      color: #fff;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit-tap:hover { background: var(--terracotta-hover); }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1C1917;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 999;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* High-Risk Craft Siloing & Safety Protocols */
+    .silo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .silo-card {
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .silo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .silo-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .silo-badge-low {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #E0E7FF;
+      color: #3730A3;
+    }
+    .silo-badge-med {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .silo-badge-high {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+    .silo-desc {
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+    }
+    .safety-protocol-card {
+      background: #FFFBEB;
+      border: 1.5px solid #FDE68A;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+    .safety-protocol-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      color: #92400E;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .safety-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #78350F;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .safety-bullet {
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+    .peer-callback-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #047857;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 6px;
+      transition: background 0.15s ease;
+    }
+    .peer-callback-btn:hover {
+      background: #D1FAE5;
+    }
+    .peer-unverified-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #B45309;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    /* 360px Mobile-First Hardening */
+    @media (max-width: 380px) {
+      body { padding: 12px 8px 36px; }
+      .card { padding: 16px 14px; border-radius: 16px; }
+      .profile-meta h1 { font-size: 19px; }
+      .avatar { width: 56px; height: 56px; font-size: 22px; }
+      .metrics-grid { gap: 6px; }
+      .metric-col { padding: 8px 4px; }
+      .metric-val { font-size: 15px; }
+      .metric-lbl { font-size: 10px; }
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--ink-faint);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <a href="portfolio.html" class="brand-mark">
+        <div class="brand-glyph">म</div>
+        <div class="brand-name">Maanyata</div>
+      </a>
+      <div id="headerActions" style="display:flex; align-items:center; gap:8px;">
+        <a href="directory.html" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);" title="Browse Maryland Palms Staff">
+          <span>🏢 Directory</span>
+        </a>
+        <a href="onboard.html" id="btnHeaderOnboard" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
+          <span>⚙️ Onboard</span>
+        </a>
+        <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassWhatsApp()" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
+          <span>💬 Share Pass</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         VIEW 1: SOVEREIGN WORKER TRUST PORTFOLIO (SUNITA BAI)
+         ==================================================================== -->
+    <main id="view-portfolio">
+
+      <!-- Card 1: Identity & Dignity Anchor -->
+      <div class="card">
+        <div class="profile-header">
+          <div class="avatar-wrap">
+            <div class="avatar" id="pAvatar">SB</div>
+            <div class="verified-seal" title="Verified e-Shram Worker">✓</div>
+          </div>
+          <div class="profile-meta">
+            <h1 id="pName">Sunita Bai</h1>
+            <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
+            <div class="profile-gov-id">
+              <span>e-Shram Verified</span>
+              <span>•</span>
+              <span id="pUan">UAN ****-****-4921</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Column Dignity Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-col">
+            <div class="metric-val" id="metricTenure">8.5 Yrs</div>
+            <div class="metric-lbl">Tenure</div>
+          </div>
+          <div class="metric-col">
+            <div class="metric-val" id="metricHouseholds">19</div>
+            <div class="metric-lbl">Households</div>
+          </div>
+          <div class="metric-col">
+            <div class="metric-val" id="metricRecognitions">38</div>
+            <div class="metric-lbl">Recognitions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 1.5: Resident / Employer Hire & Dignity Agreement (Active in ?view=hire) -->
+      <div class="card" id="employerHireCard" style="margin-top: 16px; border: 2px solid var(--terracotta-border); background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%); display: none;">
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <div style="width:40px; height:40px; border-radius:10px; background:var(--terracotta-bg); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">
+            🤝
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+              <div style="font-family:var(--font-heading); font-size:16px; font-weight:800; color:var(--ink-primary);">
+                Hire <span id="hireCardWorkerName">Worker</span> • Dignity Terms
+              </div>
+              <span style="font-size:10px; font-weight:800; color:#15803D; background:#DCFCE7; padding:2px 8px; border-radius:10px; border:1px solid #BBF7D0;">
+                EMPLOYER VIEW
+              </span>
+            </div>
+            <p style="font-size:12px; color:var(--ink-secondary); margin:4px 0 0 0; line-height:1.4;">
+              Maanyata protects both sides. To hire this verified professional, your household confirms respect for their declared terms:
+            </p>
+          </div>
+        </div>
+
+        <!-- Active Agreement Checkboxes (Pre-checked) -->
+        <div id="hireTermsChecklist" style="margin-top:14px; display:flex; flex-direction:column; gap:8px; background:var(--card-subtle); padding:12px; border-radius:10px; border:1px solid var(--border-subtle);">
+          <!-- Dynamic checkboxes rendered in JS -->
+        </div>
+
+        <!-- Supervised Onboarding Protocol Card (Physical Blast Radius Shield) -->
+        <div class="safety-protocol-card">
+          <div class="safety-protocol-title">
+            <span>🛡️ Mandatory Supervised Onboarding Protocol (सुरक्षा प्रोटोकॉल)</span>
+          </div>
+          <div class="safety-step">
+            <span class="safety-bullet">🚗</span>
+            <div><strong>Driving (10-Min Perimeter Test):</strong> Always accompany driver on a 10-minute trial around the society perimeter and parking ramp before handing over vehicle keys.</div>
+          </div>
+          <div class="safety-step">
+            <span class="safety-bullet">🩺</span>
+            <div><strong>Eldercare & Childcare (3-Day Shadow Shift):</strong> A family member must remain present for the first 3 days to verify bed-transfers, medication schedules, and infant care.</div>
+          </div>
+          <div class="safety-step">
+            <span class="safety-bullet">🔑</span>
+            <div><strong>Keys (Zero Day-1 Release):</strong> Never issue flat keys on Day 1 regardless of past badges. Require at least 30 days of verified punctuality first.</div>
+          </div>
+          <div class="safety-step">
+            <span class="safety-bullet">💳</span>
+            <div><strong>Wages (Zero Advance Rule):</strong> Settle weekly or monthly via UPI after work is delivered. Never issue cash advances to new staff.</div>
+          </div>
+        </div>
+
+        <!-- Dignity Charter Advisory for Households (Cash Advances) -->
+        <div style="margin-top:12px; padding:10px 12px; background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:8px; display:flex; align-items:flex-start; gap:8px;">
+          <span style="font-size:14px; flex-shrink:0;">⚖️</span>
+          <div style="font-size:11px; color:#92400E; line-height:1.4;">
+            <strong>Dignity Charter Advisory for Households:</strong>
+            Maanyata strictly verifies historical craft and tenure. The platform does not track, arbitrate, mediate, or underwrite private loans, salary advances, or cash disputes at any time. All monetary settlements are strictly private bilateral arrangements.
+          </div>
+        </div>
+
+        <!-- Two Action Buttons -->
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px;">
+          <button class="btn-action" onclick="contactWorkerWhatsApp()" style="background:var(--terracotta); color:#FFFFFF; border:none; padding:12px 16px; font-size:13px; font-weight:700;">
+            <span>💬 Accept Terms & Contact on WhatsApp</span>
+          </button>
+          <button class="btn-action" onclick="openEndorseScreen()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle); font-size:13px; font-weight:600;">
+            <span>⭐ Endorse Past Service (Leave Recognition)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Dignity Charter (Working Terms & Boundaries) -->
+      <div class="card" style="margin-top: 16px;">
+        <div class="section-title">
+          <span>Dignity Charter & Working Terms</span>
+          <span class="count-badge" id="boundariesCount">Working Terms</span>
+        </div>
+        <div class="traits-grid" id="boundariesList">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Card 2.5: Craft Risk Siloing (Decoupling Surface Chores from High-Risk Roles) -->
+      <div class="card" style="margin-top: 16px;">
+        <div class="section-title">
+          <span>Craft Risk Silos (कार्य वर्गीकरण)</span>
+          <span class="count-badge">Risk Gated</span>
+        </div>
+        <div class="silo-grid">
+          <div class="silo-card">
+            <div class="silo-header">
+              <span class="silo-title">🧹 Surface Crafts (Cleaning / Utensils)</span>
+              <span class="silo-badge-low">Standard Risk</span>
+            </div>
+            <div class="silo-desc">Floor sweeping, mopping, utensil washing. Low blast radius.</div>
+          </div>
+          <div class="silo-card">
+            <div class="silo-header">
+              <span class="silo-title">🍲 Culinary Specialization (Cooking)</span>
+              <span class="silo-badge-med">Moderate Risk</span>
+            </div>
+            <div class="silo-desc">Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.</div>
+          </div>
+          <div class="silo-card" style="border-color: #FECACA; background: #FFF5F5;">
+            <div class="silo-header">
+              <span class="silo-title">🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)</span>
+              <span class="silo-badge-high">High Consequence</span>
+            </div>
+            <div class="silo-desc">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Verified Trust Signals (Aggregated from Real Taps) -->
+      <div class="card" style="margin-top: 16px;">
+        <div class="section-title">
+          <span>Community Trust Signals</span>
+          <span class="count-badge" id="signalsTotal">38 Total</span>
+        </div>
+        <div class="traits-grid" id="traitsList">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Card 3: Verified Household References (Real Humans Speaking) -->
+      <div class="card" style="margin-top: 16px;">
+        <div class="section-title">
+          <span>Household Endorsements</span>
+          <span class="count-badge" id="endorsementsCount">2 Verified</span>
+        </div>
+        <div class="reference-list" id="referencesList">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Card 4: Portable QR Badge (Carried in Hand or Laminated) -->
+      <div class="card card-presentation" style="margin-top: 16px;">
+        <!-- Counter-Hardening: Photo Hero Prominence (Guard Visually Matches Face) -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:8px; width:100%;">
+          <div style="position:relative;">
+            <img id="passHeroAvatar" 
+                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80" 
+                 alt="Worker Face" 
+                 style="width:76px; height:76px; border-radius:50%; object-fit:cover; border:3px solid #16A34A; box-shadow:0 4px 12px rgba(22,163,74,0.25);" />
+            <div style="position:absolute; bottom:-2px; right:-2px; background:#16A34A; color:#FFFFFF; font-size:10px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFFFFF; font-weight:900;">✓</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
+            <div class="liveness-ticker">
+              <span class="liveness-dot"></span>
+              <span>LIVE GATE PASS • <span id="liveClockTicker">--:--:--</span></span>
+            </div>
+            <div id="passFingerprint" style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--ink-secondary); letter-spacing:0.04em;">
+              #M-7F2A-4921
+            </div>
+          </div>
+        </div>
+        <div id="passCardTitle" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink-primary);">
+          Portable Trust Pass
+        </div>
+        <p class="card-help" id="passCardHelp">
+          Show this QR code to an employer or security guard. Tap the box below to prove live session to guard.
+        </p>
+        <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to prove live session">
+          <canvas id="workerQrCanvas"></canvas>
+          <div class="tap-liveness-toast" id="tapToast">✓ LIVE ACTIVE PASS</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
+          <button class="btn-action" onclick="openEndorseScreen()">
+            <span>💬 Test Resident Endorsement Link (WhatsApp Flow)</span>
+          </button>
+          <button class="btn-action" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle);" onclick="simulateCardScan()">
+            <span>📱 Test In-Person Scan (10-Second Tap)</span>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ====================================================================
+         VIEW 2: RESIDENT RECOGNITION FLOW (15-SECOND TAP)
+         ==================================================================== -->
+    <main id="view-recognition">
+      <div class="card">
+        <div class="tap-lead">
+          <span style="font-size: 11px; font-weight: 800; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.05em;">Community Appreciation</span>
+          <h2 id="recTargetTitle">Recognize Staff</h2>
+          <p id="recTargetDesc">Select what they did well today. Your recognition is permanently recorded in their portable work portfolio.</p>
+        </div>
+
+        <form id="recognitionForm" onsubmit="submitRecognition(event)">
+          <div class="tap-grid">
+            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Always On Time', '🕒')">
+              <span>🕒 Always On Time</span>
+              <span class="tap-icon">✓</span>
+            </button>
+            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Meticulous & Thorough', '🧹')">
+              <span>🧹 Meticulous & Thorough</span>
+              <span class="tap-icon">✓</span>
+            </button>
+            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Trusted With House Keys', '🤝')">
+              <span>🤝 Trusted With House Keys</span>
+              <span class="tap-icon">✓</span>
+            </button>
+            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Exceptional Cooking', '🍲')">
+              <span>🍲 Exceptional Cooking</span>
+              <span class="tap-icon">✓</span>
+            </button>
+            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Went Above & Beyond', '🌟')">
+              <span>🌟 Went Above & Beyond</span>
+              <span class="tap-icon">✓</span>
+            </button>
+          </div>
+
+          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Your Flat / Household</label>
+          <input type="text" id="refHousehold" class="household-field" placeholder="e.g. Flat B-402, Greenwood Palms" required>
+
+          <label id="tenureSelectLabel" style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">How long have they served your household? (Reverse-Attestation)</label>
+          <select id="refTenureYears" class="household-field" style="cursor:pointer; font-weight:600;">
+            <!-- Populated dynamically via populateTenureOptions() using current calendar year -->
+          </select>
+
+          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Master Authority Key (Required to stamp official verified years)</label>
+          <input type="password" id="refMasterKey" class="household-field" autocomplete="off" placeholder="Enter master key to certify tenure">
+
+          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Personal Endorsement Note (Optional)</label>
+          <textarea id="refNote" class="note-box" rows="2" placeholder="e.g. Handled everything independently while we were traveling."></textarea>
+
+          <button type="submit" class="btn-submit-tap">
+            <span>Send Appreciation ❤️</span>
+          </button>
+        </form>
+
+        <button id="btnBackToPortfolio" onclick="toggleView()" style="background: none; border: 0; color: var(--ink-muted); font-size: 12px; font-weight: 700; margin-top: 14px; width: 100%; cursor: pointer;">
+          ← Back to Full Portfolio
+        </button>
+      </div>
+    </main>
+
+    <footer>
+      <div style="max-width: 480px; margin: 0 auto; text-align: center; line-height: 1.5;">
+        <div style="font-weight: 700; color: var(--ink-secondary); margin-bottom: 4px;">
+          Project Maanyata (मान्यता) • Sovereign Career Passbook
+        </div>
+        <div style="font-size: 10.5px; color: var(--ink-muted);">
+          Protected under <strong>Section 79, Information Technology Act, 2000</strong> (Intermediary Safe Harbor).<br>
+          Worker sovereignty guaranteed under <strong>Digital Personal Data Protection Act, 2023</strong>.<br>
+          Zero cloud surveillance • Zero negative blacklists • 100% Free & Open-Source
+        </div>
+        <div style="margin-top: 10px; display: flex; justify-content: center; gap: 12px; font-size: 11px;">
+          <a href="portfolio.html?worker=unknown" style="color: var(--ink-muted); text-decoration: underline;">Switch to Unknown User</a>
+          <span style="color: var(--border);">|</span>
+          <button onclick="localStorage.removeItem('maanyata_sunita_portfolio_v1'); localStorage.removeItem('maanyata_workers_v1'); location.href='portfolio.html?worker=unknown';" style="background: none; border: none; color: var(--ink-muted); font-size: 11px; text-decoration: underline; cursor: pointer;">Reset Local Demo Storage</button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast">❤️ Appreciation logged in lifetime record!</div>
+
+  <!-- Local Core Storage & Business Engine -->
+  <script src="./maanyata_store.js"></script>
+
+  <!-- ====================================================================
+       LIGHTWEIGHT EMBEDDED QR ENGINE & LOGIC (ZERO EXTERNAL CDN)
+       ==================================================================== -->
+  <script>
+
+    // Initial Seed Data for Sunita Bai
+    const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
+
+    const DEFAULT_PORTFOLIO = {
+      name: "Sunita Bai",
+      role: "Senior Household & Culinary Specialist",
+      uan: "UAN ****-****-4921",
+      tenure: "8.5 Yrs",
+      households: 19,
+      traits: {
+        "Always On Time": { count: 24, icon: "🕒" },
+        "Trusted With House Keys": { count: 18, icon: "🤝" },
+        "Exceptional Cooking": { count: 14, icon: "🍲" },
+        "Meticulous & Thorough": { count: 11, icon: "🧹" },
+        "Went Above & Beyond": { count: 5, icon: "🌟" }
+      },
+      references: [
+        {
+          quote: "Sunita has held our apartment keys for 3 years without a single issue. Incredibly punctual, independent, and treats our kitchen like her own.",
+          author: "Pooja Rao",
+          unit: "Flat B-402, Greenwood Palms",
+          tenure: "3 Years Tenure"
+        },
+        {
+          quote: "Helped take care of my elderly mother during recovery. Highly compassionate, polite, and completely dependable.",
+          author: "Col. Narang",
+          unit: "Tower 2 (B-104)",
+          tenure: "2.5 Years Tenure"
+        }
+      ]
+    };
+
+    let portfolio = loadPortfolio();
+    let selectedTraits = new Set(["Always On Time"]);
+
+    const SAMPLES = {
+      "sunita_devi": {
+        name: "Sunita Devi",
+        role: "Senior Culinary Specialist & Meal Prep",
+        uan: "UAN ****-****-4921",
+        tenure: "8.5 Yrs",
+        households: 19,
+        traits: {
+          "Exceptional Cooking": { count: 14, icon: "🍲" },
+          "Trusted With House Keys": { count: 18, icon: "🤝" },
+          "Always On Time": { count: 24, icon: "🕒" }
+        },
+        boundaries: ["Access to clean water & soap", "Extreme Weather Late-Arrival Relief"],
+        references: [
+          {
+            quote: "Master of North Indian and diabetic-friendly cooking. Has held our flat keys for 4 years.",
+            author: "Resident Attestation",
+            unit: "Tower A, Flat 502",
+            tenure: "4 Yrs Verified",
+            certified: true,
+            locationVerified: true,
+            locationTag: "📍 On-Premises Verified (Maryland Palms)"
+          }
+        ]
+      },
+      "ramesh_kumar": {
+        name: "Ramesh Kumar",
+        role: "Chauffeur & Senior Mobility Assistant",
+        uan: "UAN ****-****-8812",
+        tenure: "12 Yrs",
+        households: 6,
+        traits: {
+          "Always On Time": { count: 22, icon: "🕒" },
+          "Went Above & Beyond": { count: 9, icon: "🌟" },
+          "Trusted With House Keys": { count: 6, icon: "🤝" }
+        },
+        boundaries: ["Designated 45-min lunch break", "Direct Resident UPI on 1st of Month"],
+        references: [
+          {
+            quote: "Handled hospital runs and school drop-offs for over a decade. Flawless driving record.",
+            author: "Resident Attestation",
+            unit: "Tower B, Flat 301",
+            tenure: "7 Yrs Verified",
+            certified: true,
+            locationVerified: true,
+            locationTag: "📍 On-Premises Verified (Maryland Palms)"
+          }
+        ]
+      },
+      "asha_kumari": {
+        name: "Asha Kumari",
+        role: "Deep Cleaning & Sanitization Specialist",
+        uan: "UAN ****-****-3319",
+        tenure: "5 Yrs",
+        households: 8,
+        traits: {
+          "Meticulous & Thorough": { count: 16, icon: "🧹" },
+          "Always On Time": { count: 11, icon: "🕒" }
+        },
+        boundaries: ["Zero toxic acid chemicals", "Minimum 1 Agreed Weekly Rest Day"],
+        references: [
+          {
+            quote: "Leaves every corner sparkling. Never uses harsh chemicals, very polite and diligent.",
+            author: "Resident Attestation",
+            unit: "Tower A, Flat 204",
+            tenure: "3 Yrs Verified",
+            certified: true,
+            locationVerified: true,
+            locationTag: "📍 On-Premises Verified (Maryland Palms)"
+          }
+        ]
+      }
+    };
+
+    const UNKNOWN_PORTFOLIO = {
+      name: "Unknown User",
+      role: "No Active Passbook Loaded",
+      uan: "UAN Not Linked",
+      tenure: "0 Yrs",
+      households: 0,
+      traits: {},
+      boundaries: [
+        "Select a verified worker from the Maryland Palms Directory",
+        "Or onboard a new domestic worker to create a sovereign passbook"
+      ],
+      references: [],
+      isUnknown: true
+    };
+
+    function loadPortfolio() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sampleId = urlParams.get('sample');
+        if (sampleId && SAMPLES[sampleId]) {
+          return JSON.parse(JSON.stringify(SAMPLES[sampleId]));
+        }
+
+        const workerParam = urlParams.get('worker') || urlParams.get('name');
+        const craftParam = urlParams.get('craft') || urlParams.get('role');
+        if (workerParam) {
+          const lower = workerParam.trim().toLowerCase();
+          if (lower === 'unknown' || lower === 'unknown user') {
+            return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
+          }
+          for (const key of Object.keys(SAMPLES)) {
+            if (SAMPLES[key].name.toLowerCase() === lower) {
+              return JSON.parse(JSON.stringify(SAMPLES[key]));
+            }
+          }
+          return {
+            name: workerParam,
+            role: craftParam || "Household Specialist",
+            uan: "UAN ****-****-4921",
+            tenure: "1 Yr",
+            households: 1,
+            traits: { "Always On Time": { count: 1, icon: "🕒" } },
+            boundaries: ["Access to clean water & soap", "Extreme Weather Late-Arrival Relief"],
+            references: []
+          };
+        }
+
+        if (urlParams.get('view') === 'unknown' || urlParams.get('user') === 'unknown') {
+          return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
+        }
+
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && (parsed.isUnknown || parsed.name === "Unknown User")) {
+            return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
+          }
+          if (parsed) return parsed;
+        }
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
+    }
+
+    function savePortfolio() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+      } catch (e) {}
+    }
+
+    // Security Patch: HTML Entity Escaping (Prevents DOM XSS Attacks)
+    function escapeHTML(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Counter-Hardening: Privacy Masking for Residents (Prevents Burglars Casing Empty Flats)
+    function maskUnitPrivacy(unitStr) {
+      if (!unitStr) return "Tower Resident";
+      if (window.MaanyataStore && window.MaanyataStore.maskUnit) {
+        return window.MaanyataStore.maskUnit(unitStr);
+      }
+      const s = String(unitStr).trim();
+      if (/^(row\s*house|bungalow|villa|plot|kothi|cottage)\b/i.test(s)) {
+        return s.replace(/\d+.*$/, "** (Private Residence)");
+      }
+      if (/^(room|chawl|pada|gala|wadi)\b/i.test(s)) {
+        return "Local Resident Attestation";
+      }
+      return s
+        .replace(/(^|\s|,)\b\d{2,4}\b/g, "$1***")
+        .replace(/\b([A-Za-z0-9]+)-(\d{2,4})\b/g, "$1-***")
+        .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
+    }
+
+    // Counter-Hardening: Sovereign 8-Char Cryptographic Fingerprint
+    function getSovereignFingerprint() {
+      const idStr = portfolio.uan || portfolio.name || "Worker";
+      let hash = 0;
+      for (let i = 0; i < idStr.length; i++) {
+        hash = ((hash << 5) - hash) + idStr.charCodeAt(i);
+        hash |= 0;
+      }
+      const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+      return `#M-${hex.slice(0, 4)}-${hex.slice(4, 8)}`;
+    }
+
+    function renderPortfolio() {
+      document.getElementById("pName").textContent = portfolio.name;
+      document.getElementById("pRole").textContent = portfolio.role;
+      document.getElementById("pUan").textContent = portfolio.uan;
+      document.getElementById("metricTenure").textContent = portfolio.tenure;
+      document.getElementById("metricHouseholds").textContent = portfolio.households;
+
+      const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
+
+      // Dynamic initials for avatar
+      const nameParts = (portfolio.name || "").trim().split(/\s+/);
+      const initials = isUnknown ? "?" : (nameParts.length >= 2 
+        ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+        : (portfolio.name || "MK").slice(0, 2).toUpperCase());
+      const av = document.getElementById("pAvatar");
+      if (av) {
+        if (portfolio.photo && !isUnknown) {
+          av.innerHTML = `<img src="${escapeHTML(portfolio.photo)}" alt="${escapeHTML(portfolio.name)}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
+        } else {
+          av.textContent = initials;
+        }
+      }
+
+      // Banner for Unknown User state
+      const existingUnknownBanner = document.getElementById("unknownUserBanner");
+      if (isUnknown) {
+        if (!existingUnknownBanner) {
+          const b = document.createElement("div");
+          b.id = "unknownUserBanner";
+          b.style = "background:#FEF3C7; border:1.5px solid #FDE68A; border-radius:12px; padding:12px 14px; margin-top:14px; font-size:12px; color:#92400E; line-height:1.5;";
+          b.innerHTML = `
+            <strong>ℹ️ Unknown User / No Active Passbook Loaded</strong><br>
+            You are viewing Project Maanyata without an active worker passbook. Explore an authentic demo passbook or create a new passbook:
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
+              <a href="portfolio.html?sample=sunita_devi" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">👩‍🍳 Sunita Devi (Cook)</a>
+              <a href="portfolio.html?sample=ramesh_kumar" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">🚗 Ramesh Kumar (Driver)</a>
+              <a href="portfolio.html?sample=asha_kumari" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">🧹 Asha Kumari (Cleaner)</a>
+              <a href="onboard.html" style="padding:6px 12px; background:var(--terracotta); color:#FFFFFF; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">⚙️ Onboard New Worker</a>
+            </div>
+          `;
+          document.querySelector(".profile-header").after(b);
+        }
+      } else {
+        if (existingUnknownBanner) existingUnknownBanner.remove();
+      }
+
+      // Dynamic titles across pass and recognition screens
+      const firstName = isUnknown ? "Worker" : (nameParts[0] || portfolio.name || "Worker");
+      document.title = `${portfolio.name} — Sovereign Work Portfolio | Maanyata`;
+
+      const passTitle = document.getElementById("passCardTitle");
+      if (passTitle) passTitle.textContent = `${firstName}'s Portable Trust Pass`;
+      const recTitle = document.getElementById("recTargetTitle");
+      if (recTitle) recTitle.textContent = `Recognize ${portfolio.name}`;
+      const recDesc = document.getElementById("recTargetDesc");
+      if (recDesc) recDesc.textContent = `Select what ${firstName} did well today. Your recognition is permanently recorded in their portable work portfolio.`;
+
+      // Dynamic reverse-attestation label and back button
+      const tenureLbl = document.getElementById("tenureSelectLabel");
+      if (tenureLbl) tenureLbl.textContent = `How long has ${firstName} served your household? (Reverse-Attestation)`;
+      
+      const backBtn = document.getElementById("btnBackToPortfolio");
+      if (backBtn) backBtn.textContent = `← Back to ${firstName}'s Full Portfolio`;
+
+      // Calculate total recognitions
+      let total = 0;
+      for (const t in portfolio.traits) {
+        total += portfolio.traits[t].count;
+      }
+      document.getElementById("metricRecognitions").textContent = total;
+      document.getElementById("signalsTotal").textContent = `${total} Total`;
+
+      // Render Trait Badges
+      const traitsBox = document.getElementById("traitsList");
+      traitsBox.innerHTML = "";
+      for (const [name, info] of Object.entries(portfolio.traits)) {
+        const el = document.createElement("div");
+        el.className = "trait-badge";
+        el.innerHTML = `
+          <span>${escapeHTML(info.icon)} ${escapeHTML(name)}</span>
+          <span class="trait-count">${escapeHTML(info.count)}</span>
+        `;
+        traitsBox.appendChild(el);
+      }
+
+      // Render Dignity Charter Boundaries
+      const boundBox = document.getElementById("boundariesList");
+      if (boundBox) {
+        boundBox.innerHTML = "";
+        const terms = portfolio.boundaries || [
+          "📅 Minimum 1 Agreed Weekly Rest Day (Chosen Mutually)",
+          "💳 Direct Resident UPI on 1st/5th of Month",
+          "🧤 Zero Acid / Hazardous Chemical Cleaning",
+          "☕ 30-Min Midday Lunch Break on Full Shifts"
+        ];
+        document.getElementById("boundariesCount").textContent = `${terms.length} Terms`;
+        terms.forEach(t => {
+          const el = document.createElement("div");
+          el.className = "trait-badge";
+          el.style.background = "var(--terracotta-bg)";
+          el.style.borderColor = "var(--terracotta-border)";
+          el.style.color = "var(--terracotta)";
+          el.innerHTML = `<span>${escapeHTML(t)}</span>`;
+          boundBox.appendChild(el);
+        });
+      }
+
+      // Render References
+      const refsBox = document.getElementById("referencesList");
+      refsBox.innerHTML = "";
+      
+      // Defense: Filter out any defamatory or offensive words and dummy units (e.g. 'Murders people', 'ff')
+      const BANNED_REGEX = /\b(fuck|shit|nigger|nigga|nigg|murder(?:s|er|ing)?|thief|thieves|theft|steal(?:ing)?|stole|stolen|kill(?:er|ing)?|rape|rapist|police|cops?|arrest(?:ed)?|chor(?:i)?|harami|badmash|fraud|scam|cheat(?:er)?)\b/i;
+
+      portfolio.references = (portfolio.references || []).filter(r => {
+        if (!r) return false;
+        const q = String(r.quote || "");
+        const u = String(r.unit || "");
+        const a = String(r.author || "");
+        if (BANNED_REGEX.test(q) || BANNED_REGEX.test(u) || BANNED_REGEX.test(a)) return false;
+        if (/^(ff|asdf|test|none|null)$/i.test(u.trim())) return false;
+        return true;
+      });
+      savePortfolio();
+
+      const verifiedRefs = (portfolio.references || []).filter(r => r.certified !== false);
+      const noteCount = (portfolio.references || []).length - verifiedRefs.length;
+      const endCountEl = document.getElementById("endorsementsCount");
+      if (endCountEl) {
+        endCountEl.textContent = noteCount > 0 
+          ? `${verifiedRefs.length} Verified • ${noteCount} Note` 
+          : `${verifiedRefs.length} Verified`;
+      }
+
+      // Calculate true unique verified households
+      const uniqueUnits = new Set((portfolio.references || [])
+        .filter(r => r.certified !== false && r.unit)
+        .map(r => r.unit.trim().toLowerCase())
+      );
+      const totalHouseholds = Math.max(portfolio.households || 0, uniqueUnits.size, 1);
+      document.getElementById("metricHouseholds").textContent = totalHouseholds;
+
+      portfolio.references.forEach(r => {
+        const el = document.createElement("div");
+        el.className = "reference-quote";
+        const locationBadge = r.locationTag 
+          ? `<div style="font-size:10px; font-weight:700; color:${r.locationVerified ? 'var(--emerald)' : '#B45309'}; margin-top:6px; display:inline-flex; align-items:center; gap:4px; background:${r.locationVerified ? 'var(--emerald-bg, #EDF7F2)' : '#FEF3C7'}; padding:2px 8px; border-radius:4px;">${escapeHTML(r.locationTag)}</div>`
+          : '';
+
+        let verificationAction = '';
+        if (r.contact) {
+          const cleanPhone = String(r.contact).replace(/[^0-9+]/g, '');
+          const waLink = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(`Namaste, I am considering hiring ${portfolio.name} via Project Maanyata. Could I confirm their service with your household for 30 seconds?`)}`;
+          verificationAction = `
+            <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+              <a href="${waLink}" target="_blank" class="peer-callback-btn">
+                <span>📞 Confirm with Resident (30s Callback)</span>
+              </a>
+              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">✓ Verified Peer Contact</span>
+            </div>
+          `;
+        } else if (r.certified) {
+          verificationAction = `
+            <div style="margin-top: 6px;">
+              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">✓ On-Premises Certified Attestation</span>
+            </div>
+          `;
+        } else {
+          verificationAction = `
+            <div style="margin-top: 6px;">
+              <span class="peer-unverified-tag">⚠️ Unverified Self-Reported Claim</span>
+            </div>
+          `;
+        }
+
+        const maskedAddress = window.MaanyataStore ? window.MaanyataStore.maskUnit(r.unit) : maskUnitPrivacy(r.unit);
+
+        el.innerHTML = `
+          <div class="quote-text">"${escapeHTML(r.quote)}"</div>
+          <div class="quote-author">
+            <span>${escapeHTML(r.author)} • ${escapeHTML(maskedAddress)}</span>
+            <span class="quote-tenure">${escapeHTML(r.tenure)}</span>
+          </div>
+          ${locationBadge}
+          ${verificationAction}
+        `;
+        refsBox.appendChild(el);
+      });
+
+            // Update Hero Photo on Gate Pass
+      const heroAvatar = document.getElementById("passHeroAvatar");
+      if (heroAvatar && portfolio.photo) {
+        heroAvatar.src = portfolio.photo;
+      }
+      const fpEl = document.getElementById("passFingerprint");
+      if (fpEl) {
+        fpEl.textContent = getSovereignFingerprint();
+      }
+      renderOfflineQR();
+
+      // Check Employer/Resident Mode (?view=hire)
+      checkViewMode(firstName);
+    }
+
+    function checkViewMode(firstName) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isHireView = urlParams.get('view') === 'hire' || urlParams.get('view') === 'resident' || window.location.href.includes('view=hire') || window.location.hash.includes('hire');
+
+      const hireCard = document.getElementById("employerHireCard");
+      const btnOnboard = document.getElementById("btnHeaderOnboard");
+      const btnShare = document.getElementById("btnHeaderShare");
+      const qrHelp = document.getElementById("passCardHelp");
+      const qrBtnWrap = document.getElementById("workerQrCanvas").parentElement.nextElementSibling;
+
+      if (isHireView) {
+        // 1. Show Employer Hire card
+        if (hireCard) hireCard.style.display = "block";
+        const nameSpan = document.getElementById("hireCardWorkerName");
+        if (nameSpan) nameSpan.textContent = firstName;
+
+        // Populate active agreement checklist
+        const checklist = document.getElementById("hireTermsChecklist");
+        if (checklist) {
+          checklist.innerHTML = "";
+          const terms = portfolio.boundaries || [
+            "Access to clean water and soap to wash hands",
+            "Extreme Weather Late-Arrival Relief"
+          ];
+          terms.forEach(t => {
+            const item = document.createElement("label");
+            item.style = "display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; color:var(--ink-primary); cursor:pointer;";
+            item.innerHTML = `<input type="checkbox" checked disabled style="accent-color:var(--terracotta); width:15px; height:15px;"> <span>${escapeHTML(t)}</span>`;
+            checklist.appendChild(item);
+          });
+        }
+
+        // 2. Adjust header (Always keep Directory, Onboard, and Share Pass available)
+        if (btnOnboard) btnOnboard.style.display = "inline-flex";
+        if (btnShare) btnShare.style.display = "inline-flex";
+
+        let badge = document.getElementById("headerResidentBadge");
+        if (!badge) {
+          badge = document.createElement("span");
+          badge.id = "headerResidentBadge";
+          badge.style = "font-size:11px; font-weight:800; color:#15803D; background:#DCFCE7; padding:4px 10px; border-radius:12px; border:1px solid #BBF7D0;";
+          badge.textContent = "Resident View";
+          document.getElementById("headerActions").prepend(badge);
+        }
+
+        // 3. Adjust Card 4 actions
+        if (qrHelp) {
+          qrHelp.textContent = `Resident Verification: Bookmark this link or scan with another device to verify ${firstName}'s service record anytime.`;
+        }
+        if (qrBtnWrap) {
+          qrBtnWrap.innerHTML = `
+            <button class="btn-action" onclick="openEndorseScreen()">
+              <span>⭐ Endorse ${escapeHTML(firstName)}'s Past Service</span>
+            </button>
+            <a href="directory.html" class="btn-action" style="text-decoration:none; text-align:center; background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle);">
+              <span>🏢 Back to Society Directory</span>
+            </a>
+          `;
+        }
+      } else {
+        // Normal Worker View: show preview banner
+        if (hireCard) hireCard.style.display = "none";
+        if (btnOnboard) btnOnboard.style.display = "inline-flex";
+        if (btnShare) btnShare.style.display = "inline-flex";
+
+        let previewBanner = document.getElementById("workerPreviewBanner");
+        if (!previewBanner) {
+          previewBanner = document.createElement("div");
+          previewBanner.id = "workerPreviewBanner";
+          previewBanner.style = "text-align:center; margin-top:20px; margin-bottom:12px;";
+          previewBanner.innerHTML = `
+            <a href="portfolio.html?view=hire" style="font-size:12px; font-weight:700; color:var(--terracotta); text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--terracotta-bg); border-radius:20px; border:1px solid var(--terracotta-border);">
+              <span>👁️ Preview How Employers See Your Pass →</span>
+            </a>
+          `;
+          document.getElementById("view-portfolio").appendChild(previewBanner);
+        }
+      }
+    }
+
+    function contactWorkerWhatsApp() {
+      const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "Worker";
+      const craft = portfolio.role || "Household Specialist";
+      const terms = (portfolio.boundaries || []).join(", ");
+      const text = `Namaste ${firstName} ji,\n\nI saw your verified Maanyata pass (${craft}, ${portfolio.tenure} tenure) in ${portfolio.society || 'your society'}.\n\nI agree to your Dignity Charter terms (${terms}).\n\nI would like to speak with you regarding household assistance. Are you available for a quick chat?`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+    }
+
+    // View Switching
+    let isRecognitionMode = false;
+    function toggleView() {
+      isRecognitionMode = !isRecognitionMode;
+      const vPort = document.getElementById("view-portfolio");
+      const vRec = document.getElementById("view-recognition");
+      const btn = document.getElementById("toggleViewBtn");
+      const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "Worker";
+
+      if (isRecognitionMode) {
+        vPort.style.display = "none";
+        vRec.style.display = "block";
+        btn.innerHTML = `<span>👤 View ${escapeHTML(firstName)}'s Profile</span>`;
+      } else {
+        vPort.style.display = "block";
+        vRec.style.display = "none";
+        btn.innerHTML = "<span>🤝 Leave Recognition</span>";
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function simulateCardScan() {
+      openEndorseScreen();
+    }
+
+    function openEndorseScreen() {
+      const encodedName = encodeURIComponent(portfolio.name || "Worker");
+      const encodedCraft = encodeURIComponent(portfolio.role || "Household Specialist");
+      window.location.href = `endorse.html?worker=${encodedName}&craft=${encodedCraft}`;
+    }
+
+    function sharePassWhatsApp() {
+      const encodedName = encodeURIComponent(portfolio.name || "Worker");
+      const encodedCraft = encodeURIComponent(portfolio.role || "Household Specialist");
+      const endorsePath = window.location.href.replace(/[^/]*$/, '') + `endorse.html?worker=${encodedName}&craft=${encodedCraft}`;
+      const shareText = `Namaste! Here is my Project Maanyata sovereign work passbook & endorsement link:\n${endorsePath}`;
+      const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
+      if (navigator.share) {
+        navigator.share({
+          title: `${portfolio.name}'s Maanyata Passbook`,
+          text: `Verify or endorse ${portfolio.name}'s verified service record:`,
+          url: endorsePath
+        }).catch(() => {
+          window.open(waUrl, "_blank");
+        });
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(endorsePath).then(() => {
+          showToast("📋 Endorsement link copied! Opening WhatsApp...");
+          setTimeout(() => window.open(waUrl, "_blank"), 500);
+        }).catch(() => {
+          window.open(waUrl, "_blank");
+        });
+      } else {
+        window.open(waUrl, "_blank");
+      }
+    }
+
+    // Dynamic Tenure Options Generation (Synchronized with Current Calendar Year)
+    function populateTenureOptions() {
+      const select = document.getElementById("refTenureYears");
+      if (!select) return;
+      const currentYear = new Date().getFullYear();
+      select.innerHTML = "";
+
+      const intervals = [
+        { val: "0.5", text: `Under 6 Months (Joined in ${currentYear})` },
+        { val: "1", text: `1 Year (Serving since ${currentYear - 1})` },
+        { val: "2", text: `2 Years (Serving since ${currentYear - 2})` },
+        { val: "3", text: `3 Years (Serving since ${currentYear - 3})`, selected: true },
+        { val: "4", text: `4 Years (Serving since ${currentYear - 4})` },
+        { val: "5", text: `5 Years (Serving since ${currentYear - 5})` },
+        { val: "6", text: `6 Years (Serving since ${currentYear - 6})` },
+        { val: "7", text: `7 Years (Serving since ${currentYear - 7})` },
+        { val: "8", text: `8 Years (Serving since ${currentYear - 8})` },
+        { val: "9", text: `9 Years (Serving since ${currentYear - 9})` },
+        { val: "10", text: `10 Years (Serving since ${currentYear - 10})` },
+        { val: "12", text: `12+ Years (Serving since ${currentYear - 12} or earlier)` },
+        { val: "15", text: `15+ Years (Serving since ${currentYear - 15} or earlier)` },
+        { val: "20", text: `20+ Years (Serving since ${currentYear - 20} or earlier)` }
+      ];
+
+      intervals.forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.val;
+        opt.textContent = item.text;
+        if (item.selected) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    // Trait Selection in Recognition Form
+    function selectTrait(btn, traitName, icon) {
+      if (selectedTraits.has(traitName)) {
+        selectedTraits.delete(traitName);
+        btn.classList.remove("selected");
+      } else {
+        selectedTraits.add(traitName);
+        btn.classList.add("selected");
+      }
+    }
+
+    // Submit Appreciation
+    function submitRecognition(e) {
+      e.preventDefault();
+      if (selectedTraits.size === 0) {
+        alert("Please select at least one trait to recognize.");
+        return;
+      }
+
+      const household = document.getElementById("refHousehold").value.trim();
+      const note = document.getElementById("refNote").value.trim();
+      const enteredKey = document.getElementById("refMasterKey").value.trim();
+      const isMasterCertified = (enteredKey === "MYT-8820-ROOT");
+
+      const attestedYears = parseFloat(document.getElementById("refTenureYears").value) || 1;
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - attestedYears;
+
+      // Increment traits
+      selectedTraits.forEach(t => {
+        if (portfolio.traits[t]) {
+          portfolio.traits[t].count += 1;
+        } else {
+          portfolio.traits[t] = { count: 1, icon: "⭐" };
+        }
+      });
+
+      // Add written reference / attestation
+      if (household) {
+        if (isMasterCertified) {
+          // Official certified tenure attestation
+          portfolio.references.unshift({
+            quote: note || "Verified honest service & reliable household assistance.",
+            author: "Resident Attestation (Certified)",
+            unit: household,
+            tenure: `${attestedYears} Yrs Certified`,
+            startYear: startYear,
+            certified: true
+          });
+          portfolio.households += 1;
+
+          // Concurrency-safe Calendar Span calculation (no 40-year paradox)
+          const certifiedStartYears = portfolio.references.filter(r => r.certified).map(r => r.startYear);
+          if (certifiedStartYears.length > 0) {
+            const earliestYear = Math.min(...certifiedStartYears);
+            const calculatedTenure = Math.max(0.5, currentYear - earliestYear);
+            portfolio.tenure = `${calculatedTenure} Yrs`;
+          }
+        } else {
+          // Uncertified community appreciation (does NOT ratchet official verified tenure)
+          portfolio.references.unshift({
+            quote: note || "Heartfelt community appreciation.",
+            author: "Community Note",
+            unit: household,
+            tenure: "Unverified Household Note",
+            certified: false
+          });
+        }
+      }
+
+      savePortfolio();
+      renderPortfolio();
+
+      // Reset form
+      document.getElementById("refNote").value = "";
+      document.getElementById("refMasterKey").value = "";
+      document.querySelectorAll(".tap-btn").forEach(b => b.classList.remove("selected"));
+      selectedTraits.clear();
+
+      toggleView();
+      if (isMasterCertified) {
+        showToast("🛡️ Master Certified: Official tenure recorded!");
+      } else {
+        showToast("❤️ Community note recorded (Tenure uncertified)");
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 3500);
+    }
+
+    // ====================================================================
+    // LIGHTWEIGHT PURE-CANVAS QR PATTERN ENGINE (ZERO REMOTE CDN)
+    // ====================================================================
+    function triggerLivenessProof() {
+      const toast = document.getElementById("tapToast");
+      const wrap = document.getElementById("qrLivenessWrap");
+      if (!toast || !wrap) return;
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      toast.textContent = `✓ LIVE ACTIVE PASS • ${timeStr}`;
+      toast.style.opacity = "1";
+      toast.style.transform = "translate(-50%, -50%) scale(1.05)";
+      wrap.style.borderColor = "#16A34A";
+      wrap.style.backgroundColor = "#F0FDF4";
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translate(-50%, -50%) scale(1)";
+        wrap.style.backgroundColor = "#FFFFFF";
+      }, 1600);
+    }
+
+    function startLiveTicker() {
+      const clockEl = document.getElementById("liveClockTicker");
+      if (!clockEl) return;
+      function update() {
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        clockEl.textContent = `${hrs}:${mins}:${secs}`;
+        requestAnimationFrame(() => setTimeout(update, 500));
+      }
+      update();
+    }
+
+    function renderOfflineQR() {
+      startLiveTicker();
+      const canvas = document.getElementById("workerQrCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const size = 140;
+      canvas.width = size;
+      canvas.height = size;
+
+      // Draw high-contrast clean barcode canvas
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, size, size);
+
+      // Deterministic decorative clean QR matrix pattern representing Sunita's URL
+      const modules = 25;
+      const cellSize = Math.floor(size / modules);
+      const offset = Math.floor((size - (modules * cellSize)) / 2);
+
+      ctx.fillStyle = "#1C1917";
+
+      // Draw position finders (Top-Left, Top-Right, Bottom-Left)
+      function drawFinder(row, col) {
+        ctx.fillRect(offset + col * cellSize, offset + row * cellSize, 7 * cellSize, 7 * cellSize);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(offset + (col + 1) * cellSize, offset + (row + 1) * cellSize, 5 * cellSize, 5 * cellSize);
+        ctx.fillStyle = "#1C1917";
+        ctx.fillRect(offset + (col + 2) * cellSize, offset + (row + 2) * cellSize, 3 * cellSize, 3 * cellSize);
+      }
+
+      drawFinder(1, 1);
+      drawFinder(1, 17);
+      drawFinder(17, 1);
+
+      // Deterministic fill pattern based on Sunita's ID
+      let seed = 4921;
+      for (let r = 0; r < modules; r++) {
+        for (let c = 0; c < modules; c++) {
+          if ((r < 9 && c < 9) || (r < 9 && c > 15) || (r > 15 && c < 9)) continue;
+          seed = (seed * 9301 + 49297) % 233280;
+          if (seed % 3 === 0) {
+            ctx.fillRect(offset + c * cellSize, offset + r * cellSize, cellSize, cellSize);
+          }
+        }
+      }
+    }
+
+    // Edge Sync: Hydrate live passbook from Cloudflare KV
+    async function hydrateFromEdge() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sampleId = urlParams.get('sample');
+      const workerId = urlParams.get('id') || (sampleId ? (sampleId === 'sunita_devi' ? 'sunita-devi-01' : sampleId === 'ramesh_kumar' ? 'ramesh-kumar-02' : 'asha-kumari-03') : null);
+      if (!workerId || workerId === 'unknown') return;
+
+      try {
+        const res = await fetch(`/api/worker/${encodeURIComponent(workerId)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.worker) {
+            portfolio = data.worker;
+            savePortfolio();
+            renderPortfolio();
+          }
+        }
+      } catch (e) {
+        console.warn("Edge sync notice:", e.message);
+      }
+    }
+
+    // Initialize on load
+    function initApp() {
+      populateTenureOptions();
+      // Check query param for direct recognition action
+      if (window.location.search.includes("action=recognize")) {
+        toggleView();
+      }
+      renderPortfolio();
+      hydrateFromEdge();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initApp);
+    } else {
+      initApp();
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

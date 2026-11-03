@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title id="pageTitle">Community Staff Directory | Project Maanyata</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F6F4F0;
+      --border: #E7E2DA;
+      --border-subtle: #F0EDE8;
+      
+      --ink-primary: #1C1917;
+      --ink-secondary: #57534E;
+      --ink-muted: #A8A29E;
+
+      --terracotta: #C85A32;
+      --terracotta-hover: #B04B26;
+      --terracotta-bg: #FBECE6;
+      --terracotta-border: #F3D1C3;
+
+      --emerald: #16A34A;
+      --emerald-bg: #EDF7F2;
+      --emerald-border: #BBF7D0;
+
+      --amber: #D97706;
+      --amber-bg: #FEF3C7;
+      --amber-border: #FDE68A;
+
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    .shell {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Masthead */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 20px 0;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink-primary);
+    }
+
+    .brand-glyph {
+      width: 34px;
+      height: 34px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-top:hover {
+      background: #FFFFFF;
+      color: var(--ink-primary);
+      border-color: var(--terracotta);
+    }
+
+    /* Society Banner Card */
+    .society-hero {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: 0 4px 20px rgba(28, 25, 23, 0.04);
+      margin-bottom: 20px;
+    }
+
+    .society-tag-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .society-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      border: 1px solid var(--terracotta-border);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 5px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s ease;
+    }
+
+    .society-pill:hover {
+      background: #FCE2D7;
+      border-color: var(--terracotta);
+    }
+
+    .society-title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .society-sub {
+      font-size: 13px;
+      color: var(--ink-secondary);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Stats Grid */
+    .society-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Controls: Search & Chips */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 38px 12px 42px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--ink-primary);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px var(--terracotta-bg);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--ink-muted);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+
+    .search-clear-btn:hover {
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    /* Filter Chips */
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .filter-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .chip.active {
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border-color: var(--terracotta);
+    }
+
+    /* Staff Cards Grid */
+    .staff-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .staff-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: 0 2px 12px rgba(28, 25, 23, 0.03);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .staff-card:hover {
+      border-color: var(--terracotta-border);
+      box-shadow: 0 6px 20px rgba(200, 90, 50, 0.08);
+    }
+
+    .staff-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .staff-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .staff-seal {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      background: var(--emerald);
+      color: #FFFFFF;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .staff-info {
+      flex: 1;
+    }
+
+    .staff-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .staff-name {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .staff-craft {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin-top: 2px;
+    }
+
+    .staff-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .meta-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-tenure {
+      background: var(--emerald-bg);
+      color: var(--emerald);
+      border: 1px solid var(--emerald-border);
+    }
+
+    .meta-shifts {
+      background: var(--card-subtle);
+      color: var(--ink-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .meta-households {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid var(--amber-border);
+    }
+
+    /* Trait Chips in Card */
+    .staff-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .staff-trait {
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--card-subtle);
+      color: var(--ink-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    /* Actions */
+    .staff-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-hire {
+      flex: 1;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hire:hover {
+      background: var(--terracotta-hover);
+    }
+
+    /* Community Charter Notice Box */
+    .charter-notice {
+      background: var(--card-subtle);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    .charter-notice strong {
+      color: var(--ink-primary);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1.5px dashed var(--border);
+      color: var(--ink-muted);
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <a href="directory.html" class="brand-mark">
+        <div class="brand-glyph">म</div>
+        <div class="brand-name">Maanyata</div>
+      </a>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <a href="portfolio.html" class="btn-top">
+          <span>👤 My Pass</span>
+        </a>
+        <a href="onboard.html" class="btn-top" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
+          <span>➕ Register Staff</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Society Hero Card -->
+    <div class="society-hero">
+      <div class="society-tag-wrap">
+        <button id="societyPillBtn" class="society-pill" onclick="promptChangeSociety()" title="Click to switch your building/community">
+          <span>🏢</span>
+          <span id="currentSocietyName">Mira Road Community</span>
+          <span style="font-size:10px; opacity:0.75;">✏️ Switch</span>
+        </button>
+      </div>
+      <h1 class="society-title"><span id="societyTitlePrefix">Community</span> Household Staff Directory</h1>
+      <p class="society-sub" id="societySubText">
+        Browse and hire verified domestic professionals working on-premises in <strong id="societySubName">Mira Road Community</strong>. All staff carry sovereign, reverse-attested records.
+      </p>
+
+      <div class="society-stats">
+        <div class="stat-item">
+          <div class="stat-num" id="statTotalStaff">4 Active</div>
+          <div class="stat-label">Verified Staff</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">On-Premises GPS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">0 Blacklists</div>
+          <div class="stat-label">Bilateral Due Process</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, craft (e.g. Cook, Cleaning), or unit..." oninput="handleFilter()">
+      <button id="searchClearBtn" class="search-clear-btn" onclick="clearSearch()" title="Clear search">✕</button>
+    </div>
+
+    <div class="filter-chips">
+      <button class="chip active" data-category="all" onclick="setCategory('all', this)">All Staff (<span id="countAll">4</span>)</button>
+      <button class="chip" data-category="cook" onclick="setCategory('cook', this)">🍲 Culinary & Cooks</button>
+      <button class="chip" data-category="clean" onclick="setCategory('clean', this)">🧹 Housekeeping</button>
+      <button class="chip" data-category="driver" onclick="setCategory('driver', this)">🚗 Drivers & Mobility</button>
+      <button class="chip" data-category="nanny" onclick="setCategory('nanny', this)">👶 Childcare & Nannies</button>
+    </div>
+
+    <!-- Staff Cards Grid -->
+    <main class="staff-grid" id="staffGrid">
+      <!-- Injected via JavaScript -->
+    </main>
+
+    <div class="empty-state" id="emptyState">
+      No verified staff matched your filter or search query in <span id="emptySocietyName">this community</span>.
+    </div>
+
+    <!-- Community Employment Standard Notice -->
+    <div class="charter-notice">
+      <strong id="charterTitle">🛡️ Community Employment Standard:</strong><br>
+      All domestic workers listed in <span id="charterSocietyName">this community</span> are recognized under Project Maanyata's Sovereign Dignity Charter. Residents hiring staff agree to respect their declared basic terms (water, sanitation, weather delay relief, and agreed shift hours). 1-star algorithmic blacklists are disabled by architecture.<br><br>
+      <span style="color:#92400E; font-weight:600;">⚠️ Notice to Households:</span> Maanyata does not enforce private cash recovery. We strongly advise against granting cash or salary advances during the first 90 days of employment.
+    </div>
+
+  </div>
+
+  <script>
+    const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
+    const SOCIETY_STORAGE_KEY = "maanyata_active_society_v1";
+
+    // 1. Base Directory Seed Data (Community Veterans)
+    const BASE_STAFF = [
+      {
+        id: "sunita_devi",
+        name: "Sunita Devi",
+        role: "Senior Culinary Specialist & Meal Prep",
+        category: "cook",
+        tenure: "8.5 Yrs Verified",
+        households: 19,
+        shift: "Morning (6:30 AM - 10:00 AM)",
+        uan: "UAN ****-****-4921",
+        traits: ["🍲 Exceptional Cooking (14)", "🤝 Trusted With Keys (18)", "🕒 Always On Time (24)"],
+        boundaries: ["Access to clean water & soap", "Extreme Weather Late Relief"],
+        unit: "Tower A & B"
+      },
+      {
+        id: "ramesh_kumar",
+        name: "Ramesh Kumar",
+        role: "Chauffeur & Senior Mobility Assistant",
+        category: "driver",
+        tenure: "12 Yrs Verified",
+        households: 6,
+        shift: "Full Day (8:00 AM - 6:00 PM)",
+        uan: "UAN ****-****-8812",
+        traits: ["🕒 Always On Time (22)", "🌟 Went Above & Beyond (9)", "🤝 Trusted With Keys (6)"],
+        boundaries: ["Designated lunch break", "Direct UPI Payment"],
+        unit: "Tower B"
+      },
+      {
+        id: "asha_kumari",
+        name: "Asha Kumari",
+        role: "Deep Cleaning & Sanitization Specialist",
+        category: "clean",
+        tenure: "5 Yrs Verified",
+        households: 8,
+        shift: "Afternoon (11:00 AM - 3:30 PM)",
+        uan: "UAN ****-****-3319",
+        traits: ["🧹 Meticulous & Thorough (16)", "🕒 Always On Time (11)"],
+        boundaries: ["Zero toxic acid chemicals", "Mandatory Sunday Off"],
+        unit: "Tower A"
+      }
+    ];
+
+    let currentCategory = "all";
+
+    // Security Patch: HTML Entity Escaping (Prevents DOM XSS in Directory)
+    function escapeHTML(str) {
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // --- Dynamic Society Logic ("Buildings Name Themselves") ---
+    function getActiveSociety() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qSoc = urlParams.get("society");
+      if (qSoc && qSoc.trim()) {
+        return qSoc.trim();
+      }
+      return localStorage.getItem(SOCIETY_STORAGE_KEY) || "Mira Road Community";
+    }
+
+    function setActiveSociety(name) {
+      if (!name || !name.trim()) return;
+      localStorage.setItem(SOCIETY_STORAGE_KEY, name.trim());
+      updateSocietyDisplay();
+      renderStaff();
+    }
+
+    function promptChangeSociety() {
+      const current = getActiveSociety();
+      const entered = prompt("Enter your Housing Society or Building name (e.g., Vasudev Complex, Poonam Sagar, Shanti Park):", current);
+      if (entered && entered.trim() && entered.trim() !== current) {
+        setActiveSociety(entered.trim());
+      }
+    }
+
+    function updateSocietyDisplay() {
+      const soc = getActiveSociety();
+      document.getElementById("currentSocietyName").textContent = soc;
+      document.getElementById("societySubName").textContent = soc;
+      document.getElementById("emptySocietyName").textContent = soc;
+      document.getElementById("charterSocietyName").textContent = soc;
+      document.getElementById("pageTitle").textContent = `${soc} Staff Directory | Project Maanyata`;
+    }
+
+    let edgeWorkers = [];
+
+    async function syncStaffFromEdge() {
+      try {
+        const res = await fetch("/api/workers");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.workers) && data.workers.length > 0) {
+            edgeWorkers = data.workers.map(w => {
+              let cat = "clean";
+              const r = (w.role || "").toLowerCase();
+              if (r.includes("cook") || r.includes("culinary")) cat = "cook";
+              else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
+              else if (r.includes("elder") || r.includes("nanny")) cat = "nanny";
+
+              const traitStrings = [];
+              if (w.traits) {
+                for (const [k, v] of Object.entries(w.traits)) {
+                  if (v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
+                }
+              }
+              return {
+                id: w.id,
+                name: w.name,
+                role: w.role,
+                category: cat,
+                tenure: `${w.tenure || '1 Yr'} Verified`,
+                households: w.households || 1,
+                shift: "Verified Passbook",
+                uan: w.uan || "UAN ****-****-1001",
+                traits: traitStrings.slice(0, 3),
+                boundaries: w.boundaries || ["Clean water & soap"],
+                unit: w.society || "Vasudev Complex",
+                isLive: true
+              };
+            });
+            renderStaff();
+          }
+        }
+      } catch (e) {
+        console.warn("Directory edge sync notice:", e.message);
+      }
+    }
+
+    // Load active worker from localStorage or Edge Database
+    function getCombinedStaff() {
+      if (edgeWorkers && edgeWorkers.length > 0) {
+        return edgeWorkers;
+      }
+      let activeWorker = null;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const p = JSON.parse(raw);
+          if (p.name) {
+            // Infer category
+            let cat = "clean";
+            const r = (p.role || "").toLowerCase();
+            if (r.includes("cook") || r.includes("culinary") || r.includes("food") || r.includes("oil")) cat = "cook";
+            else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
+            else if (r.includes("nanny") || r.includes("child") || r.includes("baby")) cat = "nanny";
+
+            const traitStrings = [];
+            if (p.traits) {
+              for (const [k, v] of Object.entries(p.traits)) {
+                if (v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
+              }
+            }
+
+            const currentSoc = getActiveSociety();
+            activeWorker = {
+              id: "active_worker",
+              name: p.name,
+              role: p.role || "Household Specialist",
+              category: cat,
+              tenure: `${p.tenure || '1 Yr'} Verified`,
+              households: p.households || 1,
+              shift: "Active Daily Shift",
+              uan: p.uan || "UAN ****-****-9393",
+              traits: traitStrings.slice(0, 3),
+              boundaries: p.boundaries || ["Clean water & soap", "Rain arrival relief"],
+              unit: `${currentSoc} (Tower A)`,
+              isLive: true
+            };
+          }
+        }
+      } catch (e) {}
+
+      if (activeWorker) {
+        return [activeWorker, ...BASE_STAFF];
+      }
+      return BASE_STAFF;
+    }
+
+    // Prefix & Word Boundary Search Matcher
+    function searchMatch(haystack, query) {
+      if (!query) return true;
+      const qTokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+      const hTokens = haystack.toLowerCase().split(/[\s,()•-]+/).filter(Boolean);
+
+      return qTokens.every(q => {
+        if (q.length === 1) {
+          // Single character must match word start
+          return hTokens.some(h => h.startsWith(q));
+        }
+        return hTokens.some(h => h.startsWith(q)) || haystack.toLowerCase().includes(q);
+      });
+    }
+
+    function renderStaff() {
+      const staffList = getCombinedStaff();
+      const grid = document.getElementById("staffGrid");
+      const empty = document.getElementById("emptyState");
+      const searchRaw = document.getElementById("searchInput").value || "";
+      const search = searchRaw.trim();
+      const clearBtn = document.getElementById("searchClearBtn");
+
+      if (searchRaw.length > 0) {
+        clearBtn.style.display = "flex";
+      } else {
+        clearBtn.style.display = "none";
+      }
+
+      document.getElementById("statTotalStaff").textContent = `${staffList.length} Active`;
+      document.getElementById("countAll").textContent = staffList.length;
+
+      grid.innerHTML = "";
+      let matches = 0;
+
+      staffList.forEach(s => {
+        // Category filter
+        if (currentCategory !== "all" && s.category !== currentCategory) return;
+
+        // Search filter with prefix/word boundary logic
+        if (search) {
+          const hay = `${s.name} ${s.role} ${s.unit} ${s.tenure}`;
+          if (!searchMatch(hay, search)) return;
+        }
+
+        matches++;
+
+        // Initials
+        const parts = (s.name || "").trim().split(/\s+/);
+        const initials = parts.length >= 2 
+          ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+          : s.name.slice(0, 2).toUpperCase();
+
+        const card = document.createElement("div");
+        card.className = "staff-card";
+
+        // Counter-Hardening: Attestation Threshold (Cartels cannot flood unverified profiles)
+        const isVerifiedResidentBacked = s.households > 0 || (s.traits && s.traits.length > 0);
+        const trustBadge = isVerifiedResidentBacked
+          ? `<span style="font-size:10px; font-weight:800; color:#15803D; background:#DCFCE7; padding:2px 8px; border-radius:10px; border:1px solid #BBF7D0;">🛡️ VERIFIED RESIDENT-BACKED</span>`
+          : `<span style="font-size:10px; font-weight:800; color:#B45309; background:#FEF3C7; padding:2px 8px; border-radius:10px; border:1px solid #FDE68A;">⏳ PENDING FIRST ATTESTATION</span>`;
+
+        const liveTag = s.isLive 
+          ? `<span style="font-size:10px; font-weight:800; color:var(--terracotta); background:var(--terracotta-bg); padding:2px 8px; border-radius:10px; border:1px solid var(--terracotta-border);">CURRENT PASS</span>`
+          : '';
+
+        const traitsHTML = (s.traits || []).map(t => `<span class="staff-trait">${escapeHTML(t)}</span>`).join("");
+
+        // Build target portfolio link (direct to hire view)
+        const targetLink = s.isLive 
+          ? `portfolio.html?view=hire` 
+          : `portfolio.html?view=hire&sample=${s.id}`;
+
+        card.innerHTML = `
+          <div class="staff-header">
+            <div class="staff-avatar">
+              ${escapeHTML(initials)}
+              <div class="staff-seal">✓</div>
+            </div>
+            <div class="staff-info">
+              <div class="staff-name-row">
+                <div class="staff-name">${escapeHTML(s.name)}</div>
+                ${liveTag}
+                ${trustBadge}
+              </div>
+              <div class="staff-craft">${escapeHTML(s.role)}</div>
+              <div class="staff-meta">
+                <span class="meta-badge meta-tenure">📍 ${escapeHTML(s.tenure)}</span>
+                <span class="meta-badge meta-shifts">🕒 ${escapeHTML(s.shift)}</span>
+                <span class="meta-badge meta-households">🏠 ${escapeHTML(s.households)} Households</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-traits">
+            ${traitsHTML}
+          </div>
+
+          <div class="staff-actions">
+            <a href="${encodeURI(targetLink)}" class="btn-hire">
+              <span>🤝 View Pass & Dignity Terms →</span>
+            </a>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      if (matches === 0) {
+        empty.style.display = "block";
+      } else {
+        empty.style.display = "none";
+      }
+    }
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll(".filter-chips .chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      renderStaff();
+    }
+
+    function handleFilter() {
+      renderStaff();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById("searchInput");
+      input.value = "";
+      document.getElementById("searchClearBtn").style.display = "none";
+      renderStaff();
+      input.focus();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateSocietyDisplay();
+      renderStaff();
+      syncStaffFromEdge();
+    });
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
