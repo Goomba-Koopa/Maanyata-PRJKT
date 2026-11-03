@@ -859,7 +859,7 @@
 
         const resData = await resp.json();
         if (!resp.ok || !resData.success) {
-          alert(resData.error || "Edge verification failed.");
+          alert(resData.error || "Edge verification failed: Invalid residential unit or anti-tamper rejection.");
           submitBtn.innerHTML = originalBtnText;
           submitBtn.disabled = false;
           return;
@@ -869,69 +869,8 @@
           portfolio = resData.worker;
         }
       } catch (netErr) {
-        console.warn("Edge API unavailable or offline, continuing with local persistence:", netErr);
-      }
-
-      // 2. Increment traits count in local portfolio if not already updated by edge
-      if (!edgeSuccess) {
-        selectedTraits.forEach(t => {
-          if (portfolio.traits[t]) {
-            portfolio.traits[t].count += 1;
-          } else {
-            portfolio.traits[t] = { count: 1, icon: "⭐" };
-          }
-        });
-
-        // Append new reference endorsement with location and peer callback anchor
-        portfolio.references.unshift({
-          quote: note || "Verified honest household service and reliable assistance.",
-          author: "Resident Attestation",
-          unit: household,
-          contact: contact || null,
-          tenure: `${chosenYears} Yrs Verified`,
-          startYear: startYear,
-          certified: true,
-          locationVerified: locationVerified,
-          locationTag: locationTag,
-          timestamp: Date.now()
-        });
-        portfolio.households = (portfolio.households || 0) + 1;
-      }
-
-      // Auto-sync with local-first core store if available
-      if (window.MaanyataStore && window.MaanyataStore.workers) {
-        try {
-          const activeW = await window.MaanyataStore.workers.getActive();
-          if (activeW) {
-            await window.MaanyataStore.endorse({
-              workerId: activeW.id,
-              by: "Resident Attestation",
-              unit: household,
-              note: note || "Verified honest household service.",
-              contact: contact,
-              keys: selectedTraits.has("Trusted With House Keys"),
-              skills: ["cooking", "cleaning"]
-            });
-          }
-        } catch (syncErr) {
-          console.warn("MaanyataStore sync notice:", syncErr.message);
-        }
-      }
-
-      // 3. Concurrency-Safe Calendar Span Union Tenure calculation
-      const certifiedStartYears = portfolio.references
-        .filter(r => r.certified && r.startYear)
-        .map(r => r.startYear);
-        
-      if (certifiedStartYears.length > 0) {
-        const earliestYear = Math.min(...certifiedStartYears);
-        const calculatedTenure = Math.max(0.5, currentYear - earliestYear);
-        portfolio.tenure = `${calculatedTenure} Yrs`;
-      }
-
-      // 4. Save to disk
-      const saved = savePortfolio();
-      if (!saved) {
+        // Anti-Taxidermy Law: Never allow unverified client-side self-minting of tenure when edge is unavailable
+        alert("Verification Gate: Endorsements require connection to the Maanyata Society Registry Edge (/api/endorse). Local self-minting of verified tenure is prohibited.");
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
         return;
@@ -941,7 +880,7 @@
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
 
-      // 5. Show Success Modal with Location Status
+      // Show Success Modal with Location Status
       const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "their";
       document.getElementById("successDesc").innerHTML = 
         `Your endorsement has been added to ${escapeHTML(firstName)}'s permanent record.<br><br>` +

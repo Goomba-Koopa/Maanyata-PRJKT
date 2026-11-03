@@ -8,37 +8,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
   <style>
-    /* ==========================================================================
-       MAANYATA — SOVEREIGN WORKER PORTFOLIO & RECOGNITION ENGINE
-       Typography: Yatra One (Display) • Anek Devanagari (UI) • Sarala (Metadata)
-       Color Tokens: Physical Pantone calibrated spot swatches disguised as HEX
-       Engineered for: Vasudev Complex, Mira Road (East)
-       ========================================================================== */
+    /* Maanyata: Sovereign Worker Portfolio
+       Typography Hierarchy:
+       - Headings & Titles: Plus Jakarta Sans (Crisp, authoritative, zero comic-book curls)
+       - UI Body & Devanagari text: Anek Devanagari (Clean, modern Indian variable grotesque)
+       - Numbers & IDs: Sarala / Tabular mono
+       - Brand Emblem: Yatra One (Strictly isolated to Devanagari brand marks) */
 
     :root {
-      /* Calibrated Physical Pantone Tokens (Disguised as HEX) */
-      --mny-navy: #0B192C;          /* Pantone 282 C (Passport Navy) */
-      --mny-terracotta: #C2410C;      /* Pantone 1675 C (Terracotta Stamp) */
+      /* Brand colors, calibrated spot references */
+      --mny-navy: #0B192C;             /* Passport navy */
+      --mny-terracotta: #C2410C;       /* Terracotta stamp */
       --mny-terracotta-hover: #9A3412;
       --mny-terracotta-bg: #FFF7ED;
       --mny-terracotta-border: #FFEDD5;
 
-      --mny-verified: #15803D;        /* Pantone 348 C (Official Seal Green) */
+      --mny-verified: #15803D;         /* Official seal green */
       --mny-verified-bg: #ECFDF5;
       --mny-verified-border: #A7F3D0;
 
-      --mny-paper: #FAF8F5;           /* Pantone 7527 C (Unbleached Ledger Cardstock) */
+      --mny-paper: #FAF8F5;            /* Ledger cardstock */
       --mny-card: #FFFFFF;
       --mny-card-subtle: #F5F1E9;
-      --mny-carbon: #1C1917;          /* Pantone Black 6 C */
-      --mny-tenure-gold: #B45309;     /* Pantone 130 C (Seniority Brass) */
+      --mny-carbon: #1C1917;
+      --mny-tenure-gold: #B45309;      /* Seniority brass */
 
+      /* Semantic tokens */
       --canvas: var(--mny-paper);
       --card-bg: var(--mny-card);
       --card-subtle: var(--mny-card-subtle);
       --border: #E8E2D5;
       --border-strong: #D6CEBE;
-      
+
       --ink-primary: var(--mny-carbon);
       --ink-secondary: #44403C;
       --ink-muted: #78716C;
@@ -57,9 +58,11 @@
       --amber-bg: #FFFBEB;
       --amber-border: #FDE68A;
 
-      /* Typography Hierarchy */
-      --font-heading: 'Plus Jakarta Sans', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+
+      /* Sane Typography Stack */
+      --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'Sarala', monospace;
       --font-brand: 'Yatra One', cursive, serif;
     }
@@ -86,7 +89,7 @@
       gap: 16px;
     }
 
-    /* Masthead Navigation */
+    /* Masthead */
     .masthead {
       display: flex;
       align-items: center;
@@ -134,6 +137,8 @@
       gap: 6px;
       flex-wrap: wrap;
     }
+
+    /* Header buttons */
     .mode-toggle-btn {
       font-family: var(--font-body);
       font-size: 11px;
@@ -154,8 +159,15 @@
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
     }
-    .mode-toggle-btn:hover {
-      background: #FFEDD5;
+    .mode-toggle-btn:hover { background: #FFEDD5; }
+    .mode-toggle-btn.is-neutral {
+      background: var(--card-subtle);
+      color: var(--ink-secondary);
+      border-color: var(--border);
+    }
+    .mode-toggle-btn svg {
+      vertical-align: middle;
+      margin-right: 3px;
     }
 
     /* Cards */
@@ -166,14 +178,13 @@
       padding: 20px;
       box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
     }
+    .card + .card { margin-top: 16px; }
 
-    /* ==========================================================================
-       FANCY ROSETTE (The Train Pass Edge)
-       ========================================================================== */
+    /* Fancy rosette (train-pass edge) */
     .fancy-rosette {
       position: relative;
       border-top: 3px solid var(--terracotta) !important;
-      background-image: 
+      background-image:
         radial-gradient(circle at 50% 0%, transparent 5px, rgba(11, 25, 44, 0.03) 6px),
         repeating-linear-gradient(45deg, rgba(194, 65, 12, 0.04) 0px, rgba(194, 65, 12, 0.04) 1px, transparent 1px, transparent 6px);
       background-size: 100% 12px, 12px 12px;
@@ -190,9 +201,7 @@
       pointer-events: none;
     }
 
-    /* ==========================================================================
-       SOL-CONTRAST MODE (High-Noon Sun Penetration Engine)
-       ========================================================================== */
+    /* Sol-contrast mode (high-noon sunlight) */
     [data-theme="sol"] {
       --canvas: #FFFFFF;
       --card-bg: #FFFFFF;
@@ -212,30 +221,25 @@
       --emerald-bg: #DCFCE7;
       --emerald-border: #000000;
     }
-
     [data-theme="sol"] body {
       background-color: #FFFFFF !important;
       color: #000000 !important;
     }
-
     [data-theme="sol"] .card {
       border: 2px solid #000000 !important;
       box-shadow: none !important;
       background: #FFFFFF !important;
     }
-
     [data-theme="sol"] * {
       font-variation-settings: 'wght' 600 !important;
     }
-
-    [data-theme="sol"] h1, 
-    [data-theme="sol"] h2, 
-    [data-theme="sol"] .brand-name, 
+    [data-theme="sol"] h1,
+    [data-theme="sol"] h2,
+    [data-theme="sol"] .brand-name,
     [data-theme="sol"] .metric-val {
       font-variation-settings: 'wght' 750 !important;
       color: #000000 !important;
     }
-
     [data-theme="sol"] .mode-toggle-btn,
     [data-theme="sol"] .btn-action,
     [data-theme="sol"] .btn-submit-tap {
@@ -243,35 +247,26 @@
       box-shadow: none !important;
       font-weight: 800 !important;
     }
-
     [data-theme="sol"] .qr-canvas-wrap {
       border: 3px solid #000000 !important;
       background: #FFFFFF !important;
       padding: 12px !important;
     }
 
-    /* Tabular Numeral Rigidity & Slashed Zero */
+    /* Tabular numerals with slashed zero for IDs and clocks */
     .metric-val, #liveClockTicker, #passFingerprint, .profile-gov-id {
       font-family: var(--font-mono) !important;
       font-feature-settings: "tnum" 1, "zero" 1 !important;
       font-variant-numeric: tabular-nums slashed-zero !important;
     }
 
-    /* Shirorekha Optical Re-centering for Hindi/Marathi */
-    [lang="hi"] .btn-txt, [lang="mr"] .btn-txt {
-      display: inline-block;
-      transform: translateY(-1.5px);
-    }
-
-    /* Worker Profile Header */
+    /* Profile header */
     .profile-header {
       display: flex;
       gap: 16px;
       align-items: flex-start;
     }
-    .avatar-wrap {
-      position: relative;
-    }
+    .avatar-wrap { position: relative; }
     .avatar {
       width: 68px;
       height: 68px;
@@ -300,8 +295,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      font-weight: bold;
     }
     .profile-meta h1 {
       font-family: var(--font-heading);
@@ -331,7 +324,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 3-Column Dignity Metrics */
+    /* Metrics row */
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -360,10 +353,10 @@
       letter-spacing: 0.04em;
     }
 
-    /* Section Headings */
+    /* Section headings */
     .section-title {
       font-family: var(--font-heading);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -373,7 +366,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    .section-title span.count-badge {
+    .count-badge {
       font-size: 11px;
       color: var(--ink-muted);
       font-weight: 600;
@@ -382,7 +375,7 @@
       border-radius: 9999px;
     }
 
-    /* Recognition Cluster Tags */
+    /* Trait and term chips */
     .traits-grid {
       display: flex;
       flex-wrap: wrap;
@@ -411,7 +404,7 @@
       border-radius: 6px;
     }
 
-    /* Verified Written References */
+    /* Reference quotes */
     .reference-list {
       display: flex;
       flex-direction: column;
@@ -445,7 +438,118 @@
       font-weight: 700;
     }
 
-    /* Portable Card Presentation */
+    /* Verification status rows in references */
+    .verify-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .verify-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--emerald);
+      background: var(--emerald-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .location-badge {
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .location-badge.is-verified {
+      color: var(--emerald);
+      background: var(--emerald-bg);
+    }
+    .location-badge.is-pending {
+      color: #B45309;
+      background: #FEF3C7;
+    }
+    .peer-callback-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #047857;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .peer-callback-btn:hover { background: #D1FAE5; }
+    .peer-unverified-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #B45309;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* Craft risk silos */
+    .silo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .silo-card {
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .silo-card.is-high {
+      border-color: #FECACA;
+      background: #FFF5F5;
+    }
+    .silo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .silo-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .silo-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .silo-badge-low  { background: #E0E7FF; color: #3730A3; }
+    .silo-badge-med  { background: #FEF3C7; color: #92400E; }
+    .silo-badge-high { background: #FEE2E2; color: #991B1B; }
+    .silo-desc {
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+    }
+
+    /* Portable pass card */
     .card-presentation {
       background: linear-gradient(145deg, #FFFDFB 0%, #F5EFE6 100%);
       border: 1.5px solid #D8CFC0;
@@ -457,26 +561,72 @@
       gap: 14px;
       text-align: center;
     }
-    .qr-canvas-wrap {
-      background: #FFFFFF;
-      padding: 12px;
-      border-radius: 14px;
-      border: 2px solid #BBF7D0;
-      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.15);
+    .pass-top {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 16px;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+    .pass-hero {
       position: relative;
-      animation: heartbeat-pulse 2.5s infinite ease-in-out;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
     }
-    @keyframes heartbeat-pulse {
-      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); border-color: #22C55E; }
-      70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); border-color: #16A34A; }
-      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); border-color: #22C55E; }
+    .pass-hero img {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #16A34A;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
     }
+    .pass-hero-check {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      background: #16A34A;
+      color: #FFFFFF;
+      font-size: 10px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFFFFF;
+      font-weight: 900;
+    }
+    .pass-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .pass-fingerprint {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink-secondary);
+      letter-spacing: 0.04em;
+    }
+    .pass-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--ink-primary);
+    }
+    .pass-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .pass-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
     .liveness-ticker {
       display: inline-flex;
       align-items: center;
@@ -501,7 +651,40 @@
     }
     @keyframes liveness-blink {
       from { opacity: 0.25; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1.15); }
+      to   { opacity: 1;    transform: scale(1.15); }
+    }
+
+    .card-help {
+      font-size: 12px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      max-width: 320px;
+    }
+
+    .qr-canvas-wrap {
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #BBF7D0;
+      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: heartbeat-pulse 2.5s infinite ease-in-out;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    @keyframes heartbeat-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); border-color: #22C55E; }
+      70%  { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); border-color: #16A34A; }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);    border-color: #22C55E; }
+    }
+    #workerQrCanvas {
+      width: 140px;
+      height: 140px;
+      image-rendering: pixelated;
     }
     .tap-liveness-toast {
       position: absolute;
@@ -520,19 +703,10 @@
       transition: opacity 0.2s ease, transform 0.2s ease;
       white-space: nowrap;
       z-index: 10;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    #workerQrCanvas {
-      width: 140px;
-      height: 140px;
-      image-rendering: pixelated;
-    }
-    .card-help {
-      font-size: 12px;
-      color: var(--ink-muted);
-      line-height: 1.4;
-      max-width: 320px;
-    }
+
+    /* Buttons */
     .btn-action {
       background: var(--ink-primary);
       color: #FFFFFF;
@@ -545,118 +719,170 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: background 0.15s ease;
-      width: 100%;
       justify-content: center;
+      gap: 8px;
+      width: 100%;
+      transition: background 0.15s ease;
     }
     .btn-action:hover { background: #292524; }
-
-    /* ==========================================================================
-       RESIDENT RECOGNITION SCREEN (10-SECOND TAP FLOW)
-       ========================================================================== */
-    #view-recognition {
-      display: none;
+    .btn-action svg {
+      vertical-align: middle;
+      margin-right: 6px;
     }
-    .tap-lead {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .tap-lead h2 {
-      font-family: var(--font-heading);
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      margin-bottom: 4px;
-    }
-    .tap-lead p {
-      font-size: 13px;
-      color: var(--ink-muted);
-    }
-    .tap-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .tap-btn {
-      background: var(--card-bg);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-      font-family: var(--font-body);
+    .btn-action.is-green {
+      background: #16A34A;
+      border: none;
+      padding: 12px 14px;
       font-size: 14px;
-      font-weight: 700;
+    }
+    .btn-action.is-green:hover { background: #15803D; }
+    .btn-action.is-outline {
+      background: var(--card-bg);
       color: var(--ink-secondary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.15s ease;
-      text-align: left;
-    }
-    .tap-btn:hover {
-      border-color: var(--terracotta);
-      background: var(--terracotta-bg);
-      color: var(--terracotta);
-      transform: translateY(-1px);
-    }
-    .tap-btn.selected {
-      border-color: var(--terracotta);
-      background: var(--terracotta-bg);
-      color: var(--terracotta);
-      box-shadow: 0 0 0 2px rgba(194, 65, 12, 0.15);
-    }
-    .tap-icon {
-      font-size: 18px;
-    }
-    .note-box {
-      width: 100%;
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border: 1.5px solid var(--border-strong);
       padding: 10px 12px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--ink-primary);
-      outline: none;
-      resize: none;
-      margin-bottom: 14px;
+      font-size: 12px;
+      font-weight: 700;
     }
-    .note-box:focus { border-color: var(--terracotta); }
-    .household-field {
-      width: 100%;
+    .btn-action.is-outline-subtle {
       background: var(--card-subtle);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--ink-primary);
-      outline: none;
-      margin-bottom: 14px;
     }
-    .household-field:focus { border-color: var(--terracotta); }
-    .btn-submit-tap {
-      background: var(--terracotta);
-      color: #fff;
-      border: 0;
-      border-radius: 14px;
-      padding: 14px;
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.15s ease;
-      display: flex;
+    .btn-action.is-link {
+      text-decoration: none;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1000;
       align-items: center;
       justify-content: center;
+      padding: 16px;
+    }
+    .modal-card {
+      max-width: 480px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 22px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .modal-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      margin: 0;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--ink-muted);
+      line-height: 1;
+    }
+    .identity-notice {
+      background: var(--emerald-bg);
+      border: 1px solid var(--emerald-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--emerald);
+      line-height: 1.4;
+    }
+    .identity-notice-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .identity-notice-desc {
+      color: var(--ink-secondary);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .boundary-options {
+      display: flex;
+      flex-direction: column;
       gap: 8px;
     }
-    .btn-submit-tap:hover { background: var(--terracotta-hover); }
+    .boundary-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--ink-primary);
+      cursor: pointer;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-subtle);
+    }
+    .boundary-option input {
+      accent-color: var(--terracotta);
+      width: 16px;
+      height: 16px;
+    }
+    .form-actions {
+      display: flex;
+      gap: 8px;
+    }
 
-    /* Toast Notification */
+    /* Unknown-user banner */
+    .unknown-banner {
+      background: #FEF3C7;
+      border: 1.5px solid #FDE68A;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: #92400E;
+      line-height: 1.5;
+    }
+    .unknown-banner-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .unknown-banner-link {
+      padding: 6px 12px;
+      background: #FFFFFF;
+      border: 1.5px solid #D97706;
+      color: #B45309;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 11px;
+    }
+    .unknown-banner-link.is-primary {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: #FFFFFF;
+    }
+
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -671,140 +897,55 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 999;
       pointer-events: none;
     }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* High-Risk Craft Siloing & Safety Protocols */
-    .silo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .silo-card {
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-    .silo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-    .silo-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ink-primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .silo-badge-low {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #E0E7FF;
-      color: #3730A3;
-    }
-    .silo-badge-med {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #FEF3C7;
-      color: #92400E;
-    }
-    .silo-badge-high {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #FEE2E2;
-      color: #991B1B;
-    }
-    .silo-desc {
-      font-size: 12px;
-      color: var(--ink-secondary);
-      line-height: 1.4;
-    }
-    .safety-protocol-card {
-      background: #FFFBEB;
-      border: 1.5px solid #FDE68A;
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 14px;
-    }
-    .safety-protocol-title {
-      font-family: var(--font-heading);
-      font-size: 14px;
-      font-weight: 800;
-      color: #92400E;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-    .safety-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12px;
-      color: #78350F;
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
-    .safety-bullet {
-      flex-shrink: 0;
-      font-weight: 800;
-    }
-    .peer-callback-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    /* Footer */
+    footer {
+      text-align: center;
       font-size: 11px;
+      color: var(--ink-faint);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .footer-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .footer-title {
       font-weight: 700;
-      color: #047857;
-      background: #ECFDF5;
-      border: 1px solid #A7F3D0;
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 6px;
-      transition: background 0.15s ease;
+      color: var(--ink-secondary);
+      margin-bottom: 4px;
     }
-    .peer-callback-btn:hover {
-      background: #D1FAE5;
+    .footer-legal {
+      font-size: 10.5px;
+      color: var(--ink-muted);
     }
-    .peer-unverified-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      color: #B45309;
-      background: #FFFBEB;
-      border: 1px solid #FDE68A;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-top: 6px;
+    .footer-links {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      font-size: 11px;
     }
+    .footer-links a,
+    .footer-links button {
+      color: var(--ink-muted);
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .footer-links .sep { color: var(--border); }
 
-    /* 360px Mobile-First Hardening */
+    /* Narrow phones (360px) */
     @media (max-width: 380px) {
       body { padding: 12px 8px 36px; }
       .card { padding: 16px 14px; border-radius: 16px; }
@@ -813,15 +954,6 @@
       .metrics-grid { gap: 6px; }
       .metric-col { padding: 8px 4px; }
       .metric-val { font-size: 15px; }
-      .metric-lbl { font-size: 10px; }
-    }
-
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: var(--ink-faint);
-      margin-top: 16px;
-      line-height: 1.5;
     }
   </style>
 </head>
@@ -835,33 +967,31 @@
         <div class="brand-glyph">म</div>
         <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
-      <div id="headerActions" style="display:flex; align-items:center; gap:6px;">
-        <button id="btnSolToggle" class="mode-toggle-btn" onclick="toggleSolMode()" title="Toggle Sol-Contrast (Sunlight Mode)" style="background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      <div id="headerActions">
+        <button id="btnSolToggle" class="mode-toggle-btn is-neutral" onclick="toggleSolMode()" title="Toggle Sol-Contrast (Sunlight Mode)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <span id="solBtnLabel">Sol</span>
         </button>
-        <button id="btnLangToggle" class="mode-toggle-btn" onclick="toggleLanguage()" title="Toggle Language (English / हिन्दी)" style="background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+        <button id="btnLangToggle" class="mode-toggle-btn is-neutral" onclick="toggleLanguage()" title="Toggle Language (English / हिन्दी)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
           <span id="langBtnLabel">हिन्दी</span>
         </button>
-        <a href="directory.html" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);" title="Browse Vasudev Complex Staff">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+        <a href="directory.html" class="mode-toggle-btn is-neutral" title="Browse Vasudev Complex Staff">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
           <span data-i18n="navDirectory">Directory</span>
         </a>
-        <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassWhatsApp()" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           <span data-i18n="navShare">Share</span>
         </button>
       </div>
     </header>
 
-    <!-- ====================================================================
-         VIEW 1: SOVEREIGN WORKER TRUST PORTFOLIO (SUNITA DEVI)
-         ==================================================================== -->
+    <!-- View: worker trust portfolio -->
     <main id="view-portfolio">
 
-      <!-- Card 1: Identity & Dignity Anchor -->
-      <div class="card fancy-rosette">
+      <!-- Identity -->
+      <section class="card fancy-rosette">
         <div class="profile-header">
           <div class="avatar-wrap">
             <div class="avatar" id="pAvatar">SD</div>
@@ -880,7 +1010,6 @@
           </div>
         </div>
 
-        <!-- 3-Column Dignity Metrics -->
         <div class="metrics-grid">
           <div class="metric-col">
             <div class="metric-val" id="metricTenure">—</div>
@@ -895,90 +1024,19 @@
             <div class="metric-lbl" data-i18n="lblRecognitions">Recognitions</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Card 1.5: Resident / Employer Hire & Dignity Agreement (Active in ?view=hire) -->
-      <div class="card" id="employerHireCard" style="margin-top: 16px; border: 2px solid var(--terracotta-border); background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%); display: none;">
-        <div style="display:flex; align-items:flex-start; gap:12px;">
-          <div style="width:40px; height:40px; border-radius:10px; background:var(--terracotta-bg); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">
-            🤝
-          </div>
-          <div style="flex:1;">
-            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
-              <div style="font-family:var(--font-heading); font-size:16px; font-weight:800; color:var(--ink-primary);">
-                Hire <span id="hireCardWorkerName">Worker</span> • Dignity Terms
-              </div>
-              <span style="font-size:10px; font-weight:800; color:#15803D; background:#DCFCE7; padding:2px 8px; border-radius:10px; border:1px solid #BBF7D0;">
-                EMPLOYER VIEW
-              </span>
-            </div>
-            <p style="font-size:12px; color:var(--ink-secondary); margin:4px 0 0 0; line-height:1.4;">
-              Maanyata protects both sides. To hire this verified professional, your household confirms respect for their declared terms:
-            </p>
-          </div>
-        </div>
-
-        <!-- Active Agreement Checkboxes (Pre-checked) -->
-        <div id="hireTermsChecklist" style="margin-top:14px; display:flex; flex-direction:column; gap:8px; background:var(--card-subtle); padding:12px; border-radius:10px; border:1px solid var(--border-subtle);">
-          <!-- Dynamic checkboxes rendered in JS -->
-        </div>
-
-        <!-- Supervised Onboarding Protocol Card (Physical Blast Radius Shield) -->
-        <div class="safety-protocol-card">
-          <div class="safety-protocol-title">
-            <span>🛡️ Mandatory Supervised Onboarding Protocol (सुरक्षा प्रोटोकॉल)</span>
-          </div>
-          <div class="safety-step">
-            <span class="safety-bullet">🚗</span>
-            <div><strong>Driving (10-Min Perimeter Test):</strong> Always accompany driver on a 10-minute trial around the society perimeter and parking ramp before handing over vehicle keys.</div>
-          </div>
-          <div class="safety-step">
-            <span class="safety-bullet">🩺</span>
-            <div><strong>Eldercare & Childcare (3-Day Shadow Shift):</strong> A family member must remain present for the first 3 days to verify bed-transfers, medication schedules, and infant care.</div>
-          </div>
-          <div class="safety-step">
-            <span class="safety-bullet">🔑</span>
-            <div><strong>Keys (Zero Day-1 Release):</strong> Never issue flat keys on Day 1 regardless of past badges. Require at least 30 days of verified punctuality first.</div>
-          </div>
-          <div class="safety-step">
-            <span class="safety-bullet">💳</span>
-            <div><strong>Wages (Zero Advance Rule):</strong> Settle weekly or monthly via UPI after work is delivered. Never issue cash advances to new staff.</div>
-          </div>
-        </div>
-
-        <!-- Dignity Charter Advisory for Households (Cash Advances) -->
-        <div style="margin-top:12px; padding:10px 12px; background:var(--amber-bg); border:1px solid var(--amber-border); border-radius:8px; display:flex; align-items:flex-start; gap:8px;">
-          <span style="font-size:14px; flex-shrink:0;">⚖️</span>
-          <div style="font-size:11px; color:#92400E; line-height:1.4;">
-            <strong>Dignity Charter Advisory for Households:</strong>
-            Maanyata strictly verifies historical craft and tenure. The platform does not track, arbitrate, mediate, or underwrite private loans, salary advances, or cash disputes at any time. All monetary settlements are strictly private bilateral arrangements.
-          </div>
-        </div>
-
-        <!-- Two Action Buttons -->
-        <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px;">
-          <button class="btn-action" onclick="contactWorkerWhatsApp()" style="background:var(--terracotta); color:#FFFFFF; border:none; padding:12px 16px; font-size:13px; font-weight:700;">
-            <span>💬 Accept Terms & Contact on WhatsApp</span>
-          </button>
-          <button class="btn-action" onclick="openEndorseScreen()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle); font-size:13px; font-weight:600;">
-            <span>⭐ Endorse Past Service (Leave Recognition)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 2: Dignity Charter (Working Terms & Boundaries) -->
-      <div class="card" style="margin-top: 16px;">
+      <!-- Dignity charter -->
+      <section class="card">
         <div class="section-title">
           <span data-i18n="secDignityCharter">Dignity Charter & Working Terms</span>
           <span class="count-badge" id="boundariesCount" data-i18n="badgeWorkingTerms">Working Terms</span>
         </div>
-        <div class="traits-grid" id="boundariesList">
-          <!-- Rendered via JavaScript -->
-        </div>
-      </div>
+        <div class="traits-grid" id="boundariesList"></div>
+      </section>
 
-      <!-- Card 2.5: Craft Risk Siloing (Decoupling Surface Chores from High-Risk Roles) -->
-      <div class="card" style="margin-top: 16px;">
+      <!-- Craft risk silos -->
+      <section class="card">
         <div class="section-title">
           <span data-i18n="secCraftSilos">Craft Risk Silos (कार्य वर्गीकरण)</span>
           <span class="count-badge" data-i18n="badgeRiskGated">Risk Gated</span>
@@ -987,128 +1045,116 @@
           <div class="silo-card">
             <div class="silo-header">
               <span class="silo-title" data-i18n="siloSurface">🧹 Surface Crafts (Cleaning / Utensils)</span>
-              <span class="silo-badge-low" data-i18n="badgeStandardRisk">Standard Risk</span>
+              <span class="silo-badge silo-badge-low" data-i18n="badgeStandardRisk">Standard Risk</span>
             </div>
             <div class="silo-desc" data-i18n="descSurface">Floor sweeping, mopping, utensil washing. Low blast radius.</div>
           </div>
           <div class="silo-card">
             <div class="silo-header">
               <span class="silo-title" data-i18n="siloCulinary">🍲 Culinary Specialization (Cooking)</span>
-              <span class="silo-badge-med" data-i18n="badgeModerateRisk">Moderate Risk</span>
+              <span class="silo-badge silo-badge-med" data-i18n="badgeModerateRisk">Moderate Risk</span>
             </div>
             <div class="silo-desc" data-i18n="descCulinary">Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.</div>
           </div>
-          <div class="silo-card" style="border-color: #FECACA; background: #FFF5F5;">
+          <div class="silo-card is-high">
             <div class="silo-header">
               <span class="silo-title" data-i18n="siloHighRisk">🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)</span>
-              <span class="silo-badge-high" data-i18n="badgeHighRisk">High Consequence</span>
+              <span class="silo-badge silo-badge-high" data-i18n="badgeHighRisk">High Consequence</span>
             </div>
             <div class="silo-desc" data-i18n="descHighRisk">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Card 3: Verified Trust Signals (Aggregated from Real Taps) -->
-      <div class="card" style="margin-top: 16px;">
+      <!-- Trust signals -->
+      <section class="card">
         <div class="section-title">
           <span data-i18n="secTrustSignals">Community Trust Signals</span>
           <span class="count-badge" id="signalsTotal">38 Total</span>
         </div>
-        <div class="traits-grid" id="traitsList">
-          <!-- Rendered via JavaScript -->
-        </div>
-      </div>
+        <div class="traits-grid" id="traitsList"></div>
+      </section>
 
-      <!-- Card 3.5: Verified Household References (Real Humans Speaking) -->
-      <div class="card" style="margin-top: 16px;">
+      <!-- Household endorsements -->
+      <section class="card">
         <div class="section-title">
           <span data-i18n="secEndorsements">Household Endorsements</span>
           <span class="count-badge" id="endorsementsCount">2 Verified</span>
         </div>
-        <div class="reference-list" id="referencesList">
-          <!-- Rendered via JavaScript -->
-        </div>
-      </div>
+        <div class="reference-list" id="referencesList"></div>
+      </section>
 
-      <!-- Card 4: Portable QR Badge (Carried in Hand or Laminated) -->
-      <div class="card card-presentation" style="margin-top: 16px;">
-        <!-- Counter-Hardening: Photo Hero Prominence (Guard Visually Matches Face) -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:8px; width:100%;">
-          <div style="position:relative;">
-            <img id="passHeroAvatar" 
-                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80" 
-                 alt="Worker Face" 
-                 style="width:76px; height:76px; border-radius:50%; object-fit:cover; border:3px solid #16A34A; box-shadow:0 4px 12px rgba(22,163,74,0.25);" />
-            <div style="position:absolute; bottom:-2px; right:-2px; background:#16A34A; color:#FFFFFF; font-size:10px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid #FFFFFF; font-weight:900;">✓</div>
+      <!-- Portable pass -->
+      <section class="card card-presentation">
+        <div class="pass-top">
+          <div class="pass-hero">
+            <img id="passHeroAvatar"
+                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
+                 alt="Worker Face">
+            <div class="pass-hero-check">✓</div>
           </div>
-          <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
+          <div class="pass-meta">
             <div class="liveness-ticker">
               <span class="liveness-dot"></span>
               <span><span data-i18n="lblLiveGatePass">LIVE GATE PASS</span> • <span id="liveClockTicker">--:--:--</span></span>
             </div>
-            <div id="passFingerprint" style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--ink-secondary); letter-spacing:0.04em;">
-              #M-7F2A-4921
-            </div>
+            <div id="passFingerprint" class="pass-fingerprint">#M-7F2A-4921</div>
           </div>
         </div>
-        <div id="passCardTitle" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink-primary);" data-i18n="passTitle">
-          Portable Trust Pass
-        </div>
+
+        <div id="passCardTitle" class="pass-title" data-i18n="passTitle">Portable Trust Pass</div>
         <p class="card-help" id="passCardHelp" data-i18n="passHelp">
           Show this QR code to an employer or security guard. Tap the box below to prove live session to guard.
         </p>
+
         <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to prove live session">
           <canvas id="workerQrCanvas"></canvas>
           <div class="tap-liveness-toast" id="tapToast">✓ LIVE ACTIVE PASS</div>
         </div>
-        
-        <!-- Live Worker Action Controls -->
-        <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
-          <button class="btn-action" onclick="sharePassbookWhatsApp()" style="background:#16A34A; color:#FFFFFF; border:none; padding:12px 14px; font-size:14px; font-weight:700;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+
+        <div class="pass-actions">
+          <button class="btn-action is-green" onclick="sharePassbookWhatsApp()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
             <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
           </button>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <button class="btn-action" onclick="openCustomizeModal()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <div class="pass-actions-row">
+            <button class="btn-action is-outline" onclick="openCustomizeModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
               <span data-i18n="btnDignityTerms">Dignity Terms</span>
             </button>
-            <a href="verify.html" class="btn-action" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            <a href="verify.html" class="btn-action is-outline is-outline-subtle is-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
               <span data-i18n="btnVerifyGate">Gate Check</span>
             </a>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Modal: Dignity Charter & Working Terms Sovereignty -->
-      <div id="customizeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); z-index:1000; align-items:center; justify-content:center; padding:16px;">
-        <div class="card" style="max-width:480px; width:100%; max-height:90vh; overflow-y:auto; background:var(--card-bg); border-radius:20px; padding:22px; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.3);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <h2 style="font-family:var(--font-heading); font-size:18px; font-weight:800; color:var(--ink-primary); margin:0;" data-i18n="modalTitle">Dignity Charter & Working Terms</h2>
-            <button onclick="closeCustomizeModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-muted); line-height:1;">&times;</button>
+      <!-- Modal: working terms -->
+      <div id="customizeModal" class="modal-overlay">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2 class="modal-title" data-i18n="modalTitle">Dignity Charter & Working Terms</h2>
+            <button class="modal-close" onclick="closeCustomizeModal()">&times;</button>
           </div>
-          
-          <!-- Protocol Verification Lock Notice -->
-          <div style="background:var(--emerald-bg); border:1px solid var(--emerald-border); border-radius:10px; padding:10px 12px; margin-bottom:16px; font-size:12px; color:var(--emerald); line-height:1.4;">
-            <div style="font-weight:700; display:flex; align-items:center; gap:6px;">
+
+          <div class="identity-notice">
+            <div class="identity-notice-title">
               <span>🛡️ Cryptographically Anchored Identity</span>
             </div>
-            <div id="custModalIdentityDesc" style="color:var(--ink-secondary); font-size:11px; margin-top:4px;">
+            <div class="identity-notice-desc" id="custModalIdentityDesc">
               Identity and tenure are validated by resident attestations and cannot be modified locally. Workers exercise sovereign rights over their working terms and safety boundaries below.
             </div>
           </div>
 
           <form id="customizeForm" onsubmit="saveCustomProfile(event)">
             <div style="margin-bottom:16px;">
-              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:8px;" data-i18n="lblBoundaries">Select Your Non-Negotiable Working Terms</label>
-              <div id="custBoundariesList" style="display:flex; flex-direction:column; gap:8px;">
-                <!-- dynamic checkboxes -->
-              </div>
+              <label class="form-label" data-i18n="lblBoundaries">Select Your Non-Negotiable Working Terms</label>
+              <div id="custBoundariesList" class="boundary-options"></div>
             </div>
-            <div style="display:flex; gap:8px;">
-              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta); color:#FFFFFF; border:none; padding:12px; font-size:14px; font-weight:700;" data-i18n="btnSaveProfile">Save Working Terms</button>
-              <button type="button" onclick="closeCustomizeModal()" class="btn-action" style="background:var(--card-subtle); color:var(--ink-secondary); border:1px solid var(--border); padding:12px; font-size:14px; font-weight:600;" data-i18n="btnCancel">Cancel</button>
+            <div class="form-actions">
+              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta);" data-i18n="btnSaveProfile">Save Working Terms</button>
+              <button type="button" class="btn-action is-outline is-outline-subtle" onclick="closeCustomizeModal()" data-i18n="btnCancel">Cancel</button>
             </div>
           </form>
         </div>
@@ -1116,100 +1162,31 @@
 
     </main>
 
-    <!-- ====================================================================
-         VIEW 2: RESIDENT RECOGNITION FLOW (15-SECOND TAP)
-         ==================================================================== -->
-    <main id="view-recognition">
-      <div class="card">
-        <div class="tap-lead">
-          <span style="font-size: 11px; font-weight: 800; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.05em;">Community Appreciation</span>
-          <h2 id="recTargetTitle">Recognize Staff</h2>
-          <p id="recTargetDesc">Select what they did well today. Your recognition is permanently recorded in their portable work portfolio.</p>
-        </div>
-
-        <form id="recognitionForm" onsubmit="submitRecognition(event)">
-          <div class="tap-grid">
-            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Always On Time', '🕒')">
-              <span>🕒 Always On Time</span>
-              <span class="tap-icon">✓</span>
-            </button>
-            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Meticulous & Thorough', '🧹')">
-              <span>🧹 Meticulous & Thorough</span>
-              <span class="tap-icon">✓</span>
-            </button>
-            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Trusted With House Keys', '🤝')">
-              <span>🤝 Trusted With House Keys</span>
-              <span class="tap-icon">✓</span>
-            </button>
-            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Exceptional Cooking', '🍲')">
-              <span>🍲 Exceptional Cooking</span>
-              <span class="tap-icon">✓</span>
-            </button>
-            <button type="button" class="tap-btn" onclick="selectTrait(this, 'Went Above & Beyond', '🌟')">
-              <span>🌟 Went Above & Beyond</span>
-              <span class="tap-icon">✓</span>
-            </button>
-          </div>
-
-          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Your Flat / Household</label>
-          <input type="text" id="refHousehold" class="household-field" placeholder="e.g. Flat B-402, Greenwood Palms" required>
-
-          <label id="tenureSelectLabel" style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">How long have they served your household? (Reverse-Attestation)</label>
-          <select id="refTenureYears" class="household-field" style="cursor:pointer; font-weight:600;">
-            <!-- Populated dynamically via populateTenureOptions() using current calendar year -->
-          </select>
-
-          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Master Authority Key (Required to stamp official verified years)</label>
-          <input type="password" id="refMasterKey" class="household-field" autocomplete="off" placeholder="Enter master key to certify tenure">
-
-          <label style="display:block; font-size: 12px; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px;">Personal Endorsement Note (Optional)</label>
-          <textarea id="refNote" class="note-box" rows="2" placeholder="e.g. Handled everything independently while we were traveling."></textarea>
-
-          <button type="submit" class="btn-submit-tap">
-            <span>Send Appreciation ❤️</span>
-          </button>
-        </form>
-
-        <button id="btnBackToPortfolio" onclick="toggleView()" style="background: none; border: 0; color: var(--ink-muted); font-size: 12px; font-weight: 700; margin-top: 14px; width: 100%; cursor: pointer;">
-          ← Back to Full Portfolio
-        </button>
-      </div>
-    </main>
-
     <footer>
-      <div style="max-width: 480px; margin: 0 auto; text-align: center; line-height: 1.5;">
-        <div style="font-weight: 700; color: var(--ink-secondary); margin-bottom: 4px;">
-          Project Maanyata (मान्यता) • Sovereign Career Passbook
-        </div>
-        <div style="font-size: 10.5px; color: var(--ink-muted);">
+      <div class="footer-inner">
+        <div class="footer-title">Project Maanyata (मान्यता) • Sovereign Career Passbook</div>
+        <div class="footer-legal">
           Protected under <strong>Section 79, Information Technology Act, 2000</strong> (Intermediary Safe Harbor).<br>
           Worker sovereignty guaranteed under <strong>Digital Personal Data Protection Act, 2023</strong>.<br>
           Zero cloud surveillance • Zero negative blacklists • 100% Free & Open-Source
         </div>
-        <div style="margin-top: 10px; display: flex; justify-content: center; gap: 12px; font-size: 11px;">
-          <a href="portfolio.html?worker=unknown" style="color: var(--ink-muted); text-decoration: underline;">Switch to Unknown User</a>
-          <span style="color: var(--border);">|</span>
-          <button onclick="localStorage.removeItem('maanyata_sunita_portfolio_v1'); localStorage.removeItem('maanyata_workers_v1'); location.href='portfolio.html?worker=unknown';" style="background: none; border: none; color: var(--ink-muted); font-size: 11px; text-decoration: underline; cursor: pointer;">Reset Local Demo Storage</button>
+        <div class="footer-links">
+          <a href="portfolio.html?worker=unknown">Switch to Unknown User</a>
+          <span class="sep">|</span>
+          <button onclick="localStorage.removeItem('maanyata_sunita_portfolio_v1'); localStorage.removeItem('maanyata_workers_v1'); location.href='portfolio.html?worker=unknown';">Reset Local Demo Storage</button>
         </div>
       </div>
     </footer>
 
   </div>
 
-  <!-- Toast Element -->
+  <!-- Toast -->
   <div id="toast" class="toast">❤️ Appreciation logged in lifetime record!</div>
 
-  <!-- Local Core Storage & Business Engine -->
   <script src="./maanyata_store.js"></script>
-  <!-- Pure-JS Offline QR Generator Engine -->
   <script src="./qr_engine.js"></script>
 
-  <!-- ====================================================================
-       LIGHTWEIGHT EMBEDDED QR ENGINE & LOGIC (ZERO EXTERNAL CDN)
-       ==================================================================== -->
   <script>
-
-    // Initial Seed Data for Sunita Bai
     const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
 
     const DEFAULT_PORTFOLIO = {
@@ -1245,7 +1222,7 @@
     let selectedTraits = new Set(["Always On Time"]);
 
     const SAMPLES = {
-      "sunita_devi": {
+      sunita_devi: {
         name: "Sunita Devi",
         role: "Senior Culinary Specialist & Meal Prep",
         uan: "UAN ****-****-4921",
@@ -1269,7 +1246,7 @@
           }
         ]
       },
-      "ramesh_kumar": {
+      ramesh_kumar: {
         name: "Ramesh Kumar",
         role: "Chauffeur & Senior Mobility Assistant",
         uan: "UAN ****-****-8812",
@@ -1293,7 +1270,7 @@
           }
         ]
       },
-      "asha_kumari": {
+      asha_kumari: {
         name: "Asha Kumari",
         role: "Deep Cleaning & Sanitization Specialist",
         uan: "UAN ****-****-3319",
@@ -1335,14 +1312,14 @@
 
     function loadPortfolio() {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const sampleId = urlParams.get('sample');
+        const params = new URLSearchParams(window.location.search);
+        const sampleId = params.get('sample');
         if (sampleId && SAMPLES[sampleId]) {
           return JSON.parse(JSON.stringify(SAMPLES[sampleId]));
         }
 
-        const workerParam = urlParams.get('worker') || urlParams.get('name');
-        const craftParam = urlParams.get('craft') || urlParams.get('role');
+        const workerParam = params.get('worker') || params.get('name');
+        const craftParam = params.get('craft') || params.get('role');
         if (workerParam) {
           const lower = workerParam.trim().toLowerCase();
           if (lower === 'unknown' || lower === 'unknown user') {
@@ -1365,7 +1342,7 @@
           };
         }
 
-        if (urlParams.get('view') === 'unknown' || urlParams.get('user') === 'unknown') {
+        if (params.get('view') === 'unknown' || params.get('user') === 'unknown') {
           return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
         }
 
@@ -1387,7 +1364,7 @@
       } catch (e) {}
     }
 
-    // Security Patch: HTML Entity Escaping (Prevents DOM XSS Attacks)
+    // Escape HTML to prevent DOM XSS
     function escapeHTML(str) {
       if (str == null) return '';
       return String(str)
@@ -1398,7 +1375,7 @@
         .replace(/'/g, '&#039;');
     }
 
-    // Counter-Hardening: Privacy Masking for Residents (Prevents Burglars Casing Empty Flats)
+    // Mask unit numbers so burglars can't identify empty flats
     function maskUnitPrivacy(unitStr) {
       if (!unitStr) return "Tower Resident";
       if (window.MaanyataStore && window.MaanyataStore.maskUnit) {
@@ -1417,7 +1394,7 @@
         .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
     }
 
-    // Counter-Hardening: Sovereign 8-Char Cryptographic Fingerprint
+    // Derive an 8-character fingerprint from the worker's ID
     function getSovereignFingerprint() {
       const idStr = portfolio.uan || portfolio.name || "Worker";
       let hash = 0;
@@ -1433,14 +1410,13 @@
       document.getElementById("pName").textContent = portfolio.name;
       document.getElementById("pRole").textContent = portfolio.role;
       document.getElementById("pUan").textContent = portfolio.uan;
-      document.getElementById("metricTenure").textContent = portfolio.tenure;
+      document.getElementById("metricTenure").textContent = currentLang === 'hi' ? (portfolio.tenure || "8.5 Yrs").replace(/Yrs?/i, 'वर्ष') : (portfolio.tenure || "8.5 Yrs");
       document.getElementById("metricHouseholds").textContent = portfolio.households;
 
       const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
 
-      // Dynamic initials for avatar
       const nameParts = (portfolio.name || "").trim().split(/\s+/);
-      const initials = isUnknown ? "?" : (nameParts.length >= 2 
+      const initials = isUnknown ? "?" : (nameParts.length >= 2
         ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
         : (portfolio.name || "MK").slice(0, 2).toUpperCase());
       const av = document.getElementById("pAvatar");
@@ -1452,48 +1428,33 @@
         }
       }
 
-      // Banner for Unknown User state
-      const existingUnknownBanner = document.getElementById("unknownUserBanner");
+      // Unknown-user banner
+      const existingBanner = document.getElementById("unknownUserBanner");
       if (isUnknown) {
-        if (!existingUnknownBanner) {
+        if (!existingBanner) {
           const b = document.createElement("div");
           b.id = "unknownUserBanner";
-          b.style = "background:#FEF3C7; border:1.5px solid #FDE68A; border-radius:12px; padding:12px 14px; margin-top:14px; font-size:12px; color:#92400E; line-height:1.5;";
+          b.className = "unknown-banner";
           b.innerHTML = `
             <strong>ℹ️ Unknown User / No Active Passbook Loaded</strong><br>
             You are viewing Project Maanyata without an active worker passbook. Explore an authentic demo passbook or create a new passbook:
-            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;">
-              <a href="portfolio.html?sample=sunita_devi" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">👩‍🍳 Sunita Devi (Cook)</a>
-              <a href="portfolio.html?sample=ramesh_kumar" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">🚗 Ramesh Kumar (Driver)</a>
-              <a href="portfolio.html?sample=asha_kumari" style="padding:6px 12px; background:#FFFFFF; border:1.5px solid #D97706; color:#B45309; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">🧹 Asha Kumari (Cleaner)</a>
-              <a href="onboard.html" style="padding:6px 12px; background:var(--terracotta); color:#FFFFFF; border-radius:8px; font-weight:700; text-decoration:none; font-size:11px;">⚙️ Onboard New Worker</a>
+            <div class="unknown-banner-links">
+              <a href="portfolio.html?sample=sunita_devi" class="unknown-banner-link">👩‍🍳 Sunita Devi (Cook)</a>
+              <a href="portfolio.html?sample=ramesh_kumar" class="unknown-banner-link">🚗 Ramesh Kumar (Driver)</a>
+              <a href="portfolio.html?sample=asha_kumari" class="unknown-banner-link">🧹 Asha Kumari (Cleaner)</a>
+              <a href="onboard.html" class="unknown-banner-link is-primary">⚙️ Onboard New Worker</a>
             </div>
           `;
           document.querySelector(".profile-header").after(b);
         }
-      } else {
-        if (existingUnknownBanner) existingUnknownBanner.remove();
+      } else if (existingBanner) {
+        existingBanner.remove();
       }
 
-      // Dynamic titles across pass and recognition screens
-      const firstName = isUnknown ? "Worker" : (nameParts[0] || portfolio.name || "Worker");
+      // Page Title
       document.title = `${portfolio.name} — Sovereign Work Portfolio | Maanyata`;
 
-      const passTitle = document.getElementById("passCardTitle");
-      if (passTitle) passTitle.textContent = `${firstName}'s Portable Trust Pass`;
-      const recTitle = document.getElementById("recTargetTitle");
-      if (recTitle) recTitle.textContent = `Recognize ${portfolio.name}`;
-      const recDesc = document.getElementById("recTargetDesc");
-      if (recDesc) recDesc.textContent = `Select what ${firstName} did well today. Your recognition is permanently recorded in their portable work portfolio.`;
-
-      // Dynamic reverse-attestation label and back button
-      const tenureLbl = document.getElementById("tenureSelectLabel");
-      if (tenureLbl) tenureLbl.textContent = `How long has ${firstName} served your household? (Reverse-Attestation)`;
-      
-      const backBtn = document.getElementById("btnBackToPortfolio");
-      if (backBtn) backBtn.textContent = `← Back to ${firstName}'s Full Portfolio`;
-
-      // Calculate total recognitions
+      // Total recognitions
       let total = 0;
       for (const t in portfolio.traits) {
         total += portfolio.traits[t].count;
@@ -1501,7 +1462,7 @@
       document.getElementById("metricRecognitions").textContent = total;
       document.getElementById("signalsTotal").textContent = currentLang === 'hi' ? `${total} कुल` : `${total} Total`;
 
-      // Render Trait Badges
+      // Trait badges
       const traitsBox = document.getElementById("traitsList");
       traitsBox.innerHTML = "";
       for (const [name, info] of Object.entries(portfolio.traits)) {
@@ -1515,7 +1476,7 @@
         traitsBox.appendChild(el);
       }
 
-      // Render Dignity Charter Boundaries
+      // Dignity charter terms
       const boundBox = document.getElementById("boundariesList");
       if (boundBox) {
         boundBox.innerHTML = "";
@@ -1535,17 +1496,17 @@
           el.style.background = "var(--terracotta-bg)";
           el.style.borderColor = "var(--terracotta-border)";
           el.style.color = "var(--terracotta)";
-          const displayTxt = (typeof currentLang !== 'undefined' && currentLang === 'hi') ? translateBoundary(t, 'hi') : t;
+          const displayTxt = currentLang === 'hi' ? translateBoundary(t, 'hi') : t;
           el.innerHTML = `<span>${escapeHTML(displayTxt)}</span>`;
           boundBox.appendChild(el);
         });
       }
 
-      // Render References
+      // References
       const refsBox = document.getElementById("referencesList");
       refsBox.innerHTML = "";
-      
-      // Defense: Filter out any defamatory or offensive words and dummy units (e.g. 'Murders people', 'ff')
+
+      // Filter defamatory or placeholder entries
       const BANNED_REGEX = /\b(fuck|shit|nigger|nigga|nigg|murder(?:s|er|ing)?|thief|thieves|theft|steal(?:ing)?|stole|stolen|kill(?:er|ing)?|rape|rapist|police|cops?|arrest(?:ed)?|chor(?:i)?|harami|badmash|fraud|scam|cheat(?:er)?)\b/i;
 
       portfolio.references = (portfolio.references || []).filter(r => {
@@ -1564,17 +1525,17 @@
       const endCountEl = document.getElementById("endorsementsCount");
       if (endCountEl) {
         if (currentLang === 'hi') {
-          endCountEl.textContent = noteCount > 0 
-            ? `${verifiedRefs.length} सत्यापित • ${noteCount} समीक्षा` 
+          endCountEl.textContent = noteCount > 0
+            ? `${verifiedRefs.length} सत्यापित • ${noteCount} समीक्षा`
             : `${verifiedRefs.length} सत्यापित`;
         } else {
-          endCountEl.textContent = noteCount > 0 
-            ? `${verifiedRefs.length} Verified • ${noteCount} Note` 
+          endCountEl.textContent = noteCount > 0
+            ? `${verifiedRefs.length} Verified • ${noteCount} Note`
             : `${verifiedRefs.length} Verified`;
         }
       }
 
-      // Calculate true unique verified households
+      // Unique verified households
       const uniqueUnits = new Set((portfolio.references || [])
         .filter(r => r.certified !== false && r.unit)
         .map(r => r.unit.trim().toLowerCase())
@@ -1585,8 +1546,8 @@
       portfolio.references.forEach(r => {
         const el = document.createElement("div");
         el.className = "reference-quote";
-        const locationBadge = r.locationTag 
-          ? `<div style="font-size:10px; font-weight:700; color:${r.locationVerified ? 'var(--emerald)' : '#B45309'}; margin-top:6px; display:inline-flex; align-items:center; gap:4px; background:${r.locationVerified ? 'var(--emerald-bg, #EDF7F2)' : '#FEF3C7'}; padding:2px 8px; border-radius:4px;">${escapeHTML(r.locationTag)}</div>`
+        const locationBadge = r.locationTag
+          ? `<div class="location-badge ${r.locationVerified ? 'is-verified' : 'is-pending'}">${escapeHTML(r.locationTag)}</div>`
           : '';
 
         let verificationAction = '';
@@ -1596,27 +1557,17 @@
           const btnTxt = currentLang === 'hi' ? "📞 निवासी से पुष्टि करें (30 सेकंड कॉल)" : "📞 Confirm with Resident (30s Callback)";
           const tagTxt = currentLang === 'hi' ? "✓ सत्यापित संपर्क" : "✓ Verified Peer Contact";
           verificationAction = `
-            <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
-              <a href="${waLink}" target="_blank" class="peer-callback-btn">
-                <span>${btnTxt}</span>
-              </a>
-              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">${tagTxt}</span>
+            <div class="verify-row">
+              <a href="${waLink}" target="_blank" class="peer-callback-btn">${btnTxt}</a>
+              <span class="verify-tag">${tagTxt}</span>
             </div>
           `;
         } else if (r.certified) {
           const tagTxt = currentLang === 'hi' ? "✓ ऑन-प्रिमाइस प्रमाणित सत्यापन" : "✓ On-Premises Certified Attestation";
-          verificationAction = `
-            <div style="margin-top: 6px;">
-              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">${tagTxt}</span>
-            </div>
-          `;
+          verificationAction = `<div class="verify-row"><span class="verify-tag">${tagTxt}</span></div>`;
         } else {
           const tagTxt = currentLang === 'hi' ? "⚠️ असत्यापित स्व-दावा" : "⚠️ Unverified Self-Reported Claim";
-          verificationAction = `
-            <div style="margin-top: 6px;">
-              <span class="peer-unverified-tag">${tagTxt}</span>
-            </div>
-          `;
+          verificationAction = `<div class="verify-row"><span class="peer-unverified-tag">${tagTxt}</span></div>`;
         }
 
         const maskedAddress = window.MaanyataStore ? window.MaanyataStore.maskUnit(r.unit) : maskUnitPrivacy(r.unit);
@@ -1633,7 +1584,7 @@
         refsBox.appendChild(el);
       });
 
-            // Update Hero Photo on Gate Pass
+      // Hero photo and fingerprint on the pass
       const heroAvatar = document.getElementById("passHeroAvatar");
       if (heroAvatar && portfolio.photo) {
         heroAvatar.src = portfolio.photo;
@@ -1643,278 +1594,6 @@
         fpEl.textContent = getSovereignFingerprint();
       }
       renderOfflineQR();
-
-      // Check Employer/Resident Mode (?view=hire)
-      checkViewMode(firstName);
-    }
-
-    function checkViewMode(firstName) {
-      const urlParams = new URLSearchParams(window.location.search);
-      const isHireView = urlParams.get('view') === 'hire' || urlParams.get('view') === 'resident' || window.location.href.includes('view=hire') || window.location.hash.includes('hire');
-
-      const hireCard = document.getElementById("employerHireCard");
-      const btnOnboard = document.getElementById("btnHeaderOnboard");
-      const btnShare = document.getElementById("btnHeaderShare");
-      const qrHelp = document.getElementById("passCardHelp");
-      const qrBtnWrap = document.getElementById("workerQrCanvas").parentElement.nextElementSibling;
-
-      if (isHireView) {
-        // 1. Show Employer Hire card
-        if (hireCard) hireCard.style.display = "block";
-        const nameSpan = document.getElementById("hireCardWorkerName");
-        if (nameSpan) nameSpan.textContent = firstName;
-
-        // Populate active agreement checklist
-        const checklist = document.getElementById("hireTermsChecklist");
-        if (checklist) {
-          checklist.innerHTML = "";
-          const terms = portfolio.boundaries || [
-            "Access to clean water and soap to wash hands",
-            "Extreme Weather Late-Arrival Relief"
-          ];
-          terms.forEach(t => {
-            const item = document.createElement("label");
-            item.style = "display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; color:var(--ink-primary); cursor:pointer;";
-            item.innerHTML = `<input type="checkbox" checked disabled style="accent-color:var(--terracotta); width:15px; height:15px;"> <span>${escapeHTML(t)}</span>`;
-            checklist.appendChild(item);
-          });
-        }
-
-        // 2. Adjust header (Always keep Directory, Onboard, and Share Pass available)
-        if (btnOnboard) btnOnboard.style.display = "inline-flex";
-        if (btnShare) btnShare.style.display = "inline-flex";
-
-        let badge = document.getElementById("headerResidentBadge");
-        if (!badge) {
-          badge = document.createElement("span");
-          badge.id = "headerResidentBadge";
-          badge.style = "font-size:11px; font-weight:800; color:#15803D; background:#DCFCE7; padding:4px 10px; border-radius:12px; border:1px solid #BBF7D0;";
-          badge.textContent = "Resident View";
-          document.getElementById("headerActions").prepend(badge);
-        }
-
-        // 3. Adjust Card 4 actions
-        if (qrHelp) {
-          qrHelp.textContent = `Resident Verification: Bookmark this link or scan with another device to verify ${firstName}'s service record anytime.`;
-        }
-        if (qrBtnWrap) {
-          qrBtnWrap.innerHTML = `
-            <button class="btn-action" onclick="openEndorseScreen()">
-              <span>⭐ Endorse ${escapeHTML(firstName)}'s Past Service</span>
-            </button>
-            <a href="directory.html" class="btn-action" style="text-decoration:none; text-align:center; background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle);">
-              <span>🏢 Back to Society Directory</span>
-            </a>
-          `;
-        }
-      } else {
-        // Normal Worker View: show preview banner
-        if (hireCard) hireCard.style.display = "none";
-        if (btnOnboard) btnOnboard.style.display = "inline-flex";
-        if (btnShare) btnShare.style.display = "inline-flex";
-
-        let previewBanner = document.getElementById("workerPreviewBanner");
-        if (!previewBanner) {
-          previewBanner = document.createElement("div");
-          previewBanner.id = "workerPreviewBanner";
-          previewBanner.style = "text-align:center; margin-top:20px; margin-bottom:12px;";
-          previewBanner.innerHTML = `
-            <a href="portfolio.html?view=hire" style="font-size:12px; font-weight:700; color:var(--terracotta); text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--terracotta-bg); border-radius:20px; border:1px solid var(--terracotta-border);">
-              <span>👁️ Preview How Employers See Your Pass →</span>
-            </a>
-          `;
-          document.getElementById("view-portfolio").appendChild(previewBanner);
-        }
-      }
-    }
-
-    function contactWorkerWhatsApp() {
-      const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "Worker";
-      const craft = portfolio.role || "Household Specialist";
-      const terms = (portfolio.boundaries || []).join(", ");
-      const text = `Namaste ${firstName} ji,\n\nI saw your verified Maanyata pass (${craft}, ${portfolio.tenure} tenure) in ${portfolio.society || 'your society'}.\n\nI agree to your Dignity Charter terms (${terms}).\n\nI would like to speak with you regarding household assistance. Are you available for a quick chat?`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
-    }
-
-    // View Switching
-    let isRecognitionMode = false;
-    function toggleView() {
-      isRecognitionMode = !isRecognitionMode;
-      const vPort = document.getElementById("view-portfolio");
-      const vRec = document.getElementById("view-recognition");
-      const btn = document.getElementById("toggleViewBtn");
-      const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "Worker";
-
-      if (isRecognitionMode) {
-        vPort.style.display = "none";
-        vRec.style.display = "block";
-        btn.innerHTML = `<span>👤 View ${escapeHTML(firstName)}'s Profile</span>`;
-      } else {
-        vPort.style.display = "block";
-        vRec.style.display = "none";
-        btn.innerHTML = "<span>🤝 Leave Recognition</span>";
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function simulateCardScan() {
-      openEndorseScreen();
-    }
-
-    function openEndorseScreen() {
-      const encodedName = encodeURIComponent(portfolio.name || "Worker");
-      const encodedCraft = encodeURIComponent(portfolio.role || "Household Specialist");
-      window.location.href = `endorse.html?worker=${encodedName}&craft=${encodedCraft}`;
-    }
-
-    function sharePassWhatsApp() {
-      const encodedName = encodeURIComponent(portfolio.name || "Worker");
-      const encodedCraft = encodeURIComponent(portfolio.role || "Household Specialist");
-      const endorsePath = window.location.href.replace(/[^/]*$/, '') + `endorse.html?worker=${encodedName}&craft=${encodedCraft}`;
-      const shareText = `Namaste! Here is my Project Maanyata sovereign work passbook & endorsement link:\n${endorsePath}`;
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-
-      if (navigator.share) {
-        navigator.share({
-          title: `${portfolio.name}'s Maanyata Passbook`,
-          text: `Verify or endorse ${portfolio.name}'s verified service record:`,
-          url: endorsePath
-        }).catch(() => {
-          window.open(waUrl, "_blank");
-        });
-        return;
-      }
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(endorsePath).then(() => {
-          showToast("📋 Endorsement link copied! Opening WhatsApp...");
-          setTimeout(() => window.open(waUrl, "_blank"), 500);
-        }).catch(() => {
-          window.open(waUrl, "_blank");
-        });
-      } else {
-        window.open(waUrl, "_blank");
-      }
-    }
-
-    // Dynamic Tenure Options Generation (Synchronized with Current Calendar Year)
-    function populateTenureOptions() {
-      const select = document.getElementById("refTenureYears");
-      if (!select) return;
-      const currentYear = new Date().getFullYear();
-      select.innerHTML = "";
-
-      const intervals = [
-        { val: "0.5", text: `Under 6 Months (Joined in ${currentYear})` },
-        { val: "1", text: `1 Year (Serving since ${currentYear - 1})` },
-        { val: "2", text: `2 Years (Serving since ${currentYear - 2})` },
-        { val: "3", text: `3 Years (Serving since ${currentYear - 3})`, selected: true },
-        { val: "4", text: `4 Years (Serving since ${currentYear - 4})` },
-        { val: "5", text: `5 Years (Serving since ${currentYear - 5})` },
-        { val: "6", text: `6 Years (Serving since ${currentYear - 6})` },
-        { val: "7", text: `7 Years (Serving since ${currentYear - 7})` },
-        { val: "8", text: `8 Years (Serving since ${currentYear - 8})` },
-        { val: "9", text: `9 Years (Serving since ${currentYear - 9})` },
-        { val: "10", text: `10 Years (Serving since ${currentYear - 10})` },
-        { val: "12", text: `12+ Years (Serving since ${currentYear - 12} or earlier)` },
-        { val: "15", text: `15+ Years (Serving since ${currentYear - 15} or earlier)` },
-        { val: "20", text: `20+ Years (Serving since ${currentYear - 20} or earlier)` }
-      ];
-
-      intervals.forEach(item => {
-        const opt = document.createElement("option");
-        opt.value = item.val;
-        opt.textContent = item.text;
-        if (item.selected) opt.selected = true;
-        select.appendChild(opt);
-      });
-    }
-
-    // Trait Selection in Recognition Form
-    function selectTrait(btn, traitName, icon) {
-      if (selectedTraits.has(traitName)) {
-        selectedTraits.delete(traitName);
-        btn.classList.remove("selected");
-      } else {
-        selectedTraits.add(traitName);
-        btn.classList.add("selected");
-      }
-    }
-
-    // Submit Appreciation
-    function submitRecognition(e) {
-      e.preventDefault();
-      if (selectedTraits.size === 0) {
-        alert("Please select at least one trait to recognize.");
-        return;
-      }
-
-      const household = document.getElementById("refHousehold").value.trim();
-      const note = document.getElementById("refNote").value.trim();
-      const enteredKey = document.getElementById("refMasterKey").value.trim();
-      const isMasterCertified = (enteredKey === "MYT-8820-ROOT");
-
-      const attestedYears = parseFloat(document.getElementById("refTenureYears").value) || 1;
-      const currentYear = new Date().getFullYear();
-      const startYear = currentYear - attestedYears;
-
-      // Increment traits
-      selectedTraits.forEach(t => {
-        if (portfolio.traits[t]) {
-          portfolio.traits[t].count += 1;
-        } else {
-          portfolio.traits[t] = { count: 1, icon: "⭐" };
-        }
-      });
-
-      // Add written reference / attestation
-      if (household) {
-        if (isMasterCertified) {
-          // Official certified tenure attestation
-          portfolio.references.unshift({
-            quote: note || "Verified honest service & reliable household assistance.",
-            author: "Resident Attestation (Certified)",
-            unit: household,
-            tenure: `${attestedYears} Yrs Certified`,
-            startYear: startYear,
-            certified: true
-          });
-          portfolio.households += 1;
-
-          // Concurrency-safe Calendar Span calculation (no 40-year paradox)
-          const certifiedStartYears = portfolio.references.filter(r => r.certified).map(r => r.startYear);
-          if (certifiedStartYears.length > 0) {
-            const earliestYear = Math.min(...certifiedStartYears);
-            const calculatedTenure = Math.max(0.5, currentYear - earliestYear);
-            portfolio.tenure = `${calculatedTenure} Yrs`;
-          }
-        } else {
-          // Uncertified community appreciation (does NOT ratchet official verified tenure)
-          portfolio.references.unshift({
-            quote: note || "Heartfelt community appreciation.",
-            author: "Community Note",
-            unit: household,
-            tenure: "Unverified Household Note",
-            certified: false
-          });
-        }
-      }
-
-      savePortfolio();
-      renderPortfolio();
-
-      // Reset form
-      document.getElementById("refNote").value = "";
-      document.getElementById("refMasterKey").value = "";
-      document.querySelectorAll(".tap-btn").forEach(b => b.classList.remove("selected"));
-      selectedTraits.clear();
-
-      toggleView();
-      if (isMasterCertified) {
-        showToast("🛡️ Master Certified: Official tenure recorded!");
-      } else {
-        showToast("❤️ Community note recorded (Tenure uncertified)");
-      }
     }
 
     function showToast(msg) {
@@ -1924,15 +1603,12 @@
       setTimeout(() => t.classList.remove("show"), 3500);
     }
 
-    // ====================================================================
-    // LIGHTWEIGHT PURE-CANVAS QR PATTERN ENGINE (ZERO REMOTE CDN)
-    // ====================================================================
+    // Pure-canvas QR rendering (no remote CDN)
     function triggerLivenessProof() {
       const toast = document.getElementById("tapToast");
       const wrap = document.getElementById("qrLivenessWrap");
       if (!toast || !wrap) return;
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString();
+      const timeStr = new Date().toLocaleTimeString();
       toast.textContent = `✓ LIVE ACTIVE PASS • ${timeStr}`;
       toast.style.opacity = "1";
       toast.style.transform = "translate(-50%, -50%) scale(1.05)";
@@ -1971,7 +1647,6 @@
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, size, size);
 
-      // Encode signed token or verifiable portfolio URL
       const payload = portfolio.signedToken || `https://project-maanyata.pages.dev/portfolio.html?id=${encodeURIComponent(portfolio.id || 'sunita-devi-01')}`;
 
       try {
@@ -2002,11 +1677,11 @@
       }
     }
 
-    // Edge Sync: Hydrate live passbook from Cloudflare KV
+    // Sync the passbook from the edge KV store
     async function hydrateFromEdge() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const sampleId = urlParams.get('sample');
-      const workerId = urlParams.get('id') || (sampleId ? (sampleId === 'sunita_devi' ? 'sunita-devi-01' : sampleId === 'ramesh_kumar' ? 'ramesh-kumar-02' : 'asha-kumari-03') : null);
+      const params = new URLSearchParams(window.location.search);
+      const sampleId = params.get('sample');
+      const workerId = params.get('id') || (sampleId ? (sampleId === 'sunita_devi' ? 'sunita-devi-01' : sampleId === 'ramesh_kumar' ? 'ramesh-kumar-02' : 'asha-kumari-03') : null);
       if (!workerId || workerId === 'unknown') return;
 
       try {
@@ -2024,9 +1699,7 @@
       }
     }
 
-    // ====================================================================
-    // SOL-CONTRAST & LANGUAGE ENGINE CONTROLLERS
-    // ====================================================================
+    // Theme and language
     let currentTheme = localStorage.getItem('mny_theme') || 'daylight';
     let currentLang = localStorage.getItem('mny_lang') || 'en';
 
@@ -2194,7 +1867,7 @@
         if (dict[key]) el.textContent = dict[key];
       });
 
-      // Update worker name and role if standard demo profile
+      // Swap the demo worker's name and role to match the language
       const nameEl = document.getElementById("pName");
       const roleEl = document.getElementById("pRole");
       if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "सुनीता देवी")) {
@@ -2206,11 +1879,10 @@
         roleEl.textContent = portfolio.role;
       }
 
-      // Re-render dynamic components in selected language
       renderPortfolio();
     }
 
-    // WhatsApp Sharing for Frontline Domestic Workers & Employers
+    // WhatsApp sharing
     function sharePassbookWhatsApp() {
       const workerName = portfolio.name || 'Sunita Devi';
       const workerRole = portfolio.role || 'Senior Household Specialist';
@@ -2220,14 +1892,14 @@
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Modal: Sovereign Dignity Charter & Working Terms
+    // Working-terms modal
     function openCustomizeModal() {
       const modal = document.getElementById("customizeModal");
       if (!modal) return;
 
       const descEl = document.getElementById("custModalIdentityDesc");
       if (descEl) {
-        descEl.textContent = currentLang === 'hi' 
+        descEl.textContent = currentLang === 'hi'
           ? `कार्यकर्ता: ${portfolio.name} • ई-श्रम सत्यापित • कार्यकाल एवं अनुभव स्थानीय निवासियों के सत्यापन पर आधारित है। कार्यकर्ता नीचे अपने कार्य नियम व सुरक्षा सीमाएं तय करते हैं।`
           : `Worker: ${portfolio.name} • e-Shram Verified • Tenure and identity are anchored by verified resident attestations. Workers exercise sovereign rights over their working terms below.`;
       }
@@ -2239,9 +1911,9 @@
         AVAILABLE_BOUNDARIES.forEach(b => {
           const isChecked = activeTerms.some(t => t.toLowerCase().includes(b.en.toLowerCase().replace(/[^a-z]/g, '').slice(0, 15)));
           const row = document.createElement("label");
-          row.style.cssText = "display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-primary); cursor:pointer; padding:8px 10px; border:1px solid var(--border-subtle); border-radius:8px; background:var(--card-subtle);";
+          row.className = "boundary-option";
           row.innerHTML = `
-            <input type="checkbox" name="boundaries" value="${escapeHTML(b.icon + ' ' + b.en)}" ${isChecked ? "checked" : ""} style="accent-color:var(--terracotta); width:16px; height:16px;">
+            <input type="checkbox" name="boundaries" value="${escapeHTML(b.icon + ' ' + b.en)}" ${isChecked ? "checked" : ""}>
             <span>${b.icon} ${currentLang === 'hi' ? b.hi : b.en}</span>
           `;
           bList.appendChild(row);
@@ -2270,14 +1942,8 @@
       showToast(currentLang === 'hi' ? "✓ गरिमा कार्य नियम अपडेट किए गए" : "✓ Dignity Working Terms Updated");
     }
 
-    // Initialize on load
     function initApp() {
       initThemeAndLang();
-      populateTenureOptions();
-      // Check query param for direct recognition action
-      if (window.location.search.includes("action=recognize")) {
-        toggleView();
-      }
       renderPortfolio();
       hydrateFromEdge();
     }
