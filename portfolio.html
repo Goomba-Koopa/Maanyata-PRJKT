@@ -6,41 +6,64 @@
   <title>Sovereign Work Portfolio | Maanyata</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
        MAANYATA — SOVEREIGN WORKER PORTFOLIO & RECOGNITION ENGINE
-       Aesthetic: Warm AXIOM Daylight (Parchment, Terracotta, Forest Emerald)
-       Zero Corporate Taxidermy • 100% Focused on Worker Dignity
+       Typography: Yatra One (Display) • Anek Devanagari (UI) • Sarala (Metadata)
+       Color Tokens: Physical Pantone calibrated spot swatches disguised as HEX
+       Engineered for: Vasudev Complex, Mira Road (East)
        ========================================================================== */
 
     :root {
-      --canvas: #FAF8F5;
-      --card-bg: #FFFFFF;
-      --card-subtle: #F5F1E9;
+      /* Calibrated Physical Pantone Tokens (Disguised as HEX) */
+      --mny-navy: #0B192C;          /* Pantone 282 C (Passport Navy) */
+      --mny-terracotta: #C2410C;      /* Pantone 1675 C (Terracotta Stamp) */
+      --mny-terracotta-hover: #9A3412;
+      --mny-terracotta-bg: #FFF7ED;
+      --mny-terracotta-border: #FFEDD5;
+
+      --mny-verified: #15803D;        /* Pantone 348 C (Official Seal Green) */
+      --mny-verified-bg: #ECFDF5;
+      --mny-verified-border: #A7F3D0;
+
+      --mny-paper: #FAF8F5;           /* Pantone 7527 C (Unbleached Ledger Cardstock) */
+      --mny-card: #FFFFFF;
+      --mny-card-subtle: #F5F1E9;
+      --mny-carbon: #1C1917;          /* Pantone Black 6 C */
+      --mny-tenure-gold: #B45309;     /* Pantone 130 C (Seniority Brass) */
+
+      --canvas: var(--mny-paper);
+      --card-bg: var(--mny-card);
+      --card-subtle: var(--mny-card-subtle);
       --border: #E8E2D5;
       --border-strong: #D6CEBE;
       
-      --ink-primary: #1C1917;
+      --ink-primary: var(--mny-carbon);
       --ink-secondary: #44403C;
       --ink-muted: #78716C;
       --ink-faint: #A8A29E;
 
-      --terracotta: #C2410C;
-      --terracotta-hover: #9A3412;
-      --terracotta-bg: #FFF7ED;
-      --terracotta-border: #FFEDD5;
+      --terracotta: var(--mny-terracotta);
+      --terracotta-hover: var(--mny-terracotta-hover);
+      --terracotta-bg: var(--mny-terracotta-bg);
+      --terracotta-border: var(--mny-terracotta-border);
 
-      --emerald: #047857;
-      --emerald-bg: #ECFDF5;
-      --emerald-border: #A7F3D0;
+      --emerald: var(--mny-verified);
+      --emerald-bg: var(--mny-verified-bg);
+      --emerald-border: var(--mny-verified-border);
 
-      --amber: #B45309;
+      --amber: var(--mny-tenure-gold);
       --amber-bg: #FFFBEB;
       --amber-border: #FDE68A;
 
-      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Typography Hierarchy */
+      --font-display: 'Yatra One', system-ui, sans-serif;
+      --font-ui: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Sarala', monospace;
+
+      --font-heading: var(--font-display);
+      --font-body: var(--font-ui);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -140,6 +163,102 @@
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
+    }
+
+    /* ==========================================================================
+       FANCY ROSETTE (The Train Pass Edge)
+       ========================================================================== */
+    .fancy-rosette {
+      position: relative;
+      border-top: 3px solid var(--terracotta) !important;
+      background-image: 
+        radial-gradient(circle at 50% 0%, transparent 5px, rgba(11, 25, 44, 0.03) 6px),
+        repeating-linear-gradient(45deg, rgba(194, 65, 12, 0.04) 0px, rgba(194, 65, 12, 0.04) 1px, transparent 1px, transparent 6px);
+      background-size: 100% 12px, 12px 12px;
+      background-repeat: no-repeat, repeat;
+    }
+    .fancy-rosette::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      border-bottom: 1px dashed rgba(194, 65, 12, 0.25);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       SOL-CONTRAST MODE (High-Noon Sun Penetration Engine)
+       ========================================================================== */
+    [data-theme="sol"] {
+      --canvas: #FFFFFF;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F5F5F5;
+      --border: #000000;
+      --border-strong: #000000;
+      --ink-primary: #000000;
+      --ink-secondary: #000000;
+      --ink-muted: #111111;
+      --ink-faint: #222222;
+
+      --terracotta: #B91C1C;
+      --terracotta-bg: #FEE2E2;
+      --terracotta-border: #000000;
+
+      --emerald: #15803D;
+      --emerald-bg: #DCFCE7;
+      --emerald-border: #000000;
+    }
+
+    [data-theme="sol"] body {
+      background-color: #FFFFFF !important;
+      color: #000000 !important;
+    }
+
+    [data-theme="sol"] .card {
+      border: 2px solid #000000 !important;
+      box-shadow: none !important;
+      background: #FFFFFF !important;
+    }
+
+    [data-theme="sol"] * {
+      font-variation-settings: 'wght' 600 !important;
+    }
+
+    [data-theme="sol"] h1, 
+    [data-theme="sol"] h2, 
+    [data-theme="sol"] .brand-name, 
+    [data-theme="sol"] .metric-val {
+      font-variation-settings: 'wght' 750 !important;
+      color: #000000 !important;
+    }
+
+    [data-theme="sol"] .mode-toggle-btn,
+    [data-theme="sol"] .btn-action,
+    [data-theme="sol"] .btn-submit-tap {
+      border: 2px solid #000000 !important;
+      box-shadow: none !important;
+      font-weight: 800 !important;
+    }
+
+    [data-theme="sol"] .qr-canvas-wrap {
+      border: 3px solid #000000 !important;
+      background: #FFFFFF !important;
+      padding: 12px !important;
+    }
+
+    /* Tabular Numeral Rigidity & Slashed Zero */
+    .metric-val, #liveClockTicker, #passFingerprint, .profile-gov-id {
+      font-family: var(--font-mono) !important;
+      font-feature-settings: "tnum" 1, "zero" 1 !important;
+      font-variant-numeric: tabular-nums slashed-zero !important;
+    }
+
+    /* Shirorekha Optical Re-centering for Hindi/Marathi */
+    [lang="hi"] .btn-txt, [lang="mr"] .btn-txt {
+      display: inline-block;
+      transform: translateY(-1.5px);
     }
 
     /* Worker Profile Header */
@@ -712,35 +831,44 @@
     <header class="masthead">
       <a href="portfolio.html" class="brand-mark">
         <div class="brand-glyph">म</div>
-        <div class="brand-name">Maanyata</div>
+        <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
-      <div id="headerActions" style="display:flex; align-items:center; gap:8px;">
-        <a href="directory.html" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);" title="Browse Maryland Palms Staff">
-          <span>🏢 Directory</span>
-        </a>
-        <a href="onboard.html" id="btnHeaderOnboard" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
-          <span>⚙️ Onboard</span>
+      <div id="headerActions" style="display:flex; align-items:center; gap:6px;">
+        <button id="btnSolToggle" class="mode-toggle-btn" onclick="toggleSolMode()" title="Toggle Sol-Contrast (Sunlight Mode)" style="background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <span id="solBtnLabel">Sol</span>
+        </button>
+        <button id="btnLangToggle" class="mode-toggle-btn" onclick="toggleLanguage()" title="Toggle Language (English / हिन्दी)" style="background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          <span id="langBtnLabel">हिन्दी</span>
+        </button>
+        <a href="directory.html" class="mode-toggle-btn" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border-color:var(--border);" title="Browse Vasudev Complex Staff">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+          <span data-i18n="navDirectory">Directory</span>
         </a>
         <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassWhatsApp()" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
-          <span>💬 Share Pass</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:3px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span data-i18n="navShare">Share</span>
         </button>
       </div>
     </header>
 
     <!-- ====================================================================
-         VIEW 1: SOVEREIGN WORKER TRUST PORTFOLIO (SUNITA BAI)
+         VIEW 1: SOVEREIGN WORKER TRUST PORTFOLIO (SUNITA DEVI)
          ==================================================================== -->
     <main id="view-portfolio">
 
       <!-- Card 1: Identity & Dignity Anchor -->
-      <div class="card">
+      <div class="card fancy-rosette">
         <div class="profile-header">
           <div class="avatar-wrap">
-            <div class="avatar" id="pAvatar">SB</div>
-            <div class="verified-seal" title="Verified e-Shram Worker">✓</div>
+            <div class="avatar" id="pAvatar">SD</div>
+            <div class="verified-seal" title="Cryptographically Attested Worker">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
           </div>
           <div class="profile-meta">
-            <h1 id="pName">Sunita Bai</h1>
+            <h1 id="pName">Sunita Devi</h1>
             <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
             <div class="profile-gov-id">
               <span>e-Shram Verified</span>
@@ -754,15 +882,15 @@
         <div class="metrics-grid">
           <div class="metric-col">
             <div class="metric-val" id="metricTenure">8.5 Yrs</div>
-            <div class="metric-lbl">Tenure</div>
+            <div class="metric-lbl" data-i18n="lblTenure">Tenure</div>
           </div>
           <div class="metric-col">
             <div class="metric-val" id="metricHouseholds">19</div>
-            <div class="metric-lbl">Households</div>
+            <div class="metric-lbl" data-i18n="lblHouseholds">Households</div>
           </div>
           <div class="metric-col">
             <div class="metric-val" id="metricRecognitions">38</div>
-            <div class="metric-lbl">Recognitions</div>
+            <div class="metric-lbl" data-i18n="lblRecognitions">Recognitions</div>
           </div>
         </div>
       </div>
@@ -1837,8 +1965,111 @@
       }
     }
 
+    // ====================================================================
+    // SOL-CONTRAST & LANGUAGE ENGINE CONTROLLERS
+    // ====================================================================
+    let currentTheme = localStorage.getItem('mny_theme') || 'daylight';
+    let currentLang = localStorage.getItem('mny_lang') || 'en';
+
+    function initThemeAndLang() {
+      if (currentTheme === 'sol') {
+        document.documentElement.setAttribute('data-theme', 'sol');
+        updateSolBtn(true);
+      }
+      applyLanguage(currentLang);
+    }
+
+    function toggleSolMode() {
+      const isSol = document.documentElement.getAttribute('data-theme') === 'sol';
+      if (isSol) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('mny_theme', 'daylight');
+        updateSolBtn(false);
+        showToast("🌤️ Daylight Mode Activated");
+      } else {
+        document.documentElement.setAttribute('data-theme', 'sol');
+        localStorage.setItem('mny_theme', 'sol');
+        updateSolBtn(true);
+        showToast("☀️ Sol-Contrast Activated (Max Glare Defense)");
+      }
+    }
+
+    function updateSolBtn(isSol) {
+      const lbl = document.getElementById("solBtnLabel");
+      if (lbl) lbl.textContent = isSol ? "Daylight" : "Sol";
+    }
+
+    const I18N = {
+      en: {
+        brand: "Maanyata",
+        navDirectory: "Directory",
+        navShare: "Share",
+        lblTenure: "TENURE",
+        lblHouseholds: "HOUSEHOLDS",
+        lblRecognitions: "RECOGNITIONS",
+        passTitle: "Portable Trust Pass",
+        passHelp: "Show this QR code to an employer or security guard. Tap the box below to prove live session to guard.",
+        livePass: "LIVE GATE PASS",
+        verifiedWorker: "Verified Worker",
+        charterTitle: "Dignity Charter & Working Terms"
+      },
+      hi: {
+        brand: "मान्यता",
+        navDirectory: "निर्देशिका",
+        navShare: "साझा करें",
+        lblTenure: "कार्यकाल",
+        lblHouseholds: "परिवार",
+        lblRecognitions: "प्रशंसा",
+        passTitle: "सत्यापित ट्रस्ट पास",
+        passHelp: "यह क्यूआर कोड सुरक्षा गार्ड या नियोक्ता को दिखाएं। सक्रिय सत्र प्रमाणित करने के लिए नीचे टैप करें।",
+        livePass: "सक्रिय गेट पास",
+        verifiedWorker: "सत्यापित कार्यकर्ता",
+        charterTitle: "गरिमा चार्टर एवं कार्य नियम"
+      }
+    };
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'en' ? 'hi' : 'en';
+      applyLanguage(nextLang);
+      showToast(nextLang === 'hi' ? "🌐 हिन्दी मोड सक्रिय" : "🌐 English Mode Active");
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('mny_lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+
+      const dict = I18N[lang] || I18N.en;
+      const langBtn = document.getElementById("langBtnLabel");
+      if (langBtn) langBtn.textContent = lang === 'en' ? "हिन्दी" : "English";
+
+      const brandTitle = document.getElementById("brandTitle");
+      if (brandTitle) brandTitle.textContent = dict.brand;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      // Update worker name and role
+      const nameEl = document.getElementById("pName");
+      const roleEl = document.getElementById("pRole");
+      if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "Sunita Bai")) {
+        nameEl.textContent = lang === 'hi' ? "सुनीता देवी" : "Sunita Devi";
+      }
+      if (roleEl && (portfolio.name === "Sunita Devi" || portfolio.name === "Sunita Bai")) {
+        roleEl.textContent = lang === 'hi' ? "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)" : "Senior Household & Culinary Specialist";
+      }
+
+      const passCardTitle = document.getElementById("passCardTitle");
+      if (passCardTitle) passCardTitle.textContent = dict.passTitle;
+      const passCardHelp = document.getElementById("passCardHelp");
+      if (passCardHelp) passCardHelp.textContent = dict.passHelp;
+    }
+
     // Initialize on load
     function initApp() {
+      initThemeAndLang();
       populateTenureOptions();
       // Check query param for direct recognition action
       if (window.location.search.includes("action=recognize")) {
