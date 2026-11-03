@@ -871,7 +871,7 @@
             <h1 id="pName">Sunita Devi</h1>
             <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
             <div class="profile-gov-id">
-              <span>e-Shram Verified</span>
+              <span data-i18n="badgeEShram">e-Shram Verified</span>
               <span>•</span>
               <span id="pUan">UAN ****-****-4921</span>
             </div>
@@ -881,15 +881,15 @@
         <!-- 3-Column Dignity Metrics -->
         <div class="metrics-grid">
           <div class="metric-col">
-            <div class="metric-val" id="metricTenure">8.5 Yrs</div>
+            <div class="metric-val" id="metricTenure">—</div>
             <div class="metric-lbl" data-i18n="lblTenure">Tenure</div>
           </div>
           <div class="metric-col">
-            <div class="metric-val" id="metricHouseholds">19</div>
+            <div class="metric-val" id="metricHouseholds">—</div>
             <div class="metric-lbl" data-i18n="lblHouseholds">Households</div>
           </div>
           <div class="metric-col">
-            <div class="metric-val" id="metricRecognitions">38</div>
+            <div class="metric-val" id="metricRecognitions">—</div>
             <div class="metric-lbl" data-i18n="lblRecognitions">Recognitions</div>
           </div>
         </div>
@@ -967,8 +967,8 @@
       <!-- Card 2: Dignity Charter (Working Terms & Boundaries) -->
       <div class="card" style="margin-top: 16px;">
         <div class="section-title">
-          <span>Dignity Charter & Working Terms</span>
-          <span class="count-badge" id="boundariesCount">Working Terms</span>
+          <span data-i18n="secDignityCharter">Dignity Charter & Working Terms</span>
+          <span class="count-badge" id="boundariesCount" data-i18n="badgeWorkingTerms">Working Terms</span>
         </div>
         <div class="traits-grid" id="boundariesList">
           <!-- Rendered via JavaScript -->
@@ -978,30 +978,30 @@
       <!-- Card 2.5: Craft Risk Siloing (Decoupling Surface Chores from High-Risk Roles) -->
       <div class="card" style="margin-top: 16px;">
         <div class="section-title">
-          <span>Craft Risk Silos (कार्य वर्गीकरण)</span>
-          <span class="count-badge">Risk Gated</span>
+          <span data-i18n="secCraftSilos">Craft Risk Silos (कार्य वर्गीकरण)</span>
+          <span class="count-badge" data-i18n="badgeRiskGated">Risk Gated</span>
         </div>
         <div class="silo-grid">
           <div class="silo-card">
             <div class="silo-header">
-              <span class="silo-title">🧹 Surface Crafts (Cleaning / Utensils)</span>
-              <span class="silo-badge-low">Standard Risk</span>
+              <span class="silo-title" data-i18n="siloSurface">🧹 Surface Crafts (Cleaning / Utensils)</span>
+              <span class="silo-badge-low" data-i18n="badgeStandardRisk">Standard Risk</span>
             </div>
-            <div class="silo-desc">Floor sweeping, mopping, utensil washing. Low blast radius.</div>
+            <div class="silo-desc" data-i18n="descSurface">Floor sweeping, mopping, utensil washing. Low blast radius.</div>
           </div>
           <div class="silo-card">
             <div class="silo-header">
-              <span class="silo-title">🍲 Culinary Specialization (Cooking)</span>
-              <span class="silo-badge-med">Moderate Risk</span>
+              <span class="silo-title" data-i18n="siloCulinary">🍲 Culinary Specialization (Cooking)</span>
+              <span class="silo-badge-med" data-i18n="badgeModerateRisk">Moderate Risk</span>
             </div>
-            <div class="silo-desc">Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.</div>
+            <div class="silo-desc" data-i18n="descCulinary">Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.</div>
           </div>
           <div class="silo-card" style="border-color: #FECACA; background: #FFF5F5;">
             <div class="silo-header">
-              <span class="silo-title">🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)</span>
-              <span class="silo-badge-high">High Consequence</span>
+              <span class="silo-title" data-i18n="siloHighRisk">🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)</span>
+              <span class="silo-badge-high" data-i18n="badgeHighRisk">High Consequence</span>
             </div>
-            <div class="silo-desc">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
+            <div class="silo-desc" data-i18n="descHighRisk">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
           </div>
         </div>
       </div>
@@ -1009,7 +1009,7 @@
       <!-- Card 3: Verified Trust Signals (Aggregated from Real Taps) -->
       <div class="card" style="margin-top: 16px;">
         <div class="section-title">
-          <span>Community Trust Signals</span>
+          <span data-i18n="secTrustSignals">Community Trust Signals</span>
           <span class="count-badge" id="signalsTotal">38 Total</span>
         </div>
         <div class="traits-grid" id="traitsList">
@@ -1017,10 +1017,10 @@
         </div>
       </div>
 
-      <!-- Card 3: Verified Household References (Real Humans Speaking) -->
+      <!-- Card 3.5: Verified Household References (Real Humans Speaking) -->
       <div class="card" style="margin-top: 16px;">
         <div class="section-title">
-          <span>Household Endorsements</span>
+          <span data-i18n="secEndorsements">Household Endorsements</span>
           <span class="count-badge" id="endorsementsCount">2 Verified</span>
         </div>
         <div class="reference-list" id="referencesList">
@@ -1042,30 +1042,74 @@
           <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
             <div class="liveness-ticker">
               <span class="liveness-dot"></span>
-              <span>LIVE GATE PASS • <span id="liveClockTicker">--:--:--</span></span>
+              <span><span data-i18n="lblLiveGatePass">LIVE GATE PASS</span> • <span id="liveClockTicker">--:--:--</span></span>
             </div>
             <div id="passFingerprint" style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--ink-secondary); letter-spacing:0.04em;">
               #M-7F2A-4921
             </div>
           </div>
         </div>
-        <div id="passCardTitle" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink-primary);">
+        <div id="passCardTitle" style="font-family: var(--font-heading); font-weight: 800; font-size: 16px; color: var(--ink-primary);" data-i18n="passTitle">
           Portable Trust Pass
         </div>
-        <p class="card-help" id="passCardHelp">
+        <p class="card-help" id="passCardHelp" data-i18n="passHelp">
           Show this QR code to an employer or security guard. Tap the box below to prove live session to guard.
         </p>
         <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to prove live session">
           <canvas id="workerQrCanvas"></canvas>
           <div class="tap-liveness-toast" id="tapToast">✓ LIVE ACTIVE PASS</div>
         </div>
+        
+        <!-- Live Worker Action Controls (Killed the Dummies) -->
         <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
-          <button class="btn-action" onclick="openEndorseScreen()">
-            <span>💬 Test Resident Endorsement Link (WhatsApp Flow)</span>
+          <button class="btn-action" onclick="openCustomizeModal()" style="background:var(--terracotta); color:#FFFFFF; border:none; padding:12px 14px; font-size:14px; font-weight:700;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <span data-i18n="btnCustomize">Customize Profile & Dignity Boundaries</span>
           </button>
-          <button class="btn-action" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-subtle);" onclick="simulateCardScan()">
-            <span>📱 Test In-Person Scan (10-Second Tap)</span>
-          </button>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <button class="btn-action" onclick="openPhysicalCard()" style="background:var(--card-bg); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+              <span data-i18n="btnPrintPass">Print PVC Pass</span>
+            </button>
+            <a href="verify.html" class="btn-action" style="text-decoration:none; background:var(--card-subtle); color:var(--ink-secondary); border:1.5px solid var(--border-strong); padding:10px 12px; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span data-i18n="btnVerifyGate">Gate Check</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Profile & Dignity Boundary Customization -->
+      <div id="customizeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); z-index:1000; align-items:center; justify-content:center; padding:16px;">
+        <div class="card" style="max-width:480px; width:100%; max-height:90vh; overflow-y:auto; background:var(--card-bg); border-radius:20px; padding:22px; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.3);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h2 style="font-family:var(--font-heading); font-size:18px; font-weight:800; color:var(--ink-primary); margin:0;" data-i18n="modalTitle">Customize Profile & Boundaries</h2>
+            <button onclick="closeCustomizeModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-muted); line-height:1;">&times;</button>
+          </div>
+          <form id="customizeForm" onsubmit="saveCustomProfile(event)">
+            <div style="margin-bottom:12px;">
+              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblWorkerName">Worker Name</label>
+              <input type="text" id="custName" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblPrimaryCraft">Primary Craft / Specialization</label>
+              <input type="text" id="custRole" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:4px;" data-i18n="lblTenureBaseline">Career Seniority (Years)</label>
+              <input type="text" id="custTenure" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); font-family:var(--font-body); font-size:14px; background:var(--card-bg); color:var(--ink-primary);" required>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label style="font-size:12px; font-weight:700; color:var(--ink-secondary); display:block; margin-bottom:6px;" data-i18n="lblBoundaries">Dignity Charter (Select Working Terms)</label>
+              <div id="custBoundariesList" style="display:flex; flex-direction:column; gap:8px;">
+                <!-- dynamic checkboxes -->
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta); color:#FFFFFF; border:none; padding:12px; font-size:14px; font-weight:700;" data-i18n="btnSaveProfile">Save Changes</button>
+              <button type="button" onclick="closeCustomizeModal()" class="btn-action" style="background:var(--card-subtle); color:var(--ink-secondary); border:1px solid var(--border); padding:12px; font-size:14px; font-weight:600;" data-i18n="btnCancel">Cancel</button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -1156,6 +1200,8 @@
 
   <!-- Local Core Storage & Business Engine -->
   <script src="./maanyata_store.js"></script>
+  <!-- Pure-JS Offline QR Generator Engine -->
+  <script src="./qr_engine.js"></script>
 
   <!-- ====================================================================
        LIGHTWEIGHT EMBEDDED QR ENGINE & LOGIC (ZERO EXTERNAL CDN)
@@ -1452,7 +1498,7 @@
         total += portfolio.traits[t].count;
       }
       document.getElementById("metricRecognitions").textContent = total;
-      document.getElementById("signalsTotal").textContent = `${total} Total`;
+      document.getElementById("signalsTotal").textContent = currentLang === 'hi' ? `${total} कुल` : `${total} Total`;
 
       // Render Trait Badges
       const traitsBox = document.getElementById("traitsList");
@@ -1460,8 +1506,9 @@
       for (const [name, info] of Object.entries(portfolio.traits)) {
         const el = document.createElement("div");
         el.className = "trait-badge";
+        const traitDisplayName = (currentLang === 'hi' && TRAIT_MAP_HI[name]) ? TRAIT_MAP_HI[name] : name;
         el.innerHTML = `
-          <span>${escapeHTML(info.icon)} ${escapeHTML(name)}</span>
+          <span>${escapeHTML(info.icon)} ${escapeHTML(traitDisplayName)}</span>
           <span class="trait-count">${escapeHTML(info.count)}</span>
         `;
         traitsBox.appendChild(el);
@@ -1471,20 +1518,24 @@
       const boundBox = document.getElementById("boundariesList");
       if (boundBox) {
         boundBox.innerHTML = "";
-        const terms = portfolio.boundaries || [
-          "📅 Minimum 1 Agreed Weekly Rest Day (Chosen Mutually)",
-          "💳 Direct Resident UPI on 1st/5th of Month",
-          "🧤 Zero Acid / Hazardous Chemical Cleaning",
-          "☕ 30-Min Midday Lunch Break on Full Shifts"
+        const terms = portfolio.boundaries && portfolio.boundaries.length > 0 ? portfolio.boundaries : [
+          "Minimum 1 Agreed Weekly Rest Day",
+          "Direct Resident UPI on 1st of Month",
+          "Zero toxic acid chemicals for cleaning",
+          "Access to clean water and soap to wash my hands"
         ];
-        document.getElementById("boundariesCount").textContent = `${terms.length} Terms`;
+        const termsCountEl = document.getElementById("boundariesCount");
+        if (termsCountEl) {
+          termsCountEl.textContent = currentLang === 'hi' ? `${terms.length} नियम` : `${terms.length} Terms`;
+        }
         terms.forEach(t => {
           const el = document.createElement("div");
           el.className = "trait-badge";
           el.style.background = "var(--terracotta-bg)";
           el.style.borderColor = "var(--terracotta-border)";
           el.style.color = "var(--terracotta)";
-          el.innerHTML = `<span>${escapeHTML(t)}</span>`;
+          const displayTxt = (typeof currentLang !== 'undefined' && currentLang === 'hi') ? translateBoundary(t, 'hi') : t;
+          el.innerHTML = `<span>${escapeHTML(displayTxt)}</span>`;
           boundBox.appendChild(el);
         });
       }
@@ -1511,9 +1562,15 @@
       const noteCount = (portfolio.references || []).length - verifiedRefs.length;
       const endCountEl = document.getElementById("endorsementsCount");
       if (endCountEl) {
-        endCountEl.textContent = noteCount > 0 
-          ? `${verifiedRefs.length} Verified • ${noteCount} Note` 
-          : `${verifiedRefs.length} Verified`;
+        if (currentLang === 'hi') {
+          endCountEl.textContent = noteCount > 0 
+            ? `${verifiedRefs.length} सत्यापित • ${noteCount} समीक्षा` 
+            : `${verifiedRefs.length} सत्यापित`;
+        } else {
+          endCountEl.textContent = noteCount > 0 
+            ? `${verifiedRefs.length} Verified • ${noteCount} Note` 
+            : `${verifiedRefs.length} Verified`;
+        }
       }
 
       // Calculate true unique verified households
@@ -1535,24 +1592,28 @@
         if (r.contact) {
           const cleanPhone = String(r.contact).replace(/[^0-9+]/g, '');
           const waLink = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(`Namaste, I am considering hiring ${portfolio.name} via Project Maanyata. Could I confirm their service with your household for 30 seconds?`)}`;
+          const btnTxt = currentLang === 'hi' ? "📞 निवासी से पुष्टि करें (30 सेकंड कॉल)" : "📞 Confirm with Resident (30s Callback)";
+          const tagTxt = currentLang === 'hi' ? "✓ सत्यापित संपर्क" : "✓ Verified Peer Contact";
           verificationAction = `
             <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
               <a href="${waLink}" target="_blank" class="peer-callback-btn">
-                <span>📞 Confirm with Resident (30s Callback)</span>
+                <span>${btnTxt}</span>
               </a>
-              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">✓ Verified Peer Contact</span>
+              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">${tagTxt}</span>
             </div>
           `;
         } else if (r.certified) {
+          const tagTxt = currentLang === 'hi' ? "✓ ऑन-प्रिमाइस प्रमाणित सत्यापन" : "✓ On-Premises Certified Attestation";
           verificationAction = `
             <div style="margin-top: 6px;">
-              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">✓ On-Premises Certified Attestation</span>
+              <span style="font-size: 10px; font-weight: 700; color: var(--emerald); background: var(--emerald-bg); padding: 2px 6px; border-radius: 4px;">${tagTxt}</span>
             </div>
           `;
         } else {
+          const tagTxt = currentLang === 'hi' ? "⚠️ असत्यापित स्व-दावा" : "⚠️ Unverified Self-Reported Claim";
           verificationAction = `
             <div style="margin-top: 6px;">
-              <span class="peer-unverified-tag">⚠️ Unverified Self-Reported Claim</span>
+              <span class="peer-unverified-tag">${tagTxt}</span>
             </div>
           `;
         }
@@ -1906,40 +1967,37 @@
       canvas.width = size;
       canvas.height = size;
 
-      // Draw high-contrast clean barcode canvas
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, size, size);
 
-      // Deterministic decorative clean QR matrix pattern representing Sunita's URL
-      const modules = 25;
-      const cellSize = Math.floor(size / modules);
-      const offset = Math.floor((size - (modules * cellSize)) / 2);
+      // Encode signed token or verifiable portfolio URL
+      const payload = portfolio.signedToken || `https://project-maanyata.pages.dev/portfolio.html?id=${encodeURIComponent(portfolio.id || 'sunita-devi-01')}`;
 
-      ctx.fillStyle = "#1C1917";
+      try {
+        if (typeof QRCodeModel !== "undefined") {
+          const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
+          qr.addData(payload);
+          qr.make();
+          const moduleCount = qr.getModuleCount();
+          const quietZone = 2;
+          const cellSize = size / (moduleCount + quietZone * 2);
 
-      // Draw position finders (Top-Left, Top-Right, Bottom-Left)
-      function drawFinder(row, col) {
-        ctx.fillRect(offset + col * cellSize, offset + row * cellSize, 7 * cellSize, 7 * cellSize);
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(offset + (col + 1) * cellSize, offset + (row + 1) * cellSize, 5 * cellSize, 5 * cellSize);
-        ctx.fillStyle = "#1C1917";
-        ctx.fillRect(offset + (col + 2) * cellSize, offset + (row + 2) * cellSize, 3 * cellSize, 3 * cellSize);
-      }
-
-      drawFinder(1, 1);
-      drawFinder(1, 17);
-      drawFinder(17, 1);
-
-      // Deterministic fill pattern based on Sunita's ID
-      let seed = 4921;
-      for (let r = 0; r < modules; r++) {
-        for (let c = 0; c < modules; c++) {
-          if ((r < 9 && c < 9) || (r < 9 && c > 15) || (r > 15 && c < 9)) continue;
-          seed = (seed * 9301 + 49297) % 233280;
-          if (seed % 3 === 0) {
-            ctx.fillRect(offset + c * cellSize, offset + r * cellSize, cellSize, cellSize);
+          ctx.fillStyle = "#1C1917";
+          for (let r = 0; r < moduleCount; r++) {
+            for (let c = 0; c < moduleCount; c++) {
+              if (qr.isDark(r, c)) {
+                ctx.fillRect(
+                  Math.round((c + quietZone) * cellSize),
+                  Math.round((r + quietZone) * cellSize),
+                  Math.ceil(cellSize),
+                  Math.ceil(cellSize)
+                );
+              }
+            }
           }
         }
+      } catch (err) {
+        console.error("QR Code Generation Error:", err);
       }
     }
 
@@ -1999,19 +2057,84 @@
       if (lbl) lbl.textContent = isSol ? "Daylight" : "Sol";
     }
 
+    const TRAIT_MAP_HI = {
+      "Always On Time": "हमेशा समय पर",
+      "Deep Cleaning": "गहन सफाई विशेषज्ञ",
+      "Trusted With Keys": "घर की चाबियों पर भरोसा",
+      "Exceptional Cooking": "उत्कृष्ट भोजन / पाक कला",
+      "Went Above & Beyond": "उम्मीद से बढ़कर कार्य",
+      "Caring & Polite": "विनम्र एवं संवेदनशील व्यवहार"
+    };
+
+    const BOUNDARY_MAP_HI = {
+      "Minimum 1 Agreed Weekly Rest Day": "सप्ताह में कम से कम 1 तय साप्ताहिक विश्राम",
+      "Direct Resident UPI on 1st of Month": "महीने की 1 तारीख को सीधा UPI भुगतान",
+      "Zero toxic acid chemicals for cleaning": "सफाई में जानलेवा तेजाब/एसिड का शून्य उपयोग",
+      "Access to clean water and soap to wash my hands": "हाथ धोने के लिए स्वच्छ पानी और साबुन",
+      "Extreme Weather Late-Arrival Relief": "भीषण गर्मी/बारिश में देर से आगमन पर राहत",
+      "30-Min Midday Lunch Break on Full Shifts": "पूरी शिफ्ट में 30 मिनट का दोपहर का भोजन विश्राम"
+    };
+
+    function translateBoundary(b, lang) {
+      if (lang !== 'hi' || !b) return b;
+      if (BOUNDARY_MAP_HI[b]) return BOUNDARY_MAP_HI[b];
+      const stripped = b.replace(/^[\p{Emoji}\p{Symbol}\s]+/u, '').trim();
+      for (const [enKey, hiVal] of Object.entries(BOUNDARY_MAP_HI)) {
+        if (stripped.toLowerCase().includes(enKey.toLowerCase()) || enKey.toLowerCase().includes(stripped.toLowerCase())) {
+          const emojiMatch = b.match(/^[\p{Emoji}\p{Symbol}\s]+/u);
+          return emojiMatch ? `${emojiMatch[0].trim()} ${hiVal}` : hiVal;
+        }
+      }
+      return b;
+    }
+
+    const AVAILABLE_BOUNDARIES = [
+      { id: "b1", en: "Minimum 1 Agreed Weekly Rest Day", hi: "सप्ताह में कम से कम 1 तय साप्ताहिक विश्राम", icon: "📅" },
+      { id: "b2", en: "Direct Resident UPI on 1st of Month", hi: "महीने की 1 तारीख को सीधा UPI भुगतान", icon: "💳" },
+      { id: "b3", en: "Zero toxic acid chemicals for cleaning", hi: "सफाई में जानलेवा तेजाब/एसिड का शून्य उपयोग", icon: "🧤" },
+      { id: "b4", en: "Access to clean water and soap to wash my hands", hi: "हाथ धोने के लिए स्वच्छ पानी और साबुन", icon: "🧼" },
+      { id: "b5", en: "Extreme Weather Late-Arrival Relief", hi: "भीषण गर्मी/बारिश में देर से आगमन पर राहत", icon: "🌧️" },
+      { id: "b6", en: "30-Min Midday Lunch Break on Full Shifts", hi: "पूरी शिफ्ट में 30 मिनट का दोपहर का भोजन विश्राम", icon: "☕" }
+    ];
+
     const I18N = {
       en: {
         brand: "Maanyata",
         navDirectory: "Directory",
         navShare: "Share",
-        lblTenure: "TENURE",
-        lblHouseholds: "HOUSEHOLDS",
-        lblRecognitions: "RECOGNITIONS",
+        lblTenure: "Tenure",
+        lblHouseholds: "Households",
+        lblRecognitions: "Recognitions",
+        badgeEShram: "e-Shram Verified",
         passTitle: "Portable Trust Pass",
         passHelp: "Show this QR code to an employer or security guard. Tap the box below to prove live session to guard.",
-        livePass: "LIVE GATE PASS",
+        lblLiveGatePass: "LIVE GATE PASS",
         verifiedWorker: "Verified Worker",
-        charterTitle: "Dignity Charter & Working Terms"
+        secDignityCharter: "Dignity Charter & Working Terms",
+        badgeWorkingTerms: "Working Terms",
+        secCraftSilos: "Craft Risk Silos (Risk Gated)",
+        badgeRiskGated: "Risk Gated",
+        siloSurface: "🧹 Surface Crafts (Cleaning / Utensils)",
+        badgeStandardRisk: "Standard Risk",
+        descSurface: "Floor sweeping, mopping, utensil washing. Low blast radius.",
+        siloCulinary: "🍲 Culinary Specialization (Cooking)",
+        badgeModerateRisk: "Moderate Risk",
+        descCulinary: "Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.",
+        siloHighRisk: "🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)",
+        badgeHighRisk: "High Consequence",
+        descHighRisk: "Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.",
+        secTrustSignals: "Community Trust Signals",
+        secEndorsements: "Household Endorsements",
+        btnCustomize: "Customize Profile & Dignity Boundaries",
+        btnPrintPass: "Print PVC Pass",
+        btnVerifyGate: "Gate Check",
+        modalTitle: "Customize Profile & Boundaries",
+        lblWorkerName: "Worker Name",
+        lblPrimaryCraft: "Primary Craft / Specialization",
+        lblTenureBaseline: "Career Seniority (Years)",
+        lblBoundaries: "Dignity Charter (Select Working Terms)",
+        btnSaveProfile: "Save Changes",
+        btnCancel: "Cancel"
       },
       hi: {
         brand: "मान्यता",
@@ -2020,11 +2143,36 @@
         lblTenure: "कार्यकाल",
         lblHouseholds: "परिवार",
         lblRecognitions: "प्रशंसा",
-        passTitle: "सत्यापित ट्रस्ट पास",
+        badgeEShram: "ई-श्रम सत्यापित",
+        passTitle: "सत्यापित पोर्टेबल ट्रस्ट पास",
         passHelp: "यह क्यूआर कोड सुरक्षा गार्ड या नियोक्ता को दिखाएं। सक्रिय सत्र प्रमाणित करने के लिए नीचे टैप करें।",
-        livePass: "सक्रिय गेट पास",
+        lblLiveGatePass: "सक्रिय गेट पास",
         verifiedWorker: "सत्यापित कार्यकर्ता",
-        charterTitle: "गरिमा चार्टर एवं कार्य नियम"
+        secDignityCharter: "गरिमा चार्टर एवं कार्य नियम",
+        badgeWorkingTerms: "कार्य नियम",
+        secCraftSilos: "कार्य जोखिम वर्गीकरण (सुरक्षा नियंत्रित)",
+        badgeRiskGated: "जोखिम वर्गीकृत",
+        siloSurface: "🧹 सामान्य कार्य (सफाई / बर्तन)",
+        badgeStandardRisk: "सामान्य जोखिम",
+        descSurface: "झाड़ू, पोछा, बर्तन धोना। कम जोखिम वाला दैनिक कार्य।",
+        siloCulinary: "🍲 पाक कला विशेषज्ञता (रसोई / खाना बनाना)",
+        badgeModerateRisk: "मध्यम जोखिम",
+        descCulinary: "दैनिक भोजन तैयारी एवं स्वच्छता। परिवार की उपस्थिति में 1 सवेतन ट्रायल भोजन आवश्यक।",
+        siloHighRisk: "🚗 🩺 🔑 उच्च-जोखिम कस्टडी (ड्राइविंग, बुजुर्ग देखभाल, चाबियां)",
+        badgeHighRisk: "उच्च जोखिम",
+        descHighRisk: "प्रत्यक्ष शारीरिक सुरक्षा एवं घर की चाबियां। सत्यापित कार्यकाल + पूर्व परिवार सत्यापन + निगरानी आवश्यक।",
+        secTrustSignals: "सामुदायिक विश्वास संकेत",
+        secEndorsements: "पारिवारिक अनुशंसाएं",
+        btnCustomize: "प्रोफाइल और गरिमा नियम अनुकूलित करें",
+        btnPrintPass: "PVC पास प्रिंट करें",
+        btnVerifyGate: "गेट जांच",
+        modalTitle: "प्रोफाइल एवं कार्य नियम अनुकूलित करें",
+        lblWorkerName: "कार्यकर्ता का नाम",
+        lblPrimaryCraft: "मुख्य कार्य / विशेषज्ञता",
+        lblTenureBaseline: "कार्य अनुभव (वर्ष)",
+        lblBoundaries: "गरिमा चार्टर (कार्य नियम चुनें)",
+        btnSaveProfile: "परिवर्तन सहेजें",
+        btnCancel: "रद्द करें"
       }
     };
 
@@ -2051,20 +2199,79 @@
         if (dict[key]) el.textContent = dict[key];
       });
 
-      // Update worker name and role
+      // Update worker name and role if standard demo profile
       const nameEl = document.getElementById("pName");
       const roleEl = document.getElementById("pRole");
-      if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "Sunita Bai")) {
-        nameEl.textContent = lang === 'hi' ? "सुनीता देवी" : "Sunita Devi";
+      if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "सुनीता देवी")) {
+        portfolio.name = lang === 'hi' ? "सुनीता देवी" : "Sunita Devi";
+        nameEl.textContent = portfolio.name;
       }
-      if (roleEl && (portfolio.name === "Sunita Devi" || portfolio.name === "Sunita Bai")) {
-        roleEl.textContent = lang === 'hi' ? "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)" : "Senior Household & Culinary Specialist";
+      if (roleEl && (portfolio.role === "Senior Household & Culinary Specialist" || portfolio.role === "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)")) {
+        portfolio.role = lang === 'hi' ? "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)" : "Senior Household & Culinary Specialist";
+        roleEl.textContent = portfolio.role;
       }
 
-      const passCardTitle = document.getElementById("passCardTitle");
-      if (passCardTitle) passCardTitle.textContent = dict.passTitle;
-      const passCardHelp = document.getElementById("passCardHelp");
-      if (passCardHelp) passCardHelp.textContent = dict.passHelp;
+      // Re-render dynamic components in selected language
+      renderPortfolio();
+    }
+
+    // Modal: Profile & Boundary Customization
+    function openCustomizeModal() {
+      const modal = document.getElementById("customizeModal");
+      if (!modal) return;
+      document.getElementById("custName").value = portfolio.name || "";
+      document.getElementById("custRole").value = portfolio.role || "";
+      document.getElementById("custTenure").value = (portfolio.tenure || "8.5").toString().replace(/[^0-9.]/g, '') || "8.5";
+
+      const bList = document.getElementById("custBoundariesList");
+      if (bList) {
+        bList.innerHTML = "";
+        const activeTerms = portfolio.boundaries || [];
+        AVAILABLE_BOUNDARIES.forEach(b => {
+          const isChecked = activeTerms.some(t => t.toLowerCase().includes(b.en.toLowerCase().replace(/[^a-z]/g, '').slice(0, 15)));
+          const row = document.createElement("label");
+          row.style.cssText = "display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-primary); cursor:pointer; padding:8px 10px; border:1px solid var(--border-subtle); border-radius:8px; background:var(--card-subtle);";
+          row.innerHTML = `
+            <input type="checkbox" name="boundaries" value="${escapeHTML(b.icon + ' ' + b.en)}" ${isChecked ? "checked" : ""} style="accent-color:var(--terracotta); width:16px; height:16px;">
+            <span>${b.icon} ${currentLang === 'hi' ? b.hi : b.en}</span>
+          `;
+          bList.appendChild(row);
+        });
+      }
+      modal.style.display = "flex";
+    }
+
+    function closeCustomizeModal() {
+      const modal = document.getElementById("customizeModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function saveCustomProfile(event) {
+      if (event) event.preventDefault();
+      const nameInput = document.getElementById("custName").value.trim();
+      const roleInput = document.getElementById("custRole").value.trim();
+      const tenureInput = document.getElementById("custTenure").value.trim();
+
+      if (nameInput) portfolio.name = nameInput;
+      if (roleInput) portfolio.role = roleInput;
+      if (tenureInput) portfolio.tenure = tenureInput.includes("Yr") ? tenureInput : `${tenureInput} Yrs`;
+
+      const checked = [];
+      document.querySelectorAll("#custBoundariesList input[type='checkbox']:checked").forEach(cb => {
+        checked.push(cb.value);
+      });
+      portfolio.boundaries = checked;
+
+      savePortfolio();
+      closeCustomizeModal();
+      renderPortfolio();
+      renderOfflineQR();
+      showToast(currentLang === 'hi' ? "✓ प्रोफाइल और गरिमा नियम अपडेट किए गए" : "✓ Profile & Dignity Boundaries Updated");
+    }
+
+    function openPhysicalCard() {
+      const workerId = portfolio.id || 'sunita-devi-01';
+      window.open(`physical_pass_card.html?id=${encodeURIComponent(workerId)}`, '_blank');
     }
 
     // Initialize on load

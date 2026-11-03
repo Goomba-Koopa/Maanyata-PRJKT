@@ -5,7 +5,7 @@
  * Strategy: Cache-First for static assets & vendor scripts, Network-First fallback.
  */
 
-const CACHE_NAME = "maanyata-v3";
+const CACHE_NAME = "maanyata-v4";
 const OFFLINE_URLS = [
   "./",
   "./portfolio.html",
@@ -17,7 +17,8 @@ const OFFLINE_URLS = [
   "./rwa_pilot_proposal.html",
   "./maanyata_store.js",
   "./jsQR.js",
-  "./tweetnacl.min.js"
+  "./tweetnacl.min.js",
+  "./qr_engine.js"
 ];
 
 self.addEventListener("install", (event) => {
