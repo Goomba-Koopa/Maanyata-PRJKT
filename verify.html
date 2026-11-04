@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maanyata Gate Check</title>
+<title>Maanyata Sovereign Passport Verification</title>
 <style>
-  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #fff; color: #111; }
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #FAF8F5; color: #1C1917; }
   h1 { font-size: 20px; margin: 0 0 12px; }
   video, canvas { width: 100%; max-height: 300px; background: #000; border-radius: 8px; }
   textarea { width: 100%; height: 80px; font-size: 16px; box-sizing: border-box; }
-  button { font-size: 18px; padding: 14px; width: 100%; margin-top: 8px; min-height: 56px; border: 0; border-radius: 8px; background: #222; color: #fff; }
+  button { font-size: 18px; padding: 14px; width: 100%; margin-top: 8px; min-height: 56px; border: 0; border-radius: 8px; background: #C2410C; color: #fff; font-weight: 700; cursor: pointer; }
   #result { margin-top: 16px; padding: 24px 16px; border-radius: 8px; text-align: center; font-size: 22px; font-weight: 600; }
-  .ok { background: #1b8a3a; color: #fff; }
-  .bad { background: #b3261e; color: #fff; }
-  .idle { background: #eee; color: #333; }
+  .ok { background: #15803D; color: #fff; }
+  .bad { background: #B91C1C; color: #fff; }
+  .idle { background: #E8E2D5; color: #44403C; }
 </style>
 </head>
 <body>
-<h1>Gate check</h1>
+<h1>Sovereign Passport Verification</h1>
 
 <!-- Paste the output of: node issue.mjs pubkey -->
 <script>
@@ -26,13 +26,13 @@
 
 <video id="cam" playsinline muted></video>
 <canvas id="frame" hidden></canvas>
-<button id="startCam">Start camera scan</button>
+<button id="startCam">Scan Passport QR</button>
 
-<p>Or paste the code:</p>
-<textarea id="manual" placeholder="Paste worker code here"></textarea>
-<button id="checkManual">Check code</button>
+<p>Or paste bearer token:</p>
+<textarea id="manual" placeholder="Paste passport token here"></textarea>
+<button id="checkManual">Verify Passport</button>
 
-<div id="result" class="idle">Waiting for a code</div>
+<div id="result" class="idle">Waiting for passport code</div>
 
 <!-- jsQR & TweetNaCl: offline-capable QR decoder & legacy Ed25519 fallback loaded locally -->
 <script src="./jsQR.js"></script>
