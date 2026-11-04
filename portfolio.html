@@ -2,36 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sovereign Work Portfolio | Maanyata</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
   <style>
-    /* Maanyata: Sovereign Worker Portfolio
-       Typography Hierarchy:
-       - Headings & Titles: Plus Jakarta Sans (Crisp, authoritative, zero comic-book curls)
-       - UI Body & Devanagari text: Anek Devanagari (Clean, modern Indian variable grotesque)
-       - Numbers & IDs: Sarala / Tabular mono
-       - Brand Emblem: Yatra One (Strictly isolated to Devanagari brand marks) */
+    /* Maanyata: sovereign worker portfolio
+       Fonts: Yatra One (display), Anek Devanagari (UI), Sarala (metadata) */
 
     :root {
-      /* Brand colors, calibrated spot references */
-      --mny-navy: #0B192C;             /* Passport navy */
-      --mny-terracotta: #C2410C;       /* Terracotta stamp */
+      /* Brand colors, named after their Pantone references */
+      --mny-navy: #0B192C;             /* PMS 282 C, passport navy */
+      --mny-terracotta: #C2410C;       /* PMS 1675 C, terracotta stamp */
       --mny-terracotta-hover: #9A3412;
       --mny-terracotta-bg: #FFF7ED;
       --mny-terracotta-border: #FFEDD5;
 
-      --mny-verified: #15803D;         /* Official seal green */
+      --mny-verified: #15803D;         /* PMS 348 C, official seal green */
       --mny-verified-bg: #ECFDF5;
       --mny-verified-border: #A7F3D0;
 
-      --mny-paper: #FAF8F5;            /* Ledger cardstock */
+      --mny-paper: #FAF8F5;            /* PMS 7527 C, ledger cardstock */
       --mny-card: #FFFFFF;
       --mny-card-subtle: #F5F1E9;
-      --mny-carbon: #1C1917;
-      --mny-tenure-gold: #B45309;      /* Seniority brass */
+      --mny-carbon: #1C1917;           /* PMS Black 6 C */
+      --mny-tenure-gold: #B45309;      /* PMS 130 C, seniority brass */
 
       /* Semantic tokens */
       --canvas: var(--mny-paper);
@@ -60,9 +56,9 @@
 
       --radius-sm: 8px;
 
-      /* Sane Typography Stack */
-      --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      /* Typography */
+      --font-heading: 'Plus Jakarta Sans', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'Sarala', monospace;
       --font-brand: 'Yatra One', cursive, serif;
     }
@@ -74,10 +70,11 @@
       color: var(--ink-primary);
       font-family: var(--font-body);
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 48px;
+      padding: 16px 16px 120px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -89,16 +86,12 @@
       gap: 16px;
     }
 
-    /* Masthead */
+    /* Header (logo and share only) */
     .masthead {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 8px 4px;
-      flex-wrap: wrap;
-      gap: 8px;
-      position: relative;
-      z-index: 50;
     }
     .brand-mark {
       display: flex;
@@ -106,7 +99,6 @@
       gap: 8px;
       text-decoration: none;
       color: var(--ink-primary);
-      flex-shrink: 0;
     }
     .brand-glyph {
       width: 32px;
@@ -131,44 +123,32 @@
       font-family: var(--font-brand);
       font-size: 19px;
     }
-    #headerActions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
 
-    /* Header buttons */
+    /* Small outlined button, used in the header and elsewhere */
     .mode-toggle-btn {
       font-family: var(--font-body);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--terracotta);
       background: var(--terracotta-bg);
       border: 1px solid var(--terracotta-border);
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: var(--radius-sm);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      min-height: 32px;
-      transition: all 0.15s ease;
-      text-decoration: none;
+      gap: 6px;
+      min-height: 44px;
+      min-width: 44px;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
     }
-    .mode-toggle-btn:hover { background: #FFEDD5; }
-    .mode-toggle-btn.is-neutral {
-      background: var(--card-subtle);
-      color: var(--ink-secondary);
-      border-color: var(--border);
-    }
-    .mode-toggle-btn svg {
-      vertical-align: middle;
-      margin-right: 3px;
-    }
+    .mode-toggle-btn svg { flex-shrink: 0; }
+
+    /* Views: only one tab panel is visible at a time */
+    .tab-panel { display: none; flex-direction: column; gap: 16px; }
+    .tab-panel.is-active { display: flex; }
 
     /* Cards */
     .card {
@@ -178,9 +158,8 @@
       padding: 20px;
       box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
     }
-    .card + .card { margin-top: 16px; }
 
-    /* Fancy rosette (train-pass edge) */
+    /* Decorative pass edge */
     .fancy-rosette {
       position: relative;
       border-top: 3px solid var(--terracotta) !important;
@@ -190,18 +169,8 @@
       background-size: 100% 12px, 12px 12px;
       background-repeat: no-repeat, repeat;
     }
-    .fancy-rosette::after {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 16px;
-      right: 16px;
-      height: 1px;
-      border-bottom: 1px dashed rgba(194, 65, 12, 0.25);
-      pointer-events: none;
-    }
 
-    /* Sol-contrast mode (high-noon sunlight) */
+    /* Sol-contrast mode (bright sunlight) */
     [data-theme="sol"] {
       --canvas: #FFFFFF;
       --card-bg: #FFFFFF;
@@ -222,42 +191,43 @@
       --emerald-border: #000000;
     }
     [data-theme="sol"] body {
-      background-color: #FFFFFF !important;
-      color: #000000 !important;
+      background-color: #FFFFFF;
+      color: #000000;
     }
     [data-theme="sol"] .card {
-      border: 2px solid #000000 !important;
-      box-shadow: none !important;
-      background: #FFFFFF !important;
-    }
-    [data-theme="sol"] * {
-      font-variation-settings: 'wght' 600 !important;
+      border: 2px solid #000000;
+      box-shadow: none;
+      background: #FFFFFF;
     }
     [data-theme="sol"] h1,
     [data-theme="sol"] h2,
     [data-theme="sol"] .brand-name,
     [data-theme="sol"] .metric-val {
-      font-variation-settings: 'wght' 750 !important;
-      color: #000000 !important;
+      color: #000000;
+      font-weight: 800;
     }
     [data-theme="sol"] .mode-toggle-btn,
-    [data-theme="sol"] .btn-action,
-    [data-theme="sol"] .btn-submit-tap {
-      border: 2px solid #000000 !important;
-      box-shadow: none !important;
-      font-weight: 800 !important;
+    [data-theme="sol"] .btn-action {
+      border: 2px solid #000000;
+      box-shadow: none;
     }
     [data-theme="sol"] .qr-canvas-wrap {
-      border: 3px solid #000000 !important;
-      background: #FFFFFF !important;
-      padding: 12px !important;
+      border: 3px solid #000000;
+      background: #FFFFFF;
+    }
+    [data-theme="sol"] .tabbar {
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
     }
 
     /* Tabular numerals with slashed zero for IDs and clocks */
     .metric-val, #liveClockTicker, #passFingerprint, .profile-gov-id {
-      font-family: var(--font-mono) !important;
-      font-feature-settings: "tnum" 1, "zero" 1 !important;
-      font-variant-numeric: tabular-nums slashed-zero !important;
+      font-family: var(--font-mono);
+      font-feature-settings: "tnum" 1, "zero" 1;
+      font-variant-numeric: tabular-nums slashed-zero;
     }
 
     /* Profile header */
@@ -281,6 +251,7 @@
       font-size: 26px;
       color: var(--terracotta);
       flex-shrink: 0;
+      overflow: hidden;
     }
     .verified-seal {
       position: absolute;
@@ -305,7 +276,7 @@
       margin-bottom: 4px;
     }
     .profile-role {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--terracotta);
       margin-bottom: 6px;
@@ -319,12 +290,12 @@
       border: 1px solid var(--emerald-border);
       padding: 3px 8px;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
-    /* Metrics row */
+    /* Metrics */
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -341,12 +312,12 @@
     }
     .metric-val {
       font-family: var(--font-heading);
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--ink-primary);
     }
     .metric-lbl {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--ink-muted);
       text-transform: uppercase;
@@ -356,7 +327,7 @@
     /* Section headings */
     .section-title {
       font-family: var(--font-heading);
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -365,17 +336,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .count-badge {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--ink-muted);
       font-weight: 600;
       background: var(--card-subtle);
       padding: 2px 8px;
       border-radius: 9999px;
+      white-space: nowrap;
     }
 
-    /* Trait and term chips */
+    /* Chips */
     .traits-grid {
       display: flex;
       flex-wrap: wrap;
@@ -386,25 +359,29 @@
       border: 1px solid var(--border);
       padding: 8px 12px;
       border-radius: 12px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--ink-secondary);
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 1px 2px rgba(28, 25, 23, 0.02);
     }
     .trait-count {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 11px;
+      font-size: 12px;
       background: var(--terracotta-bg);
       color: var(--terracotta);
       padding: 2px 6px;
       border-radius: 6px;
     }
+    .boundary-chip {
+      background: var(--terracotta-bg);
+      border-color: var(--terracotta-border);
+      color: var(--terracotta);
+    }
 
-    /* Reference quotes */
+    /* Endorsements */
     .reference-list {
       display: flex;
       flex-direction: column;
@@ -420,43 +397,26 @@
       gap: 6px;
     }
     .quote-text {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.5;
       color: var(--ink-secondary);
       font-style: italic;
     }
     .quote-author {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--ink-muted);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
     .quote-tenure {
       color: var(--terracotta);
       font-weight: 700;
     }
-
-    /* Verification status rows in references */
-    .verify-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .verify-tag {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--emerald);
-      background: var(--emerald-bg);
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
     .location-badge {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       margin-top: 6px;
       display: inline-flex;
@@ -465,34 +425,43 @@
       padding: 2px 8px;
       border-radius: 4px;
     }
-    .location-badge.is-verified {
+    .location-badge.is-verified { color: var(--emerald); background: var(--emerald-bg); }
+    .location-badge.is-pending  { color: #B45309; background: #FEF3C7; }
+    .verify-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .verify-tag {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--emerald);
       background: var(--emerald-bg);
-    }
-    .location-badge.is-pending {
-      color: #B45309;
-      background: #FEF3C7;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
     .peer-callback-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: #047857;
       background: #ECFDF5;
       border: 1px solid #A7F3D0;
-      padding: 4px 10px;
+      padding: 8px 12px;
       border-radius: 6px;
       text-decoration: none;
-      transition: background 0.15s ease;
+      min-height: 44px;
     }
-    .peer-callback-btn:hover { background: #D1FAE5; }
     .peer-unverified-tag {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: #B45309;
       background: #FFFBEB;
@@ -506,7 +475,6 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 10px;
-      margin-top: 10px;
     }
     .silo-card {
       background: var(--card-subtle);
@@ -522,18 +490,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       margin-bottom: 6px;
+      flex-wrap: wrap;
     }
     .silo-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--ink-primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
     .silo-badge {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -544,12 +511,12 @@
     .silo-badge-med  { background: #FEF3C7; color: #92400E; }
     .silo-badge-high { background: #FEE2E2; color: #991B1B; }
     .silo-desc {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--ink-secondary);
       line-height: 1.4;
     }
 
-    /* Portable pass card */
+    /* Pass card */
     .card-presentation {
       background: linear-gradient(145deg, #FFFDFB 0%, #F5EFE6 100%);
       border: 1.5px solid #D8CFC0;
@@ -569,9 +536,7 @@
       margin-bottom: 8px;
       width: 100%;
     }
-    .pass-hero {
-      position: relative;
-    }
+    .pass-hero { position: relative; }
     .pass-hero img {
       width: 76px;
       height: 76px;
@@ -579,6 +544,7 @@
       object-fit: cover;
       border: 3px solid #16A34A;
       box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+      display: block;
     }
     .pass-hero-check {
       position: absolute;
@@ -586,7 +552,7 @@
       right: -2px;
       background: #16A34A;
       color: #FFFFFF;
-      font-size: 10px;
+      font-size: 11px;
       width: 22px;
       height: 22px;
       border-radius: 50%;
@@ -604,7 +570,7 @@
     }
     .pass-fingerprint {
       font-family: var(--font-heading);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
       color: var(--ink-secondary);
       letter-spacing: 0.04em;
@@ -612,21 +578,15 @@
     .pass-title {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 16px;
+      font-size: 18px;
       color: var(--ink-primary);
     }
-    .pass-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
+    .card-help {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      max-width: 320px;
     }
-    .pass-actions-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
     .liveness-ticker {
       display: inline-flex;
       align-items: center;
@@ -635,12 +595,11 @@
       background: #EDF7F2;
       border: 1px solid #BBF7D0;
       border-radius: 20px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: #16A34A;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 6px;
     }
     .liveness-dot {
       width: 8px;
@@ -654,13 +613,6 @@
       to   { opacity: 1;    transform: scale(1.15); }
     }
 
-    .card-help {
-      font-size: 12px;
-      color: var(--ink-muted);
-      line-height: 1.4;
-      max-width: 320px;
-    }
-
     .qr-canvas-wrap {
       background: #FFFFFF;
       padding: 12px;
@@ -671,10 +623,15 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      animation: heartbeat-pulse 2.5s infinite ease-in-out;
       cursor: pointer;
       user-select: none;
       transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .qr-canvas-wrap { animation: heartbeat-pulse 2.5s infinite ease-in-out; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .liveness-dot { animation: none; }
     }
     @keyframes heartbeat-pulse {
       0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); border-color: #22C55E; }
@@ -695,7 +652,7 @@
       color: #FFFFFF;
       padding: 8px 14px;
       border-radius: 8px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.05em;
       pointer-events: none;
@@ -715,40 +672,32 @@
       padding: 12px 20px;
       font-family: var(--font-heading);
       font-weight: 700;
-      font-size: 13px;
+      font-size: 15px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       width: 100%;
+      min-height: 48px;
+      text-decoration: none;
       transition: background 0.15s ease;
     }
     .btn-action:hover { background: #292524; }
-    .btn-action svg {
-      vertical-align: middle;
-      margin-right: 6px;
-    }
-    .btn-action.is-green {
-      background: #16A34A;
-      border: none;
-      padding: 12px 14px;
-      font-size: 14px;
-    }
+    .btn-action.is-green { background: #16A34A; }
     .btn-action.is-green:hover { background: #15803D; }
     .btn-action.is-outline {
       background: var(--card-bg);
       color: var(--ink-secondary);
       border: 1.5px solid var(--border-strong);
-      padding: 10px 12px;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 14px;
     }
-    .btn-action.is-outline-subtle {
-      background: var(--card-subtle);
-    }
-    .btn-action.is-link {
-      text-decoration: none;
+    .btn-action.is-outline:hover { background: var(--card-subtle); }
+    .pass-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
     }
 
     /* Modal */
@@ -770,7 +719,6 @@
       background: var(--card-bg);
       border-radius: 20px;
       padding: 22px;
-      position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
     .modal-header {
@@ -784,15 +732,16 @@
       font-size: 18px;
       font-weight: 800;
       color: var(--ink-primary);
-      margin: 0;
     }
     .modal-close {
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
       color: var(--ink-muted);
       line-height: 1;
+      min-width: 44px;
+      min-height: 44px;
     }
     .identity-notice {
       background: var(--emerald-bg);
@@ -800,23 +749,18 @@
       border-radius: 10px;
       padding: 10px 12px;
       margin-bottom: 16px;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--emerald);
       line-height: 1.4;
     }
-    .identity-notice-title {
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .identity-notice-title { font-weight: 700; }
     .identity-notice-desc {
       color: var(--ink-secondary);
-      font-size: 11px;
+      font-size: 12px;
       margin-top: 4px;
     }
     .form-label {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--ink-secondary);
       display: block;
@@ -830,23 +774,50 @@
     .boundary-option {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      gap: 10px;
+      font-size: 14px;
       color: var(--ink-primary);
       cursor: pointer;
-      padding: 8px 10px;
+      padding: 10px 12px;
+      min-height: 44px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--card-subtle);
     }
     .boundary-option input {
       accent-color: var(--terracotta);
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
     }
     .form-actions {
       display: flex;
       gap: 8px;
+    }
+
+    /* Profile tab rows */
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .profile-row:last-child { border-bottom: none; }
+    .profile-row-label { color: var(--ink-secondary); font-weight: 600; }
+    .profile-row button,
+    .profile-row a {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--terracotta);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
 
     /* Unknown-user banner */
@@ -855,8 +826,7 @@
       border: 1.5px solid #FDE68A;
       border-radius: 12px;
       padding: 12px 14px;
-      margin-top: 14px;
-      font-size: 12px;
+      font-size: 13px;
       color: #92400E;
       line-height: 1.5;
     }
@@ -867,14 +837,17 @@
       margin-top: 10px;
     }
     .unknown-banner-link {
-      padding: 6px 12px;
+      padding: 8px 12px;
       background: #FFFFFF;
       border: 1.5px solid #D97706;
       color: #B45309;
       border-radius: 8px;
       font-weight: 700;
       text-decoration: none;
-      font-size: 11px;
+      font-size: 12px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
     .unknown-banner-link.is-primary {
       background: var(--terracotta);
@@ -882,78 +855,103 @@
       color: #FFFFFF;
     }
 
-    /* Toast */
+    /* Bottom tab bar
+       Default: Android (solid, Material-style).
+       html.platform-ios: floating translucent "liquid glass" bar. */
+    .tabbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      align-items: stretch;
+      gap: 2px;
+      padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 8px rgba(28, 25, 23, 0.06);
+    }
+    html.platform-ios .tabbar {
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: saturate(180%) blur(24px);
+      -webkit-backdrop-filter: saturate(180%) blur(24px);
+      box-shadow: 0 8px 24px rgba(28, 25, 23, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 44px;
+      min-height: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 4px 2px;
+      background: none;
+      border: none;
+      border-radius: 18px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tab-btn-icon {
+      width: 44px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+    }
+    .tab-btn[aria-selected="true"] { color: var(--terracotta); }
+    html.platform-android .tab-btn[aria-selected="true"] .tab-btn-icon {
+      background: var(--terracotta-bg);
+    }
+    html.platform-ios .tab-btn[aria-selected="true"] .tab-btn-icon {
+      background: rgba(194, 65, 12, 0.12);
+    }
+    .tab-btn:focus-visible {
+      outline: 3px solid var(--terracotta);
+      outline-offset: 2px;
+    }
+
+    /* Toast (sits above the tab bar) */
     .toast {
       position: fixed;
-      bottom: 24px;
+      bottom: 104px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
       background: #1C1917;
       color: #FFFFFF;
       padding: 12px 20px;
       border-radius: 9999px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 999;
       pointer-events: none;
+      white-space: nowrap;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: var(--ink-faint);
-      margin-top: 16px;
-      line-height: 1.5;
-    }
-    .footer-inner {
-      max-width: 480px;
-      margin: 0 auto;
-      text-align: center;
-      line-height: 1.5;
-    }
-    .footer-title {
-      font-weight: 700;
-      color: var(--ink-secondary);
-      margin-bottom: 4px;
-    }
-    .footer-legal {
-      font-size: 10.5px;
-      color: var(--ink-muted);
-    }
-    .footer-links {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      font-size: 11px;
-    }
-    .footer-links a,
-    .footer-links button {
-      color: var(--ink-muted);
-      text-decoration: underline;
-      background: none;
-      border: none;
-      font-size: 11px;
-      cursor: pointer;
-    }
-    .footer-links .sep { color: var(--border); }
-
-    /* Narrow phones (360px) */
+    /* Narrow phones */
     @media (max-width: 380px) {
-      body { padding: 12px 8px 36px; }
+      body { padding: 12px 8px 120px; }
       .card { padding: 16px 14px; border-radius: 16px; }
       .profile-meta h1 { font-size: 19px; }
       .avatar { width: 56px; height: 56px; font-size: 22px; }
-      .metrics-grid { gap: 6px; }
-      .metric-col { padding: 8px 4px; }
-      .metric-val { font-size: 15px; }
+      .metric-val { font-size: 18px; }
     }
   </style>
 </head>
@@ -961,56 +959,71 @@
 
   <div class="shell">
 
-    <!-- Masthead -->
+    <!-- Header: logo and share -->
     <header class="masthead">
       <a href="portfolio.html" class="brand-mark">
-        <div class="brand-glyph">म</div>
+        <div class="brand-glyph" aria-hidden="true">म</div>
         <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
-      <div id="headerActions">
-        <button id="btnSolToggle" class="mode-toggle-btn is-neutral" onclick="toggleSolMode()" title="Toggle Sol-Contrast (Sunlight Mode)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          <span id="solBtnLabel">Sol</span>
-        </button>
-        <button id="btnLangToggle" class="mode-toggle-btn is-neutral" onclick="toggleLanguage()" title="Toggle Language (English / हिन्दी)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-          <span id="langBtnLabel">हिन्दी</span>
-        </button>
-        <a href="directory.html" class="mode-toggle-btn is-neutral" title="Browse Vasudev Complex Staff">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
-          <span data-i18n="navDirectory">Directory</span>
-        </a>
-        <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          <span data-i18n="navShare">Share</span>
-        </button>
-      </div>
+      <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()" aria-label="Share passbook on WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Share</span>
+      </button>
     </header>
 
-    <!-- View: worker trust portfolio -->
-    <main id="view-portfolio">
+    <!-- ============================================================
+         TAB 1: PASS (default)
+         ============================================================ -->
+    <section id="panel-pass" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-pass" tabindex="0">
 
-      <!-- Identity -->
-      <section class="card fancy-rosette">
-        <div class="profile-header">
-          <div class="avatar-wrap">
-            <div class="avatar" id="pAvatar">SD</div>
-            <div class="verified-seal" title="Cryptographically Attested Worker">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            </div>
+      <div class="card card-presentation fancy-rosette">
+        <div class="pass-top">
+          <div class="pass-hero">
+            <img id="passHeroAvatar"
+                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
+                 alt="Photo of the worker">
+            <div class="pass-hero-check" aria-hidden="true">✓</div>
           </div>
-          <div class="profile-meta">
-            <h1 id="pName">Sunita Devi</h1>
-            <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
-            <div class="profile-gov-id">
-              <span data-i18n="badgeEShram">e-Shram Verified</span>
-              <span>•</span>
-              <span id="pUan">UAN ****-****-4921</span>
+          <div class="pass-meta">
+            <div class="liveness-ticker">
+              <span class="liveness-dot" aria-hidden="true"></span>
+              <span><span data-i18n="lblWorkPass">WORK PASS</span> • <span id="liveClockTicker">--:--:--</span></span>
             </div>
+            <div id="passFingerprint" class="pass-fingerprint">#M-7F2A-4921</div>
           </div>
         </div>
 
-        <div class="metrics-grid">
+        <div id="passCardTitle" class="pass-title" data-i18n="passTitle">Portable Trust Pass</div>
+        <p class="card-help" id="passCardHelp" data-i18n="passHelp">
+          Show this QR code to an employer to confirm your work record.
+        </p>
+
+        <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to show code">
+          <canvas id="workerQrCanvas" role="img" aria-label="Work record QR code"></canvas>
+          <div class="tap-liveness-toast" id="tapToast" aria-live="polite">Code shown</div>
+        </div>
+
+        <div class="pass-actions">
+          <button class="btn-action is-green" onclick="sharePassbookWhatsApp()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+            <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
+          </button>
+          <a href="verify.html" class="btn-action is-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span data-i18n="btnVerifyGate">Verify Pass</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         TAB 2: RECORD
+         ============================================================ -->
+    <section id="panel-record" class="tab-panel" role="tabpanel" aria-labelledby="tab-record" tabindex="0">
+
+      <div class="card">
+        <div class="metrics-grid" style="margin-top:0; padding-top:0; border-top:none;">
           <div class="metric-col">
             <div class="metric-val" id="metricTenure">—</div>
             <div class="metric-lbl" data-i18n="lblTenure">Tenure</div>
@@ -1024,21 +1037,48 @@
             <div class="metric-lbl" data-i18n="lblRecognitions">Recognitions</div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Dignity charter -->
-      <section class="card">
+      <div class="card">
         <div class="section-title">
-          <span data-i18n="secDignityCharter">Dignity Charter & Working Terms</span>
+          <h2 data-i18n="secTrustSignals" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Community Trust Signals</h2>
+          <span class="count-badge" id="signalsTotal">38 Total</span>
+        </div>
+        <div class="traits-grid" id="traitsList"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2 data-i18n="secEndorsements" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Household Endorsements</h2>
+          <span class="count-badge" id="endorsementsCount">2 Verified</span>
+        </div>
+        <div class="reference-list" id="referencesList"></div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         TAB 3: TERMS
+         ============================================================ -->
+    <section id="panel-terms" class="tab-panel" role="tabpanel" aria-labelledby="tab-terms" tabindex="0">
+
+      <div class="card">
+        <div class="section-title">
+          <h2 data-i18n="secDignityCharter" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Dignity Charter & Working Terms</h2>
           <span class="count-badge" id="boundariesCount" data-i18n="badgeWorkingTerms">Working Terms</span>
         </div>
         <div class="traits-grid" id="boundariesList"></div>
-      </section>
+        <div style="margin-top:14px;">
+          <button class="btn-action is-outline" onclick="openCustomizeModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <span data-i18n="btnDignityTerms">Edit Working Terms</span>
+          </button>
+        </div>
+      </div>
 
-      <!-- Craft risk silos -->
-      <section class="card">
+      <div class="card">
         <div class="section-title">
-          <span data-i18n="secCraftSilos">Craft Risk Silos (कार्य वर्गीकरण)</span>
+          <h2 data-i18n="secCraftSilos" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Craft Risk Silos</h2>
           <span class="count-badge" data-i18n="badgeRiskGated">Risk Gated</span>
         </div>
         <div class="silo-grid">
@@ -1064,162 +1104,155 @@
             <div class="silo-desc" data-i18n="descHighRisk">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Trust signals -->
-      <section class="card">
+    </section>
+
+    <!-- ============================================================
+         TAB 4: DIRECTORY
+         ============================================================ -->
+    <section id="panel-directory" class="tab-panel" role="tabpanel" aria-labelledby="tab-directory" tabindex="0">
+      <div class="card">
         <div class="section-title">
-          <span data-i18n="secTrustSignals">Community Trust Signals</span>
-          <span class="count-badge" id="signalsTotal">38 Total</span>
+          <h2 data-i18n="navDirectory" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Directory</h2>
         </div>
-        <div class="traits-grid" id="traitsList"></div>
-      </section>
+        <p class="card-help" style="margin-bottom:14px;">Browse the staff directory for Vasudev Complex.</p>
+        <a href="directory.html" class="btn-action is-outline">Open Directory</a>
+      </div>
+    </section>
 
-      <!-- Household endorsements -->
-      <section class="card">
-        <div class="section-title">
-          <span data-i18n="secEndorsements">Household Endorsements</span>
-          <span class="count-badge" id="endorsementsCount">2 Verified</span>
-        </div>
-        <div class="reference-list" id="referencesList"></div>
-      </section>
+    <!-- ============================================================
+         TAB 5: PROFILE
+         ============================================================ -->
+    <section id="panel-profile" class="tab-panel" role="tabpanel" aria-labelledby="tab-profile" tabindex="0">
 
-      <!-- Portable pass -->
-      <section class="card card-presentation">
-        <div class="pass-top">
-          <div class="pass-hero">
-            <img id="passHeroAvatar"
-                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
-                 alt="Worker Face">
-            <div class="pass-hero-check">✓</div>
-          </div>
-          <div class="pass-meta">
-            <div class="liveness-ticker">
-              <span class="liveness-dot"></span>
-              <span><span data-i18n="lblLiveGatePass">SOVEREIGN PASSPORT</span> • <span id="liveClockTicker">--:--:--</span></span>
+      <div class="card fancy-rosette">
+        <div class="profile-header">
+          <div class="avatar-wrap">
+            <div class="avatar" id="pAvatar">SD</div>
+            <div class="verified-seal" title="Verified worker" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
-            <div id="passFingerprint" class="pass-fingerprint">#M-7F2A-4921</div>
+          </div>
+          <div class="profile-meta">
+            <h1 id="pName">Sunita Devi</h1>
+            <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
+            <div class="profile-gov-id">
+              <span data-i18n="badgeEShram">e-Shram Verified</span>
+              <span aria-hidden="true">•</span>
+              <span id="pUan">UAN ****-****-4921</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div id="passCardTitle" class="pass-title" data-i18n="passTitle">Sovereign Work Passport</div>
-        <p class="card-help" id="passCardHelp" data-i18n="passHelp">
-          Present this QR to employers or clients. A 10-second offline scan cryptographically verifies your attested service tenure, verified society references, and non-negotiable dignity charter.
-        </p>
-
-        <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to prove live session">
-          <canvas id="workerQrCanvas"></canvas>
-          <div class="tap-liveness-toast" id="tapToast">✓ SOVEREIGN VERIFIED PASSPORT</div>
-        </div>
-
-        <div class="pass-actions">
-          <button class="btn-action is-green" onclick="sharePassbookWhatsApp()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-            <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
+      <div class="card">
+        <div class="profile-row">
+          <span class="profile-row-label">Bright-sun mode</span>
+          <button id="btnSolToggle" onclick="toggleSolMode()" aria-pressed="false">
+            <span id="solBtnLabel">Turn on</span>
           </button>
-          <div class="pass-actions-row">
-            <button class="btn-action is-outline" onclick="openCustomizeModal()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-              <span data-i18n="btnDignityTerms">Dignity Terms</span>
-            </button>
-            <a href="verify.html" class="btn-action is-outline is-outline-subtle is-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-              <span data-i18n="btnVerifyGate">Verify Passport</span>
-            </a>
-          </div>
         </div>
-      </section>
-
-      <!-- Modal: working terms -->
-      <div id="customizeModal" class="modal-overlay">
-        <div class="modal-card">
-          <div class="modal-header">
-            <h2 class="modal-title" data-i18n="modalTitle">Dignity Charter & Working Terms</h2>
-            <button class="modal-close" onclick="closeCustomizeModal()">&times;</button>
-          </div>
-
-          <div class="identity-notice">
-            <div class="identity-notice-title">
-              <span>🛡️ Cryptographically Anchored Identity</span>
-            </div>
-            <div class="identity-notice-desc" id="custModalIdentityDesc">
-              Identity and tenure are validated by resident attestations and cannot be modified locally. Workers exercise sovereign rights over their working terms and safety boundaries below.
-            </div>
-          </div>
-
-          <form id="customizeForm" onsubmit="saveCustomProfile(event)">
-            <div style="margin-bottom:16px;">
-              <label class="form-label" data-i18n="lblBoundaries">Select Your Non-Negotiable Working Terms</label>
-              <div id="custBoundariesList" class="boundary-options"></div>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta);" data-i18n="btnSaveProfile">Save Working Terms</button>
-              <button type="button" class="btn-action is-outline is-outline-subtle" onclick="closeCustomizeModal()" data-i18n="btnCancel">Cancel</button>
-            </div>
-          </form>
+        <div class="profile-row">
+          <span class="profile-row-label">Switch to another worker</span>
+          <a href="portfolio.html?worker=unknown">Unknown user</a>
+        </div>
+        <div class="profile-row">
+          <span class="profile-row-label">Clear this device's saved data</span>
+          <button onclick="resetLocalDemo()">Reset</button>
         </div>
       </div>
 
-    </main>
+      <p class="card-help" style="text-align:center; font-size:12px;">
+        Project Maanyata (मान्यता) • Sovereign Career Passbook<br>
+        Protected under <strong>Section 79, Information Technology Act, 2000</strong> (Intermediary Safe Harbor).<br>
+        Worker sovereignty guaranteed under <strong>Digital Personal Data Protection Act, 2023</strong>.<br>
+        Zero cloud surveillance • Zero negative blacklists • 100% Free & Open-Source
+      </p>
 
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-title">Project Maanyata (मान्यता) • Sovereign Career Passbook</div>
-        <div class="footer-legal">
-          Protected under <strong>Section 79, Information Technology Act, 2000</strong> (Intermediary Safe Harbor).<br>
-          Worker sovereignty guaranteed under <strong>Digital Personal Data Protection Act, 2023</strong>.<br>
-          Zero cloud surveillance • Zero negative blacklists • 100% Free & Open-Source
-        </div>
-        <div class="footer-links">
-          <a href="portfolio.html?worker=unknown">Switch to Unknown User</a>
-          <span class="sep">|</span>
-          <button onclick="localStorage.removeItem('maanyata_sunita_portfolio_v1'); localStorage.removeItem('maanyata_workers_v1'); location.href='portfolio.html?worker=unknown';">Reset Local Demo Storage</button>
-        </div>
-      </div>
-    </footer>
+    </section>
 
   </div>
 
-  <!-- Toast -->
-  <div id="toast" class="toast">❤️ Appreciation logged in lifetime record!</div>
+  <!-- ============================================================
+       BOTTOM TAB BAR (5 tabs: Pass, Record, Terms, Directory, Profile)
+       ============================================================ -->
+  <nav class="tabbar" aria-label="Main navigation">
+    <div role="tablist" aria-label="Main sections" style="display:flex; width:100%; justify-content:space-around;">
+
+      <button id="tab-pass" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-pass" tabindex="0" onclick="showTab('pass')">
+        <span class="tab-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4"/><path d="M7 14h6"/><path d="M16 10h1"/></svg>
+        </span>
+        <span>Pass</span>
+      </button>
+
+      <button id="tab-record" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-record" tabindex="-1" onclick="showTab('record')">
+        <span class="tab-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+        </span>
+        <span>Record</span>
+      </button>
+
+      <button id="tab-terms" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-terms" tabindex="-1" onclick="showTab('terms')">
+        <span class="tab-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6a2 2 0 0 1 2 2v14H7V6a2 2 0 0 1 2-2z"/><path d="M9 4v2h6V4"/><path d="M10 12h4"/><path d="M10 16h4"/></svg>
+        </span>
+        <span>Terms</span>
+      </button>
+
+      <button id="tab-directory" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-directory" tabindex="-1" onclick="showTab('directory')">
+        <span class="tab-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/></svg>
+        </span>
+        <span>Directory</span>
+      </button>
+
+      <button id="tab-profile" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-profile" tabindex="-1" onclick="showTab('profile')">
+        <span class="tab-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </span>
+        <span>Profile</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Modal: working terms -->
+  <div id="customizeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle" data-i18n="modalTitle">Dignity Charter & Working Terms</h2>
+        <button class="modal-close" onclick="closeCustomizeModal()" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="identity-notice">
+        <div class="identity-notice-title">🛡️ Verified Identity</div>
+        <div class="identity-notice-desc" id="custModalIdentityDesc">
+          Identity and tenure are validated by resident attestations and cannot be modified locally. Workers exercise sovereign rights over their working terms and safety boundaries below.
+        </div>
+      </div>
+
+      <form id="customizeForm" onsubmit="saveCustomProfile(event)">
+        <fieldset style="border:none; margin-bottom:16px;">
+          <legend class="form-label" data-i18n="lblBoundaries">Select Your Non-Negotiable Working Terms</legend>
+          <div id="custBoundariesList" class="boundary-options"></div>
+        </fieldset>
+        <div class="form-actions">
+          <button type="submit" class="btn-action" style="flex:1; background:var(--terracotta);" data-i18n="btnSaveProfile">Save Working Terms</button>
+          <button type="button" class="btn-action is-outline" onclick="closeCustomizeModal()" data-i18n="btnCancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">❤️ Appreciation logged in lifetime record!</div>
 
   <script src="./maanyata_store.js"></script>
   <script src="./qr_engine.js"></script>
 
   <script>
     const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
-
-    const DEFAULT_PORTFOLIO = {
-      name: "Sunita Bai",
-      role: "Senior Household & Culinary Specialist",
-      uan: "UAN ****-****-4921",
-      tenure: "8.5 Yrs",
-      households: 19,
-      traits: {
-        "Always On Time": { count: 24, icon: "🕒" },
-        "Trusted With House Keys": { count: 18, icon: "🤝" },
-        "Exceptional Cooking": { count: 14, icon: "🍲" },
-        "Meticulous & Thorough": { count: 11, icon: "🧹" },
-        "Went Above & Beyond": { count: 5, icon: "🌟" }
-      },
-      references: [
-        {
-          quote: "Sunita has held our apartment keys for 3 years without a single issue. Incredibly punctual, independent, and treats our kitchen like her own.",
-          author: "Pooja Rao",
-          unit: "Flat B-402, Greenwood Palms",
-          tenure: "3 Years Tenure"
-        },
-        {
-          quote: "Helped take care of my elderly mother during recovery. Highly compassionate, polite, and completely dependable.",
-          author: "Col. Narang",
-          unit: "Tower 2 (B-104)",
-          tenure: "2.5 Years Tenure"
-        }
-      ]
-    };
-
-    let portfolio = loadPortfolio();
-    let selectedTraits = new Set(["Always On Time"]);
 
     const SAMPLES = {
       sunita_devi: {
@@ -1310,6 +1343,8 @@
       isUnknown: true
     };
 
+    let portfolio = loadPortfolio();
+
     function loadPortfolio() {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -1364,7 +1399,6 @@
       } catch (e) {}
     }
 
-    // Escape HTML to prevent DOM XSS
     function escapeHTML(str) {
       if (str == null) return '';
       return String(str)
@@ -1375,7 +1409,6 @@
         .replace(/'/g, '&#039;');
     }
 
-    // Mask unit numbers so burglars can't identify empty flats
     function maskUnitPrivacy(unitStr) {
       if (!unitStr) return "Tower Resident";
       if (window.MaanyataStore && window.MaanyataStore.maskUnit) {
@@ -1394,7 +1427,6 @@
         .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
     }
 
-    // Derive an 8-character fingerprint from the worker's ID
     function getSovereignFingerprint() {
       const idStr = portfolio.uan || portfolio.name || "Worker";
       let hash = 0;
@@ -1406,11 +1438,63 @@
       return `#M-${hex.slice(0, 4)}-${hex.slice(4, 8)}`;
     }
 
+    /* ----------------------------------------------------------
+       TAB NAVIGATION
+       ---------------------------------------------------------- */
+    const TABS = ['pass', 'record', 'terms', 'directory', 'profile'];
+    let currentTab = 'pass';
+
+    function showTab(name) {
+      if (!TABS.includes(name)) return;
+      currentTab = name;
+
+      TABS.forEach(t => {
+        const panel = document.getElementById('panel-' + t);
+        const btn = document.getElementById('tab-' + t);
+        const active = t === name;
+        if (panel) panel.classList.toggle('is-active', active);
+        if (btn) {
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+          btn.setAttribute('tabindex', active ? '0' : '-1');
+        }
+      });
+
+      const panel = document.getElementById('panel-' + name);
+      if (panel) panel.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+
+    // Arrow keys move between tabs, as the ARIA tab pattern expects
+    document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+      const idx = TABS.indexOf(currentTab);
+      let next = null;
+      if (e.key === 'ArrowRight') next = TABS[(idx + 1) % TABS.length];
+      if (e.key === 'ArrowLeft') next = TABS[(idx - 1 + TABS.length) % TABS.length];
+      if (e.key === 'Home') next = TABS[0];
+      if (e.key === 'End') next = TABS[TABS.length - 1];
+      if (next) {
+        e.preventDefault();
+        showTab(next);
+        document.getElementById('tab-' + next).focus();
+      }
+    });
+
+    // Detect platform so the tab bar can match iPhone or Android
+    function detectPlatform() {
+      const ua = navigator.userAgent || '';
+      const isIOS = /iPhone|iPad|iPod/i.test(ua) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      document.documentElement.classList.add(isIOS ? 'platform-ios' : 'platform-android');
+    }
+
+    /* ----------------------------------------------------------
+       RENDERING
+       ---------------------------------------------------------- */
     function renderPortfolio() {
       document.getElementById("pName").textContent = portfolio.name;
       document.getElementById("pRole").textContent = portfolio.role;
       document.getElementById("pUan").textContent = portfolio.uan;
-      document.getElementById("metricTenure").textContent = currentLang === 'hi' ? (portfolio.tenure || "8.5 Yrs").replace(/Yrs?/i, 'वर्ष') : (portfolio.tenure || "8.5 Yrs");
+      document.getElementById("metricTenure").textContent = portfolio.tenure;
       document.getElementById("metricHouseholds").textContent = portfolio.households;
 
       const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
@@ -1422,13 +1506,13 @@
       const av = document.getElementById("pAvatar");
       if (av) {
         if (portfolio.photo && !isUnknown) {
-          av.innerHTML = `<img src="${escapeHTML(portfolio.photo)}" alt="${escapeHTML(portfolio.name)}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
+          av.innerHTML = `<img src="${escapeHTML(portfolio.photo)}" alt="${escapeHTML(portfolio.name)}" style="width:100%; height:100%; object-fit:cover;">`;
         } else {
           av.textContent = initials;
         }
       }
 
-      // Unknown-user banner
+      // Unknown-user banner, shown on the Pass tab
       const existingBanner = document.getElementById("unknownUserBanner");
       if (isUnknown) {
         if (!existingBanner) {
@@ -1439,20 +1523,23 @@
             <strong>ℹ️ Unknown User / No Active Passbook Loaded</strong><br>
             You are viewing Project Maanyata without an active worker passbook. Explore an authentic demo passbook or create a new passbook:
             <div class="unknown-banner-links">
-              <a href="portfolio.html?sample=sunita_devi" class="unknown-banner-link">👩‍🍳 Sunita Devi (Cook)</a>
+              <a href="portfolio.html?sample=sunita_devi" class="unknown-banner-link">👩🍳 Sunita Devi (Cook)</a>
               <a href="portfolio.html?sample=ramesh_kumar" class="unknown-banner-link">🚗 Ramesh Kumar (Driver)</a>
               <a href="portfolio.html?sample=asha_kumari" class="unknown-banner-link">🧹 Asha Kumari (Cleaner)</a>
               <a href="onboard.html" class="unknown-banner-link is-primary">⚙️ Onboard New Worker</a>
             </div>
           `;
-          document.querySelector(".profile-header").after(b);
+          document.getElementById("panel-pass").prepend(b);
         }
       } else if (existingBanner) {
         existingBanner.remove();
       }
 
-      // Page Title
+      const firstName = isUnknown ? "Worker" : (nameParts[0] || portfolio.name || "Worker");
       document.title = `${portfolio.name} — Sovereign Work Portfolio | Maanyata`;
+
+      const passTitle = document.getElementById("passCardTitle");
+      if (passTitle) passTitle.textContent = `${firstName}'s Portable Trust Pass`;
 
       // Total recognitions
       let total = 0;
@@ -1476,7 +1563,7 @@
         traitsBox.appendChild(el);
       }
 
-      // Dignity charter terms
+      // Working terms
       const boundBox = document.getElementById("boundariesList");
       if (boundBox) {
         boundBox.innerHTML = "";
@@ -1492,21 +1579,17 @@
         }
         terms.forEach(t => {
           const el = document.createElement("div");
-          el.className = "trait-badge";
-          el.style.background = "var(--terracotta-bg)";
-          el.style.borderColor = "var(--terracotta-border)";
-          el.style.color = "var(--terracotta)";
+          el.className = "trait-badge boundary-chip";
           const displayTxt = currentLang === 'hi' ? translateBoundary(t, 'hi') : t;
           el.innerHTML = `<span>${escapeHTML(displayTxt)}</span>`;
           boundBox.appendChild(el);
         });
       }
 
-      // References
+      // Endorsements
       const refsBox = document.getElementById("referencesList");
       refsBox.innerHTML = "";
 
-      // Filter defamatory or placeholder entries
       const BANNED_REGEX = /\b(fuck|shit|nigger|nigga|nigg|murder(?:s|er|ing)?|thief|thieves|theft|steal(?:ing)?|stole|stolen|kill(?:er|ing)?|rape|rapist|police|cops?|arrest(?:ed)?|chor(?:i)?|harami|badmash|fraud|scam|cheat(?:er)?)\b/i;
 
       portfolio.references = (portfolio.references || []).filter(r => {
@@ -1535,7 +1618,6 @@
         }
       }
 
-      // Unique verified households
       const uniqueUnits = new Set((portfolio.references || [])
         .filter(r => r.certified !== false && r.unit)
         .map(r => r.unit.trim().toLowerCase())
@@ -1558,7 +1640,7 @@
           const tagTxt = currentLang === 'hi' ? "✓ सत्यापित संपर्क" : "✓ Verified Peer Contact";
           verificationAction = `
             <div class="verify-row">
-              <a href="${waLink}" target="_blank" class="peer-callback-btn">${btnTxt}</a>
+              <a href="${waLink}" target="_blank" rel="noopener" class="peer-callback-btn">${btnTxt}</a>
               <span class="verify-tag">${tagTxt}</span>
             </div>
           `;
@@ -1584,7 +1666,6 @@
         refsBox.appendChild(el);
       });
 
-      // Hero photo and fingerprint on the pass
       const heroAvatar = document.getElementById("passHeroAvatar");
       if (heroAvatar && portfolio.photo) {
         heroAvatar.src = portfolio.photo;
@@ -1603,13 +1684,15 @@
       setTimeout(() => t.classList.remove("show"), 3500);
     }
 
-    // Pure-canvas QR rendering (no remote CDN)
+    /* ----------------------------------------------------------
+       QR DISPLAY AND TAP FEEDBACK
+       The tap only changes the on-screen message. It proves nothing.
+       ---------------------------------------------------------- */
     function triggerLivenessProof() {
       const toast = document.getElementById("tapToast");
       const wrap = document.getElementById("qrLivenessWrap");
       if (!toast || !wrap) return;
-      const timeStr = new Date().toLocaleTimeString();
-      toast.textContent = `✓ LIVE ACTIVE PASS • ${timeStr}`;
+      toast.textContent = `Code shown • ${new Date().toLocaleTimeString()}`;
       toast.style.opacity = "1";
       toast.style.transform = "translate(-50%, -50%) scale(1.05)";
       wrap.style.borderColor = "#16A34A";
@@ -1624,15 +1707,17 @@
     function startLiveTicker() {
       const clockEl = document.getElementById("liveClockTicker");
       if (!clockEl) return;
+      if (clockEl.dataset.running) return;
+      clockEl.dataset.running = "1";
       function update() {
         const now = new Date();
-        const hrs = String(now.getHours()).padStart(2, '0');
-        const mins = String(now.getMinutes()).padStart(2, '0');
-        const secs = String(now.getSeconds()).padStart(2, '0');
-        clockEl.textContent = `${hrs}:${mins}:${secs}`;
-        requestAnimationFrame(() => setTimeout(update, 500));
+        clockEl.textContent =
+          String(now.getHours()).padStart(2, '0') + ':' +
+          String(now.getMinutes()).padStart(2, '0') + ':' +
+          String(now.getSeconds()).padStart(2, '0');
       }
       update();
+      setInterval(update, 1000);
     }
 
     function renderOfflineQR() {
@@ -1677,7 +1762,6 @@
       }
     }
 
-    // Sync the passbook from the edge KV store
     async function hydrateFromEdge() {
       const params = new URLSearchParams(window.location.search);
       const sampleId = params.get('sample');
@@ -1699,7 +1783,9 @@
       }
     }
 
-    // Theme and language
+    /* ----------------------------------------------------------
+       THEME, LANGUAGE, AND PROFILE ACTIONS
+       ---------------------------------------------------------- */
     let currentTheme = localStorage.getItem('mny_theme') || 'daylight';
     let currentLang = localStorage.getItem('mny_lang') || 'en';
 
@@ -1717,18 +1803,27 @@
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('mny_theme', 'daylight');
         updateSolBtn(false);
-        showToast("🌤️ Daylight Mode Activated");
+        showToast("Bright-sun mode off");
       } else {
         document.documentElement.setAttribute('data-theme', 'sol');
         localStorage.setItem('mny_theme', 'sol');
         updateSolBtn(true);
-        showToast("☀️ Sol-Contrast Activated (Max Glare Defense)");
+        showToast("Bright-sun mode on");
       }
     }
 
     function updateSolBtn(isSol) {
       const lbl = document.getElementById("solBtnLabel");
-      if (lbl) lbl.textContent = isSol ? "Daylight" : "Sol";
+      const btn = document.getElementById("btnSolToggle");
+      if (lbl) lbl.textContent = isSol ? "Turn off" : "Turn on";
+      if (btn) btn.setAttribute('aria-pressed', isSol ? 'true' : 'false');
+    }
+
+    function resetLocalDemo() {
+      if (!confirm("Clear all saved data on this device?")) return;
+      localStorage.removeItem('maanyata_sunita_portfolio_v1');
+      localStorage.removeItem('maanyata_workers_v1');
+      location.href = 'portfolio.html?worker=unknown';
     }
 
     const TRAIT_MAP_HI = {
@@ -1774,20 +1869,17 @@
     const I18N = {
       en: {
         brand: "Maanyata",
-        navDirectory: "Directory",
-        navShare: "Share",
         lblTenure: "Tenure",
         lblHouseholds: "Households",
         lblRecognitions: "Recognitions",
         badgeEShram: "e-Shram Verified",
-        passTitle: "Sovereign Work Passport",
-        passHelp: "Present this QR to employers or clients. A 10-second offline scan cryptographically verifies your attested service tenure, verified society references, and non-negotiable dignity charter.",
-        lblLiveGatePass: "SOVEREIGN PASSPORT",
-        verifiedWorker: "Verified Worker",
+        passTitle: "Portable Trust Pass",
+        passHelp: "Show this QR code to an employer to confirm your work record.",
+        lblWorkPass: "WORK PASS",
         secDignityCharter: "Dignity Charter & Working Terms",
         badgeWorkingTerms: "Working Terms",
-        secCraftSilos: "Craft & Trust Tiers (Attestation Gated)",
-        badgeRiskGated: "Attestation Gated",
+        secCraftSilos: "Craft Risk Silos",
+        badgeRiskGated: "Risk Gated",
         siloSurface: "🧹 Surface Crafts (Cleaning / Utensils)",
         badgeStandardRisk: "Standard Risk",
         descSurface: "Floor sweeping, mopping, utensil washing. Low blast radius.",
@@ -1800,29 +1892,27 @@
         secTrustSignals: "Community Trust Signals",
         secEndorsements: "Household Endorsements",
         btnShareWhatsApp: "Share Passbook on WhatsApp",
-        btnDignityTerms: "Dignity Terms",
-        btnVerifyGate: "Verify Passport",
+        btnDignityTerms: "Edit Working Terms",
+        btnVerifyGate: "Verify Pass",
         modalTitle: "Dignity Charter & Working Terms",
         lblBoundaries: "Select Your Non-Negotiable Working Terms",
         btnSaveProfile: "Save Working Terms",
-        btnCancel: "Cancel"
+        btnCancel: "Cancel",
+        navDirectory: "Directory"
       },
       hi: {
         brand: "मान्यता",
-        navDirectory: "निर्देशिका",
-        navShare: "साझा करें",
         lblTenure: "कार्यकाल",
         lblHouseholds: "परिवार",
         lblRecognitions: "प्रशंसा",
         badgeEShram: "ई-श्रम सत्यापित",
-        passTitle: "संप्रभु कार्य पासपोर्ट",
-        passHelp: "यह QR कोड नए नियोक्ता या परिवारों को दिखाएं। 10 सेकंड का ऑफलाइन स्कैन आपके कार्यकाल, पूर्व परिवारों के सत्यापन और गरिमा चार्टर को प्रमाणित करता है।",
-        lblLiveGatePass: "सक्रिय कार्य पासपोर्ट",
-        verifiedWorker: "सत्यापित कार्यकर्ता",
+        passTitle: "सत्यापित पोर्टेबल ट्रस्ट पास",
+        passHelp: "यह क्यूआर कोड नियोक्ता को दिखाएं ताकि आपका कार्य रिकॉर्ड सत्यापित हो सके।",
+        lblWorkPass: "कार्य पास",
         secDignityCharter: "गरिमा चार्टर एवं कार्य नियम",
         badgeWorkingTerms: "कार्य नियम",
-        secCraftSilos: "कार्य एवं विश्वास श्रेणियां (सत्यापन आधारित)",
-        badgeRiskGated: "सत्यापन आधारित",
+        secCraftSilos: "कार्य जोखिम वर्गीकरण",
+        badgeRiskGated: "जोखिम वर्गीकृत",
         siloSurface: "🧹 सामान्य कार्य (सफाई / बर्तन)",
         badgeStandardRisk: "सामान्य जोखिम",
         descSurface: "झाड़ू, पोछा, बर्तन धोना। कम जोखिम वाला दैनिक कार्य।",
@@ -1835,20 +1925,15 @@
         secTrustSignals: "सामुदायिक विश्वास संकेत",
         secEndorsements: "पारिवारिक अनुशंसाएं",
         btnShareWhatsApp: "व्हाट्सएप पर पासबुक साझा करें",
-        btnDignityTerms: "गरिमा नियम",
-        btnVerifyGate: "पासपोर्ट सत्यापन",
+        btnDignityTerms: "कार्य नियम बदलें",
+        btnVerifyGate: "पास सत्यापित करें",
         modalTitle: "गरिमा चार्टर एवं कार्य नियम",
         lblBoundaries: "अपने गैर-परक्राम्य कार्य नियम चुनें",
         btnSaveProfile: "कार्य नियम सहेजें",
-        btnCancel: "रद्द करें"
+        btnCancel: "रद्द करें",
+        navDirectory: "निर्देशिका"
       }
     };
-
-    function toggleLanguage() {
-      const nextLang = currentLang === 'en' ? 'hi' : 'en';
-      applyLanguage(nextLang);
-      showToast(nextLang === 'hi' ? "🌐 हिन्दी मोड सक्रिय" : "🌐 English Mode Active");
-    }
 
     function applyLanguage(lang) {
       currentLang = lang;
@@ -1856,9 +1941,6 @@
       document.documentElement.setAttribute('lang', lang);
 
       const dict = I18N[lang] || I18N.en;
-      const langBtn = document.getElementById("langBtnLabel");
-      if (langBtn) langBtn.textContent = lang === 'en' ? "हिन्दी" : "English";
-
       const brandTitle = document.getElementById("brandTitle");
       if (brandTitle) brandTitle.textContent = dict.brand;
 
@@ -1867,7 +1949,6 @@
         if (dict[key]) el.textContent = dict[key];
       });
 
-      // Swap the demo worker's name and role to match the language
       const nameEl = document.getElementById("pName");
       const roleEl = document.getElementById("pRole");
       if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "सुनीता देवी")) {
@@ -1882,20 +1963,24 @@
       renderPortfolio();
     }
 
-    // WhatsApp sharing
     function sharePassbookWhatsApp() {
       const workerName = portfolio.name || 'Sunita Devi';
       const workerRole = portfolio.role || 'Senior Household Specialist';
       const tenure = portfolio.tenure || '8.5 Yrs';
       const url = window.location.href.split('#')[0];
       const msg = `Namaste, I am sharing my verified frontline work passbook on Project Maanyata:\n\n👤 *${workerName}*\n🛠️ ${workerRole}\n⏳ Seniority: ${tenure} (Verified by local residents)\n\nView my live authenticated passbook here:\n${url}`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     }
 
-    // Working-terms modal
+    /* ----------------------------------------------------------
+       WORKING-TERMS MODAL
+       ---------------------------------------------------------- */
+    let lastFocusedBeforeModal = null;
+
     function openCustomizeModal() {
       const modal = document.getElementById("customizeModal");
       if (!modal) return;
+      lastFocusedBeforeModal = document.activeElement;
 
       const descEl = document.getElementById("custModalIdentityDesc");
       if (descEl) {
@@ -1920,12 +2005,25 @@
         });
       }
       modal.style.display = "flex";
+      const firstInput = modal.querySelector("input");
+      if (firstInput) firstInput.focus();
     }
 
     function closeCustomizeModal() {
       const modal = document.getElementById("customizeModal");
       if (modal) modal.style.display = "none";
+      if (lastFocusedBeforeModal && lastFocusedBeforeModal.focus) {
+        lastFocusedBeforeModal.focus();
+      }
     }
+
+    // Escape closes the modal
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById("customizeModal");
+      if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+        closeCustomizeModal();
+      }
+    });
 
     function saveCustomProfile(event) {
       if (event) event.preventDefault();
@@ -1939,13 +2037,18 @@
       savePortfolio();
       closeCustomizeModal();
       renderPortfolio();
-      showToast(currentLang === 'hi' ? "✓ गरिमा कार्य नियम अपडेट किए गए" : "✓ Dignity Working Terms Updated");
+      showToast(currentLang === 'hi' ? "✓ गरिमा कार्य नियम अपडेट किए गए" : "✓ Working terms updated");
     }
 
+    /* ----------------------------------------------------------
+       START
+       ---------------------------------------------------------- */
     function initApp() {
+      detectPlatform();
       initThemeAndLang();
       renderPortfolio();
       hydrateFromEdge();
+      showTab('pass');
     }
 
     if (document.readyState === "loading") {
