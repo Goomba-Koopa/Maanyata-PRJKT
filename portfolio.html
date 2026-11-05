@@ -4,990 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sovereign Work Portfolio | Maanyata</title>
+  
+  <!-- Font Infrastructure -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Sarala:wght@400;700&family=Yatra+One&display=swap" rel="stylesheet">
-  <style>
-    /* Maanyata: sovereign worker portfolio
-       Fonts: Yatra One (display), Anek Devanagari (UI), Sarala (metadata) */
-
-    :root {
-      /* Brand colors, named after their Pantone references */
-      --mny-navy: #0B192C;             /* PMS 282 C, passport navy */
-      --mny-terracotta: #C2410C;       /* PMS 1675 C, terracotta stamp */
-      --mny-terracotta-hover: #9A3412;
-      --mny-terracotta-bg: #FFF7ED;
-      --mny-terracotta-border: #FFEDD5;
-
-      --mny-verified: #15803D;         /* PMS 348 C, official seal green */
-      --mny-verified-bg: #ECFDF5;
-      --mny-verified-border: #A7F3D0;
-
-      --mny-paper: #FAF8F5;            /* PMS 7527 C, ledger cardstock */
-      --mny-card: #FFFFFF;
-      --mny-card-subtle: #F5F1E9;
-      --mny-carbon: #1C1917;           /* PMS Black 6 C */
-      --mny-tenure-gold: #B45309;      /* PMS 130 C, seniority brass */
-
-      /* Semantic tokens */
-      --canvas: var(--mny-paper);
-      --card-bg: var(--mny-card);
-      --card-subtle: var(--mny-card-subtle);
-      --border: #E8E2D5;
-      --border-strong: #D6CEBE;
-
-      --ink-primary: var(--mny-carbon);
-      --ink-secondary: #44403C;
-      --ink-muted: #78716C;
-      --ink-faint: #A8A29E;
-
-      --terracotta: var(--mny-terracotta);
-      --terracotta-hover: var(--mny-terracotta-hover);
-      --terracotta-bg: var(--mny-terracotta-bg);
-      --terracotta-border: var(--mny-terracotta-border);
-
-      --emerald: var(--mny-verified);
-      --emerald-bg: var(--mny-verified-bg);
-      --emerald-border: var(--mny-verified-border);
-
-      --amber: var(--mny-tenure-gold);
-      --amber-bg: #FFFBEB;
-      --amber-border: #FDE68A;
-
-      --radius-sm: 8px;
-
-      /* Typography */
-      --font-heading: 'Plus Jakarta Sans', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-body: 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'Sarala', monospace;
-      --font-brand: 'Yatra One', cursive, serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--canvas);
-      color: var(--ink-primary);
-      font-family: var(--font-body);
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 16px 16px 120px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .shell {
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* Header (logo and share only) */
-    .masthead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 4px;
-    }
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      color: var(--ink-primary);
-    }
-    .brand-glyph {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--terracotta);
-      color: #FFFFFF;
-      font-family: var(--font-brand);
-      font-weight: 800;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .brand-name {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 17px;
-      letter-spacing: -0.01em;
-    }
-    html[lang="hi"] .brand-name {
-      font-family: var(--font-brand);
-      font-size: 19px;
-    }
-
-    /* Small outlined button, used in the header and elsewhere */
-    .mode-toggle-btn {
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--terracotta);
-      background: var(--terracotta-bg);
-      border: 1px solid var(--terracotta-border);
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      min-height: 44px;
-      min-width: 44px;
-      white-space: nowrap;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .mode-toggle-btn svg { flex-shrink: 0; }
-
-    /* Views: only one tab panel is visible at a time */
-    .tab-panel { display: none; flex-direction: column; gap: 16px; }
-    .tab-panel.is-active { display: flex; }
-
-    /* Cards */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(28, 25, 23, 0.03);
-    }
-
-    /* Decorative pass edge */
-    .fancy-rosette {
-      position: relative;
-      border-top: 3px solid var(--terracotta) !important;
-      background-image:
-        radial-gradient(circle at 50% 0%, transparent 5px, rgba(11, 25, 44, 0.03) 6px),
-        repeating-linear-gradient(45deg, rgba(194, 65, 12, 0.04) 0px, rgba(194, 65, 12, 0.04) 1px, transparent 1px, transparent 6px);
-      background-size: 100% 12px, 12px 12px;
-      background-repeat: no-repeat, repeat;
-    }
-
-    /* Sol-contrast mode (bright sunlight) */
-    [data-theme="sol"] {
-      --canvas: #FFFFFF;
-      --card-bg: #FFFFFF;
-      --card-subtle: #F5F5F5;
-      --border: #000000;
-      --border-strong: #000000;
-      --ink-primary: #000000;
-      --ink-secondary: #000000;
-      --ink-muted: #111111;
-      --ink-faint: #222222;
-
-      --terracotta: #B91C1C;
-      --terracotta-bg: #FEE2E2;
-      --terracotta-border: #000000;
-
-      --emerald: #15803D;
-      --emerald-bg: #DCFCE7;
-      --emerald-border: #000000;
-    }
-    [data-theme="sol"] body {
-      background-color: #FFFFFF;
-      color: #000000;
-    }
-    [data-theme="sol"] .card {
-      border: 2px solid #000000;
-      box-shadow: none;
-      background: #FFFFFF;
-    }
-    [data-theme="sol"] h1,
-    [data-theme="sol"] h2,
-    [data-theme="sol"] .brand-name,
-    [data-theme="sol"] .metric-val {
-      color: #000000;
-      font-weight: 800;
-    }
-    [data-theme="sol"] .mode-toggle-btn,
-    [data-theme="sol"] .btn-action {
-      border: 2px solid #000000;
-      box-shadow: none;
-    }
-    [data-theme="sol"] .qr-canvas-wrap {
-      border: 3px solid #000000;
-      background: #FFFFFF;
-    }
-    [data-theme="sol"] .tabbar {
-      background: #FFFFFF;
-      border: 2px solid #000000;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      box-shadow: none;
-    }
-
-    /* Tabular numerals with slashed zero for IDs and clocks */
-    .metric-val, #liveClockTicker, #passFingerprint, .profile-gov-id {
-      font-family: var(--font-mono);
-      font-feature-settings: "tnum" 1, "zero" 1;
-      font-variant-numeric: tabular-nums slashed-zero;
-    }
-
-    /* Profile header */
-    .profile-header {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .avatar-wrap { position: relative; }
-    .avatar {
-      width: 68px;
-      height: 68px;
-      border-radius: 18px;
-      background: #F3E8D8;
-      border: 2px solid #E6D8C4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 26px;
-      color: var(--terracotta);
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-    .verified-seal {
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      background: var(--emerald);
-      color: #fff;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .profile-meta h1 {
-      font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 4px;
-    }
-    .profile-role {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--terracotta);
-      margin-bottom: 6px;
-    }
-    .profile-gov-id {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--emerald-bg);
-      color: var(--emerald);
-      border: 1px solid var(--emerald-border);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    /* Metrics */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-    }
-    .metric-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      text-align: center;
-    }
-    .metric-val {
-      font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--ink-primary);
-    }
-    .metric-lbl {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* Section headings */
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ink-secondary);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .count-badge {
-      font-size: 12px;
-      color: var(--ink-muted);
-      font-weight: 600;
-      background: var(--card-subtle);
-      padding: 2px 8px;
-      border-radius: 9999px;
-      white-space: nowrap;
-    }
-
-    /* Chips */
-    .traits-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .trait-badge {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .trait-count {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 12px;
-      background: var(--terracotta-bg);
-      color: var(--terracotta);
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
-    .boundary-chip {
-      background: var(--terracotta-bg);
-      border-color: var(--terracotta-border);
-      color: var(--terracotta);
-    }
-
-    /* Endorsements */
-    .reference-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .reference-quote {
-      background: var(--card-subtle);
-      border-left: 3px solid var(--terracotta);
-      border-radius: 0 12px 12px 0;
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .quote-text {
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--ink-secondary);
-      font-style: italic;
-    }
-    .quote-author {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .quote-tenure {
-      color: var(--terracotta);
-      font-weight: 700;
-    }
-    .location-badge {
-      font-size: 11px;
-      font-weight: 700;
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-    .location-badge.is-verified { color: var(--emerald); background: var(--emerald-bg); }
-    .location-badge.is-pending  { color: #B45309; background: #FEF3C7; }
-    .verify-row {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .verify-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--emerald);
-      background: var(--emerald-bg);
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .peer-callback-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #047857;
-      background: #ECFDF5;
-      border: 1px solid #A7F3D0;
-      padding: 8px 12px;
-      border-radius: 6px;
-      text-decoration: none;
-      min-height: 44px;
-    }
-    .peer-unverified-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #B45309;
-      background: #FFFBEB;
-      border: 1px solid #FDE68A;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    /* Craft risk silos */
-    .silo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    .silo-card {
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-    .silo-card.is-high {
-      border-color: #FECACA;
-      background: #FFF5F5;
-    }
-    .silo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-      flex-wrap: wrap;
-    }
-    .silo-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink-primary);
-    }
-    .silo-badge {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .silo-badge-low  { background: #E0E7FF; color: #3730A3; }
-    .silo-badge-med  { background: #FEF3C7; color: #92400E; }
-    .silo-badge-high { background: #FEE2E2; color: #991B1B; }
-    .silo-desc {
-      font-size: 13px;
-      color: var(--ink-secondary);
-      line-height: 1.4;
-    }
-
-    /* Pass card */
-    .card-presentation {
-      background: linear-gradient(145deg, #FFFDFB 0%, #F5EFE6 100%);
-      border: 1.5px solid #D8CFC0;
-      border-radius: 18px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      text-align: center;
-    }
-    .pass-top {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 8px;
-      width: 100%;
-    }
-    .pass-hero { position: relative; }
-    .pass-hero img {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #16A34A;
-      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
-      display: block;
-    }
-    .pass-hero-check {
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      background: #16A34A;
-      color: #FFFFFF;
-      font-size: 11px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #FFFFFF;
-      font-weight: 900;
-    }
-    .pass-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-    }
-    .pass-fingerprint {
-      font-family: var(--font-heading);
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink-secondary);
-      letter-spacing: 0.04em;
-    }
-    .pass-title {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 18px;
-      color: var(--ink-primary);
-    }
-    .card-help {
-      font-size: 14px;
-      color: var(--ink-muted);
-      line-height: 1.4;
-      max-width: 320px;
-    }
-    .liveness-ticker {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      background: #EDF7F2;
-      border: 1px solid #BBF7D0;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #16A34A;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .liveness-dot {
-      width: 8px;
-      height: 8px;
-      background: #16A34A;
-      border-radius: 50%;
-      animation: liveness-blink 1s infinite alternate;
-    }
-    @keyframes liveness-blink {
-      from { opacity: 0.25; transform: scale(0.85); }
-      to   { opacity: 1;    transform: scale(1.15); }
-    }
-
-    .qr-canvas-wrap {
-      background: #FFFFFF;
-      padding: 12px;
-      border-radius: 14px;
-      border: 2px solid #BBF7D0;
-      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .qr-canvas-wrap { animation: heartbeat-pulse 2.5s infinite ease-in-out; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .liveness-dot { animation: none; }
-    }
-    @keyframes heartbeat-pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); border-color: #22C55E; }
-      70%  { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); border-color: #16A34A; }
-      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);    border-color: #22C55E; }
-    }
-    #workerQrCanvas {
-      width: 140px;
-      height: 140px;
-      image-rendering: pixelated;
-    }
-    .tap-liveness-toast {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(22, 163, 74, 0.95);
-      color: #FFFFFF;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      white-space: nowrap;
-      z-index: 10;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Buttons */
-    .btn-action {
-      background: var(--ink-primary);
-      color: #FFFFFF;
-      border: 0;
-      border-radius: 12px;
-      padding: 12px 20px;
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      min-height: 48px;
-      text-decoration: none;
-      transition: background 0.15s ease;
-    }
-    .btn-action:hover { background: #292524; }
-    .btn-action.is-green { background: #16A34A; }
-    .btn-action.is-green:hover { background: #15803D; }
-    .btn-action.is-outline {
-      background: var(--card-bg);
-      color: var(--ink-secondary);
-      border: 1.5px solid var(--border-strong);
-      font-size: 14px;
-    }
-    .btn-action.is-outline:hover { background: var(--card-subtle); }
-    .pass-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-card {
-      max-width: 480px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .modal-title {
-      font-family: var(--font-heading);
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--ink-primary);
-    }
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: var(--ink-muted);
-      line-height: 1;
-      min-width: 44px;
-      min-height: 44px;
-    }
-    .identity-notice {
-      background: var(--emerald-bg);
-      border: 1px solid var(--emerald-border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: var(--emerald);
-      line-height: 1.4;
-    }
-    .identity-notice-title { font-weight: 700; }
-    .identity-notice-desc {
-      color: var(--ink-secondary);
-      font-size: 12px;
-      margin-top: 4px;
-    }
-    .form-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ink-secondary);
-      display: block;
-      margin-bottom: 8px;
-    }
-    .boundary-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .boundary-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      color: var(--ink-primary);
-      cursor: pointer;
-      padding: 10px 12px;
-      min-height: 44px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--card-subtle);
-    }
-    .boundary-option input {
-      accent-color: var(--terracotta);
-      width: 20px;
-      height: 20px;
-    }
-    .form-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    /* Profile tab rows */
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 15px;
-    }
-    .profile-row:last-child { border-bottom: none; }
-    .profile-row-label { color: var(--ink-secondary); font-weight: 600; }
-    .profile-row button,
-    .profile-row a {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--terracotta);
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-decoration: underline;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    /* Unknown-user banner */
-    .unknown-banner {
-      background: #FEF3C7;
-      border: 1.5px solid #FDE68A;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 13px;
-      color: #92400E;
-      line-height: 1.5;
-    }
-    .unknown-banner-links {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .unknown-banner-link {
-      padding: 8px 12px;
-      background: #FFFFFF;
-      border: 1.5px solid #D97706;
-      color: #B45309;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 12px;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
-    .unknown-banner-link.is-primary {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-      color: #FFFFFF;
-    }
-
-    /* Bottom tab bar
-       Default: Android (solid, Material-style).
-       html.platform-ios: floating translucent "liquid glass" bar. */
-    .tabbar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-around;
-      align-items: stretch;
-      gap: 2px;
-      padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
-      background: var(--card-bg);
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -2px 8px rgba(28, 25, 23, 0.06);
-    }
-    html.platform-ios .tabbar {
-      left: 12px;
-      right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: saturate(180%) blur(24px);
-      -webkit-backdrop-filter: saturate(180%) blur(24px);
-      box-shadow: 0 8px 24px rgba(28, 25, 23, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .tab-btn {
-      flex: 1;
-      min-width: 44px;
-      min-height: 56px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      padding: 4px 2px;
-      background: none;
-      border: none;
-      border-radius: 18px;
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-muted);
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .tab-btn-icon {
-      width: 44px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-    }
-    .tab-btn[aria-selected="true"] { color: var(--terracotta); }
-    html.platform-android .tab-btn[aria-selected="true"] .tab-btn-icon {
-      background: var(--terracotta-bg);
-    }
-    html.platform-ios .tab-btn[aria-selected="true"] .tab-btn-icon {
-      background: rgba(194, 65, 12, 0.12);
-    }
-    .tab-btn:focus-visible {
-      outline: 3px solid var(--terracotta);
-      outline-offset: 2px;
-    }
-
-    /* Toast (sits above the tab bar) */
-    .toast {
-      position: fixed;
-      bottom: 104px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #1C1917;
-      color: #FFFFFF;
-      padding: 12px 20px;
-      border-radius: 9999px;
-      font-size: 14px;
-      font-weight: 700;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 999;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* Narrow phones */
-    @media (max-width: 380px) {
-      body { padding: 12px 8px 120px; }
-      .card { padding: 16px 14px; border-radius: 16px; }
-      .profile-meta h1 { font-size: 19px; }
-      .avatar { width: 56px; height: 56px; font-size: 22px; }
-      .metric-val { font-size: 18px; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Baloo+2:wght@600;700;800&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Sarala:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Compartmentalized Module Styles -->
+  <link rel="stylesheet" href="./css/portfolio.css">
 </head>
 <body>
 
   <div class="shell">
-
-    <!-- Header: logo and share -->
+    <!-- Header: Logo & Share -->
     <header class="masthead">
       <a href="portfolio.html" class="brand-mark">
-        <div class="brand-glyph" aria-hidden="true">म</div>
+        <div class="brand-glyph" aria-hidden="true">M</div>
         <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
       <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()" aria-label="Share passbook on WhatsApp">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
         <span>Share</span>
       </button>
     </header>
 
     <!-- ============================================================
-         TAB 1: PASS (default)
+         TAB 1: PASS (Default View)
          ============================================================ -->
     <section id="panel-pass" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-pass" tabindex="0">
-
       <div class="card card-presentation fancy-rosette">
         <div class="pass-top">
           <div class="pass-hero">
-            <img id="passHeroAvatar"
-                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
-                 alt="Photo of the worker">
+            <!-- Authentic Monogram Avatar (Zero stock photo taxidermy) -->
+            <div id="passHeroInitials" class="pass-hero-avatar">SD</div>
             <div class="pass-hero-check" aria-hidden="true">✓</div>
           </div>
           <div class="pass-meta">
             <div class="liveness-ticker">
               <span class="liveness-dot" aria-hidden="true"></span>
-              <span><span data-i18n="lblWorkPass">WORK PASS</span> • <span id="liveClockTicker">--:--:--</span></span>
+              <span><span data-i18n="lblWorkPass">SOVEREIGN PASS</span> • <span id="liveClockTicker">--:--:--</span></span>
             </div>
             <div id="passFingerprint" class="pass-fingerprint">#M-7F2A-4921</div>
           </div>
@@ -995,33 +50,32 @@
 
         <div id="passCardTitle" class="pass-title" data-i18n="passTitle">Portable Trust Pass</div>
         <p class="card-help" id="passCardHelp" data-i18n="passHelp">
-          Show this QR code to an employer to confirm your work record.
+          Show this QR code to an employer or security guard to confirm your verified work record.
         </p>
 
-        <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to show code">
+        <!-- Dynamic Real QR Canvas Holder -->
+        <div class="qr-canvas-wrap" id="qrLivenessWrap" onclick="triggerLivenessProof()" title="Tap to verify live pass">
           <canvas id="workerQrCanvas" role="img" aria-label="Work record QR code"></canvas>
-          <div class="tap-liveness-toast" id="tapToast" aria-live="polite">Code shown</div>
+          <div class="tap-liveness-toast" id="tapToast" aria-live="polite">Code Active</div>
         </div>
 
         <div class="pass-actions">
           <button class="btn-action is-green" onclick="sharePassbookWhatsApp()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+            <svg class="mny-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
             <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
           </button>
           <a href="verify.html" class="btn-action is-outline">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
             <span data-i18n="btnVerifyGate">Verify Pass</span>
           </a>
         </div>
       </div>
-
     </section>
 
     <!-- ============================================================
          TAB 2: RECORD
          ============================================================ -->
     <section id="panel-record" class="tab-panel" role="tabpanel" aria-labelledby="tab-record" tabindex="0">
-
       <div class="card">
         <div class="metrics-grid" style="margin-top:0; padding-top:0; border-top:none;">
           <div class="metric-col">
@@ -1041,7 +95,7 @@
 
       <div class="card">
         <div class="section-title">
-          <h2 data-i18n="secTrustSignals" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Community Trust Signals</h2>
+          <h2 data-i18n="secTrustSignals">Community Trust Signals</h2>
           <span class="count-badge" id="signalsTotal">38 Total</span>
         </div>
         <div class="traits-grid" id="traitsList"></div>
@@ -1049,28 +103,26 @@
 
       <div class="card">
         <div class="section-title">
-          <h2 data-i18n="secEndorsements" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Household Endorsements</h2>
-          <span class="count-badge" id="endorsementsCount">2 Verified</span>
+          <h2 data-i18n="secEndorsements">Household Endorsements</h2>
+          <span class="count-badge" id="endorsementsCount">1 Verified</span>
         </div>
         <div class="reference-list" id="referencesList"></div>
       </div>
-
     </section>
 
     <!-- ============================================================
          TAB 3: TERMS
          ============================================================ -->
     <section id="panel-terms" class="tab-panel" role="tabpanel" aria-labelledby="tab-terms" tabindex="0">
-
       <div class="card">
         <div class="section-title">
-          <h2 data-i18n="secDignityCharter" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Dignity Charter & Working Terms</h2>
+          <h2 data-i18n="secDignityCharter">Dignity Charter & Working Terms</h2>
           <span class="count-badge" id="boundariesCount" data-i18n="badgeWorkingTerms">Working Terms</span>
         </div>
         <div class="traits-grid" id="boundariesList"></div>
         <div style="margin-top:14px;">
           <button class="btn-action is-outline" onclick="openCustomizeModal()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
             <span data-i18n="btnDignityTerms">Edit Working Terms</span>
           </button>
         </div>
@@ -1078,34 +130,33 @@
 
       <div class="card">
         <div class="section-title">
-          <h2 data-i18n="secCraftSilos" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Craft Risk Silos</h2>
+          <h2 data-i18n="secCraftSilos">Craft Risk Silos</h2>
           <span class="count-badge" data-i18n="badgeRiskGated">Risk Gated</span>
         </div>
         <div class="silo-grid">
           <div class="silo-card">
             <div class="silo-header">
-              <span class="silo-title" data-i18n="siloSurface">🧹 Surface Crafts (Cleaning / Utensils)</span>
+              <span class="silo-title" data-i18n="siloSurface">Surface Crafts (Cleaning / Utensils)</span>
               <span class="silo-badge silo-badge-low" data-i18n="badgeStandardRisk">Standard Risk</span>
             </div>
             <div class="silo-desc" data-i18n="descSurface">Floor sweeping, mopping, utensil washing. Low blast radius.</div>
           </div>
           <div class="silo-card">
             <div class="silo-header">
-              <span class="silo-title" data-i18n="siloCulinary">🍲 Culinary Specialization (Cooking)</span>
+              <span class="silo-title" data-i18n="siloCulinary">Culinary Specialization (Cooking)</span>
               <span class="silo-badge silo-badge-med" data-i18n="badgeModerateRisk">Moderate Risk</span>
             </div>
             <div class="silo-desc" data-i18n="descCulinary">Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.</div>
           </div>
           <div class="silo-card is-high">
             <div class="silo-header">
-              <span class="silo-title" data-i18n="siloHighRisk">🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)</span>
+              <span class="silo-title" data-i18n="siloHighRisk">High-Consequence Custody (Driving, Eldercare, Keys)</span>
               <span class="silo-badge silo-badge-high" data-i18n="badgeHighRisk">High Consequence</span>
             </div>
             <div class="silo-desc" data-i18n="descHighRisk">Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.</div>
           </div>
         </div>
       </div>
-
     </section>
 
     <!-- ============================================================
@@ -1114,10 +165,10 @@
     <section id="panel-directory" class="tab-panel" role="tabpanel" aria-labelledby="tab-directory" tabindex="0">
       <div class="card">
         <div class="section-title">
-          <h2 data-i18n="navDirectory" style="font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-secondary);">Directory</h2>
+          <h2 data-i18n="navDirectory">Directory</h2>
         </div>
-        <p class="card-help" style="margin-bottom:14px;">Browse the staff directory for Vasudev Complex.</p>
-        <a href="directory.html" class="btn-action is-outline">Open Directory</a>
+        <p class="card-help" style="margin-bottom:14px;">Browse the verified staff directory for Demo Society.</p>
+        <a href="directory.html?society=demo-complex" class="btn-action is-outline">Open Complex Directory</a>
       </div>
     </section>
 
@@ -1125,17 +176,16 @@
          TAB 5: PROFILE
          ============================================================ -->
     <section id="panel-profile" class="tab-panel" role="tabpanel" aria-labelledby="tab-profile" tabindex="0">
-
       <div class="card fancy-rosette">
         <div class="profile-header">
           <div class="avatar-wrap">
             <div class="avatar" id="pAvatar">SD</div>
             <div class="verified-seal" title="Verified worker" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              <svg class="mny-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
           </div>
           <div class="profile-meta">
-            <h1 id="pName">Sunita Devi</h1>
+            <h1 id="pName">Sunita Devi [Demo Record]</h1>
             <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
             <div class="profile-gov-id">
               <span data-i18n="badgeEShram">e-Shram Verified</span>
@@ -1148,77 +198,73 @@
 
       <div class="card">
         <div class="profile-row">
+          <span class="profile-row-label">Language / भाषा</span>
+          <button onclick="applyLanguage(currentLang === 'en' ? 'hi' : 'en')">
+            <span id="langProfileLabel">हिंदी में देखें</span>
+          </button>
+        </div>
+        <div class="profile-row">
           <span class="profile-row-label">Bright-sun mode</span>
           <button id="btnSolToggle" onclick="toggleSolMode()" aria-pressed="false">
             <span id="solBtnLabel">Turn on</span>
           </button>
         </div>
         <div class="profile-row">
-          <span class="profile-row-label">Switch to another worker</span>
-          <a href="portfolio.html?worker=unknown">Unknown user</a>
-        </div>
-        <div class="profile-row">
-          <span class="profile-row-label">Clear this device's saved data</span>
+          <span class="profile-row-label">Reset Local Demo Data</span>
           <button onclick="resetLocalDemo()">Reset</button>
         </div>
       </div>
 
-      <p class="card-help" style="text-align:center; font-size:12px;">
-        Project Maanyata (मान्यता) • Sovereign Career Passbook<br>
-        Protected under <strong>Section 79, Information Technology Act, 2000</strong> (Intermediary Safe Harbor).<br>
-        Worker sovereignty guaranteed under <strong>Digital Personal Data Protection Act, 2023</strong>.<br>
-        Zero cloud surveillance • Zero negative blacklists • 100% Free & Open-Source
+      <p class="card-help" style="text-align:center; font-size:12px; margin: 12px auto 0;">
+        Project Maanyata • Sovereign Career Passbook<br>
+        100% Free, Open-Source & Privacy-First
       </p>
-
     </section>
-
   </div>
 
   <!-- ============================================================
-       BOTTOM TAB BAR (5 tabs: Pass, Record, Terms, Directory, Profile)
+       BOTTOM TAB BAR (Lucide SVGs)
        ============================================================ -->
   <nav class="tabbar" aria-label="Main navigation">
     <div role="tablist" aria-label="Main sections" style="display:flex; width:100%; justify-content:space-around;">
-
       <button id="tab-pass" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-pass" tabindex="0" onclick="showTab('pass')">
         <span class="tab-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4"/><path d="M7 14h6"/><path d="M16 10h1"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
         </span>
-        <span>Pass</span>
+        <span data-i18n="tabPass">Pass</span>
       </button>
 
       <button id="tab-record" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-record" tabindex="-1" onclick="showTab('record')">
         <span class="tab-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </span>
-        <span>Record</span>
+        <span data-i18n="tabReviews">Record</span>
       </button>
 
       <button id="tab-terms" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-terms" tabindex="-1" onclick="showTab('terms')">
         <span class="tab-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6a2 2 0 0 1 2 2v14H7V6a2 2 0 0 1 2-2z"/><path d="M9 4v2h6V4"/><path d="M10 12h4"/><path d="M10 16h4"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </span>
-        <span>Terms</span>
+        <span data-i18n="tabTerms">Terms</span>
       </button>
 
       <button id="tab-directory" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-directory" tabindex="-1" onclick="showTab('directory')">
         <span class="tab-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/></svg>
         </span>
-        <span>Directory</span>
+        <span data-i18n="navDirectory">Directory</span>
       </button>
 
       <button id="tab-profile" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-profile" tabindex="-1" onclick="showTab('profile')">
         <span class="tab-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
         </span>
         <span>Profile</span>
       </button>
-
     </div>
   </nav>
 
-  <!-- Modal: working terms -->
+  <!-- Modal: Working Terms -->
   <div id="customizeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
       <div class="modal-header">
@@ -1227,7 +273,7 @@
       </div>
 
       <div class="identity-notice">
-        <div class="identity-notice-title">🛡️ Verified Identity</div>
+        <div class="identity-notice-title">Verified Identity</div>
         <div class="identity-notice-desc" id="custModalIdentityDesc">
           Identity and tenure are validated by resident attestations and cannot be modified locally. Workers exercise sovereign rights over their working terms and safety boundaries below.
         </div>
@@ -1246,823 +292,10 @@
     </div>
   </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite">❤️ Appreciation logged in lifetime record!</div>
+  <div id="toast" class="toast" role="status" aria-live="polite">Passbook updated!</div>
 
-  <script src="./maanyata_store.js"></script>
+  <!-- QR Engine & Compartmentalized Controller -->
   <script src="./qr_engine.js"></script>
-
-  <script>
-    const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
-
-    const SAMPLES = {
-      sunita_devi: {
-        name: "Sunita Devi",
-        role: "Senior Culinary Specialist & Meal Prep",
-        uan: "UAN ****-****-4921",
-        tenure: "8.5 Yrs",
-        households: 19,
-        traits: {
-          "Exceptional Cooking": { count: 14, icon: "🍲" },
-          "Trusted With House Keys": { count: 18, icon: "🤝" },
-          "Always On Time": { count: 24, icon: "🕒" }
-        },
-        boundaries: ["Access to clean water & soap", "Extreme Weather Late-Arrival Relief"],
-        references: [
-          {
-            quote: "Master of North Indian and diabetic-friendly cooking. Has held our flat keys for 4 years.",
-            author: "Resident Attestation",
-            unit: "Tower A, Flat 502",
-            tenure: "4 Yrs Verified",
-            certified: true,
-            locationVerified: true,
-            locationTag: "📍 On-Premises Verified (Maryland Palms)"
-          }
-        ]
-      },
-      ramesh_kumar: {
-        name: "Ramesh Kumar",
-        role: "Chauffeur & Senior Mobility Assistant",
-        uan: "UAN ****-****-8812",
-        tenure: "12 Yrs",
-        households: 6,
-        traits: {
-          "Always On Time": { count: 22, icon: "🕒" },
-          "Went Above & Beyond": { count: 9, icon: "🌟" },
-          "Trusted With House Keys": { count: 6, icon: "🤝" }
-        },
-        boundaries: ["Designated 45-min lunch break", "Direct Resident UPI on 1st of Month"],
-        references: [
-          {
-            quote: "Handled hospital runs and school drop-offs for over a decade. Flawless driving record.",
-            author: "Resident Attestation",
-            unit: "Tower B, Flat 301",
-            tenure: "7 Yrs Verified",
-            certified: true,
-            locationVerified: true,
-            locationTag: "📍 On-Premises Verified (Maryland Palms)"
-          }
-        ]
-      },
-      asha_kumari: {
-        name: "Asha Kumari",
-        role: "Deep Cleaning & Sanitization Specialist",
-        uan: "UAN ****-****-3319",
-        tenure: "5 Yrs",
-        households: 8,
-        traits: {
-          "Meticulous & Thorough": { count: 16, icon: "🧹" },
-          "Always On Time": { count: 11, icon: "🕒" }
-        },
-        boundaries: ["Zero toxic acid chemicals", "Minimum 1 Agreed Weekly Rest Day"],
-        references: [
-          {
-            quote: "Leaves every corner sparkling. Never uses harsh chemicals, very polite and diligent.",
-            author: "Resident Attestation",
-            unit: "Tower A, Flat 204",
-            tenure: "3 Yrs Verified",
-            certified: true,
-            locationVerified: true,
-            locationTag: "📍 On-Premises Verified (Maryland Palms)"
-          }
-        ]
-      }
-    };
-
-    const UNKNOWN_PORTFOLIO = {
-      name: "Unknown User",
-      role: "No Active Passbook Loaded",
-      uan: "UAN Not Linked",
-      tenure: "0 Yrs",
-      households: 0,
-      traits: {},
-      boundaries: [
-        "Select a verified worker from the Maryland Palms Directory",
-        "Or onboard a new domestic worker to create a sovereign passbook"
-      ],
-      references: [],
-      isUnknown: true
-    };
-
-    let portfolio = loadPortfolio();
-
-    function loadPortfolio() {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const sampleId = params.get('sample');
-        if (sampleId && SAMPLES[sampleId]) {
-          return JSON.parse(JSON.stringify(SAMPLES[sampleId]));
-        }
-
-        const workerParam = params.get('worker') || params.get('name');
-        const craftParam = params.get('craft') || params.get('role');
-        if (workerParam) {
-          const lower = workerParam.trim().toLowerCase();
-          if (lower === 'unknown' || lower === 'unknown user') {
-            return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
-          }
-          for (const key of Object.keys(SAMPLES)) {
-            if (SAMPLES[key].name.toLowerCase() === lower) {
-              return JSON.parse(JSON.stringify(SAMPLES[key]));
-            }
-          }
-          return {
-            name: workerParam,
-            role: craftParam || "Household Specialist",
-            uan: "UAN ****-****-4921",
-            tenure: "1 Yr",
-            households: 1,
-            traits: { "Always On Time": { count: 1, icon: "🕒" } },
-            boundaries: ["Access to clean water & soap", "Extreme Weather Late-Arrival Relief"],
-            references: []
-          };
-        }
-
-        if (params.get('view') === 'unknown' || params.get('user') === 'unknown') {
-          return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
-        }
-
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed && (parsed.isUnknown || parsed.name === "Unknown User")) {
-            return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
-          }
-          if (parsed) return parsed;
-        }
-      } catch (e) {}
-      return JSON.parse(JSON.stringify(UNKNOWN_PORTFOLIO));
-    }
-
-    function savePortfolio() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
-      } catch (e) {}
-    }
-
-    function escapeHTML(str) {
-      if (str == null) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function maskUnitPrivacy(unitStr) {
-      if (!unitStr) return "Tower Resident";
-      if (window.MaanyataStore && window.MaanyataStore.maskUnit) {
-        return window.MaanyataStore.maskUnit(unitStr);
-      }
-      const s = String(unitStr).trim();
-      if (/^(row\s*house|bungalow|villa|plot|kothi|cottage)\b/i.test(s)) {
-        return s.replace(/\d+.*$/, "** (Private Residence)");
-      }
-      if (/^(room|chawl|pada|gala|wadi)\b/i.test(s)) {
-        return "Local Resident Attestation";
-      }
-      return s
-        .replace(/(^|\s|,)\b\d{2,4}\b/g, "$1***")
-        .replace(/\b([A-Za-z0-9]+)-(\d{2,4})\b/g, "$1-***")
-        .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
-    }
-
-    function getSovereignFingerprint() {
-      const idStr = portfolio.uan || portfolio.name || "Worker";
-      let hash = 0;
-      for (let i = 0; i < idStr.length; i++) {
-        hash = ((hash << 5) - hash) + idStr.charCodeAt(i);
-        hash |= 0;
-      }
-      const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-      return `#M-${hex.slice(0, 4)}-${hex.slice(4, 8)}`;
-    }
-
-    /* ----------------------------------------------------------
-       TAB NAVIGATION
-       ---------------------------------------------------------- */
-    const TABS = ['pass', 'record', 'terms', 'directory', 'profile'];
-    let currentTab = 'pass';
-
-    function showTab(name) {
-      if (!TABS.includes(name)) return;
-      currentTab = name;
-
-      TABS.forEach(t => {
-        const panel = document.getElementById('panel-' + t);
-        const btn = document.getElementById('tab-' + t);
-        const active = t === name;
-        if (panel) panel.classList.toggle('is-active', active);
-        if (btn) {
-          btn.setAttribute('aria-selected', active ? 'true' : 'false');
-          btn.setAttribute('tabindex', active ? '0' : '-1');
-        }
-      });
-
-      const panel = document.getElementById('panel-' + name);
-      if (panel) panel.scrollTop = 0;
-      window.scrollTo(0, 0);
-    }
-
-    // Arrow keys move between tabs, as the ARIA tab pattern expects
-    document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
-      const idx = TABS.indexOf(currentTab);
-      let next = null;
-      if (e.key === 'ArrowRight') next = TABS[(idx + 1) % TABS.length];
-      if (e.key === 'ArrowLeft') next = TABS[(idx - 1 + TABS.length) % TABS.length];
-      if (e.key === 'Home') next = TABS[0];
-      if (e.key === 'End') next = TABS[TABS.length - 1];
-      if (next) {
-        e.preventDefault();
-        showTab(next);
-        document.getElementById('tab-' + next).focus();
-      }
-    });
-
-    // Detect platform so the tab bar can match iPhone or Android
-    function detectPlatform() {
-      const ua = navigator.userAgent || '';
-      const isIOS = /iPhone|iPad|iPod/i.test(ua) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      document.documentElement.classList.add(isIOS ? 'platform-ios' : 'platform-android');
-    }
-
-    /* ----------------------------------------------------------
-       RENDERING
-       ---------------------------------------------------------- */
-    function renderPortfolio() {
-      document.getElementById("pName").textContent = portfolio.name;
-      document.getElementById("pRole").textContent = portfolio.role;
-      document.getElementById("pUan").textContent = portfolio.uan;
-      document.getElementById("metricTenure").textContent = portfolio.tenure;
-      document.getElementById("metricHouseholds").textContent = portfolio.households;
-
-      const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
-
-      const nameParts = (portfolio.name || "").trim().split(/\s+/);
-      const initials = isUnknown ? "?" : (nameParts.length >= 2
-        ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
-        : (portfolio.name || "MK").slice(0, 2).toUpperCase());
-      const av = document.getElementById("pAvatar");
-      if (av) {
-        if (portfolio.photo && !isUnknown) {
-          av.innerHTML = `<img src="${escapeHTML(portfolio.photo)}" alt="${escapeHTML(portfolio.name)}" style="width:100%; height:100%; object-fit:cover;">`;
-        } else {
-          av.textContent = initials;
-        }
-      }
-
-      // Unknown-user banner, shown on the Pass tab
-      const existingBanner = document.getElementById("unknownUserBanner");
-      if (isUnknown) {
-        if (!existingBanner) {
-          const b = document.createElement("div");
-          b.id = "unknownUserBanner";
-          b.className = "unknown-banner";
-          b.innerHTML = `
-            <strong>ℹ️ Unknown User / No Active Passbook Loaded</strong><br>
-            You are viewing Project Maanyata without an active worker passbook. Explore an authentic demo passbook or create a new passbook:
-            <div class="unknown-banner-links">
-              <a href="portfolio.html?sample=sunita_devi" class="unknown-banner-link">👩🍳 Sunita Devi (Cook)</a>
-              <a href="portfolio.html?sample=ramesh_kumar" class="unknown-banner-link">🚗 Ramesh Kumar (Driver)</a>
-              <a href="portfolio.html?sample=asha_kumari" class="unknown-banner-link">🧹 Asha Kumari (Cleaner)</a>
-              <a href="onboard.html" class="unknown-banner-link is-primary">⚙️ Onboard New Worker</a>
-            </div>
-          `;
-          document.getElementById("panel-pass").prepend(b);
-        }
-      } else if (existingBanner) {
-        existingBanner.remove();
-      }
-
-      const firstName = isUnknown ? "Worker" : (nameParts[0] || portfolio.name || "Worker");
-      document.title = `${portfolio.name} — Sovereign Work Portfolio | Maanyata`;
-
-      const passTitle = document.getElementById("passCardTitle");
-      if (passTitle) passTitle.textContent = `${firstName}'s Portable Trust Pass`;
-
-      // Total recognitions
-      let total = 0;
-      for (const t in portfolio.traits) {
-        total += portfolio.traits[t].count;
-      }
-      document.getElementById("metricRecognitions").textContent = total;
-      document.getElementById("signalsTotal").textContent = currentLang === 'hi' ? `${total} कुल` : `${total} Total`;
-
-      // Trait badges
-      const traitsBox = document.getElementById("traitsList");
-      traitsBox.innerHTML = "";
-      for (const [name, info] of Object.entries(portfolio.traits)) {
-        const el = document.createElement("div");
-        el.className = "trait-badge";
-        const traitDisplayName = (currentLang === 'hi' && TRAIT_MAP_HI[name]) ? TRAIT_MAP_HI[name] : name;
-        el.innerHTML = `
-          <span>${escapeHTML(info.icon)} ${escapeHTML(traitDisplayName)}</span>
-          <span class="trait-count">${escapeHTML(info.count)}</span>
-        `;
-        traitsBox.appendChild(el);
-      }
-
-      // Working terms
-      const boundBox = document.getElementById("boundariesList");
-      if (boundBox) {
-        boundBox.innerHTML = "";
-        const terms = portfolio.boundaries && portfolio.boundaries.length > 0 ? portfolio.boundaries : [
-          "Minimum 1 Agreed Weekly Rest Day",
-          "Direct Resident UPI on 1st of Month",
-          "Zero toxic acid chemicals for cleaning",
-          "Access to clean water and soap to wash my hands"
-        ];
-        const termsCountEl = document.getElementById("boundariesCount");
-        if (termsCountEl) {
-          termsCountEl.textContent = currentLang === 'hi' ? `${terms.length} नियम` : `${terms.length} Terms`;
-        }
-        terms.forEach(t => {
-          const el = document.createElement("div");
-          el.className = "trait-badge boundary-chip";
-          const displayTxt = currentLang === 'hi' ? translateBoundary(t, 'hi') : t;
-          el.innerHTML = `<span>${escapeHTML(displayTxt)}</span>`;
-          boundBox.appendChild(el);
-        });
-      }
-
-      // Endorsements
-      const refsBox = document.getElementById("referencesList");
-      refsBox.innerHTML = "";
-
-      const BANNED_REGEX = /\b(fuck|shit|nigger|nigga|nigg|murder(?:s|er|ing)?|thief|thieves|theft|steal(?:ing)?|stole|stolen|kill(?:er|ing)?|rape|rapist|police|cops?|arrest(?:ed)?|chor(?:i)?|harami|badmash|fraud|scam|cheat(?:er)?)\b/i;
-
-      portfolio.references = (portfolio.references || []).filter(r => {
-        if (!r) return false;
-        const q = String(r.quote || "");
-        const u = String(r.unit || "");
-        const a = String(r.author || "");
-        if (BANNED_REGEX.test(q) || BANNED_REGEX.test(u) || BANNED_REGEX.test(a)) return false;
-        if (/^(ff|asdf|test|none|null)$/i.test(u.trim())) return false;
-        return true;
-      });
-      savePortfolio();
-
-      const verifiedRefs = (portfolio.references || []).filter(r => r.certified !== false);
-      const noteCount = (portfolio.references || []).length - verifiedRefs.length;
-      const endCountEl = document.getElementById("endorsementsCount");
-      if (endCountEl) {
-        if (currentLang === 'hi') {
-          endCountEl.textContent = noteCount > 0
-            ? `${verifiedRefs.length} सत्यापित • ${noteCount} समीक्षा`
-            : `${verifiedRefs.length} सत्यापित`;
-        } else {
-          endCountEl.textContent = noteCount > 0
-            ? `${verifiedRefs.length} Verified • ${noteCount} Note`
-            : `${verifiedRefs.length} Verified`;
-        }
-      }
-
-      const uniqueUnits = new Set((portfolio.references || [])
-        .filter(r => r.certified !== false && r.unit)
-        .map(r => r.unit.trim().toLowerCase())
-      );
-      const totalHouseholds = Math.max(portfolio.households || 0, uniqueUnits.size, 1);
-      document.getElementById("metricHouseholds").textContent = totalHouseholds;
-
-      portfolio.references.forEach(r => {
-        const el = document.createElement("div");
-        el.className = "reference-quote";
-        const locationBadge = r.locationTag
-          ? `<div class="location-badge ${r.locationVerified ? 'is-verified' : 'is-pending'}">${escapeHTML(r.locationTag)}</div>`
-          : '';
-
-        let verificationAction = '';
-        if (r.contact) {
-          const cleanPhone = String(r.contact).replace(/[^0-9+]/g, '');
-          const waLink = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(`Namaste, I am considering hiring ${portfolio.name} via Project Maanyata. Could I confirm their service with your household for 30 seconds?`)}`;
-          const btnTxt = currentLang === 'hi' ? "📞 निवासी से पुष्टि करें (30 सेकंड कॉल)" : "📞 Confirm with Resident (30s Callback)";
-          const tagTxt = currentLang === 'hi' ? "✓ सत्यापित संपर्क" : "✓ Verified Peer Contact";
-          verificationAction = `
-            <div class="verify-row">
-              <a href="${waLink}" target="_blank" rel="noopener" class="peer-callback-btn">${btnTxt}</a>
-              <span class="verify-tag">${tagTxt}</span>
-            </div>
-          `;
-        } else if (r.certified) {
-          const tagTxt = currentLang === 'hi' ? "✓ ऑन-प्रिमाइस प्रमाणित सत्यापन" : "✓ On-Premises Certified Attestation";
-          verificationAction = `<div class="verify-row"><span class="verify-tag">${tagTxt}</span></div>`;
-        } else {
-          const tagTxt = currentLang === 'hi' ? "⚠️ असत्यापित स्व-दावा" : "⚠️ Unverified Self-Reported Claim";
-          verificationAction = `<div class="verify-row"><span class="peer-unverified-tag">${tagTxt}</span></div>`;
-        }
-
-        const maskedAddress = window.MaanyataStore ? window.MaanyataStore.maskUnit(r.unit) : maskUnitPrivacy(r.unit);
-
-        el.innerHTML = `
-          <div class="quote-text">"${escapeHTML(r.quote)}"</div>
-          <div class="quote-author">
-            <span>${escapeHTML(r.author)} • ${escapeHTML(maskedAddress)}</span>
-            <span class="quote-tenure">${escapeHTML(r.tenure)}</span>
-          </div>
-          ${locationBadge}
-          ${verificationAction}
-        `;
-        refsBox.appendChild(el);
-      });
-
-      const heroAvatar = document.getElementById("passHeroAvatar");
-      if (heroAvatar && portfolio.photo) {
-        heroAvatar.src = portfolio.photo;
-      }
-      const fpEl = document.getElementById("passFingerprint");
-      if (fpEl) {
-        fpEl.textContent = getSovereignFingerprint();
-      }
-      renderOfflineQR();
-    }
-
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.add("show");
-      setTimeout(() => t.classList.remove("show"), 3500);
-    }
-
-    /* ----------------------------------------------------------
-       QR DISPLAY AND TAP FEEDBACK
-       The tap only changes the on-screen message. It proves nothing.
-       ---------------------------------------------------------- */
-    function triggerLivenessProof() {
-      const toast = document.getElementById("tapToast");
-      const wrap = document.getElementById("qrLivenessWrap");
-      if (!toast || !wrap) return;
-      toast.textContent = `Code shown • ${new Date().toLocaleTimeString()}`;
-      toast.style.opacity = "1";
-      toast.style.transform = "translate(-50%, -50%) scale(1.05)";
-      wrap.style.borderColor = "#16A34A";
-      wrap.style.backgroundColor = "#F0FDF4";
-      setTimeout(() => {
-        toast.style.opacity = "0";
-        toast.style.transform = "translate(-50%, -50%) scale(1)";
-        wrap.style.backgroundColor = "#FFFFFF";
-      }, 1600);
-    }
-
-    function startLiveTicker() {
-      const clockEl = document.getElementById("liveClockTicker");
-      if (!clockEl) return;
-      if (clockEl.dataset.running) return;
-      clockEl.dataset.running = "1";
-      function update() {
-        const now = new Date();
-        clockEl.textContent =
-          String(now.getHours()).padStart(2, '0') + ':' +
-          String(now.getMinutes()).padStart(2, '0') + ':' +
-          String(now.getSeconds()).padStart(2, '0');
-      }
-      update();
-      setInterval(update, 1000);
-    }
-
-    function renderOfflineQR() {
-      startLiveTicker();
-      const canvas = document.getElementById("workerQrCanvas");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const size = 140;
-      canvas.width = size;
-      canvas.height = size;
-
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(0, 0, size, size);
-
-      const payload = portfolio.signedToken || `https://project-maanyata.pages.dev/portfolio.html?id=${encodeURIComponent(portfolio.id || 'sunita-devi-01')}`;
-
-      try {
-        if (typeof QRCodeModel !== "undefined") {
-          const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
-          qr.addData(payload);
-          qr.make();
-          const moduleCount = qr.getModuleCount();
-          const quietZone = 2;
-          const cellSize = size / (moduleCount + quietZone * 2);
-
-          ctx.fillStyle = "#1C1917";
-          for (let r = 0; r < moduleCount; r++) {
-            for (let c = 0; c < moduleCount; c++) {
-              if (qr.isDark(r, c)) {
-                ctx.fillRect(
-                  Math.round((c + quietZone) * cellSize),
-                  Math.round((r + quietZone) * cellSize),
-                  Math.ceil(cellSize),
-                  Math.ceil(cellSize)
-                );
-              }
-            }
-          }
-        }
-      } catch (err) {
-        console.error("QR Code Generation Error:", err);
-      }
-    }
-
-    async function hydrateFromEdge() {
-      const params = new URLSearchParams(window.location.search);
-      const sampleId = params.get('sample');
-      const workerId = params.get('id') || (sampleId ? (sampleId === 'sunita_devi' ? 'sunita-devi-01' : sampleId === 'ramesh_kumar' ? 'ramesh-kumar-02' : 'asha-kumari-03') : null);
-      if (!workerId || workerId === 'unknown') return;
-
-      try {
-        const res = await fetch(`/api/worker/${encodeURIComponent(workerId)}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && data.worker) {
-            portfolio = data.worker;
-            savePortfolio();
-            renderPortfolio();
-          }
-        }
-      } catch (e) {
-        console.warn("Edge sync notice:", e.message);
-      }
-    }
-
-    /* ----------------------------------------------------------
-       THEME, LANGUAGE, AND PROFILE ACTIONS
-       ---------------------------------------------------------- */
-    let currentTheme = localStorage.getItem('mny_theme') || 'daylight';
-    let currentLang = localStorage.getItem('mny_lang') || 'en';
-
-    function initThemeAndLang() {
-      if (currentTheme === 'sol') {
-        document.documentElement.setAttribute('data-theme', 'sol');
-        updateSolBtn(true);
-      }
-      applyLanguage(currentLang);
-    }
-
-    function toggleSolMode() {
-      const isSol = document.documentElement.getAttribute('data-theme') === 'sol';
-      if (isSol) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('mny_theme', 'daylight');
-        updateSolBtn(false);
-        showToast("Bright-sun mode off");
-      } else {
-        document.documentElement.setAttribute('data-theme', 'sol');
-        localStorage.setItem('mny_theme', 'sol');
-        updateSolBtn(true);
-        showToast("Bright-sun mode on");
-      }
-    }
-
-    function updateSolBtn(isSol) {
-      const lbl = document.getElementById("solBtnLabel");
-      const btn = document.getElementById("btnSolToggle");
-      if (lbl) lbl.textContent = isSol ? "Turn off" : "Turn on";
-      if (btn) btn.setAttribute('aria-pressed', isSol ? 'true' : 'false');
-    }
-
-    function resetLocalDemo() {
-      if (!confirm("Clear all saved data on this device?")) return;
-      localStorage.removeItem('maanyata_sunita_portfolio_v1');
-      localStorage.removeItem('maanyata_workers_v1');
-      location.href = 'portfolio.html?worker=unknown';
-    }
-
-    const TRAIT_MAP_HI = {
-      "Always On Time": "हमेशा समय पर",
-      "Deep Cleaning": "गहन सफाई विशेषज्ञ",
-      "Trusted With Keys": "घर की चाबियों पर भरोसा",
-      "Exceptional Cooking": "उत्कृष्ट भोजन / पाक कला",
-      "Went Above & Beyond": "उम्मीद से बढ़कर कार्य",
-      "Caring & Polite": "विनम्र एवं संवेदनशील व्यवहार"
-    };
-
-    const BOUNDARY_MAP_HI = {
-      "Minimum 1 Agreed Weekly Rest Day": "सप्ताह में कम से कम 1 तय साप्ताहिक विश्राम",
-      "Direct Resident UPI on 1st of Month": "महीने की 1 तारीख को सीधा UPI भुगतान",
-      "Zero toxic acid chemicals for cleaning": "सफाई में जानलेवा तेजाब/एसिड का शून्य उपयोग",
-      "Access to clean water and soap to wash my hands": "हाथ धोने के लिए स्वच्छ पानी और साबुन",
-      "Extreme Weather Late-Arrival Relief": "भीषण गर्मी/बारिश में देर से आगमन पर राहत",
-      "30-Min Midday Lunch Break on Full Shifts": "पूरी शिफ्ट में 30 मिनट का दोपहर का भोजन विश्राम"
-    };
-
-    function translateBoundary(b, lang) {
-      if (lang !== 'hi' || !b) return b;
-      if (BOUNDARY_MAP_HI[b]) return BOUNDARY_MAP_HI[b];
-      const stripped = b.replace(/^[\p{Emoji}\p{Symbol}\s]+/u, '').trim();
-      for (const [enKey, hiVal] of Object.entries(BOUNDARY_MAP_HI)) {
-        if (stripped.toLowerCase().includes(enKey.toLowerCase()) || enKey.toLowerCase().includes(stripped.toLowerCase())) {
-          const emojiMatch = b.match(/^[\p{Emoji}\p{Symbol}\s]+/u);
-          return emojiMatch ? `${emojiMatch[0].trim()} ${hiVal}` : hiVal;
-        }
-      }
-      return b;
-    }
-
-    const AVAILABLE_BOUNDARIES = [
-      { id: "b1", en: "Minimum 1 Agreed Weekly Rest Day", hi: "सप्ताह में कम से कम 1 तय साप्ताहिक विश्राम", icon: "📅" },
-      { id: "b2", en: "Direct Resident UPI on 1st of Month", hi: "महीने की 1 तारीख को सीधा UPI भुगतान", icon: "💳" },
-      { id: "b3", en: "Zero toxic acid chemicals for cleaning", hi: "सफाई में जानलेवा तेजाब/एसिड का शून्य उपयोग", icon: "🧤" },
-      { id: "b4", en: "Access to clean water and soap to wash my hands", hi: "हाथ धोने के लिए स्वच्छ पानी और साबुन", icon: "🧼" },
-      { id: "b5", en: "Extreme Weather Late-Arrival Relief", hi: "भीषण गर्मी/बारिश में देर से आगमन पर राहत", icon: "🌧️" },
-      { id: "b6", en: "30-Min Midday Lunch Break on Full Shifts", hi: "पूरी शिफ्ट में 30 मिनट का दोपहर का भोजन विश्राम", icon: "☕" }
-    ];
-
-    const I18N = {
-      en: {
-        brand: "Maanyata",
-        lblTenure: "Tenure",
-        lblHouseholds: "Households",
-        lblRecognitions: "Recognitions",
-        badgeEShram: "e-Shram Verified",
-        passTitle: "Portable Trust Pass",
-        passHelp: "Show this QR code to an employer to confirm your work record.",
-        lblWorkPass: "WORK PASS",
-        secDignityCharter: "Dignity Charter & Working Terms",
-        badgeWorkingTerms: "Working Terms",
-        secCraftSilos: "Craft Risk Silos",
-        badgeRiskGated: "Risk Gated",
-        siloSurface: "🧹 Surface Crafts (Cleaning / Utensils)",
-        badgeStandardRisk: "Standard Risk",
-        descSurface: "Floor sweeping, mopping, utensil washing. Low blast radius.",
-        siloCulinary: "🍲 Culinary Specialization (Cooking)",
-        badgeModerateRisk: "Moderate Risk",
-        descCulinary: "Daily meal prep, dietary hygiene. Requires 1 paid trial meal with family present.",
-        siloHighRisk: "🚗 🩺 🔑 High-Consequence Custody (Driving, Eldercare, Keys)",
-        badgeHighRisk: "High Consequence",
-        descHighRisk: "Direct physical safety & asset custody. Requires verified tenure + peer callback + supervised trial.",
-        secTrustSignals: "Community Trust Signals",
-        secEndorsements: "Household Endorsements",
-        btnShareWhatsApp: "Share Passbook on WhatsApp",
-        btnDignityTerms: "Edit Working Terms",
-        btnVerifyGate: "Verify Pass",
-        modalTitle: "Dignity Charter & Working Terms",
-        lblBoundaries: "Select Your Non-Negotiable Working Terms",
-        btnSaveProfile: "Save Working Terms",
-        btnCancel: "Cancel",
-        navDirectory: "Directory"
-      },
-      hi: {
-        brand: "मान्यता",
-        lblTenure: "कार्यकाल",
-        lblHouseholds: "परिवार",
-        lblRecognitions: "प्रशंसा",
-        badgeEShram: "ई-श्रम सत्यापित",
-        passTitle: "सत्यापित पोर्टेबल ट्रस्ट पास",
-        passHelp: "यह क्यूआर कोड नियोक्ता को दिखाएं ताकि आपका कार्य रिकॉर्ड सत्यापित हो सके।",
-        lblWorkPass: "कार्य पास",
-        secDignityCharter: "गरिमा चार्टर एवं कार्य नियम",
-        badgeWorkingTerms: "कार्य नियम",
-        secCraftSilos: "कार्य जोखिम वर्गीकरण",
-        badgeRiskGated: "जोखिम वर्गीकृत",
-        siloSurface: "🧹 सामान्य कार्य (सफाई / बर्तन)",
-        badgeStandardRisk: "सामान्य जोखिम",
-        descSurface: "झाड़ू, पोछा, बर्तन धोना। कम जोखिम वाला दैनिक कार्य।",
-        siloCulinary: "🍲 पाक कला विशेषज्ञता (रसोई / खाना बनाना)",
-        badgeModerateRisk: "मध्यम जोखिम",
-        descCulinary: "दैनिक भोजन तैयारी एवं स्वच्छता। परिवार की उपस्थिति में 1 सवेतन ट्रायल भोजन आवश्यक।",
-        siloHighRisk: "🚗 🩺 🔑 उच्च-जोखिम कस्टडी (ड्राइविंग, बुजुर्ग देखभाल, चाबियां)",
-        badgeHighRisk: "उच्च जोखिम",
-        descHighRisk: "प्रत्यक्ष शारीरिक सुरक्षा एवं घर की चाबियां। सत्यापित कार्यकाल + पूर्व परिवार सत्यापन + निगरानी आवश्यक।",
-        secTrustSignals: "सामुदायिक विश्वास संकेत",
-        secEndorsements: "पारिवारिक अनुशंसाएं",
-        btnShareWhatsApp: "व्हाट्सएप पर पासबुक साझा करें",
-        btnDignityTerms: "कार्य नियम बदलें",
-        btnVerifyGate: "पास सत्यापित करें",
-        modalTitle: "गरिमा चार्टर एवं कार्य नियम",
-        lblBoundaries: "अपने गैर-परक्राम्य कार्य नियम चुनें",
-        btnSaveProfile: "कार्य नियम सहेजें",
-        btnCancel: "रद्द करें",
-        navDirectory: "निर्देशिका"
-      }
-    };
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('mny_lang', lang);
-      document.documentElement.setAttribute('lang', lang);
-
-      const dict = I18N[lang] || I18N.en;
-      const brandTitle = document.getElementById("brandTitle");
-      if (brandTitle) brandTitle.textContent = dict.brand;
-
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (dict[key]) el.textContent = dict[key];
-      });
-
-      const nameEl = document.getElementById("pName");
-      const roleEl = document.getElementById("pRole");
-      if (nameEl && (portfolio.name === "Sunita Devi" || portfolio.name === "सुनीता देवी")) {
-        portfolio.name = lang === 'hi' ? "सुनीता देवी" : "Sunita Devi";
-        nameEl.textContent = portfolio.name;
-      }
-      if (roleEl && (portfolio.role === "Senior Household & Culinary Specialist" || portfolio.role === "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)")) {
-        portfolio.role = lang === 'hi' ? "वरिष्ठ गृह एवं पाक विशेषज्ञ (रसोई)" : "Senior Household & Culinary Specialist";
-        roleEl.textContent = portfolio.role;
-      }
-
-      renderPortfolio();
-    }
-
-    function sharePassbookWhatsApp() {
-      const workerName = portfolio.name || 'Sunita Devi';
-      const workerRole = portfolio.role || 'Senior Household Specialist';
-      const tenure = portfolio.tenure || '8.5 Yrs';
-      const url = window.location.href.split('#')[0];
-      const msg = `Namaste, I am sharing my verified frontline work passbook on Project Maanyata:\n\n👤 *${workerName}*\n🛠️ ${workerRole}\n⏳ Seniority: ${tenure} (Verified by local residents)\n\nView my live authenticated passbook here:\n${url}`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-    }
-
-    /* ----------------------------------------------------------
-       WORKING-TERMS MODAL
-       ---------------------------------------------------------- */
-    let lastFocusedBeforeModal = null;
-
-    function openCustomizeModal() {
-      const modal = document.getElementById("customizeModal");
-      if (!modal) return;
-      lastFocusedBeforeModal = document.activeElement;
-
-      const descEl = document.getElementById("custModalIdentityDesc");
-      if (descEl) {
-        descEl.textContent = currentLang === 'hi'
-          ? `कार्यकर्ता: ${portfolio.name} • ई-श्रम सत्यापित • कार्यकाल एवं अनुभव स्थानीय निवासियों के सत्यापन पर आधारित है। कार्यकर्ता नीचे अपने कार्य नियम व सुरक्षा सीमाएं तय करते हैं।`
-          : `Worker: ${portfolio.name} • e-Shram Verified • Tenure and identity are anchored by verified resident attestations. Workers exercise sovereign rights over their working terms below.`;
-      }
-
-      const bList = document.getElementById("custBoundariesList");
-      if (bList) {
-        bList.innerHTML = "";
-        const activeTerms = portfolio.boundaries || [];
-        AVAILABLE_BOUNDARIES.forEach(b => {
-          const isChecked = activeTerms.some(t => t.toLowerCase().includes(b.en.toLowerCase().replace(/[^a-z]/g, '').slice(0, 15)));
-          const row = document.createElement("label");
-          row.className = "boundary-option";
-          row.innerHTML = `
-            <input type="checkbox" name="boundaries" value="${escapeHTML(b.icon + ' ' + b.en)}" ${isChecked ? "checked" : ""}>
-            <span>${b.icon} ${currentLang === 'hi' ? b.hi : b.en}</span>
-          `;
-          bList.appendChild(row);
-        });
-      }
-      modal.style.display = "flex";
-      const firstInput = modal.querySelector("input");
-      if (firstInput) firstInput.focus();
-    }
-
-    function closeCustomizeModal() {
-      const modal = document.getElementById("customizeModal");
-      if (modal) modal.style.display = "none";
-      if (lastFocusedBeforeModal && lastFocusedBeforeModal.focus) {
-        lastFocusedBeforeModal.focus();
-      }
-    }
-
-    // Escape closes the modal
-    document.addEventListener('keydown', (e) => {
-      const modal = document.getElementById("customizeModal");
-      if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
-        closeCustomizeModal();
-      }
-    });
-
-    function saveCustomProfile(event) {
-      if (event) event.preventDefault();
-
-      const checked = [];
-      document.querySelectorAll("#custBoundariesList input[type='checkbox']:checked").forEach(cb => {
-        checked.push(cb.value);
-      });
-      portfolio.boundaries = checked;
-
-      savePortfolio();
-      closeCustomizeModal();
-      renderPortfolio();
-      showToast(currentLang === 'hi' ? "✓ गरिमा कार्य नियम अपडेट किए गए" : "✓ Working terms updated");
-    }
-
-    /* ----------------------------------------------------------
-       START
-       ---------------------------------------------------------- */
-    function initApp() {
-      detectPlatform();
-      initThemeAndLang();
-      renderPortfolio();
-      hydrateFromEdge();
-      showTab('pass');
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initApp);
-    } else {
-      initApp();
-    }
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
-    }
-  </script>
+  <script src="./js/portfolio.js"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@
 | **Milestone 2: Sovereign Passbook & Onboarding**<br>*(Nov 2 – Nov 4)* | Dual-mode passbook (`?view=hire`), trilingual switcher, live camera selfie, 10 Dignity Charter principles. | `portfolio.html`, `onboard.html`<br>Passed DOM & trilingual audit. | `[DONE]` |
 | **Milestone 3: Gate Scanner & Directory**<br>*(Nov 3 – Nov 4)* | Offline 2-second gate check (`verify.html`), Ed25519 Web Crypto signatures, 2-decimal truncated GPS reverse attestation. | `verify.html`, `endorse.html`, `directory.html`<br>Sub-300ms verification. | `[DONE]` |
 | **Milestone 4: E2E Verification & Humility**<br>*(Nov 4)* | Headless Chrome audit, zero console errors, zero dead controls, 5 named scenario viewports. | `evidence/` captures, console logs.<br>Zero runtime exceptions. | `[DONE]` |
-| **Milestone 5: Mira Road Ground Pilot & Grand Finale**<br>*(Nov 4 – Dec 26)* | **Nov 4:** LQ Ideathon Round Results.<br>**Nov 5 – Dec 4:** 30-Day Ground Pilot at Maryland Palms CHS.<br>**Dec 5:** Grand Finale Presentation Submission.<br>**Dec 15–16:** Grand Finale @ IIT Bombay.<br>**Dec 26:** Veer Bal Diwas PMRBP National Portfolio. | `RWA_PILOT_PROPOSAL.md`<br>`rwa_pilot_proposal.html`<br>`physical_pass_card.html`<br>`wrangler.jsonc`, `_headers`, `_redirects`<br>`implementation_plan.md` | `[DONE]` |
+| **Milestone 5: Mira Road Ground Pilot & Grand Finale**<br>*(Nov 4 – Dec 26)* | **Nov 4:** LQ Ideathon Round Results.<br>**Nov 5 – Dec 4:** 30-Day Ground Pilot at Maryland Palms CHS.<br>**Dec 5:** Grand Finale Presentation Submission.<br>**Dec 15–16:** Grand Finale @ IIT Bombay.<br>**Dec 26:** Veer Bal Diwas PMRBP National Portfolio. | `RWA_PILOT_PROPOSAL.md`<br>`rwa_pilot_proposal.html`<br>`wrangler.jsonc`, `_headers`, `_redirects`<br>`implementation_plan.md` | `[DONE]` |
 
 ---
 
@@ -28,7 +28,6 @@
 | **R3-RDR** | `_redirects`<br>Root `/` to `/portfolio.html 302` | DevOps Specialist | `[DONE]` | **Grill 4 Cleared:** Root redirect prevents 404; clean route rewrites active. | Route table parsed & verified. |
 | **R1-DOC** | `RWA_PILOT_PROPOSAL.md`<br>1-page executive markdown proposal | Policy Craftsman | `[DONE]` | **Grill 1 Cleared:** Maryland Palms CHS grounding, 4 pillars, ₹0 cost, DPDP Act 2023. | Word count (~600w), 1-page length verified. |
 | **R1-HTM** | `rwa_pilot_proposal.html`<br>Printable styled A4 HTML letter | UI/Print Craftsman | `[DONE]` | **Grill 1 Cleared:** Warm Daylight palette, `@page A4 portrait`, letterhead, signoff block. | A4 print CSS audit; zero multi-page spill. |
-| **R2-CR8** | `physical_pass_card.html`<br>ISO CR80 wallet pass card | Layout Craftsman | `[DONE]` | **Grill 2 & 3 Cleared:** Exact 85.6mm×54.0mm, genuine offline QR, chromatic barcode. | Duplex layout audit; jsQR decode verified. |
 | **R4-BLK** | `implementation_plan.md`<br>Secretary Blackboard & status ledger | Executive Secretary | `[DONE]` | **Grill 4 Cleared:** Active state machine, 4 grills logged, timeline tracked. | Blackboard schema & data loss lock. |
 | **R4-SAF** | Accidental Data Loss Prevention<br>Working tree preservation lock | Security Sentry | `[DONE]` | **Grill 4 Cleared:** Zero existing files overwritten or deleted; git baseline locked. | File existence & git diff verified. |
 
@@ -57,7 +56,7 @@
 ---
 
 ### Grill 3: The QR Readability & Cryptographic Integrity Grill
-* **Inquisitor**: *"Explain yourself, Security Craftsman. In `portfolio.html`, lines 1417–1448, there was a fake pseudorandom canvas pattern masquerading as a QR code that no scanner could read. Did you copy that fake generator into `physical_pass_card.html`, or did you build a genuine ISO/IEC 18004 engine? And what happens when the security guard points `verify.html` at it?"*
+* **Inquisitor**: *"Explain yourself, Security Craftsman. In `portfolio.html`, lines 1417–1448, there was a fake pseudorandom canvas pattern masquerading as a QR code that no scanner could read. Did you copy that fake generator into the card page, or did you build a genuine ISO/IEC 18004 engine? And what happens when the security guard points `verify.html` at it?"*
 * **Craftsman Defense**:
   1. **Authentic ISO/IEC 18004 Pure-JS Engine**: Embedded a 100% self-contained, zero-CDN, pure-JS QR code generator implementing Galois Field arithmetic $GF(2^8)$, Reed-Solomon error correction (Level L/M), and dynamic mask evaluation. Tested and mathematically verified against `jsQR.js` with 100% round-trip decoding fidelity.
   2. **Dual-Mode Cryptographic Payload**:
@@ -111,7 +110,7 @@ The team operates under strict compliance with the following five non-negotiable
 | **S2: Non-Smartphone Worker** | Sunita Devi (Domestic Cook arriving on foot in monsoon rain) | Presents laminated CR80 card from saree pouch to security guard. | Guard matches portrait, checks `#M-7F2A-4921` fingerprint & chromatic barcode, verifies building tag without demanding phone. | **PASSED** |
 | **S3: RWA Committee Review** | Mr. Narang (Hon. Secretary, Maryland Palms Managing Committee) | Opens `rwa_pilot_proposal.html` and presses `Ctrl+P` / Print. | Letter renders on exactly Page 1 of 1 in A4 portrait with executive letterhead, 4 pillars, timeline, and 4 sign-off boxes. | **PASSED** |
 | **S4: Cloudflare Pages Visitor** | Resident visiting `https://maanyata-poc.pages.dev/` from WhatsApp | Loads root URL in mobile browser. | `_redirects` transparently routes `/` to `/portfolio.html`; camera/geolocation permissions granted via `_headers`. | **PASSED** |
-| **S5: Thermal Card Lamination** | Society Volunteer at local stationery shop | Prints `physical_pass_card.html` on 120gsm paper with scissors. | Front and back cards align side-by-side (171.2mm × 54.0mm); single fold down center dashed axis fits into ₹5 thermal pouch. | **PASSED** |
+| **S5: Thermal Card Lamination** | Society Volunteer at local stationery shop | Prints the card page on 120gsm paper with scissors. | Front and back cards align side-by-side (171.2mm × 54.0mm); single fold down center dashed axis fits into ₹5 thermal pouch. | **PASSED** |
 
 ### 5.2 System Health Metrics
 - **Console Errors**: 0

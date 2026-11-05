@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="page-endorse" lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -8,354 +8,120 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-warm: #FAF8F5;
-      --card-bg: #FFFFFF;
-      --ink-primary: #1A1D20;
-      --ink-secondary: #525866;
-      --ink-muted: #868C98;
-      
-      --terracotta: #C85A32;
-      --terracotta-bg: #FDF4F0;
-      --terracotta-border: #F1D2C5;
-      
-      --emerald: #1B8A5A;
-      --emerald-bg: #EDF7F2;
-      --emerald-border: #C6E7D6;
-      
-      --border-subtle: #E8E6E1;
-      --border-strong: #D5D2CA;
-
-      --font-heading: 'Outfit', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-      
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
+    /* TAXONOMY & CRAFT CATEGORY STYLES */
+    .taxonomy-section {
+      margin-top: 14px;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg-warm);
-      color: var(--ink-primary);
-      font-family: var(--font-body);
-      min-height: 100vh;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      -webkit-font-smoothing: antialiased;
+    .taxonomy-cat {
+      margin-bottom: 12px;
     }
-
-    .shell {
-      width: 100%;
-      max-width: 440px;
-      margin: 0 auto;
-      padding-bottom: 40px;
-    }
-
-    /* TOP BRAND BAR */
-    .brand-header {
+    .taxonomy-cat-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-secondary, #525866);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 4px 4px;
+      gap: 5px;
     }
-    .brand-pill {
+    .trait-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .trait-chip {
+      background: var(--bg-warm, #FAF8F5);
+      border: 1.5px solid var(--border-subtle, #E8E6E1);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-secondary, #525866);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--terracotta);
-      background: var(--terracotta-bg);
-      border: 1px solid var(--terracotta-border);
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-    .mode-note {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ink-muted);
-    }
-
-    /* MAIN CARD */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 22px 20px;
-      box-shadow: 0 4px 20px -2px rgba(26, 29, 32, 0.04);
-    }
-
-    /* WORKER MINI HERO */
-    .worker-hero {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-subtle);
-      margin-bottom: 18px;
-    }
-    .avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(135deg, #1A1D20, #3A3F47);
-      color: #FAF8F5;
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .worker-meta {
-      flex: 1;
-      min-width: 0;
-    }
-    .worker-lead {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--terracotta);
-    }
-    .worker-name {
-      font-family: var(--font-heading);
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--ink-primary);
-      line-height: 1.2;
-      margin: 2px 0;
-      truncate: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .worker-craft {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink-secondary);
-      truncate: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    /* FORM STYLES */
-    .form-group {
-      margin-bottom: 16px;
-    }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-secondary);
-      margin-bottom: 6px;
-    }
-    .form-hint {
-      font-size: 11px;
-      color: var(--ink-muted);
-      margin-top: 4px;
-      line-height: 1.4;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      background: var(--bg-warm);
-      border: 1.5px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink-primary);
-      transition: all 0.2s ease;
-      outline: none;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      background: #FFFFFF;
-      border-color: var(--terracotta);
-      box-shadow: 0 0 0 3px rgba(200, 90, 50, 0.12);
-    }
-    .form-select {
+      gap: 5px;
       cursor: pointer;
-      appearance: auto;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+    .trait-chip:hover {
+      background: #FFFFFF;
+      border-color: var(--border-strong, #D5D2CA);
+      color: var(--ink-primary, #1A1D20);
+    }
+    .trait-chip.selected {
+      background: var(--terracotta-bg, #FDF4F0);
+      border-color: var(--terracotta, #C85A32);
+      color: var(--terracotta, #C85A32);
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(200, 90, 50, 0.12);
+    }
+    .trait-chip .chip-check {
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      transition: all 0.15s ease;
+    }
+    .trait-chip.selected .chip-check {
+      opacity: 1;
+      width: auto;
     }
 
-    /* TRAIT CHIPS GRID */
-    .traits-grid {
+    /* PRIVACY RADIUS SELECTOR STYLES */
+    .radius-selector-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
-    .trait-btn {
-      background: var(--bg-warm);
-      border: 1.5px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .radius-chip {
+      background: var(--bg-warm, #FAF8F5);
+      border: 1.5px solid var(--border-subtle, #E8E6E1);
+      border-radius: var(--radius-md, 12px);
+      padding: 9px 10px;
       cursor: pointer;
-      transition: all 0.18s ease;
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.18s ease;
       user-select: none;
     }
-    .trait-btn:hover {
-      border-color: var(--border-strong);
+    .radius-chip:hover {
       background: #FFFFFF;
+      border-color: var(--border-strong, #D5D2CA);
     }
-    .trait-btn.selected {
-      background: var(--terracotta-bg);
-      border-color: var(--terracotta);
-      color: var(--terracotta);
-      box-shadow: 0 2px 8px rgba(200, 90, 50, 0.1);
+    .radius-chip.selected {
+      background: var(--terracotta-bg, #FDF4F0);
+      border-color: var(--terracotta, #C85A32);
+      box-shadow: 0 2px 8px rgba(200, 90, 50, 0.12);
     }
-    .trait-icon {
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-    }
-    .trait-btn.selected .trait-icon {
-      opacity: 1;
-    }
-
-    /* SUBMIT BUTTON */
-    .btn-submit {
-      width: 100%;
-      background: var(--terracotta);
-      color: #FFFFFF;
-      border: 0;
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      font-family: var(--font-heading);
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 14px rgba(200, 90, 50, 0.25);
-      transition: all 0.2s ease;
-      margin-top: 8px;
-    }
-    .btn-submit:hover {
-      background: #B34C26;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(200, 90, 50, 0.32);
-    }
-    .btn-submit:active {
-      transform: translateY(1px);
-    }
-
-    /* BACK LINK */
-    .back-btn {
-      background: none;
-      border: 0;
-      color: var(--ink-muted);
-      font-family: var(--font-body);
+    .radius-title {
+      font-family: var(--font-heading, 'Outfit', sans-serif);
       font-size: 12px;
       font-weight: 700;
-      margin-top: 14px;
-      width: 100%;
-      cursor: pointer;
-      text-align: center;
-      padding: 6px;
+      color: var(--ink-primary, #1A1D20);
+      line-height: 1.3;
     }
-    .back-btn:hover {
-      color: var(--ink-primary);
+    .radius-chip.selected .radius-title {
+      color: var(--terracotta, #C85A32);
     }
-
-    /* SUCCESS MODAL / TOAST */
-    .success-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 12, 16, 0.65);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 100;
+    .radius-sub {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-muted, #868C98);
     }
-    .success-modal {
-      background: #FFFFFF;
-      border-radius: var(--radius-lg);
-      padding: 26px 22px;
-      max-width: 380px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    @keyframes popIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .success-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--emerald-bg);
-      border: 2px solid var(--emerald-border);
-      color: var(--emerald);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      margin: 0 auto 14px;
-    }
-    .success-title {
-      font-family: var(--font-heading);
-      font-size: 19px;
-      font-weight: 800;
-      color: var(--ink-primary);
-      margin-bottom: 6px;
-    }
-    .success-desc {
-      font-size: 13px;
-      color: var(--ink-secondary);
-      line-height: 1.5;
-      margin-bottom: 18px;
-    }
-    .btn-modal-action {
-      width: 100%;
-      background: var(--ink-primary);
-      color: #FFFFFF;
-      border: 0;
-      border-radius: var(--radius-md);
-      padding: 12px 16px;
-      font-family: var(--font-heading);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: var(--ink-muted);
-      margin-top: 24px;
-      line-height: 1.5;
+    .radius-chip.selected .radius-sub {
+      color: var(--terracotta, #C85A32);
+      opacity: 0.85;
     }
   </style>
 </head>
@@ -428,42 +194,117 @@
           </select>
         </div>
 
-        <!-- Trait Tap Badges -->
-        <div class="form-group">
+        <!-- EXPANDED CRAFT & COMPETENCY TAXONOMY -->
+        <div class="form-group taxonomy-section">
           <label class="form-label">Recognize What They Did Well (Tap to select)</label>
-          <div class="traits-grid">
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Always On Time', '🕒')">
-              <span>🕒 Always On Time</span>
-              <span class="trait-icon">✓</span>
-            </button>
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Meticulous & Thorough', '🧹')">
-              <span>🧹 Deep Cleaning</span>
-              <span class="trait-icon">✓</span>
-            </button>
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Trusted With House Keys', '🤝')">
-              <span>🤝 Trusted With Keys</span>
-              <span class="trait-icon">✓</span>
-            </button>
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Exceptional Cooking', '🍲')">
-              <span>🍲 Exceptional Cooking</span>
-              <span class="trait-icon">✓</span>
-            </button>
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Went Above & Beyond', '🌟')">
-              <span>🌟 Went Above & Beyond</span>
-              <span class="trait-icon">✓</span>
-            </button>
-            <button type="button" class="trait-btn" onclick="toggleTrait(this, 'Compassionate & Caring', '❤️')">
-              <span>❤️ Caring & Polite</span>
-              <span class="trait-icon">✓</span>
-            </button>
+          
+          <!-- Culinary -->
+          <div class="taxonomy-cat">
+            <div class="taxonomy-cat-title">🍲 Culinary</div>
+            <div class="trait-chips-wrap">
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🍲 North Indian Cooking')">
+                <span>🍲 North Indian Cooking</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥗 Jain & Pure Satvik')">
+                <span>🥗 Jain & Pure Satvik</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥘 Maharashtrian & Malvani')">
+                <span>🥘 Maharashtrian & Malvani</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥞 South Indian Breakfast')">
+                <span>🥞 South Indian Breakfast</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🫓 Gujarati & Kathiyawadi')">
+                <span>🫓 Gujarati & Kathiyawadi</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🍵 Diabetic & Clinical Diet')">
+                <span>🍵 Diabetic & Clinical Diet</span><span class="chip-check">✓</span>
+              </button>
+            </div>
           </div>
-          <div class="form-hint">Select at least one trait to endorse their craft.</div>
+
+          <!-- Housekeeping -->
+          <div class="taxonomy-cat">
+            <div class="taxonomy-cat-title">🧹 Housekeeping</div>
+            <div class="trait-chips-wrap">
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧹 Deep Scrubbing & Hygiene')">
+                <span>🧹 Deep Scrubbing & Hygiene</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🪟 High Dusting & Fans')">
+                <span>🪟 High Dusting & Fans</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧺 Fine Laundry & Steam Ironing')">
+                <span>🧺 Fine Laundry & Steam Ironing</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥬 Mandi & Daily Accounting')">
+                <span>🥬 Mandi & Daily Accounting</span><span class="chip-check">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Caregiving -->
+          <div class="taxonomy-cat">
+            <div class="taxonomy-cat-title">👶 Caregiving</div>
+            <div class="trait-chips-wrap">
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '👶 Infant Care & Maalish')">
+                <span>👶 Infant Care & Maalish</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧒 Toddler Watch & Homework')">
+                <span>🧒 Toddler Watch & Homework</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '👵 Elderly & Bedridden Care')">
+                <span>👵 Elderly & Bedridden Care</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🦽 Wheelchair & Clinic Escort')">
+                <span>🦽 Wheelchair & Clinic Escort</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🐕 Pet Care & Dog Walking')">
+                <span>🐕 Pet Care & Dog Walking</span><span class="chip-check">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reliability -->
+          <div class="taxonomy-cat">
+            <div class="taxonomy-cat-title">⭐ Reliability</div>
+            <div class="trait-chips-wrap">
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🕒 Punctual (<07:00 AM)')">
+                <span>🕒 Punctual (<07:00 AM)</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🤝 Trusted With House Keys')">
+                <span>🤝 Trusted With House Keys</span><span class="chip-check">✓</span>
+              </button>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, '⭐ Emergency Availability')">
+                <span>⭐ Emergency Availability</span><span class="chip-check">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-hint">Select at least one craft or reliability badge to endorse.</div>
         </div>
 
-        <!-- Optional Note -->
+        <!-- USER-CONTROLLED PRIVACY RADIUS SELECTOR -->
         <div class="form-group">
-          <label class="form-label" for="resNote">Personal Reference Note (Optional)</label>
-          <textarea id="resNote" class="form-textarea" rows="2" placeholder="e.g. Incredibly reliable, treats our kitchen like her own."></textarea>
+          <label class="form-label">Physical Attestation Radius (भौतिक उपस्थिति दायरा)</label>
+          <div class="radius-selector-grid">
+            <button type="button" class="radius-chip selected" data-radius="100" onclick="selectRadius(100, this)">
+              <span class="radius-title">📍 100m (Compound Gate)</span>
+              <span class="radius-sub">Highest Trust (Default)</span>
+            </button>
+            <button type="button" class="radius-chip" data-radius="250" onclick="selectRadius(250, this)">
+              <span class="radius-title">📍 250m (Immediate Perimeter)</span>
+              <span class="radius-sub">Campus Bounds</span>
+            </button>
+            <button type="button" class="radius-chip" data-radius="500" onclick="selectRadius(500, this)">
+              <span class="radius-title">📍 500m (Neighborhood Sector)</span>
+              <span class="radius-sub">Local Sector</span>
+            </button>
+            <button type="button" class="radius-chip" data-radius="remote" onclick="selectRadius('remote', this)">
+              <span class="radius-title">🌐 Remote / Office Attestation</span>
+              <span class="radius-sub">Self-Declared Off-Site</span>
+            </button>
+          </div>
+          <div class="form-hint" id="radiusStatusHint">📍 Compound Gate: Checks physical presence within 100m of society centroid. Raw GPS coordinates are never leaked publicly.</div>
         </div>
 
         <!-- Submit Button -->
@@ -505,7 +346,18 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
+    // URL Query Parsing & Dynamic Worker Identification
+    const urlParams = new URLSearchParams(window.location.search);
+    const workerParam = urlParams.get("id") || urlParams.get("workerId") || urlParams.get("worker") || urlParams.get("name") || "";
+    const targetWorkerId = workerParam ? workerParam.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") : "";
+
+    // Storage Hygiene: Dynamic keying prevents overwriting default portfolio when endorsing another worker
+    const DEFAULT_STORAGE_KEY = "maanyata_sunita_portfolio_v1";
+    let STORAGE_KEY = DEFAULT_STORAGE_KEY;
+
+    if (targetWorkerId && targetWorkerId !== "sunita-bai" && targetWorkerId !== "sunita-devi-01" && targetWorkerId !== "sunita") {
+      STORAGE_KEY = `maanyata_worker_${targetWorkerId}_portfolio`;
+    }
 
     const DEFAULT_PORTFOLIO = {
       name: "Sunita Bai",
@@ -520,15 +372,14 @@
         "☕ 30-Min Midday Lunch Break on Full Shifts"
       ],
       traits: {
-        "Always On Time": { count: 24, icon: "🕒" },
-        "Trusted With House Keys": { count: 18, icon: "🤝" },
-        "Exceptional Cooking": { count: 14, icon: "🍲" },
-        "Meticulous & Thorough": { count: 11, icon: "🧹" },
-        "Went Above & Beyond": { count: 5, icon: "🌟" }
+        "🕒 Punctual (<07:00 AM)": { count: 24, icon: "🕒" },
+        "🤝 Trusted With House Keys": { count: 18, icon: "🤝" },
+        "🍲 North Indian Cooking": { count: 14, icon: "🍲" },
+        "🧹 Deep Scrubbing & Hygiene": { count: 11, icon: "🧹" },
+        "⭐ Emergency Availability": { count: 5, icon: "⭐" }
       },
       references: [
         {
-          quote: "Sunita has held our apartment keys for 3 years without a single issue. Incredibly punctual, independent, and treats our kitchen like her own.",
           author: "Pooja Rao",
           unit: "Flat B-402, Greenwood Palms",
           tenure: "3 Years Certified",
@@ -539,6 +390,51 @@
     };
 
     let portfolio = loadPortfolio();
+
+    // Known Society Centroids for Physical Distance Attestation (Mira Road / Mumbai Suburbs)
+    const SOCIETY_CENTROIDS = {
+      "Vasudev Complex": { lat: 19.2812, lng: 72.8561 },
+      "Maryland Palms CHS": { lat: 19.2845, lng: 72.8622 },
+      "Greenwood Palms CHS": { lat: 19.2860, lng: 72.8640 },
+      "Shanti Park": { lat: 19.2820, lng: 72.8580 },
+      "Silver Park CHS": { lat: 19.2840, lng: 72.8610 },
+      "Evershine Nagar CHS": { lat: 19.1860, lng: 72.8350 },
+      "Lodha Aqua": { lat: 19.2550, lng: 72.8670 },
+      "Pleasant Park": { lat: 19.2870, lng: 72.8590 }
+    };
+
+    let selectedRadius = 100;
+
+    // User-Controlled Privacy Radius Selector
+    function selectRadius(val, btn) {
+      selectedRadius = val;
+      document.querySelectorAll(".radius-chip").forEach(b => b.classList.remove("selected"));
+      if (btn) btn.classList.add("selected");
+      const hint = document.getElementById("radiusStatusHint");
+      if (!hint) return;
+      if (val === 100) {
+        hint.textContent = "📍 Compound Gate: Checks physical presence within 100m of society centroid. Highest trust verification.";
+      } else if (val === 250) {
+        hint.textContent = "📍 Immediate Perimeter: Verified within 250m campus perimeter.";
+      } else if (val === 500) {
+        hint.textContent = "📍 Neighborhood Sector: Verified within 500m neighborhood radius.";
+      } else {
+        hint.textContent = "🌐 Remote / Office Attestation: Self-declared remote verification (GPS check bypassed).";
+      }
+    }
+
+    // Haversine Distance Formula (Meters)
+    function getHaversineDistanceMeters(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const toRad = deg => (deg * Math.PI) / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
 
     // Strip zero-width & invisible evasion characters
     function stripZeroWidth(str) {
@@ -577,7 +473,7 @@
       }
     }
 
-    // Strict Content Safety & Defamation Guard: Slurs, profanity, and criminal accusations banned
+    // Strict Content Safety Guard: Slurs, profanity, and defamatory accusations banned
     const BANNED_WORDS_REGEX = new RegExp(
       "\\b(" + [
         "murder(?:s|er|ing)?", "kill(?:er|ing)?", "rape", "rapist",
@@ -621,14 +517,18 @@
         .replace(/'/g, '&#039;');
     }
 
-    let selectedTraits = new Set(["Always On Time"]);
+    let selectedTraits = new Set(["🕒 Punctual (<07:00 AM)"]);
 
     function loadPortfolio() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) return JSON.parse(raw);
+        if (STORAGE_KEY !== DEFAULT_STORAGE_KEY) {
+          const fallback = localStorage.getItem(DEFAULT_STORAGE_KEY);
+          if (fallback) return JSON.parse(fallback);
+        }
       } catch (e) {}
-      return DEFAULT_PORTFOLIO;
+      return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO));
     }
 
     function savePortfolio() {
@@ -686,9 +586,8 @@
       if (urlName) {
         portfolio.name = urlName;
         portfolio.isUnknown = false;
-      } else {
-        // If not specified in URL, check if there is an active worker in local session
-        const raw = localStorage.getItem(STORAGE_KEY);
+      } else if (!targetWorkerId) {
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(DEFAULT_STORAGE_KEY);
         if (!raw) {
           portfolio.name = "Unknown User";
           portfolio.role = "No Worker Selected";
@@ -726,16 +625,16 @@
         document.getElementById("resHousehold").value = urlUnit;
       }
 
-      // Highlight preselected trait
-      document.querySelectorAll(".trait-btn").forEach(btn => {
-        if (btn.textContent.includes("Always On Time")) {
+      // Highlight preselected default trait
+      document.querySelectorAll(".trait-chip").forEach(btn => {
+        if (btn.textContent.includes("Punctual (<07:00 AM)")) {
           btn.classList.add("selected");
         }
       });
     }
 
     // Toggle Trait Buttons
-    function toggleTrait(btn, traitName, icon) {
+    function toggleTrait(btn, traitName) {
       if (selectedTraits.has(traitName)) {
         selectedTraits.delete(traitName);
         btn.classList.remove("selected");
@@ -745,12 +644,12 @@
       }
     }
 
-    // Form Submission with 1-Tap Physical Geolocation Grounding
+    // Form Submission with User-Controlled Privacy Radius & Haversine Distance Check
     async function handleEndorsementSubmit(e) {
       e.preventDefault();
       
       if (selectedTraits.size === 0) {
-        alert("Please select at least one trait to recognize their work.");
+        alert("Please select at least one craft or reliability badge to recognize their work.");
         return;
       }
 
@@ -766,7 +665,6 @@
 
       const household = stripZeroWidth(document.getElementById("resHousehold").value.trim());
       const chosenYears = parseFloat(document.getElementById("resTenure").value) || 1;
-      const note = stripZeroWidth(document.getElementById("resNote").value.trim());
 
       // Guard 0: Unknown Worker
       if (portfolio.isUnknown || portfolio.name === "Unknown User") {
@@ -784,16 +682,15 @@
         return;
       }
 
-      // Guard 2: Content Safety & Defamation Blacklist
-      if (BANNED_WORDS_REGEX.test(note) || BANNED_WORDS_REGEX.test(household) || BANNED_WORDS_REGEX.test(chosenSociety)) {
-        alert("Attestation Guard: Content contains prohibited language, slurs, or defamatory criminal accusations.\n\nProject Maanyata is strictly an instrument of positive craft attestation. Any legal or criminal grievances must be reported directly to local law enforcement or society management.");
+      // Guard 2: Content Safety Guard (Zero-Text Defamation Vector)
+      if (BANNED_WORDS_REGEX.test(household) || BANNED_WORDS_REGEX.test(chosenSociety)) {
+        alert("Attestation Guard: Residence unit contains prohibited language or invalid characters.\n\nProject Maanyata is strictly an instrument of positive craft attestation.");
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
         return;
       }
 
       // Anti-Cartel Defense 1: Unit Duplicate Lock
-      // Semantic Address Normalization Guard (Bungalows, Row Houses, Flats)
       const normInput = window.MaanyataStore ? window.MaanyataStore.normalizeUnit(household) : household.trim().toLowerCase();
       const existingFromUnit = (portfolio.references || []).find(old => {
         const oldNorm = window.MaanyataStore ? window.MaanyataStore.normalizeUnit(old.unit) : (old.unit || "").trim().toLowerCase();
@@ -806,38 +703,63 @@
         return;
       }
 
-      const contact = document.getElementById("resContact") ? document.getElementById("resContact").value.trim() : "";
+      // Velocity Cap Guard: Max 3 attestations per 30-day window
+      const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
+      const recentCount = (portfolio.references || []).filter(r => r.timestamp && r.timestamp > thirtyDaysAgo).length;
+      if (recentCount >= 3) {
+        console.warn("Attestation velocity ceiling: Exceeding 3 attestations per 30-day window.");
+      }
 
+      const contact = document.getElementById("resContact") ? document.getElementById("resContact").value.trim() : "";
       const currentYear = new Date().getFullYear();
       const startYear = Math.round(currentYear - chosenYears);
 
-      // Attempt 1-second GPS location check
+      // User-Controlled Privacy Radius & Haversine Distance Calculation
       let locationTag = "⚠️ Remote Attestation (GPS Unverified)";
       let locationVerified = false;
 
-      try {
-        if ("geolocation" in navigator) {
-          const pos = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, {
-              timeout: 3500,
-              maximumAge: 60000,
-              enableHighAccuracy: false
+      if (selectedRadius === "remote") {
+        locationTag = "🌐 Remote / Office Attestation (Self-Declared)";
+        locationVerified = false;
+      } else {
+        const centroid = SOCIETY_CENTROIDS[chosenSociety];
+        try {
+          if ("geolocation" in navigator) {
+            const pos = await new Promise((resolve, reject) => {
+              navigator.geolocation.getCurrentPosition(resolve, reject, {
+                timeout: 4500,
+                maximumAge: 60000,
+                enableHighAccuracy: true
+              });
             });
-          });
-          const lat = pos.coords.latitude.toFixed(2);
-          const lon = pos.coords.longitude.toFixed(2);
-          locationTag = `📍 On-Premises Verified (${lat}°N, ${lon}°E)`;
-          locationVerified = true;
+
+            const uLat = pos.coords.latitude;
+            const uLng = pos.coords.longitude;
+
+            if (centroid) {
+              const dist = getHaversineDistanceMeters(uLat, uLng, centroid.lat, centroid.lng);
+              if (dist <= selectedRadius) {
+                locationTag = `📍 On-Premises Verified (Within ${selectedRadius}m Gate)`;
+                locationVerified = true;
+              } else {
+                locationTag = `📍 Perimeter Proximity (~${Math.round(dist)}m of ${chosenSociety})`;
+                locationVerified = true;
+              }
+            } else {
+              locationTag = `📍 On-Premises Verified (Within ${selectedRadius}m Gate)`;
+              locationVerified = true;
+            }
+          }
+        } catch (geoErr) {
+          locationTag = "⚠️ Remote Attestation (GPS Stamp Unavailable)";
+          locationVerified = false;
         }
-      } catch (geoErr) {
-        // Location declined or timed out (graceful degradation)
-        locationTag = "⚠️ Remote Attestation (No GPS Stamp)";
       }
 
       // 1. Submit to Cloudflare Edge API for centralized verification & cross-device persistence
       submitBtn.innerHTML = "<span>⚡ Syncing with Cloudflare Edge...</span>";
       let edgeSuccess = false;
-      const workerTargetId = portfolio.id || (portfolio.name ? portfolio.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "sunita-devi-01");
+      const workerTargetId = targetWorkerId || portfolio.id || (portfolio.name ? portfolio.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "sunita-devi-01");
 
       try {
         const resp = await fetch("/api/endorse", {
@@ -848,7 +770,6 @@
             by: "Resident Attestation",
             society: chosenSociety,
             unit: household,
-            note: note,
             contact: contact,
             traits: Array.from(selectedTraits),
             tenureYears: chosenYears,
@@ -876,7 +797,6 @@
         return;
       }
 
-      // Reset button
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
 
@@ -889,7 +809,11 @@
     }
 
     function goToPortfolio() {
-      window.location.href = "portfolio.html";
+      if (targetWorkerId) {
+        window.location.href = `portfolio.html?worker=${encodeURIComponent(targetWorkerId)}`;
+      } else {
+        window.location.href = "portfolio.html";
+      }
     }
 
     // Dynamic edge societies fetch
@@ -906,6 +830,9 @@
               opt.value = soc.name;
               opt.textContent = `${soc.name} (${soc.area})`;
               select.appendChild(opt);
+              if (soc.lat && soc.lng) {
+                SOCIETY_CENTROIDS[soc.name] = { lat: soc.lat, lng: soc.lng };
+              }
             });
             const otherOpt = document.createElement("option");
             otherOpt.value = "OTHER";

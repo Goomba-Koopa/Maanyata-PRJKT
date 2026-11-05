@@ -106,7 +106,6 @@ All code is written in pure vanilla HTML5, CSS3, and ES6 JavaScript, deployed di
 | [`onboard.html`](file:///C:/Users/chand/OneDrive/Desktop/Maanyata%20POC/onboard.html) | Trilingual Worker Onboarding | Live webcam selfie capture (`getUserMedia`), craft selection pills, trilingual Dignity Charter pledge (English, Hindi, Marathi). |
 | [`endorse.html`](file:///C:/Users/chand/OneDrive/Desktop/Maanyata%20POC/endorse.html) | Resident Attestation Portal | Society/Wing/Flat selector pre-configured for Vasudev Complex, tenure selector, structured competency badge picker, zero-width stripping & profanity filter. |
 | [`verify.html`](file:///C:/Users/chand/OneDrive/Desktop/Maanyata%20POC/verify.html) | Gatekeeper Scanner Terminal | Fast full-screen camera QR reader using `jsQR.js`, WebCrypto Ed25519 signature verification, binary full-screen Green/Red state overlays. |
-| [`physical_pass_card.html`](file:///C:/Users/chand/OneDrive/Desktop/Maanyata%20POC/physical_pass_card.html) | Printable PVC Lanyard Pass | ISO/IEC 7810 ID-1 standard ($85.60 \times 53.98\text{ mm}$), pure-JS Galois Field QR generator, front photo & craft, back bilingual guard instructions. |
 
 ---
 

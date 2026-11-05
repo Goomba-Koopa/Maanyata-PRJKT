@@ -541,7 +541,7 @@
 
       <div class="society-stats">
         <div class="stat-item">
-          <div class="stat-num" id="statTotalStaff">4 Active</div>
+          <div class="stat-num" id="statTotalStaff">0 Active</div>
           <div class="stat-label">Verified Staff</div>
         </div>
         <div class="stat-item">
@@ -563,7 +563,7 @@
     </div>
 
     <div class="filter-chips">
-      <button class="chip active" data-category="all" onclick="setCategory('all', this)">All Staff (<span id="countAll">4</span>)</button>
+      <button class="chip active" data-category="all" onclick="setCategory('all', this)">All Staff (<span id="countAll">0</span>)</button>
       <button class="chip" data-category="cook" onclick="setCategory('cook', this)">🍲 Culinary & Cooks</button>
       <button class="chip" data-category="clean" onclick="setCategory('clean', this)">🧹 Housekeeping</button>
       <button class="chip" data-category="driver" onclick="setCategory('driver', this)">🚗 Drivers & Mobility</button>
@@ -576,7 +576,7 @@
     </main>
 
     <div class="empty-state" id="emptyState">
-      No verified staff matched your filter or search query in <span id="emptySocietyName">this community</span>.
+      No verified staff registered in this community yet. Tap <a href="onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.
     </div>
 
     <!-- Community Employment Standard Notice -->
@@ -592,48 +592,8 @@
     const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
     const SOCIETY_STORAGE_KEY = "maanyata_active_society_v1";
 
-    // 1. Base Directory Seed Data (Community Veterans)
-    const BASE_STAFF = [
-      {
-        id: "sunita_devi",
-        name: "Sunita Devi",
-        role: "Senior Culinary Specialist & Meal Prep",
-        category: "cook",
-        tenure: "8.5 Yrs Verified",
-        households: 19,
-        shift: "Morning (6:30 AM - 10:00 AM)",
-        uan: "UAN ****-****-4921",
-        traits: ["🍲 Exceptional Cooking (14)", "🤝 Trusted With Keys (18)", "🕒 Always On Time (24)"],
-        boundaries: ["Access to clean water & soap", "Extreme Weather Late Relief"],
-        unit: "Tower A & B"
-      },
-      {
-        id: "ramesh_kumar",
-        name: "Ramesh Kumar",
-        role: "Chauffeur & Senior Mobility Assistant",
-        category: "driver",
-        tenure: "12 Yrs Verified",
-        households: 6,
-        shift: "Full Day (8:00 AM - 6:00 PM)",
-        uan: "UAN ****-****-8812",
-        traits: ["🕒 Always On Time (22)", "🌟 Went Above & Beyond (9)", "🤝 Trusted With Keys (6)"],
-        boundaries: ["Designated lunch break", "Direct UPI Payment"],
-        unit: "Tower B"
-      },
-      {
-        id: "asha_kumari",
-        name: "Asha Kumari",
-        role: "Deep Cleaning & Sanitization Specialist",
-        category: "clean",
-        tenure: "5 Yrs Verified",
-        households: 8,
-        shift: "Afternoon (11:00 AM - 3:30 PM)",
-        uan: "UAN ****-****-3319",
-        traits: ["🧹 Meticulous & Thorough (16)", "🕒 Always On Time (11)"],
-        boundaries: ["Zero toxic acid chemicals", "Mandatory Sunday Off"],
-        unit: "Tower A"
-      }
-    ];
+    // 1. Base Directory Seed Data (Community Veterans - purged of synthetic dummy records)
+    const BASE_STAFF = [];
 
     let currentCategory = "all";
 
@@ -675,11 +635,12 @@
 
     function updateSocietyDisplay() {
       const soc = getActiveSociety();
-      document.getElementById("currentSocietyName").textContent = soc;
-      document.getElementById("societySubName").textContent = soc;
-      document.getElementById("emptySocietyName").textContent = soc;
-      document.getElementById("charterSocietyName").textContent = soc;
-      document.getElementById("pageTitle").textContent = `${soc} Staff Directory | Project Maanyata`;
+      const el = (id) => document.getElementById(id);
+      if (el("currentSocietyName")) el("currentSocietyName").textContent = soc;
+      if (el("societySubName")) el("societySubName").textContent = soc;
+      if (el("emptySocietyName")) el("emptySocietyName").textContent = soc;
+      if (el("charterSocietyName")) el("charterSocietyName").textContent = soc;
+      if (el("pageTitle")) el("pageTitle").textContent = `${soc} Staff Directory | Project Maanyata`;
     }
 
     let edgeWorkers = [];
@@ -885,6 +846,11 @@
       });
 
       if (matches === 0) {
+        if (staffList.length === 0) {
+          empty.innerHTML = `No verified staff registered in this community yet. Tap <a href="onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.`;
+        } else {
+          empty.innerHTML = `No verified staff matched your filter or search query in <span id="emptySocietyName">${escapeHTML(getActiveSociety())}</span>.`;
+        }
         empty.style.display = "block";
       } else {
         empty.style.display = "none";

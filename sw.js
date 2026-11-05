@@ -5,7 +5,7 @@
  * Strategy: Cache-First for static assets & vendor scripts, Network-First fallback.
  */
 
-const CACHE_NAME = "maanyata-v4";
+const CACHE_NAME = "maanyata-v5";
 const OFFLINE_URLS = [
   "./",
   "./portfolio.html",
@@ -13,7 +13,6 @@ const OFFLINE_URLS = [
   "./onboard.html",
   "./endorse.html",
   "./verify.html",
-  "./physical_pass_card.html",
   "./rwa_pilot_proposal.html",
   "./maanyata_store.js",
   "./jsQR.js",
