@@ -1,7 +1,7 @@
-import { onRequestGet as getSocieties } from "./functions/api/societies.js";
-import { onRequestPost as postEndorse } from "./functions/api/endorse.js";
-import { onRequestPost as postWorkers, onRequestGet as getWorkers } from "./functions/api/workers.js";
-import { onRequestGet as getWorkerById } from "./functions/api/worker/[id].js";
+import { onRequestGet as getSocieties } from "../functions/api/societies.js";
+import { onRequestPost as postEndorse } from "../functions/api/endorse.js";
+import { onRequestPost as postWorkers, onRequestGet as getWorkers } from "../functions/api/workers.js";
+import { onRequestGet as getWorkerById } from "../functions/api/worker/[id].js";
 
 console.log("=== RUNNING LOCAL EDGE E2E SECURITY SUITE ===");
 

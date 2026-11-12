@@ -7,6 +7,7 @@ import {
   isSafeContent,
   validateResidence,
   normalizeUnit,
+  hashUnitHMAC,
   maskUnit,
   stripZeroWidth,
   getClientIP,
@@ -46,7 +47,7 @@ export async function onRequestPost(context) {
     const rawContact = stripZeroWidth(data.contact || "").slice(0, 25);
     const traits = Array.isArray(data.traits) ? data.traits.map(t => stripZeroWidth(t).slice(0, 40)).slice(0, 10) : [];
     const tenureYears = Math.min(35, Math.max(0.5, parseFloat(data.tenureYears) || 1));
-    const locationTag = stripZeroWidth(data.locationTag || "⚠️ Remote Attestation").slice(0, 60);
+    const locationTag = stripZeroWidth(data.locationTag || "Remote Attestation").slice(0, 60);
     const locationVerified = Boolean(data.locationVerified);
 
     if (!workerId) {
@@ -88,10 +89,11 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 6. Semantic Address Normalization Guard (Prevent Duplicate Inflation)
+    // 6. Semantic Address Normalization Guard with Salted HMAC (Strike 4)
     const normInput = normalizeUnit(rawUnit);
+    const unitHash = await hashUnitHMAC(normInput);
     const existingIndex = (worker.references || []).findIndex(
-      r => (r.unitNorm ? r.unitNorm === normInput : normalizeUnit(r.unit) === normInput)
+      r => (r.unitHash ? r.unitHash === unitHash : (r.unitNorm ? r.unitNorm === normInput : normalizeUnit(r.unit) === normInput))
     );
 
     if (existingIndex !== -1) {
@@ -104,23 +106,23 @@ export async function onRequestPost(context) {
       });
     }
 
-    // 7. Build New Attestation Record
+    // 7. Build New Attestation Record (Zero-Knowledge Wing & Flat Suppression)
     const currentYear = new Date().getFullYear();
     const startYear = Math.round(currentYear - tenureYears);
 
-    const maskedUnit = maskUnit(rawUnit);
+    const maskedUnit = maskUnit(rawUnit, rawSociety);
     const newReference = {
       id: `e-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
       quote: rawNote || "Verified honest household service and reliable assistance.",
       author: rawBy || "Resident Attestation",
       unit: maskedUnit,
-      unitNorm: normInput, // Normalization anchor for duplicate lock
+      unitHash, // Salted SHA-256 HMAC anchor for duplicate prevention (unitNorm NEVER stored)
       contact: null, // PII Scrubbed: Phone numbers never stored in public KV
       tenure: `${tenureYears} Yrs Attested`,
       startYear,
       certified: true,
       locationVerified,
-      locationTag,
+      locationTag: locationVerified ? "✓ On-Premises Verified Attestation" : "Remote Attestation",
       timestamp: Date.now()
     };
 
@@ -134,19 +136,20 @@ export async function onRequestPost(context) {
       if (worker.traits[t]) {
         worker.traits[t].count += 1;
       } else {
-        worker.traits[t] = { count: 1, icon: "⭐" };
+        worker.traits[t] = { count: 1, iconName: "star" };
       }
     });
 
-    // Recalculate unique households and tenure
+    // Recalculate unique households
     const uniqueUnits = new Set(
-      worker.references.filter(r => r.certified !== false && r.unit).map(r => normalizeUnit(r.unit))
+      worker.references.filter(r => r.certified !== false).map(r => r.unitHash || normalizeUnit(r.unit))
     );
     worker.households = Math.max(worker.households || 0, uniqueUnits.size);
 
-    // Monotonic Tenure Invariant + Truth Disaggregation
-    // Disaggregates Declared Lifetime Baseline from Signed In-App Attestations
-    const existingBaselineYears = parseFloat(worker.tenureBaseline || worker.tenure) || 0.5;
+    // Monotonic Tenure Invariant + Truth Disaggregation (Strike 1)
+    // Primary hero tenure MUST be strictly resident-attested!
+    // STOP doing Math.max(existingBaselineYears, calculatedYears) for hero tenure.
+    const existingBaselineYears = parseFloat(worker.tenureBaseline) || parseFloat(worker.tenure) || 0;
     const certifiedStartYears = worker.references
       .filter(r => r.certified && r.startYear)
       .map(r => r.startYear);
@@ -154,14 +157,13 @@ export async function onRequestPost(context) {
     if (certifiedStartYears.length > 0) {
       const earliestYear = Math.min(...certifiedStartYears);
       const calculatedYears = Math.max(0.5, currentYear - earliestYear);
-      const finalTenureYears = Math.max(existingBaselineYears, calculatedYears);
-      worker.tenure = `${finalTenureYears} Yrs`;
-      worker.tenureBaseline = `${existingBaselineYears} Yrs (Declared Baseline)`;
-      worker.tenureAttested = `${calculatedYears} Yrs (Resident-Signed)`;
+      worker.tenureAttested = `${calculatedYears} Yrs`;
+      worker.tenureBaseline = `${existingBaselineYears} Yrs`;
+      worker.tenure = `${calculatedYears} Yrs`;
     } else {
-      worker.tenure = `${existingBaselineYears} Yrs`;
-      worker.tenureBaseline = `${existingBaselineYears} Yrs (Declared Baseline)`;
       worker.tenureAttested = `0 Yrs`;
+      worker.tenureBaseline = `${existingBaselineYears} Yrs`;
+      worker.tenure = `0 Yrs`;
     }
 
     // 8. Persist to Cloudflare KV
@@ -169,7 +171,20 @@ export async function onRequestPost(context) {
       await saveKVWorker(kv, worker);
     }
 
-    return new Response(JSON.stringify({ success: true, worker, reference: newReference }), {
+    // 9. Scrub internal hashes and unitNorm from public API response (Strike 4)
+    const cleanRef = { ...newReference };
+    delete cleanRef.unitNorm;
+    delete cleanRef.unitHash;
+
+    const cleanWorker = JSON.parse(JSON.stringify(worker));
+    if (cleanWorker.references) {
+      cleanWorker.references.forEach(r => {
+        delete r.unitNorm;
+        delete r.unitHash;
+      });
+    }
+
+    return new Response(JSON.stringify({ success: true, worker: cleanWorker, reference: cleanRef }), {
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
     });
   } catch (err) {

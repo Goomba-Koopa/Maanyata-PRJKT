@@ -2,18 +2,18 @@
  * maanyata_store.js — Project Maanyata (मान्यता)
  *
  * Sovereign, local-first, promise-based data layer. Every public method returns
- * a Promise so the UI is decoupled from the storage engine. 
+ * a Promise so the UI is decoupled from the storage engine.
  *
  * Core Invariants:
+ *  - Blank Initial Seed: Zero fake dummy workers in production store. Real data only.
  *  - Trust & Craft Recognition ONLY: Maanyata does not track, mediate, or enforce
  *    private loans, debts, or cash advances. Wages are settled directly via UPI/cash.
- *  - Sovereign Keys & Orthogonal Skills: Holding house keys is tracked separately
- *    from specific skills (cooking, cleaning, eldercare, driving, childcare).
- *  - Privacy Masking: Resident flat numbers are masked (e.g. B-***) in exported passes
- *    to prevent external burglary casing.
- *  - Cryptographic Fingerprint: Every profile is anchored by a deterministic 8-char
- *    Sovereign Fingerprint (#M-XXXX-XXXX) to prevent twin clone attacks.
- *  - Societies are free text: "Buildings Name Themselves". No pre-baked registry.
+ *  - 4-State Contract Machine: ACTIVE, SETTLED, DISPUTED, QUARANTINED.
+ *  - Bonded Trust & Anti-Spite Escrow: Mandatory ₹2,500 deposit for formal disputes,
+ *    forfeiting ₹2,000 to the worker for frivolous or false claims.
+ *  - Cluster Reserve: 15% of annual society fees (₹4,999/yr) allocate to neighborhood safety pool.
+ *  - DPDP Privacy Masking: Resident units masked (B-***) and Aadhaar masked (XXXX-XXXX-1234).
+ *  - Sovereign Fingerprint: Deterministic 8-char fingerprint (#M-XXXX-XXXX) anchors each profile.
  */
 (function (global) {
   "use strict";
@@ -22,26 +22,86 @@
     SOCIETY: "maanyata_active_society_v1",
     INDEX: "maanyata:index",
     WORKER: "maanyata:worker:",
-    SESSION: "maanyata:active_worker"
+    SESSION: "maanyata:active_worker",
+    CONTRACTS: "maanyata:contracts",
+    CONTRACT: "maanyata:contract:",
+    CLUSTER_RESERVE: "maanyata:cluster_reserve"
   };
-  const DEFAULT_SOCIETY = "Mira Road Community";
+
+  const DEFAULT_SOCIETY = "Vasudev Complex CHS";
   const SKILLS = ["cooking", "childcare", "cleaning", "driving", "eldercare"];
   const listeners = new Set();
 
-  // ---------- Storage adapter (The only layer that touches the backend) ----------
+  // 4-State Contract Machine
+  const CONTRACT_STATE = Object.freeze({
+    ACTIVE: "ACTIVE",
+    SETTLED: "SETTLED",
+    DISPUTED: "DISPUTED",
+    QUARANTINED: "QUARANTINED"
+  });
+
+  // ---------- Storage adapter (Universal for Browser & Node environments) ----------
+  let _hasLocalStorage = null;
+  function isLocalStorageUsable() {
+    if (_hasLocalStorage !== null) return _hasLocalStorage;
+    try {
+      // In Node.js environment without explicit localStorage configuration, avoid accessing experimental global
+      if (typeof process !== "undefined" && process.versions && process.versions.node) {
+        _hasLocalStorage = false;
+        return false;
+      }
+      if (typeof global.localStorage !== "undefined" && global.localStorage) {
+        const testK = "__mny_test__";
+        global.localStorage.setItem(testK, "1");
+        global.localStorage.removeItem(testK);
+        _hasLocalStorage = true;
+        return true;
+      }
+    } catch (e) {
+      _hasLocalStorage = false;
+      return false;
+    }
+    _hasLocalStorage = false;
+    return false;
+  }
+
   const mem = new Map();
   const storage = {
     get(k) {
-      try { return global.localStorage.getItem(k); }
-      catch (e) { return mem.has(k) ? mem.get(k) : null; }
+      if (isLocalStorageUsable()) {
+        try {
+          const val = global.localStorage.getItem(k);
+          if (val !== null && val !== undefined) return val;
+        } catch (e) {}
+      }
+      return mem.has(k) ? mem.get(k) : null;
     },
     set(k, v) {
-      try { global.localStorage.setItem(k, v); }
-      catch (e) { mem.set(k, String(v)); }
+      mem.set(k, String(v));
+      if (isLocalStorageUsable()) {
+        try { global.localStorage.setItem(k, String(v)); } catch (e) {}
+      }
     },
     del(k) {
-      try { global.localStorage.removeItem(k); }
-      catch (e) { mem.delete(k); }
+      mem.delete(k);
+      if (isLocalStorageUsable()) {
+        try { global.localStorage.removeItem(k); } catch (e) {}
+      }
+    },
+    clear() {
+      mem.clear();
+      if (isLocalStorageUsable()) {
+        try {
+          const toRemove = [];
+          for (let i = 0; i < global.localStorage.length; i++) {
+            const key = global.localStorage.key(i);
+            if (key && (key.startsWith("maanyata") || key.startsWith("w-") || key.startsWith("c-"))) {
+              toRemove.push(key);
+            }
+          }
+          toRemove.forEach((k) => global.localStorage.removeItem(k));
+        } catch (e) {}
+      }
     }
   };
 
@@ -59,30 +119,35 @@
   const notify = (type, data) => listeners.forEach((cb) => {
     try { cb({ type, data, at: Date.now() }); } catch (e) { console.error(e); }
   });
-  // Security Patch: Storage Hygiene & Quota Guard
+
+  // Storage Hygiene & Quota Guard
   function getStorageEstimate() {
     let bytes = 0;
     try {
-      for (let i = 0; i < global.localStorage.length; i++) {
-        const k = global.localStorage.key(i);
-        bytes += (k.length + (global.localStorage.getItem(k) || '').length) * 2;
+      if (isLocalStorageUsable()) {
+        for (let i = 0; i < global.localStorage.length; i++) {
+          const k = global.localStorage.key(i);
+          bytes += (k.length + (global.localStorage.getItem(k) || "").length) * 2;
+        }
+      } else {
+        for (const [k, v] of mem.entries()) {
+          bytes += (k.length + String(v).length) * 2;
+        }
       }
-    } catch(e) {}
+    } catch (e) {}
     return bytes;
   }
 
   function pruneStorageIfNeeded() {
-    // Exact State Machine: Exceeds 4.5 MB -> Warning shown to user -> No internet found -> Then prune
     const bytes = getStorageEstimate();
     const threshold4_5MB = 4718592; // 4.5 MB
     if (bytes > threshold4_5MB) {
       const isOnline = typeof navigator !== "undefined" && navigator.onLine;
       if (typeof global.alert === "function") {
-        global.alert("Maanyata Storage Warning: Device storage is over 4.5 MB (90% capacity). Older temporary passes will be cleaned to protect your sovereign passbook.");
+        global.alert("Maanyata Storage Warning: Device storage is over 4.5 MB (90% capacity). Cleaning transient passes to protect your sovereign passbook.");
       }
-      // If offline (cannot sync or recover from cloud), perform emergency pruning of transient imported passes only
       if (!isOnline) {
-        console.warn("Maanyata Storage Sentry: Offline & over 4.5MB. Pruning transient imported records to prevent browser crash.");
+        console.warn("Maanyata Storage Sentry: Offline & over 4.5MB. Pruning transient imported records.");
         try {
           const activeWid = storage.get(K.SESSION);
           const index = read(K.INDEX, []);
@@ -91,7 +156,7 @@
               storage.del(K.WORKER + id);
             }
           });
-        } catch(e){}
+        } catch (e) {}
       }
     }
   }
@@ -99,7 +164,6 @@
   const activeSociety = () => text(storage.get(K.SOCIETY), 80) || DEFAULT_SOCIETY;
 
   // Strict Content Safety & Defamation Guard
-  // Protects domestic workers from defamatory smears, slurs, and abusive vandalism
   const BANNED_WORDS_REGEX = /\b(fuck|shit|nigger|nigga|nigg|murder(?:s|er|ing)?|thief|thieves|theft|steal(?:ing)?|stole|stolen|kill(?:er|ing)?|rape|rapist|police|cops?|arrest(?:ed)?|chor(?:i)?|harami|badmash|fraud|scam|cheat(?:er)?)\b/i;
 
   const isSafeContent = (textStr) => {
@@ -107,20 +171,18 @@
     return !BANNED_WORDS_REGEX.test(String(textStr));
   };
 
-  // Residence Grammar Validator: Rejects spam/dummy units like 'ff', 'asdf', 'test'
+  // Residence Grammar Validator
   const isValidResidenceUnit = (unitStr) => {
     if (!unitStr) return false;
     const s = String(unitStr).trim();
     if (s.length < 3) return false;
-    // Reject known dummy strings
     if (/^(test|asdf|qwerty|none|na|null|undefined)$/i.test(s)) return false;
-    // Must contain a number or a recognized dwelling token
     const hasNumber = /\d+/.test(s);
     const hasDwellingWord = /\b(flat|bldg|building|wing|house|bungalow|chawl|room|villa|apt|apartment|plot|kothi|tower|block|floor|complex|society|enclave|chs|heights|residency|plaza|co-?op)\b/i.test(s);
     return hasNumber || hasDwellingWord;
   };
 
-  // Semantic Address Normalizer: Handles Indian real-estate realities (Bungalows, Chawls, Row Houses, Wings)
+  // Semantic Address Normalizer
   const normalizeUnit = (str) => {
     if (!str) return "";
     return String(str)
@@ -130,26 +192,23 @@
       .trim();
   };
 
-  // Context-Aware Privacy Masking: Preserves structural context without leaking physical entry point
+  // Context-Aware Privacy Masking
   const maskUnit = (unitStr) => {
     if (!unitStr) return "Resident Attestation";
     const s = String(unitStr).trim();
-    // Row Houses, Bungalows, Villas, Plots
     if (/^(row\s*house|bungalow|villa|plot|kothi|cottage)\b/i.test(s)) {
       return s.replace(/\d+.*$/, "** (Private Residence)");
     }
-    // Chawls, Gaothans, Independent Rooms, Padas
     if (/^(room|chawl|pada|gala|wadi)\b/i.test(s)) {
       return "Local Resident Attestation";
     }
-    // Preserve Complex / Society name if present while masking door/flat numbers
     return s
       .replace(/(^|\s|,)\b\d{2,4}\b/g, "$1***")
       .replace(/\b([A-Za-z0-9]+)-(\d{2,4})\b/g, "$1-***")
       .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
   };
 
-  // Counter-Hardening: Cryptographic 8-Character Sovereign Fingerprint
+  // Cryptographic 8-Character Sovereign Fingerprint
   const fingerprintOf = (w) => {
     if (!w || !w.id) return "#M-0000-0000";
     let hash = 0;
@@ -158,33 +217,40 @@
       hash = ((hash << 5) - hash) + str.charCodeAt(i);
       hash |= 0;
     }
-    const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+    const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, "0");
     return `#M-${hex.slice(0, 4)}-${hex.slice(4, 8)}`;
   };
 
-  // ---------- Seed data (Fallback only when storage is empty) ----------
-  const SEEDS = [
-    {
-      id: "sunita-devi-01", name: "Sunita Devi", role: "Cook & Housekeeping",
-      households: 19, tenureYears: 4.5,
-      endorsements: [{ id: "e-sunita-1", by: "Pooja Rao", unit: "B-402", date: "2026-04-12", keys: true,
-        skills: ["cooking", "cleaning"], contact: "+91 98201 *****", verified: true, note: "Has held our keys for over three years. Punctual and honest." }]
-    },
-    {
-      id: "ramesh-kumar-02", name: "Ramesh Kumar", role: "Driver",
-      households: 12, tenureYears: 7,
-      endorsements: [{ id: "e-ramesh-1", by: "Anand Mehta", unit: "A-701", date: "2026-06-14", keys: true,
-        skills: ["driving"], contact: "+91 98334 *****", verified: true, highRiskTenureMonths: 48, note: "Seven years of safe driving through Mumbai traffic. Calm in heavy traffic." }]
-    },
-    {
-      id: "asha-kumari-03", name: "Asha Kumari", role: "Eldercare & Companion",
-      households: 6, tenureYears: 3,
-      endorsements: [{ id: "e-asha-1", by: "Dr. K. Merchant", unit: "C-303", date: "2026-05-18", keys: true,
-        skills: ["eldercare"], contact: "+91 98199 *****", verified: true, highRiskTenureMonths: 36, note: "Careful with medication schedules and patient transfer from bed to wheelchair." }]
-    }
-  ];
+  // ---------- Invariant 1: Blank Initial Seed (Zero fake dummy workers) ----------
+  const SEEDS = Object.freeze([]);
 
-  // ---------- Derived views (Computed on read, never stored) ----------
+  function seed(force) {
+    if (!force && read(K.INDEX, null) !== null) return;
+    if (force) {
+      const oldWorkers = read(K.INDEX, []);
+      oldWorkers.forEach((wid) => storage.del(K.WORKER + wid));
+      const oldContracts = read(K.CONTRACTS, []);
+      oldContracts.forEach((cid) => storage.del(K.CONTRACT + cid));
+      storage.del(K.INDEX);
+      storage.del(K.CONTRACTS);
+      storage.del(K.CLUSTER_RESERVE);
+      storage.del(K.SESSION);
+      storage.del(K.SOCIETY);
+      if (typeof storage.clear === "function") storage.clear();
+    }
+    // Always boot 100% blank
+    write(K.INDEX, []);
+    write(K.CONTRACTS, []);
+    // Initialize cluster reserve with default ₹0 and 15% allocation rule
+    write(K.CLUSTER_RESERVE, {
+      balance: 0,
+      transactions: [],
+      allocationRate: 0.15,
+      fidelityShieldMax: 100000
+    });
+  }
+
+  // ---------- Derived views ----------
   function traitsOf(w) {
     const t = { keys: 0, skills: Object.fromEntries(SKILLS.map((s) => [s, 0])) };
     (w.endorsements || []).forEach((e) => {
@@ -215,7 +281,7 @@
     return w ? { endorsements: [], ...w } : null;
   }
 
-  function commit(w, type) {
+  function commitWorker(w, type) {
     const ids = read(K.INDEX, []);
     if (!ids.includes(w.id)) write(K.INDEX, [...ids, w.id]);
     write(K.WORKER + w.id, { ...w, updatedAt: new Date().toISOString() });
@@ -223,7 +289,7 @@
     return w;
   }
 
-  function need(wid) {
+  function needWorker(wid) {
     const target = wid || storage.get(K.SESSION);
     const w = readWorker(target);
     if (!w) throw new Error("Worker not found: " + target);
@@ -237,7 +303,6 @@
     const note = text(e.note, 280);
     const unit = text(e.unit, 40);
 
-    // Enforce Content Safety: Block slurs, profanity, and defamation
     if (!isSafeContent(note) || !isSafeContent(by) || !isSafeContent(unit)) {
       console.warn("Rejected endorsement due to prohibited content / defamation:", { by, unit, note });
       return null;
@@ -254,24 +319,14 @@
       keys,
       skills,
       note,
-      contact, // Out-of-band peer callback channel (WhatsApp / Phone)
+      contact,
       verified: Boolean(contact || keys || (skills.length > 0 && e.verified)),
       highRiskTenureMonths: Math.max(0, Number(e.highRiskTenureMonths) || 0),
       tenureNote: text(e.tenureNote, 140)
     };
   }
 
-  // ---------- Seeding ----------
-  function seed(force) {
-    if (!force && read(K.INDEX, null)) return;
-    if (force) read(K.INDEX, []).forEach((wid) => storage.del(K.WORKER + wid));
-    const list = SEEDS.map((s) => ({ society: DEFAULT_SOCIETY, createdAt: today(), ...s }));
-    write(K.INDEX, list.map((w) => w.id));
-    list.forEach((w) => write(K.WORKER + w.id, w));
-    storage.set(K.SESSION, list[0].id);
-  }
-
-  // ---------- Workers ----------
+  // ---------- Workers Store ----------
   const workers = {
     async getAll() {
       return read(K.INDEX, []).map(readWorker).filter(Boolean).map(withDerived);
@@ -290,27 +345,27 @@
       storage.set(K.SESSION, wid);
       notify("active_changed", wid);
     },
-    // Saves profile fields only. Endorsements are never overwritten here.
     async save(p = {}) {
       const name = text(p.name, 80);
       if (!name) throw new Error("Worker name is required");
       const prev = readWorker(p.id) || { id: newId("w"), endorsements: [], createdAt: today() };
       const rawSocs = Array.isArray(p.societies) ? p.societies : (p.society ? [p.society] : (prev.societies || [prev.society || activeSociety()]));
       const cleanSocs = rawSocs.map(s => text(s, 80)).filter(Boolean);
-      return withDerived(commit({
+      return withDerived(commitWorker({
         ...prev,
         name,
         role: text(p.role, 80) || prev.role || "",
         societies: cleanSocs.length > 0 ? cleanSocs : [activeSociety()],
         society: cleanSocs[0] || text(p.society, 80) || prev.society || activeSociety(),
         households: Math.max(0, Number(p.households ?? prev.households) || 0),
-        tenureYears: Math.max(0, Number(p.tenureYears ?? prev.tenureYears) || 0)
+        tenureYears: Math.max(0, Number(p.tenureYears ?? prev.tenureYears) || 0),
+        identity: p.identity || prev.identity || null
       }, "worker_saved"));
-    }
+    },
+    addEndorsement: async (wid, e) => endorse({ workerId: wid, ...e })
   };
 
   // ---------- Endorsements (Reverse Attestation) ----------
-  // Counter-Hardening: Semantic Address Matching & Direct Peer Verification Handoff
   async function endorse({ workerId, by, unit, note, keys = false, skills = [], contact = "", highRiskTenureMonths = 0, tenureNote = "" } = {}) {
     if (!isValidResidenceUnit(unit)) {
       throw new Error("Please enter a valid flat, bungalow, or residence unit (e.g. Flat B-402, Row House 14, Bungalow 7).");
@@ -319,15 +374,11 @@
       throw new Error("Attestation Guard: Content contains prohibited defamation, slurs, or criminal allegations. Project Maanyata is a positive craft passbook.");
     }
 
-    const w = need(workerId);
+    const w = needWorker(workerId);
     const e = sanitizeEndorsement({ by, unit, note, keys, skills, contact, highRiskTenureMonths, tenureNote, date: today() });
     if (!e) throw new Error("Endorsement contains invalid or unsafe content.");
     if (!e.keys && !e.skills.length) throw new Error("Affirm at least one trait: keys or a skill");
 
-    // Defense 1: Semantic Unit Duplicate Lock & Orthogonal Skill Merging
-    // A single address cannot inflate review counts by creating duplicate endorsement cards.
-    // However, if the same residence vouches for an additional orthogonal skill (e.g., adding Cooking to Cleaning),
-    // it smoothly updates their existing record without creating a duplicate card.
     const normUnit = normalizeUnit(e.unit);
     const existingIndex = normUnit ? (w.endorsements || []).findIndex(
       old => normalizeUnit(old.unit) === normUnit
@@ -349,20 +400,239 @@
       }
       if (e.note && e.note.length > (existing.note || "").length) existing.note = e.note;
       pruneStorageIfNeeded();
-      commit(w, "endorsed");
+      commitWorker(w, "endorsed");
       return existing;
     }
 
-    // Defense 2: First-Principles Grounding (No Gameable Time Clocks)
-    // High-performing domestic workers legitimately serve many households.
-    // Artificial 30-day velocity limits are stripped; trust is anchored in verifiable peer contacts.
     pruneStorageIfNeeded();
     w.endorsements.push(e);
-    commit(w, "endorsed");
+    commitWorker(w, "endorsed");
     return e;
   }
 
-  // ---------- Cross-device pass (P2P Base64URL, Zero Backend Required) ----------
+  // ---------- 4-State Contract Machine & Lifecycle Methods ----------
+  function readContract(cid) {
+    if (typeof cid !== "string") return null;
+    return read(K.CONTRACT + cid, null);
+  }
+
+  function commitContract(c, type) {
+    const ids = read(K.CONTRACTS, []);
+    if (!ids.includes(c.id)) write(K.CONTRACTS, [...ids, c.id]);
+    write(K.CONTRACT + c.id, { ...c, updatedAt: new Date().toISOString() });
+    notify(type || "contract_updated", c.id);
+    return c;
+  }
+
+  /**
+   * Start a new service contract between an employer unit and a worker.
+   */
+  async function startContract({ workerId, employerUnit, roleScope, shiftHours = 2.0 }) {
+    if (!workerId) throw new Error("Worker ID is required to start a contract");
+    if (!isValidResidenceUnit(employerUnit)) {
+      throw new Error("Invalid residence unit. Specify valid flat or apartment (e.g. B-402, Flat 101).");
+    }
+    const cleanScope = text(roleScope, 120);
+    if (!cleanScope) throw new Error("Role scope definition is required");
+
+    const contract = {
+      id: newId("c"),
+      workerId: text(workerId, 80),
+      employerUnit: text(employerUnit, 80),
+      maskedUnit: maskUnit(employerUnit),
+      roleScope: cleanScope,
+      shiftHours: Math.max(0.5, Number(shiftHours) || 2.0),
+      state: CONTRACT_STATE.ACTIVE,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      settledAt: null,
+      confirmationMethod: null,
+      dispute: null,
+      fidelityShieldActive: true,
+      fidelityCoverageMax: 100000 // ₹1,00,000 Fidelity Shield
+    };
+
+    return commitContract(contract, "contract_started");
+  }
+
+  /**
+   * Settle an active contract upon successful completion or mutual confirmation.
+   */
+  async function settleContract({ contractId, confirmationMethod = "MUTUAL_CONFIRMATION" }) {
+    const c = readContract(contractId);
+    if (!c) throw new Error("Contract not found: " + contractId);
+    if (c.state === CONTRACT_STATE.DISPUTED || c.state === CONTRACT_STATE.QUARANTINED) {
+      throw new Error(`Cannot settle contract in ${c.state} state without formal dispute resolution.`);
+    }
+    if (c.state === CONTRACT_STATE.SETTLED) return c;
+
+    c.state = CONTRACT_STATE.SETTLED;
+    c.settledAt = new Date().toISOString();
+    c.confirmationMethod = text(confirmationMethod, 60) || "MUTUAL_CONFIRMATION";
+    return commitContract(c, "contract_settled");
+  }
+
+  /**
+   * Quarantine a contract pending security or statutory investigation.
+   */
+  async function quarantineContract({ contractId, reason = "Premises security investigation" } = {}) {
+    const c = readContract(contractId);
+    if (!c) throw new Error("Contract not found: " + contractId);
+    if (c.state === CONTRACT_STATE.QUARANTINED) return c;
+    c.state = CONTRACT_STATE.QUARANTINED;
+    c.quarantinedAt = new Date().toISOString();
+    c.quarantineReason = text(reason, 280) || "Premises security investigation";
+    return commitContract(c, "contract_quarantined");
+  }
+
+  /**
+   * Initiate a formal contract dispute under the Bonded Trust Protocol.
+   * Statutory Invariant: Minimum ₹2,500 Investigation Escrow + Police NC Number required.
+   */
+  async function initiateDispute({ contractId, reason, escrowAmount = 2500, policeNcNumber, stationName }) {
+    const c = readContract(contractId);
+    if (!c) throw new Error("Contract not found: " + contractId);
+    if (c.state === CONTRACT_STATE.DISPUTED) {
+      throw new Error("Contract is already under active dispute.");
+    }
+    if (c.state === CONTRACT_STATE.QUARANTINED) {
+      throw new Error("Contract is already quarantined for security review.");
+    }
+
+    const cleanReason = text(reason, 280);
+    if (!cleanReason) throw new Error("Factual dispute ground is required.");
+    if (!isSafeContent(cleanReason)) {
+      throw new Error("Dispute narrative contains prohibited abusive language.");
+    }
+
+    const escrow = Number(escrowAmount) || 0;
+    if (escrow < 2500) {
+      throw new Error("Statutory requirement: Minimum ₹2,500 Investigation Escrow deposit required to prevent frivolous disputes.");
+    }
+
+    const nc = text(policeNcNumber, 60);
+    if (!nc) {
+      throw new Error("Police Station NC/Diary Number is required to record a formal dispute.");
+    }
+
+    const station = text(stationName, 80);
+    if (!station) {
+      throw new Error("Police Station jurisdiction name is required.");
+    }
+
+    // Update contract state to DISPUTED (or QUARANTINED if serious security breach)
+    const isSecurityBreach = /SAFETY_BREACH|SECURITY_BREACH/i.test(cleanReason);
+    c.state = isSecurityBreach ? CONTRACT_STATE.QUARANTINED : CONTRACT_STATE.DISPUTED;
+    c.dispute = {
+      initiatedAt: new Date().toISOString(),
+      reason: cleanReason,
+      escrowAmount: escrow,
+      policeNcNumber: nc,
+      stationName: station,
+      status: "INVESTIGATION_PENDING",
+      escrowLocked: true,
+      resolvedAt: null,
+      outcome: null,
+      compensatoryPayoutTo: null
+    };
+
+    return commitContract(c, isSecurityBreach ? "contract_quarantined" : "contract_disputed");
+  }
+
+  /**
+   * Resolve an ongoing dispute.
+   * If claim is dismissed as frivolous, ₹2,000 forfeits to worker as compensatory payout and ₹500 administrative review fee.
+   */
+  async function resolveDispute({ contractId, outcome, compensatoryPayoutTo }) {
+    const c = readContract(contractId);
+    if (!c) throw new Error("Contract not found: " + contractId);
+    if (!c.dispute && c.state !== CONTRACT_STATE.QUARANTINED) {
+      throw new Error("Contract has no active dispute or quarantine record.");
+    }
+
+    const cleanOutcome = text(outcome, 80) || "RESOLVED";
+    let payoutRecipient = text(compensatoryPayoutTo, 80);
+
+    if (cleanOutcome === "FRIVOLOUS_CLAIM_DISMISSED" && !payoutRecipient) {
+      payoutRecipient = "WORKER";
+    }
+
+    c.state = CONTRACT_STATE.SETTLED;
+    if (c.dispute) {
+      c.dispute.status = "RESOLVED";
+      c.dispute.resolvedAt = new Date().toISOString();
+      c.dispute.outcome = cleanOutcome;
+      c.dispute.compensatoryPayoutTo = payoutRecipient;
+      c.dispute.escrowLocked = false;
+    }
+
+    return commitContract(c, "dispute_resolved");
+  }
+
+  // Contract repository
+  const contracts = {
+    async getAll() {
+      return read(K.CONTRACTS, []).map(readContract).filter(Boolean);
+    },
+    async get(cid) {
+      return readContract(cid);
+    },
+    async getByWorker(wid) {
+      if (!wid) return [];
+      return (await contracts.getAll()).filter(c => c.workerId === wid);
+    },
+    start: async (args) => startContract(args),
+    settle: async (args) => settleContract(args),
+    quarantine: async (args) => quarantineContract(args),
+    dispute: async (args) => initiateDispute(args),
+    resolve: async (args) => resolveDispute(args)
+  };
+
+  // ---------- Cluster Reserve Tracking (15% Safety Pool) ----------
+  function getClusterReserve() {
+    const cr = read(K.CLUSTER_RESERVE, null);
+    if (!cr) {
+      return {
+        balance: 0,
+        transactions: [],
+        allocationRate: 0.15,
+        fidelityShieldMax: 100000
+      };
+    }
+    return cr;
+  }
+
+  function getClusterReserveBalance() {
+    const cr = getClusterReserve();
+    return Math.round((cr.balance || 0) * 100) / 100;
+  }
+
+  /**
+   * Allocate annual society subscription fee (default ₹4,999 / year for Vasudev Complex pilot)
+   * 15% automatically goes into the neighborhood Cluster Reserve Pool (₹749.85 per society).
+   */
+  function allocateSocietyFee({ societyName = "Vasudev Complex CHS", feeAmount = 4999 } = {}) {
+    const cr = getClusterReserve();
+    const amount = Math.max(0, Number(feeAmount) || 4999);
+    const allocation = Math.round(amount * 0.15 * 100) / 100;
+
+    const tx = {
+      id: newId("tx"),
+      date: new Date().toISOString(),
+      societyName: text(societyName, 80),
+      feeAmount: amount,
+      allocationAmount: allocation,
+      description: "15% Neighborhood Safety Pool Allocation"
+    };
+
+    cr.balance = Math.round(((cr.balance || 0) + allocation) * 100) / 100;
+    cr.transactions = [tx, ...(cr.transactions || [])].slice(0, 50);
+    write(K.CLUSTER_RESERVE, cr);
+    notify("cluster_reserve_updated", cr.balance);
+    return cr;
+  }
+
+  // ---------- Cross-device pass (P2P Base64URL) ----------
   const b64 = {
     enc(s) {
       const bin = Array.from(new TextEncoder().encode(s), (b) => String.fromCharCode(b)).join("");
@@ -375,9 +645,6 @@
     }
   };
 
-  // Public profile only. Aryan Side-Channel Mitigation: Physical address strings are
-  // completely excluded from the QR payload. This prevents entropy/floorplan correlation
-  // and keeps the URL under 280 bytes for instantaneous camera focus on budget lenses.
   function serializePassToUrl(w) {
     const payload = {
       v: 2, id: w.id, name: w.name, role: w.role, society: w.society,
@@ -394,7 +661,6 @@
     return `${base}?p=${b64.enc(JSON.stringify(payload))}`;
   }
 
-  // Merges an incoming pass into local storage. Endorsements are deduplicated.
   async function hydratePassFromUrl(href = global.location && global.location.href) {
     if (!href) return null;
     const url = new URL(href);
@@ -414,7 +680,7 @@
     pruneStorageIfNeeded();
     const rawSocs = Array.isArray(p.societies) ? p.societies : (p.society ? [p.society] : (existing.societies || [existing.society || activeSociety()]));
     const cleanSocs = rawSocs.map(s => text(s, 80)).filter(Boolean);
-    const merged = commit({
+    const merged = commitWorker({
       ...existing,
       id: p.id,
       name: text(p.name, 80),
@@ -435,7 +701,7 @@
     return withDerived(merged);
   }
 
-  // ---------- Society (Free text, no registry) ----------
+  // ---------- Society ----------
   const society = {
     async get() { return activeSociety(); },
     async set(name) {
@@ -447,9 +713,15 @@
     }
   };
 
+  function reset() {
+    seed(true);
+    notify("store_reset", null);
+  }
+
   // ---------- Public API ----------
   const MaanyataStore = {
     init: async (force = false) => seed(!!force),
+    reset,
     subscribe(cb) {
       if (typeof cb !== "function") throw new Error("Subscriber must be a function");
       listeners.add(cb);
@@ -458,6 +730,16 @@
     society,
     workers,
     endorse,
+    contracts,
+    startContract,
+    settleContract,
+    quarantineContract,
+    initiateDispute,
+    resolveDispute,
+    getClusterReserve,
+    getClusterReserveBalance,
+    allocateSocietyFee,
+    CONTRACT_STATE,
     serializePassToUrl,
     hydratePassFromUrl,
     normalizeUnit,
@@ -465,7 +747,8 @@
     isSafeContent,
     isValidResidenceUnit,
     traitsOf,
-    SKILLS
+    SKILLS,
+    SEEDS
   };
 
   global.MaanyataStore = MaanyataStore;

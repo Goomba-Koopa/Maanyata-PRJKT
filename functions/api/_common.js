@@ -26,6 +26,7 @@ export const BANNED_WORDS_REGEX = new RegExp(
     "fuck(?:ing|er)?", "shit", "bitch", "bastard", "asshole",
     "harami", "badmash", "kameena", "kamina", "saala", "saali", "suar", "kutta", "kutte",
     "madarchod", "behenchod", "bhosd(?:i|ike)?", "chutiya", "gandu", "randi",
+    "breast", "jiggler", "sex", "porn", "xxx", "penis", "vagina", "escort", "strip", "whore", "slut", "cock", "dick",
     // Casteist slurs & discriminatory hatred
     "chamar", "bhangi", "chura", "mleccha", "katua", "nigger", "nigga", "nigg",
     // Substance / Poison / Violence
@@ -185,7 +186,8 @@ export function validateResidence(unitStr, societyName = "") {
   // Must have:
   // 1. A dwelling identifier (Flat, Wing, Room, Unit, Row House, Bungalow, Villa, etc.) with a number
   // 2. A complex/society type word (CHS, Society, Complex, Enclave, Heights, Tower, Apartments, Park, Nagar, etc.)
-  const hasDwellingPattern = /\b(flat|room|unit|wing|bldg|building|house|bungalow|row\s*house|villa|plot|kothi|tower|floor|g-\d+)\s*#?:?\s*([A-Za-z0-9-]+)/i.test(cleanUnit) ||
+  const hasDwellingPattern = /\b(flat|room|unit|wing|bldg|building|house|bungalow|row\s*house|villa|plot|kothi|floor|g-\d+)\s*#?:?\s*([A-Za-z0-9-]+)/i.test(cleanUnit) ||
+                             /\btower\b\s*#?:?\s*([0-9]+|[A-Za-z]\b)/i.test(cleanUnit) ||
                              /\b[A-Za-z]-?\d{1,4}\b/.test(cleanUnit);
 
   const hasComplexTerm = /\b(chs|co-?op|society|complex|enclave|heights|residency|plaza|park|nagar|apartments|gardens?|view|palms|estate|tower|towers)\b/i.test(fullText);
@@ -204,30 +206,62 @@ export function isValidResidenceUnit(unitStr, societyName = "") {
   return validateResidence(unitStr, societyName).valid;
 }
 
-// 5. Semantic Normalization & Privacy Masking
+// 5. Semantic Normalization, HMAC Hashing & Privacy Masking (Zero-Knowledge Wing Suppression)
+export const UNIT_SALT = "maanyata:privacy:salt:v1";
+
 export function normalizeUnit(str) {
   if (!str) return "";
   const cleaned = stripZeroWidth(str);
   return cleaned
     .toLowerCase()
-    .replace(/flat\s*(no\.?)?|room\s*(no\.?)?|bldg\s*(no\.?)?|wing\s*|unit\s*(no\.?)?|block\s*/gi, "")
+    .replace(/flat\s*(no\.?)?|room\s*(no\.?)?|bldg\s*(no\.?)?|wing\s*|unit\s*(no\.?)?|block\s*|tower\s*/gi, "")
     .replace(/[^a-z0-9]/g, "")
     .trim();
 }
 
-export function maskUnit(unitStr) {
-  if (!unitStr) return "Resident Attestation";
-  const s = stripZeroWidth(unitStr);
-  if (/^(row\s*house|bungalow|villa|plot|kothi|cottage)\b/i.test(s)) {
-    return s.replace(/\d+.*$/, "** (Private Residence)");
+export async function hashUnitHMAC(normalizedUnit) {
+  if (!normalizedUnit) return "";
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${UNIT_SALT}:${normalizedUnit}`);
+  const hashBuf = await crypto.subtle.digest("SHA-256", data);
+  const hashArr = Array.from(new Uint8Array(hashBuf));
+  return hashArr.map(b => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
+}
+
+// Zero-Knowledge Wing & Flat Suppression ($k >> 1$)
+// Purges all unit numbers, wing letters, and flat numbers from public view
+export function maskUnit(unitStr, societyName = "", lang = "en") {
+  const s = stripZeroWidth(unitStr || "");
+  const socName = stripZeroWidth(societyName || "");
+
+  // Detect society from societyName or unitStr
+  let matchedSoc = "";
+  if (socName && socName.length >= 3) {
+    matchedSoc = socName;
+  } else {
+    for (const pilot of PILOT_SOCIETIES) {
+      if (pilot.aliases.some(alias => s.toLowerCase().includes(alias))) {
+        matchedSoc = pilot.name;
+        break;
+      }
+    }
+    if (!matchedSoc) {
+      const complexMatch = s.match(/\b([A-Za-z0-9\s]+(?:CHS|Complex|Palms|Heights|Enclave|Park|Nagar|Apartments|Towers?))\b/i);
+      if (complexMatch) {
+        matchedSoc = complexMatch[1].trim();
+      }
+    }
   }
-  if (/^(room|chawl|pada|gala|wadi)\b/i.test(s)) {
-    return "Local Resident Attestation";
+
+  // Strip trailing or leading wing/flat designations from detected society
+  if (matchedSoc) {
+    matchedSoc = matchedSoc.replace(/^(Flat|Wing|Tower|Bldg|Unit)\s+[A-Za-z0-9-]+\s*,?\s*/i, "").trim();
   }
-  return s
-    .replace(/(^|\s|,)\b\d{2,4}\b/g, "$1***")
-    .replace(/\b([A-Za-z0-9]+)-(\d{2,4})\b/g, "$1-***")
-    .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
+
+  if (lang === "hi") {
+    return matchedSoc ? `सत्यापित निवासी अनुशंसा • ${matchedSoc}` : "सत्यापित निवासी अनुशंसा";
+  }
+  return matchedSoc ? `Verified Resident Attestation • ${matchedSoc}` : "Verified Resident Attestation";
 }
 
 // 6. Edge IP Rate Limiter & Abuse Prevention (Guards KV Quota)
@@ -265,20 +299,22 @@ export async function checkRateLimit(kv, clientIp, action = "endorse") {
   return { allowed: true };
 }
 
-// 7. Initial Seeds (Privacy Hardened: Scrubbed PII & Masked Units)
+// 7. Initial Seeds (Privacy Hardened: Scrubbed PII & Zero-Knowledge Attestations)
 export const INITIAL_SEEDS = [
   {
     id: "sunita-devi-01",
     name: "Sunita Devi",
     role: "Senior Culinary Specialist & Meal Prep",
     uan: "UAN ****-****-4921",
-    tenure: "8.5 Yrs",
+    tenureBaseline: "8.5 Yrs",
+    tenureAttested: "3 Yrs",
+    tenure: "3 Yrs",
     households: 19,
     society: "Maryland Palms CHS, Mira Road",
     traits: {
-      "Exceptional Cooking": { count: 14, icon: "🍲" },
-      "Trusted With House Keys": { count: 18, icon: "🤝" },
-      "Always On Time": { count: 24, icon: "🕒" }
+      "Exceptional Cooking": { count: 14, iconName: "pot" },
+      "Trusted With House Keys": { count: 18, iconName: "key" },
+      "Always On Time": { count: 24, iconName: "clock" }
     },
     boundaries: [
       "Access to clean water & soap to wash hands",
@@ -291,12 +327,12 @@ export const INITIAL_SEEDS = [
         id: "e-sunita-1",
         quote: "Master of North Indian and diabetic-friendly cooking. Has held our flat keys for 3 years without a single issue.",
         author: "Pooja Rao",
-        unit: "Flat B-***, Greenwood Palms",
+        unit: "Verified Resident Attestation • Greenwood Palms CHS",
         tenure: "3 Yrs Verified",
         startYear: 2023,
         certified: true,
         locationVerified: true,
-        locationTag: "📍 On-Premises Verified (Maryland Palms)",
+        locationTag: "✓ On-Premises Verified (Maryland Palms)",
         contact: null
       }
     ]
@@ -306,13 +342,15 @@ export const INITIAL_SEEDS = [
     name: "Ramesh Kumar",
     role: "Chauffeur & Senior Mobility Assistant",
     uan: "UAN ****-****-8812",
-    tenure: "12 Yrs",
+    tenureBaseline: "12 Yrs",
+    tenureAttested: "7 Yrs",
+    tenure: "7 Yrs",
     households: 6,
     society: "Maryland Palms CHS, Mira Road",
     traits: {
-      "Always On Time": { count: 22, icon: "🕒" },
-      "Went Above & Beyond": { count: 9, icon: "🌟" },
-      "Trusted With House Keys": { count: 6, icon: "🤝" }
+      "Always On Time": { count: 22, iconName: "clock" },
+      "Went Above & Beyond": { count: 9, iconName: "star" },
+      "Trusted With House Keys": { count: 6, iconName: "key" }
     },
     boundaries: [
       "Designated 45-min lunch break",
@@ -323,12 +361,12 @@ export const INITIAL_SEEDS = [
         id: "e-ramesh-1",
         quote: "Handled hospital runs and school drop-offs for over a decade. Flawless driving record in Mumbai traffic.",
         author: "Anand Mehta",
-        unit: "Tower B, Flat ***",
+        unit: "Verified Resident Attestation • Maryland Palms CHS",
         tenure: "7 Yrs Verified",
         startYear: 2019,
         certified: true,
         locationVerified: true,
-        locationTag: "📍 On-Premises Verified (Maryland Palms)",
+        locationTag: "✓ On-Premises Verified (Maryland Palms)",
         contact: null
       }
     ]
@@ -338,12 +376,14 @@ export const INITIAL_SEEDS = [
     name: "Asha Kumari",
     role: "Deep Cleaning & Sanitization Specialist",
     uan: "UAN ****-****-3319",
-    tenure: "5 Yrs",
+    tenureBaseline: "5 Yrs",
+    tenureAttested: "3 Yrs",
+    tenure: "3 Yrs",
     households: 8,
     society: "Maryland Palms CHS, Mira Road",
     traits: {
-      "Meticulous & Thorough": { count: 16, icon: "🧹" },
-      "Always On Time": { count: 11, icon: "🕒" }
+      "Meticulous & Thorough": { count: 16, iconName: "sparkles" },
+      "Always On Time": { count: 11, iconName: "clock" }
     },
     boundaries: [
       "Zero toxic acid chemicals",
@@ -354,12 +394,12 @@ export const INITIAL_SEEDS = [
         id: "e-asha-1",
         quote: "Leaves every corner sparkling. Never uses harsh chemicals, very polite and diligent.",
         author: "Dr. K. Merchant",
-        unit: "Tower A, Flat ***",
+        unit: "Verified Resident Attestation • Maryland Palms CHS",
         tenure: "3 Yrs Verified",
         startYear: 2023,
         certified: true,
         locationVerified: true,
-        locationTag: "📍 On-Premises Verified (Maryland Palms)",
+        locationTag: "✓ On-Premises Verified (Maryland Palms)",
         contact: null
       }
     ]
@@ -368,23 +408,31 @@ export const INITIAL_SEEDS = [
 
 export async function getKVWorker(kv, id) {
   if (!id) return null;
-  const key = `worker:${id}`;
+  const normalizedId = (id === "demo-sunita-01") ? "sunita-devi-01" : id;
+  const key = `worker:${normalizedId}`;
   if (kv) {
     const raw = await kv.get(key);
     if (raw) {
       try { return JSON.parse(raw); } catch (e) {}
     }
+    if (normalizedId !== id) {
+      const rawAlt = await kv.get(`worker:${id}`);
+      if (rawAlt) {
+        try { return JSON.parse(rawAlt); } catch (e) {}
+      }
+    }
   }
-  return INITIAL_SEEDS.find(s => s.id === id || s.name.toLowerCase() === id.toLowerCase()) || null;
+  return INITIAL_SEEDS.find(s => s.id === normalizedId || s.id === id || s.name.toLowerCase() === id.toLowerCase()) || null;
 }
 
 export async function saveKVWorker(kv, worker) {
   if (!worker || !worker.id) return false;
   if (kv) {
-    // 1. Privacy Scrubbing: mask all reference units and strip raw contact PII
+    // 1. Privacy Scrubbing: mask all reference units, purge unitNorm, and strip raw contact PII
     if (worker.references && Array.isArray(worker.references)) {
       worker.references.forEach(r => {
         if (r.unit) r.unit = maskUnit(r.unit);
+        delete r.unitNorm;
         r.contact = null; // PII never stored in public KV
       });
       // Cap at 50 references per worker to prevent KV object size bloat

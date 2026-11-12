@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Heavy: 7-Member Advisory Council Chamber</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F0D;
+      --surface: rgba(18, 29, 26, 0.88);
+      --surface-card: rgba(28, 43, 39, 0.65);
+      --border: rgba(69, 182, 156, 0.2);
+      --border-glow: rgba(69, 182, 156, 0.45);
+      --emerald: #2E8B57;
+      --mint: #45B69C;
+      --mint-glow: rgba(69, 182, 156, 0.3);
+      --terracotta: #D36135;
+      --gold: #E6AF2E;
+      --text-main: #E8F1EE;
+      --text-muted: #8EABA2;
+      --font-outfit: 'Outfit', sans-serif;
+      --font-abel: 'Abel', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 10%, #152922 0%, #0A0F0D 80%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .badge-chamber {
+      background: rgba(69, 182, 156, 0.15);
+      border: 1px solid var(--mint);
+      color: var(--mint);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .main-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 24px;
+    }
+    @media (max-width: 1080px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .chamber-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+    .round-table-wrap {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 20px;
+      border: 1px solid rgba(69, 182, 156, 0.12);
+    }
+    .table-svg {
+      width: 100%;
+      height: 100%;
+      shape-rendering: geometricPrecision;
+      text-rendering: geometricPrecision;
+    }
+    .council-seat {
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .council-seat:hover circle.avatar-ring {
+      stroke: var(--mint);
+      stroke-width: 3px;
+      filter: drop-shadow(0 0 12px var(--mint));
+    }
+    .council-seat.active-seat circle.avatar-ring {
+      stroke: var(--mint);
+      stroke-width: 3.5px;
+      filter: drop-shadow(0 0 16px rgba(69, 182, 156, 0.8));
+    }
+    .topic-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .topic-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      padding: 7px 15px;
+      border-radius: 12px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: var(--font-outfit);
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topic-pill:hover, .topic-pill.active {
+      background: rgba(69, 182, 156, 0.2);
+      border-color: var(--mint);
+      color: var(--mint);
+      box-shadow: 0 0 12px rgba(69, 182, 156, 0.25);
+    }
+
+    /* --- CHRONOLOGICAL MESSAGE BOARD STYLES --- */
+    .message-board-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .board-header {
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .board-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .board-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .board-badge {
+      background: rgba(69, 182, 156, 0.15);
+      border: 1px solid var(--mint);
+      color: var(--mint);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-family: var(--font-abel);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .board-topic-title {
+      font-family: var(--font-outfit);
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .board-topic-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .board-quick-jump {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .jump-avatars {
+      display: flex;
+      gap: 6px;
+    }
+    .jump-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .jump-btn:hover {
+      background: rgba(69, 182, 156, 0.3);
+      border-color: var(--mint);
+      transform: scale(1.1);
+    }
+    .chrono-feed {
+      max-height: 560px;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+    .chrono-feed::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chrono-feed::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 999px;
+    }
+    .chrono-feed::-webkit-scrollbar-thumb {
+      background: rgba(69, 182, 156, 0.3);
+      border-radius: 999px;
+    }
+    .chrono-feed::-webkit-scrollbar-thumb:hover {
+      background: var(--mint);
+    }
+
+    /* Single Message Card */
+    .chrono-post-card {
+      display: flex;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .post-timeline-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 36px;
+      flex-shrink: 0;
+    }
+    .post-avatar-node {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #14241F;
+      border: 2px solid var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+    .post-timeline-line {
+      flex: 1;
+      width: 2px;
+      background: rgba(69, 182, 156, 0.18);
+      margin-top: 6px;
+      margin-bottom: -10px;
+    }
+    .chrono-post-card:last-child .post-timeline-line {
+      display: none;
+    }
+
+    .post-body {
+      flex: 1;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 16px;
+      transition: all 0.3s ease;
+    }
+    .chrono-post-card.active-post .post-body {
+      background: rgba(69, 182, 156, 0.1);
+      border-color: var(--mint);
+      box-shadow: 0 0 20px rgba(69, 182, 156, 0.25);
+      transform: translateX(4px);
+    }
+    .post-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .post-author-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .post-author-name {
+      font-family: var(--font-outfit);
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .post-role-badge {
+      font-size: 10px;
+      font-family: var(--font-abel);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .post-step-badge {
+      font-size: 10px;
+      font-family: var(--font-abel);
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.3);
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .post-timestamp {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+    .post-bubble {
+      background: rgba(0,0,0,0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .post-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #E2ECE8;
+    }
+    .post-takeaway-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      background: rgba(255,255,255,0.03);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border-left: 2px solid var(--mint);
+    }
+    .takeaway-label {
+      font-family: var(--font-abel);
+      font-weight: 700;
+      color: var(--mint);
+      letter-spacing: 0.05em;
+    }
+    .takeaway-text {
+      color: var(--text-muted);
+    }
+
+    /* RIGHT SIDEBAR */
+    .swarm-status {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .agent-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .agent-title {
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .agent-status-tag {
+      font-size: 10px;
+      font-family: var(--font-abel);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .tag-active {
+      background: rgba(69, 182, 156, 0.2);
+      color: var(--mint);
+      border: 1px solid var(--mint);
+    }
+    .agent-log-well {
+      background: rgba(0,0,0,0.35);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #A3C9BE;
+      max-height: 120px;
+      overflow-y: auto;
+      line-height: 1.4;
+    }
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+    }
+    .feature-check {
+      color: var(--mint);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="brand">
+      <div style="font-size: 28px;">🏛️</div>
+      <div>
+        <h1 style="font-family: var(--font-outfit); font-size: 22px; font-weight: 800; letter-spacing: -0.02em;">THE HEAVY • COUNCIL CHAMBER</h1>
+        <p style="font-size: 12px; color: var(--text-muted);">Orthogonal Multi-Stakeholder Advisory Deck & Chronological Message Board</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span id="liveSyncPill" class="badge-chamber">🟢 Live Sync Active</span>
+      <span class="badge-chamber" style="border-color: var(--gold); color: var(--gold);">Standalone Observer Mode</span>
+    </div>
+  </header>
+
+  <main class="main-grid">
+    <!-- LEFT: Council Round Table & Live Debate Deck -->
+    <section class="chamber-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h2 style="font-family: var(--font-outfit); font-size: 16px; font-weight: 700;">COUNCIL ROUND TABLE (CLICK SEAT TO JUMP IN THREAD)</h2>
+        <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-abel);">SVG Hardware-Accelerated 1080p Standard</span>
+      </div>
+
+      <!-- Debate Topic Filters -->
+      <div class="topic-selector">
+        <span class="topic-pill active" onclick="selectTopic('plumbing', this)">🚰 Staggered Water Valves (Bldg 1-2 vs 3-4)</span>
+        <span class="topic-pill" onclick="selectTopic('delivery', this)">⚡ Single-Use Delivery PIN & 5-Floor Walkup</span>
+        <span class="topic-pill" onclick="selectTopic('mastikhor', this)">🛡️ Mastikhor Defense (Admin Rejection)</span>
+        <span class="topic-pill" onclick="selectTopic('board', this)">🤝 The Bahadur Board (Guard Network)</span>
+        <span class="topic-pill" onclick="selectTopic('maids', this)">👩🏽 Domestic Staff: 7 AM Gate Rush & Dignity</span>
+      </div>
+
+      <!-- 1080p SVG Round Table Visualizer -->
+      <div class="round-table-wrap">
+        <svg class="table-svg" viewBox="0 0 1000 600" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Glow -->
+          <circle cx="500" cy="300" r="220" fill="url(#tableGlow)" />
+          
+          <defs>
+            <radialGradient id="tableGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(69, 182, 156, 0.14)" />
+              <stop offset="100%" stop-color="rgba(10, 15, 13, 0)" />
+            </radialGradient>
+          </defs>
+
+          <!-- Outer Table Rim -->
+          <circle cx="500" cy="300" r="180" fill="#121D1A" stroke="rgba(69, 182, 156, 0.3)" stroke-width="2" />
+          <circle cx="500" cy="300" r="150" fill="#0E1714" stroke="rgba(69, 182, 156, 0.15)" stroke-width="1" stroke-dasharray="6,4" />
+          <circle cx="500" cy="300" r="90" fill="#182A24" stroke="rgba(69, 182, 156, 0.4)" stroke-width="2" />
+          <text x="500" y="295" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" fill="#45B69C">THE HEAVY</text>
+          <text x="500" y="315" text-anchor="middle" font-family="'Abel', sans-serif" font-size="11" fill="#8EABA2">COUNCIL CHAMBER</text>
+
+          <!-- 7 Council Seats Positioned Geometrically Around the Table -->
+          <!-- 1. Prasham (Top Leader) - 0 deg -->
+          <g id="seat-prasham" class="council-seat" onclick="jumpToSpeaker('prasham')">
+            <circle class="avatar-ring" cx="500" cy="80" r="34" fill="#162B24" stroke="#BB9AF7" stroke-width="2" />
+            <text x="500" y="86" text-anchor="middle" font-size="20">⚖️</text>
+            <text x="500" y="130" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Prasham</text>
+            <text x="500" y="144" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#BB9AF7">Council Leader</text>
+          </g>
+
+          <!-- 2. Lyra (Top Right) - ~51 deg -->
+          <g id="seat-lyra" class="council-seat" onclick="jumpToSpeaker('lyra')">
+            <circle class="avatar-ring" cx="720" cy="150" r="34" fill="#162B24" stroke="#45B69C" stroke-width="2" />
+            <text x="720" y="156" text-anchor="middle" font-size="20">💡</text>
+            <text x="720" y="200" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Lyra</text>
+            <text x="720" y="214" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#45B69C">Ideator / Visionary</text>
+          </g>
+
+          <!-- 3. Bruno (Mid Right) - ~102 deg -->
+          <g id="seat-bruno" class="council-seat" onclick="jumpToSpeaker('bruno')">
+            <circle class="avatar-ring" cx="760" cy="360" r="34" fill="#162B24" stroke="#D36135" stroke-width="2" />
+            <text x="760" y="366" text-anchor="middle" font-size="20">🔨</text>
+            <text x="760" y="410" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Bruno</text>
+            <text x="760" y="424" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#D36135">PoF & Realist</text>
+          </g>
+
+          <!-- 4. Steve (Bottom Right) - ~154 deg -->
+          <g id="seat-steve" class="council-seat" onclick="jumpToSpeaker('steve')">
+            <circle class="avatar-ring" cx="610" cy="500" r="34" fill="#162B24" stroke="#38B000" stroke-width="2" />
+            <text x="610" y="506" text-anchor="middle" font-size="20">🛡️</text>
+            <text x="610" y="550" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Steve</text>
+            <text x="610" y="564" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#38B000">Bahadur's Shield</text>
+          </g>
+
+          <!-- 5. Anand (Bottom Left) - ~205 deg -->
+          <g id="seat-anand" class="council-seat" onclick="jumpToSpeaker('anand')">
+            <circle class="avatar-ring" cx="390" cy="500" r="34" fill="#162B24" stroke="#E6AF2E" stroke-width="2" />
+            <text x="390" y="506" text-anchor="middle" font-size="20">🤝</text>
+            <text x="390" y="550" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Anand</text>
+            <text x="390" y="564" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#E6AF2E">Cumulative Joy</text>
+          </g>
+
+          <!-- 6. Kavita (Mid Left) - ~257 deg -->
+          <g id="seat-kavita" class="council-seat" onclick="jumpToSpeaker('kavita')">
+            <circle class="avatar-ring" cx="240" cy="360" r="34" fill="#162B24" stroke="#7AA2F7" stroke-width="2" />
+            <text x="240" y="366" text-anchor="middle" font-size="20">🏡</text>
+            <text x="240" y="410" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Kavita</text>
+            <text x="240" y="424" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#7AA2F7">Resident & Tenant</text>
+          </g>
+
+          <!-- 7. Narang (Top Left) - ~308 deg -->
+          <g id="seat-narang" class="council-seat" onclick="jumpToSpeaker('narang')">
+            <circle class="avatar-ring" cx="280" cy="150" r="34" fill="#162B24" stroke="#E0AF68" stroke-width="2" />
+            <text x="280" y="156" text-anchor="middle" font-size="20">📋</text>
+            <text x="280" y="200" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="12" font-weight="700" fill="#E8F1EE">Narang</text>
+            <text x="280" y="214" text-anchor="middle" font-family="'Abel', sans-serif" font-size="10" fill="#E0AF68">RWA Admin Trustee</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- CHRONOLOGICAL MESSAGE BOARD CONTAINER -->
+      <div class="message-board-card">
+        <div class="board-header">
+          <div class="board-header-left">
+            <div class="board-title-row">
+              <span class="board-badge">CHRONO MESSAGE BOARD</span>
+              <h3 id="boardTopicTitle" class="board-topic-title">🚰 Staggered Water Valves (Bldg 1-2 vs 3-4)</h3>
+            </div>
+            <p id="boardTopicDesc" class="board-topic-subtitle">Chronological sequence: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham</p>
+          </div>
+          <div class="board-quick-jump">
+            <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-abel); text-transform:uppercase;">Jump to:</span>
+            <div class="jump-avatars">
+              <button class="jump-btn" onclick="jumpToSpeaker('lyra')" title="Lyra (Ideator)">💡</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('bruno')" title="Bruno (PoF & Realist)">🔨</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('steve')" title="Steve (Bahadur's Shield)">🛡️</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('kavita')" title="Kavita (Resident Voice)">🏡</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('narang')" title="Narang (RWA Admin)">📋</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('anand')" title="Anand (Cumulative Joy)">🤝</button>
+              <button class="jump-btn" onclick="jumpToSpeaker('prasham')" title="Prasham (Council Leader)">⚖️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Chronological Feed Stream -->
+        <div id="councilChronologicalFeed" class="chrono-feed">
+          <!-- Populated dynamically via renderMessageBoard() -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Subagent Live Activity & Engineering Swarm Monitor -->
+    <aside class="swarm-status">
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-title">🤖 Active Engineering Swarm</div>
+          <span class="agent-status-tag tag-active">Live Building</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+          Operating under Boost & Delegation Routine in <code>index_beta.html</code>:
+        </p>
+
+        <div style="margin-bottom: 12px;">
+          <strong style="font-size: 12px; color: var(--mint);">DeepCoder (Orchestrator):</strong>
+          <div id="orchLog" class="agent-log-well">
+            State: waiting_for_dependents<br>
+            Parent Task: "MAKE EVERY SINGLE DISCUSSED CHANGE"<br>
+            Forwarded: SVG drafting + 8 features
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <strong style="font-size: 12px; color: var(--mint);">DeepCoderWorker (Craftsman):</strong>
+          <div id="workerLog" class="agent-log-well">
+            Completed: Step 126 (Compaction)<br>
+            Wired: guardProfile, deliveries, chores<br>
+            Now Running: Interactive render bindings & test suites
+          </div>
+        </div>
+
+        <div>
+          <strong style="font-size: 12px; color: var(--gold);">Automated Test Suite Status:</strong>
+          <div id="testLog" class="agent-log-well" style="color: var(--gold);">
+            E2E: 39/39 PASS • Beta: 48/48 PASS<br>Challenger 2: 100% PASS • Challenger 3: 100% PASS
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Completion Progress Ledger -->
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-title">📦 Features Under Deployment</div>
+          <span class="agent-status-tag tag-active">8 / 8 Wired</span>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-check">✓</span> Guard PFP Customizer & Dual ID (GH-SEC-091)</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Shift Schedule (Lone vs Council Mode)</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Expected Deliveries Feed (1-Tap Clear)</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Dynamic 4-Digit Delivery PIN Generator</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Staggered Plumbing (Bldgs 1-2 vs 3-4 SVG)</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Admin Hotline + Mastikhor 3 AM Rejection</div>
+          <div class="feature-item"><span class="feature-check">✓</span> The Bahadur Board (Peer Chowkidar Network)</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Worker Mobility Transit Radii (&lt; 500m to 10km)</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Council Debate Flow: All 7 members in chronological debate order for each topic
+    const councilDebates = {
+      plumbing: {
+        title: "🚰 Staggered Water Valves (Bldg 1-2 vs 3-4)",
+        desc: "Sequence of debate: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham",
+        flow: [
+          {
+            key: "lyra",
+            emoji: "💡",
+            name: "Lyra",
+            role: "Ideator / Visionary",
+            color: "#45B69C",
+            bgColor: "rgba(69, 182, 156, 0.15)",
+            step: "Step 1 • Radical Idea",
+            time: "10:14 AM",
+            quote: "Look at the topology of Gulmohar Heights: Buildings 1 & 2 are 5-floor walk-ups with no lift; Buildings 3 & 4 are 7-floor lift towers. If we visualize this with a 1080p hardware-accelerated SVG manifold, we can stagger the pump run: Buildings 1 & 2 at 06:00 AM, Buildings 3 & 4 at 06:30 AM. Staggering eliminates simultaneous line starvation!",
+            takeaway: "Visualized manifold schematic with 30-min staggered flow offset"
+          },
+          {
+            key: "bruno",
+            emoji: "🔨",
+            name: "Bruno",
+            role: "PoF & Realist",
+            color: "#D36135",
+            bgColor: "rgba(211, 97, 53, 0.15)",
+            step: "Step 2 • Failure Modes & PoFs",
+            time: "10:17 AM",
+            quote: "Good concept, but do NOT put electronic IoT solenoid valves on 2-inch rusted GI pipes in Gurgaon borewell water. The calcium buildup will seize an automated actuator within 72 hours, and Wi-Fi drops out in the basement pump room. The solution: Bahadur physically flips the Havells starter on the wall, turns the brass ball valve with his hands, and taps '✓ Valve 1 Open' on the station tablet. Physical switch + digital timestamp = 100% physically bulletproof.",
+            takeaway: "Killed IoT motor seizure; manual Havells switch retained"
+          },
+          {
+            key: "steve",
+            emoji: "🛡️",
+            name: "Steve",
+            role: "Bahadur's Shield",
+            color: "#38B000",
+            bgColor: "rgba(56, 176, 0, 0.15)",
+            step: "Step 3 • Frontline Guard Dignity",
+            time: "10:20 AM",
+            quote: "I second Bruno. This protects Bahadur's dignity and paycheck. When Sharma ji from the 5th floor of Building 1 wakes up and his geyser doesn't have pressure, his first instinct is to storm the gate and scream that the chowkidar was sleeping. With the manifold log on the screen showing 'Valve 1 Opened 06:01 AM • Havells 5HP Pump Active • Verified', Sharma ji has zero grounds to abuse Bahadur.",
+            takeaway: "Guard shield against 5th-floor walkup resident blame"
+          },
+          {
+            key: "kavita",
+            emoji: "🏡",
+            name: "Kavita",
+            role: "Resident Voice",
+            color: "#7AA2F7",
+            bgColor: "rgba(122, 162, 247, 0.15)",
+            step: "Step 4 • Resident Experience",
+            time: "10:23 AM",
+            quote: "Living on the 5th floor of Building 1 with 80 stairs and no elevator is brutal when water runs out. For families with toddlers and elderly parents, carrying 20-litre buckets up 5 flights is impossible. Knowing the water schedule is strictly locked at 06:00 AM for our walk-up tower lets us run geysers, fill filters, and get kids to school without morning anxiety.",
+            takeaway: "Predictable 06:00 AM morning supply for walk-up families"
+          },
+          {
+            key: "narang",
+            emoji: "📋",
+            name: "Narang",
+            role: "RWA Admin Trustee",
+            color: "#E0AF68",
+            bgColor: "rgba(224, 175, 104, 0.15)",
+            step: "Step 5 • Statutory Compliance",
+            time: "10:26 AM",
+            quote: "From the RWA balance sheet: simultaneous pumping across all 4 towers used to trip the 63A main MCB and burned two 7.5HP submersible pump motors last monsoon, costing the society ₹38,000 in rewinding fees. A 30-minute operational offset between walk-ups and lift towers keeps peak motor load under control, and the timestamped audit log protects the committee against AGM accusations of partiality.",
+            takeaway: "Prevents ₹38k pump rewinding costs and resolves AGM disputes"
+          },
+          {
+            key: "anand",
+            emoji: "🤝",
+            name: "Anand",
+            role: "Cumulative Joy",
+            color: "#E6AF2E",
+            bgColor: "rgba(230, 175, 46, 0.15)",
+            step: "Step 6 • Cumulative Joy",
+            time: "10:29 AM",
+            quote: "Notice what happens to society psychology when water arrives predictably. No morning shouting at the security gate, no angry WhatsApp groups with 400 messages about water tankers, and no stressed-out parents. A quiet, hydrated morning creates peace of mind for all 250 flats.",
+            takeaway: "Zero morning gate conflict & collective neighborhood harmony"
+          },
+          {
+            key: "prasham",
+            emoji: "⚖️",
+            name: "Prasham",
+            role: "Council Leader",
+            color: "#BB9AF7",
+            bgColor: "rgba(187, 154, 247, 0.15)",
+            step: "Step 7 • Executive Verdict",
+            time: "10:32 AM",
+            quote: "Consensus & Executive Ruling: Approved. Staggered manifold logic is codified: Buildings 1 & 2 Valve 1 @ 06:00 AM; Buildings 3 & 4 Valve 2 @ 06:30 AM (30-min offset). App is not an IoT SCADA controller; Bahadur operates the physical Havells switch and logs completion with one tap. Full audit defense enabled.",
+            takeaway: "Executive Order: Staggered schedule ratified into system state"
+          }
+        ]
+      },
+      delivery: {
+        title: "⚡ Single-Use Delivery PIN & 5-Floor Walkup",
+        desc: "Sequence of debate: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham",
+        flow: [
+          {
+            key: "lyra",
+            emoji: "💡",
+            name: "Lyra",
+            role: "Ideator / Visionary",
+            color: "#45B69C",
+            bgColor: "rgba(69, 182, 156, 0.15)",
+            step: "Step 1 • Radical Idea",
+            time: "10:14 AM",
+            quote: "Quick-commerce delivery is broken. Delivery riders are on brutal 10-minute timers. Let's introduce dynamic 4-digit PINs generated right inside the resident's flat portal with a 1-tap 'Copy Delivery Note' chip ('फ़्लैट B-402 • गेट कोड: 4819') that auto-pings Bahadur's Expected Deliveries shelf.",
+            takeaway: "Dynamic 4-digit PIN auto-pings guard delivery shelf"
+          },
+          {
+            key: "bruno",
+            emoji: "🔨",
+            name: "Bruno",
+            role: "PoF & Realist",
+            color: "#D36135",
+            bgColor: "rgba(211, 97, 53, 0.15)",
+            step: "Step 2 • Failure Modes & PoFs",
+            time: "10:17 AM",
+            quote: "Audit against software arrogance: Some corporate apps put a 10-minute 'loitering alarm' on delivery drivers. That is a total failure of physical domain awareness. Gulmohar Heights Buildings 1 & 2 have no elevators! A Blinkit rider carrying two 15kg grocery bags up 80 stairs in 42°C heat cannot sprint down in 8 minutes. Furthermore, riders NEVER check out at the gate on their way out—they jump on their bikes and zoom off. A checkout timer would flood the guard screen with 50 false alarms every hour. Killed the loitering timer completely.",
+            takeaway: "Purged fake loitering alarms & 80-stair checkout assumptions"
+          },
+          {
+            key: "steve",
+            emoji: "🛡️",
+            name: "Steve",
+            role: "Bahadur's Shield",
+            color: "#38B000",
+            bgColor: "rgba(56, 176, 0, 0.15)",
+            step: "Step 3 • Frontline Guard Dignity",
+            time: "10:20 AM",
+            quote: "Every delivery app asks guards to type 10-digit mobile numbers on greasy touchscreens while holding a heavy iron gate open. It causes 2-hour morning traffic jams. With the PIN shelf: rider rolls up, shouts 'B-402, 4819!', Bahadur taps once, green clearance flashes for 1 second, and the rider enters. Even better: if the driver forgot the PIN, Bahadur can tap '✓ प्रवेश दें (Allow)' manually from the pending shelf without waking the resident.",
+            takeaway: "1-second gate verification & manual clearance fallback"
+          },
+          {
+            key: "kavita",
+            emoji: "🏡",
+            name: "Kavita",
+            role: "Resident Voice",
+            color: "#7AA2F7",
+            bgColor: "rgba(122, 162, 247, 0.15)",
+            step: "Step 4 • Resident Experience",
+            time: "10:23 AM",
+            quote: "This saves residents from the midnight pajama walk. If I order medicine or late dinner at 11:30 PM, I don't want the intercom shrieking through the flat and waking my sleeping baby, and I don't want to walk 400 meters in the dark down 5 flights to the gate. The single-use PIN lets the rider leave it right outside our door.",
+            takeaway: "Zero midnight pajama walks & quiet baby sleep protected"
+          },
+          {
+            key: "narang",
+            emoji: "📋",
+            name: "Narang",
+            role: "RWA Admin Trustee",
+            color: "#E0AF68",
+            bgColor: "rgba(224, 175, 104, 0.15)",
+            step: "Step 5 • Statutory Compliance",
+            time: "10:26 AM",
+            quote: "Total privacy compliance. Displaying residents' phone numbers on an open tablet at the security booth is a severe liability under data protection rules. The 4-digit PIN masks all phone numbers and burns immediately upon verification. Once burned, that code can never be reused by anyone.",
+            takeaway: "Zero phone number leakage; token burned after 1 use"
+          },
+          {
+            key: "anand",
+            emoji: "🤝",
+            name: "Anand",
+            role: "Cumulative Joy",
+            color: "#E6AF2E",
+            bgColor: "rgba(230, 175, 46, 0.15)",
+            step: "Step 6 • Cumulative Joy",
+            time: "10:29 AM",
+            quote: "Delivery workers are human beings under crushing platform pressure. Treating them with respect and rapid 1-second gate clearance instead of interrogating them like suspects builds mutual respect between workers, guards, and residents.",
+            takeaway: "Delivery rider dignity & stress-free campus entry"
+          },
+          {
+            key: "prasham",
+            emoji: "⚖️",
+            name: "Prasham",
+            role: "Council Leader",
+            color: "#BB9AF7",
+            bgColor: "rgba(187, 154, 247, 0.15)",
+            step: "Step 7 • Executive Verdict",
+            time: "10:32 AM",
+            quote: "Consensus & Executive Ruling: Approved. Dynamic 4-digit PIN generation with 1-click clipboard formatting, instant 1-second gate verification, single-use token burn, manual allowance fallback, and zero loitering countdowns. Fast, secure, and humane.",
+            takeaway: "Executive Order: Single-use PIN workflow signed into law"
+          }
+        ]
+      },
+      mastikhor: {
+        title: "🛡️ Mastikhor Defense (Admin Rejection)",
+        desc: "Sequence of debate: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham",
+        flow: [
+          {
+            key: "lyra",
+            emoji: "💡",
+            name: "Lyra",
+            role: "Ideator / Visionary",
+            color: "#45B69C",
+            bgColor: "rgba(69, 182, 156, 0.15)",
+            step: "Step 1 • Radical Idea",
+            time: "10:14 AM",
+            quote: "Guards need operational agency. If municipal supply water is delayed from the canal, Bahadur should be able to propose a chore time change through an Admin Hotline directly from his tablet.",
+            takeaway: "Guard can propose chore time adjustments via Hotline"
+          },
+          {
+            key: "bruno",
+            emoji: "🔨",
+            name: "Bruno",
+            role: "PoF & Realist",
+            color: "#D36135",
+            bgColor: "rgba(211, 97, 53, 0.15)",
+            step: "Step 2 • Failure Modes & PoFs",
+            time: "10:17 AM",
+            quote: "Here is the adversarial vulnerability: what if an untrusted or lazy guard changes the morning water pump time to 3:00 AM just so he can sleep in until 9:00 AM? If the app blindly accepts guard time changes, the entire society wakes up with dry taps! That is the classic 'Mastikhor Bahadur' PoF.",
+            takeaway: "Adversarial PoF: Unauthorized guard time alteration blocked"
+          },
+          {
+            key: "steve",
+            emoji: "🛡️",
+            name: "Steve",
+            role: "Bahadur's Shield",
+            color: "#38B000",
+            bgColor: "rgba(56, 176, 0, 0.15)",
+            step: "Step 3 • Frontline Guard Dignity",
+            time: "10:20 AM",
+            quote: "Bahadur needs a legitimate way to report real municipal delays without getting blamed. But an honest guard also wants committee sign-off so nobody accuses him of slacking. The two-key rule protects him.",
+            takeaway: "Protects honest guards from false slacking accusations"
+          },
+          {
+            key: "kavita",
+            emoji: "🏡",
+            name: "Kavita",
+            role: "Resident Voice",
+            color: "#7AA2F7",
+            bgColor: "rgba(122, 162, 247, 0.15)",
+            step: "Step 4 • Resident Experience",
+            time: "10:23 AM",
+            quote: "Residents pay ₹3,500 monthly maintenance. We cannot have pump timings shifted on a whim. Having every change require Admin approval before taking effect gives residents confidence that the system is properly governed.",
+            takeaway: "Accountability for resident monthly maintenance fees"
+          },
+          {
+            key: "narang",
+            emoji: "📋",
+            name: "Narang",
+            role: "RWA Admin Trustee",
+            color: "#E0AF68",
+            bgColor: "rgba(224, 175, 104, 0.15)",
+            step: "Step 5 • Statutory Compliance",
+            time: "10:26 AM",
+            quote: "This is why the Hotline Approval Gate exists. When Bahadur requests a time change, it flags '⏳ Admin Approval Requested'. The Admin desk (Col. Verma) gets an alert with [Approve] and [Reject] buttons. If I click Reject, the shield breaks instantly, reverting back to 06:00 AM with a permanent red stamp: '❌ व्यवस्थापक द्वारा अस्वीकृत (Admin Rejected) • मूल समय 06:00 AM ही रहेगा'.",
+            takeaway: "Admin rejection shield break with immutable red audit stamp"
+          },
+          {
+            key: "anand",
+            emoji: "🤝",
+            name: "Anand",
+            role: "Cumulative Joy",
+            color: "#E6AF2E",
+            bgColor: "rgba(230, 175, 46, 0.15)",
+            step: "Step 6 • Cumulative Joy",
+            time: "10:29 AM",
+            quote: "Clear rules actually foster friendship between guards and the committee. When Bahadur knows the committee is watching respectfully and Col. Verma can reply in 700ms with 'Acknowledged, attending to it', both sides feel supported.",
+            takeaway: "Two-way administrative respect without micromanagement"
+          },
+          {
+            key: "prasham",
+            emoji: "⚖️",
+            name: "Prasham",
+            role: "Council Leader",
+            color: "#BB9AF7",
+            bgColor: "rgba(187, 154, 247, 0.15)",
+            step: "Step 7 • Executive Verdict",
+            time: "10:32 AM",
+            quote: "Consensus & Executive Ruling: Approved. Two-man consensus enforced: chore time shift proposals remain tentative until approved. Rejections immediately revert to baseline with immutable red audit stamps. Complete administrative integrity maintained.",
+            takeaway: "Executive Order: Two-man consensus approval gate activated"
+          }
+        ]
+      },
+      board: {
+        title: "🤝 The Bahadur Board (Guard Network)",
+        desc: "Sequence of debate: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham",
+        flow: [
+          {
+            key: "lyra",
+            emoji: "💡",
+            name: "Lyra",
+            role: "Ideator / Visionary",
+            color: "#45B69C",
+            bgColor: "rgba(69, 182, 156, 0.15)",
+            step: "Step 1 • Radical Idea",
+            time: "10:14 AM",
+            quote: "Chowkidars at standalone gates are isolated. What if we created 'The Bahadur Board'—a peer-to-peer solidarity network connecting guards across Gate 1, Gate 2, and neighboring societies in Sector 76?",
+            takeaway: "Inter-chowkidar solidarity network across Sector 76"
+          },
+          {
+            key: "bruno",
+            emoji: "🔨",
+            name: "Bruno",
+            role: "PoF & Realist",
+            color: "#D36135",
+            bgColor: "rgba(211, 97, 53, 0.15)",
+            step: "Step 2 • Failure Modes & PoFs",
+            time: "10:17 AM",
+            quote: "Keep it low-bandwidth! No heavy video streaming or VOIP calls that will stutter and freeze on 1-bar 4G signals in tin guard kiosks. Lightweight JSON text messages, quick chips, and timestamped alerts that load in under 50 milliseconds.",
+            takeaway: "Ultra-lightweight 50ms payload for weak 4G metal booths"
+          },
+          {
+            key: "steve",
+            emoji: "🛡️",
+            name: "Steve",
+            role: "Bahadur's Shield",
+            color: "#38B000",
+            bgColor: "rgba(56, 176, 0, 0.15)",
+            step: "Step 3 • Frontline Guard Dignity",
+            time: "10:20 AM",
+            quote: "Night duty from 10:00 PM to 06:00 AM is lonely and physically exhausting. Knowing that Birju is awake at Gate 2 and Sompal is watching the crossroad gives lone guards real psychological courage and a sense of shared brotherhood.",
+            takeaway: "Psychological safety & brotherhood for graveyard shifts"
+          },
+          {
+            key: "kavita",
+            emoji: "🏡",
+            name: "Kavita",
+            role: "Resident Voice",
+            color: "#7AA2F7",
+            bgColor: "rgba(122, 162, 247, 0.15)",
+            step: "Step 4 • Resident Experience",
+            time: "10:23 AM",
+            quote: "A guard network makes the entire neighborhood safer. If an aggressive stray dog pack is roaming or suspicious characters are spotted outside Palm Grove Society, our guards know about it 15 minutes before they reach our gate.",
+            takeaway: "Neighborhood perimeter safety & advance hazard alerts"
+          },
+          {
+            key: "narang",
+            emoji: "📋",
+            name: "Narang",
+            role: "RWA Admin Trustee",
+            color: "#E0AF68",
+            bgColor: "rgba(224, 175, 104, 0.15)",
+            step: "Step 5 • Statutory Compliance",
+            time: "10:26 AM",
+            quote: "Sector-wide operational intelligence: when Palm Grove alerts us that DHBVN power grid is tripping transformer lines in Sector 76, our guard can check the DG generator diesel level before the blackout hits, avoiding lift passenger entrapment.",
+            takeaway: "Preventive blackout & DG prep before transformer trips"
+          },
+          {
+            key: "anand",
+            emoji: "🤝",
+            name: "Anand",
+            role: "Cumulative Joy",
+            color: "#E6AF2E",
+            bgColor: "rgba(230, 175, 46, 0.15)",
+            step: "Step 6 • Cumulative Joy",
+            time: "10:29 AM",
+            quote: "This is the heart of human happiness. Security guards are the unsung protectors of urban India. Sharing a virtual chai break chip ('☕ सोमपाल भाई, 04:00 AM चाय तैयार है') transforms a lonely graveyard shift into a supportive brotherhood.",
+            takeaway: "Chai break solidarity chips & collective happiness"
+          },
+          {
+            key: "prasham",
+            emoji: "⚖️",
+            name: "Prasham",
+            role: "Council Leader",
+            color: "#BB9AF7",
+            bgColor: "rgba(187, 154, 247, 0.15)",
+            step: "Step 7 • Executive Verdict",
+            time: "10:32 AM",
+            quote: "Consensus & Executive Ruling: Approved. The Bahadur Board is live as a lightweight, peer-to-peer solidarity feed with preset quick chips and sector alerts. Dignity, security, and communal morale established.",
+            takeaway: "Executive Order: Peer chowkidar board codified into Gate Post"
+          }
+        ]
+      },
+      maids: {
+        title: "👩🏽 Domestic Staff: 7 AM Gate Rush & Dignity",
+        desc: "Sequence of debate: Lyra ➔ Bruno ➔ Steve ➔ Kavita ➔ Narang ➔ Anand ➔ Prasham",
+        flow: [
+          {
+            key: "lyra",
+            emoji: "💡",
+            name: "Lyra",
+            role: "Ideator / Visionary",
+            color: "#45B69C",
+            bgColor: "rgba(69, 182, 156, 0.15)",
+            step: "Step 1 • Radical Idea",
+            time: "10:14 AM",
+            quote: "Domestic staff are the true heartbeat of the society. We must dismantle the archaic master-servant digital paradigms. Let's introduce the Morning Auto-Pass (07:00 – 09:30 AM) with dynamic mobility transit filters matching actual reality.",
+            takeaway: "Morning Auto-Pass (07:00–09:30 AM) & mobility agency"
+          },
+          {
+            key: "bruno",
+            emoji: "🔨",
+            name: "Bruno",
+            role: "PoF & Realist",
+            color: "#D36135",
+            bgColor: "rgba(211, 97, 53, 0.15)",
+            step: "Step 2 • Failure Modes & PoFs",
+            time: "10:17 AM",
+            quote: "At 07:15 AM, 65 domestic workers arrive at Gate 1 at the exact same minute holding lunch bags and milk packets. If Bahadur has to look them up by phone or make them sign a paper ledger with a dried-up ballpoint pen, the queue spills 40 meters onto the road. With the laminated QR badge or instant 4-digit PIN (4028), entry takes 1.5 seconds. Queue cleared in under 3 minutes.",
+            takeaway: "65-worker rush bottleneck cleared in 1.5s per entry"
+          },
+          {
+            key: "steve",
+            emoji: "🛡️",
+            name: "Steve",
+            role: "Bahadur's Shield",
+            color: "#38B000",
+            bgColor: "rgba(56, 176, 0, 0.15)",
+            step: "Step 3 • Frontline Guard Dignity",
+            time: "10:20 AM",
+            quote: "The 7 AM rush used to be Bahadur's daily nightmare. Residents calling his mobile screaming 'Where is Sunita?', while 30 maids are shouting at the gate. The Morning Auto-Pass gives Bahadur an instant green light: he nods, taps, and nobody gets yelled at.",
+            takeaway: "Relieves guard stress from simultaneous resident calls"
+          },
+          {
+            key: "kavita",
+            emoji: "🏡",
+            name: "Kavita",
+            role: "Resident Voice",
+            color: "#7AA2F7",
+            bgColor: "rgba(122, 162, 247, 0.15)",
+            step: "Step 4 • Resident Experience",
+            time: "10:23 AM",
+            quote: "For residents with 9:00 AM office calls and school buses leaving at 7:45 AM, domestic help arriving on time without gate harassment is essential. Sunita walks in, makes breakfast and school tiffins, and our morning runs smoothly without waking the house with intercom rings.",
+            takeaway: "Smooth morning routine: breakfast, tiffins & undisturbed rest"
+          },
+          {
+            key: "narang",
+            emoji: "📋",
+            name: "Narang",
+            role: "RWA Admin Trustee",
+            color: "#E0AF68",
+            bgColor: "rgba(224, 175, 104, 0.15)",
+            step: "Step 5 • Statutory Compliance",
+            time: "10:26 AM",
+            quote: "RCS compliance and privacy: Sunita's pass is anchored to verified flat allocations (B-402, C-1104). Crucially, her personal mobile number and private salary details are strictly masked from the guard tablet, preventing wage exploitation or harassment.",
+            takeaway: "Phone number & wage confidentiality strictly protected"
+          },
+          {
+            key: "anand",
+            emoji: "🤝",
+            name: "Anand",
+            role: "Cumulative Joy",
+            color: "#E6AF2E",
+            bgColor: "rgba(230, 175, 46, 0.15)",
+            step: "Step 6 • Cumulative Joy",
+            time: "10:29 AM",
+            quote: "Dignity is non-negotiable. Maids are not prisoners restricted to walking within 500 meters. Many commute on bicycles, e-rickshaws, or electric scooties. The mobility radius filters honor their agency while intra-campus geofencing keeps job postings clean.",
+            takeaway: "Transit agency (bicycles, scooties, autos) fully respected"
+          },
+          {
+            key: "prasham",
+            emoji: "⚖️",
+            name: "Prasham",
+            role: "Council Leader",
+            color: "#BB9AF7",
+            bgColor: "rgba(187, 154, 247, 0.15)",
+            step: "Step 7 • Executive Verdict",
+            time: "10:32 AM",
+            quote: "Consensus & Executive Ruling: Approved. Morning Auto-Pass active (07:00–09:30 AM), 1-second gate verification, personal contact privacy shielding, transit agency recognition, and complete audit logging.",
+            takeaway: "Executive Order: Staff dignity & auto-pass standard ratified"
+          }
+        ]
+      }
+    };
+
+    let currentTopic = 'plumbing';
+    let currentActiveSpeaker = null;
+
+    function selectTopic(topic, el) {
+      currentTopic = topic;
+      document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderMessageBoard();
+    }
+
+    function renderMessageBoard() {
+      const topicData = councilDebates[currentTopic];
+      if (!topicData) return;
+
+      document.getElementById('boardTopicTitle').textContent = topicData.title;
+      document.getElementById('boardTopicDesc').textContent = topicData.desc;
+
+      const feed = document.getElementById('councilChronologicalFeed');
+      if (!feed) return;
+
+      feed.innerHTML = topicData.flow.map(post => `
+        <div class="chrono-post-card" id="post-${post.key}" data-speaker="${post.key}">
+          <div class="post-timeline-indicator">
+            <div class="post-avatar-node" style="border-color:${post.color};">
+              <span>${post.emoji}</span>
+            </div>
+            <div class="post-timeline-line"></div>
+          </div>
+          <div class="post-body">
+            <div class="post-meta">
+              <div class="post-author-group">
+                <span class="post-author-name">${post.name}</span>
+                <span class="post-role-badge" style="color:${post.color}; background:${post.bgColor}; border-color:${post.color};">${post.role}</span>
+                <span class="post-step-badge">${post.step}</span>
+              </div>
+              <div class="post-timestamp">🕒 ${post.time}</div>
+            </div>
+            <div class="post-bubble" style="border-left: 3px solid ${post.color};">
+              <p class="post-text">"${post.quote}"</p>
+            </div>
+            <div class="post-takeaway-chip">
+              <span class="takeaway-label">GROUNDED RESOLUTION:</span>
+              <span class="takeaway-text">${post.takeaway}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // If a speaker was previously active, highlight them
+      if (currentActiveSpeaker) {
+        highlightSpeakerInThread(currentActiveSpeaker);
+      }
+    }
+
+    function jumpToSpeaker(speakerKey) {
+      currentActiveSpeaker = speakerKey;
+
+      // Highlight SVG Table seat
+      document.querySelectorAll('.council-seat').forEach(s => s.classList.remove('active-seat'));
+      const seat = document.getElementById(`seat-${speakerKey}`);
+      if (seat) seat.classList.add('active-seat');
+
+      // Highlight and scroll to post in Chrono Feed
+      highlightSpeakerInThread(speakerKey);
+    }
+
+    function highlightSpeakerInThread(speakerKey) {
+      document.querySelectorAll('.chrono-post-card').forEach(c => c.classList.remove('active-post'));
+      const targetCard = document.getElementById(`post-${speakerKey}`);
+      if (targetCard) {
+        targetCard.classList.add('active-post');
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Dynamic Live Swarm Poller
+    window.onSwarmLiveUpdate = function(state) {
+      const log1 = document.getElementById('orchLog');
+      if (log1 && state.orchestrator) {
+        log1.innerHTML = `<strong>State:</strong> ${state.orchestrator.state}<br><strong>Phase:</strong> ${state.orchestrator.phase}<br><small style="color:var(--text-muted)">Updated: ${state.timestamp}</small>`;
+      }
+      const log2 = document.getElementById('workerLog');
+      if (log2 && state.worker) {
+        log2.innerHTML = `<strong>Active Worker:</strong> ${state.worker.name}<br><strong>Action:</strong> ${state.worker.action}<br><strong>Status:</strong> ${state.worker.l0Report}`;
+      }
+      const testLog = document.getElementById('testLog');
+      if (testLog && state.tests) {
+        testLog.innerHTML = `E2E: ${state.tests.e2e} • Beta: ${state.tests.betaVerification}<br>Challenger 2: ${state.tests.challenger2} • Challenger 3: ${state.tests.challenger3}`;
+      }
+      const livePill = document.getElementById('liveSyncPill');
+      if (livePill) {
+        livePill.innerHTML = `🟢 Live Sync: ${state.timestamp}`;
+      }
+    };
+
+    // Auto-poll live_status.js every 2.5s
+    setInterval(() => {
+      const old = document.getElementById('live-status-script');
+      if (old) old.remove();
+      const s = document.createElement('script');
+      s.id = 'live-status-script';
+      s.src = 'live_status.js?_t=' + Date.now();
+      document.body.appendChild(s);
+    }, 2500);
+
+    // Initial render
+    renderMessageBoard();
+  </script>
+</body>
+</html>

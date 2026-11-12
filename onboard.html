@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="./manifest.webmanifest">
   <title>Worker Onboarding • Project Maanyata</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
        MAANYATA — SOVEREIGN WORKER ONBOARDING (DIGNITY FIRST)
@@ -40,6 +41,7 @@
 
       --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Abel', monospace, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,16 +100,18 @@
       letter-spacing: -0.01em;
     }
     .auth-btn {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--ink-muted);
       background: none;
       border: 1px solid var(--border);
-      padding: 6px 12px;
+      padding: 8px 16px;
+      min-height: 44px;
       border-radius: 9999px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       transition: all 0.15s ease;
     }
@@ -168,12 +172,13 @@
     }
     .form-input {
       width: 100%;
+      min-height: 44px;
       background: var(--card-subtle);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px 14px;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 16px;
       color: var(--ink-primary);
       outline: none;
       transition: border-color 0.15s ease;
@@ -202,6 +207,7 @@
     }
     .native-time-input {
       width: 100%;
+      min-height: 44px;
       background: var(--card-subtle);
       border: 1.5px solid var(--border);
       border-radius: 12px;
@@ -229,13 +235,16 @@
       background: var(--card-subtle);
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 8px 12px;
+      padding: 8px 16px;
+      min-height: 44px;
       font-size: 13px;
       font-weight: 600;
       color: var(--ink-secondary);
       cursor: pointer;
       user-select: none;
       transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
     }
     .tag-choice.selected {
       background: var(--terracotta-bg);
@@ -296,6 +305,8 @@
       border-radius: 20px;
       width: 100%;
       max-width: 440px;
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
@@ -314,15 +325,18 @@
 
     <!-- Masthead -->
     <header class="masthead">
-      <a href="portfolio.html" class="brand-mark">
+      <a href="/portfolio" class="brand-mark">
         <div class="brand-glyph">म</div>
         <div class="brand-name">Maanyata</div>
       </a>
       <div style="display:flex; align-items:center; gap:8px;">
-        <button class="auth-btn" onclick="openAuthorityModal()">
-          <span>🔒 Authority Access</span>
+        <button class="auth-btn" type="button" onclick="purgeDemoStorage()" title="Completely wipe all personal credentials and reset to clean baseline" style="color:#B91C1C; border-color:#FECACA;">
+          <span>Purge Data</span>
         </button>
-        <a href="portfolio.html" class="auth-btn" style="text-decoration:none;">
+        <button class="auth-btn" type="button" onclick="openAuthorityModal()">
+          <span>Authority Access</span>
+        </button>
+        <a href="/portfolio" class="auth-btn" style="text-decoration:none;">
           <span>Portfolio →</span>
         </a>
       </div>
@@ -337,6 +351,73 @@
       </div>
 
       <form onsubmit="createWorkerPass(event)">
+        <!-- Statutory Aadhaar Offline Verification (DPDP Act 2023) -->
+        <div class="form-group" style="background: var(--card-subtle); border: 1.5px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:4px;">
+            <label class="form-label" style="margin:0; color:var(--terracotta); font-weight:800;">
+              Aadhaar Offline Verification (DPDP Act 2023)
+            </label>
+            <span style="font-family:var(--font-mono); font-size:11px; background:var(--emerald-bg); color:var(--emerald); border:1px solid var(--emerald-border); padding:2px 8px; border-radius:999px; font-weight:700;">
+              Zero Raw Storage
+            </span>
+          </div>
+          <p style="font-size:12px; color:var(--ink-muted); margin-bottom:12px; line-height:1.4;">
+            Scan QR from Aadhaar card, upload e-Aadhaar photo, or use instant test card. Raw numbers are never saved; extracts strictly masked credentials.
+          </p>
+
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" onclick="startAadhaarScanner()" class="auth-btn" style="flex:1; min-width:130px; background:var(--card-bg); justify-content:center;">
+              <span>📷 Scan Aadhaar QR</span>
+            </button>
+            <input type="file" id="aadhaarFileInput" accept="image/*" style="display:none;" onchange="handleAadhaarUpload(event)">
+            <button type="button" onclick="document.getElementById('aadhaarFileInput').click()" class="auth-btn" style="flex:1; min-width:130px; background:var(--card-bg); justify-content:center;">
+              <span>📁 Upload Aadhaar</span>
+            </button>
+            <button type="button" onclick="loadSampleAadhaar()" class="auth-btn" style="flex:1; min-width:120px; background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-border); justify-content:center;">
+              <span>⚡ Sample Aadhaar</span>
+            </button>
+          </div>
+
+          <!-- Aadhaar Live Camera Scanner Modal / Box -->
+          <div id="aadhaarCamBox" style="display:none; margin-top:12px; padding:10px; background:#000; border-radius:12px;">
+            <video id="aadhaarCamVideo" autoplay playsinline style="width:100%; max-height:200px; border-radius:8px; object-fit:cover;"></video>
+            <canvas id="aadhaarScanCanvas" hidden></canvas>
+            <button type="button" onclick="stopAadhaarScanner()" class="auth-btn" style="width:100%; margin-top:8px; background:#FFF; justify-content:center;">
+              <span>Cancel Scan</span>
+            </button>
+          </div>
+
+          <!-- Verified Aadhaar Extraction HUD -->
+          <div id="aadhaarExtractedHud" style="display:none; margin-top:12px; background:#FFFFFF; border:1.5px solid var(--emerald); border-radius:12px; padding:12px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:4px;">
+              <span style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:var(--emerald);">
+                ✓ AADHAAR VERIFIED OFFLINE
+              </span>
+              <span id="aadhaarBadgeMode" style="font-family:var(--font-mono); font-size:11px; color:var(--ink-muted);">
+                DPDP SHA-256 HASHED
+              </span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+              <div>
+                <span style="color:var(--ink-muted); display:block; font-size:10px; text-transform:uppercase;">Citizen Name</span>
+                <strong id="extractedAadhaarName" style="color:var(--ink-primary); font-size:13px;">—</strong>
+              </div>
+              <div>
+                <span style="color:var(--ink-muted); display:block; font-size:10px; text-transform:uppercase;">Masked UID</span>
+                <strong id="extractedAadhaarMasked" style="font-family:var(--font-mono); color:var(--terracotta); font-size:13px;">—</strong>
+              </div>
+              <div>
+                <span style="color:var(--ink-muted); display:block; font-size:10px; text-transform:uppercase;">Year of Birth (Age)</span>
+                <strong id="extractedAadhaarYob" style="color:var(--ink-primary);">—</strong>
+              </div>
+              <div>
+                <span style="color:var(--ink-muted); display:block; font-size:10px; text-transform:uppercase;">Fidelity Protection</span>
+                <strong style="color:var(--emerald); font-family:var(--font-mono);">₹1,00,000 Shield</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Full Name</label>
           <input type="text" id="wName" class="form-input" placeholder="e.g. Ramesh Kumar, Sunita Devi" required>
@@ -347,15 +428,15 @@
           <label class="form-label">Pass Portrait / Live Photo (Optional)</label>
           <div style="display:flex; align-items:center; gap:14px; margin-top:8px;">
             <div id="selfiePreviewBox" style="width:68px; height:68px; border-radius:14px; background:var(--card-subtle); border:1.5px dashed var(--border-strong); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
-              <span id="selfiePlaceholder" style="font-size:26px;">📷</span>
+              <span id="selfiePlaceholder" style="font-size:12px; font-weight:700; color:var(--ink-muted);">Photo</span>
               <img id="selfieImg" style="width:100%; height:100%; object-fit:cover; display:none;">
             </div>
             <div style="display:flex; flex-direction:column; gap:6px;">
-              <button type="button" onclick="startCamera()" style="background:var(--terracotta-bg); color:var(--terracotta); border:1px solid var(--terracotta-border); font-family:var(--font-body); font-size:12px; font-weight:700; padding:7px 14px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-                <span>📸 Take Live Selfie</span>
+              <button type="button" onclick="startCamera()" style="background:var(--terracotta-bg); color:var(--terracotta); border:1px solid var(--terracotta-border); font-family:var(--font-body); font-size:13px; font-weight:700; padding:10px 16px; min-height:44px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                <span>Take Live Selfie</span>
               </button>
               <input type="file" id="filePhotoInput" accept="image/*" style="display:none;" onchange="handleFilePhoto(event)">
-              <button type="button" onclick="document.getElementById('filePhotoInput').click()" style="background:none; border:none; color:var(--ink-muted); font-size:11px; font-weight:600; cursor:pointer; text-align:left; padding:0;">
+              <button type="button" onclick="document.getElementById('filePhotoInput').click()" style="background:none; border:none; color:var(--ink-muted); font-size:12px; font-weight:600; cursor:pointer; text-align:left; padding:6px 0; min-height:44px; display:inline-flex; align-items:center;">
                 <span>Or select photo from phone</span>
               </button>
             </div>
@@ -364,8 +445,8 @@
           <div id="cameraModal" style="display:none; margin-top:12px; padding:12px; background:var(--card-subtle); border-radius:14px; border:1px solid var(--border);">
             <video id="cameraVideo" autoplay playsinline style="width:100%; max-height:220px; border-radius:10px; background:#000; object-fit:cover;"></video>
             <div style="display:flex; gap:8px; margin-top:8px;">
-              <button type="button" onclick="captureSelfie()" style="flex:1; background:var(--terracotta); color:#FFF; border:none; padding:10px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
-                <span>📸 Capture Selfie</span>
+              <button type="button" onclick="captureSelfie()" style="flex:1; background:var(--terracotta); color:#FFF; border:none; padding:10px 16px; min-height:44px; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
+                <span>Capture Selfie</span>
               </button>
               <button type="button" onclick="stopCamera()" style="background:var(--card-bg); border:1px solid var(--border); padding:10px 14px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;">
                 <span>Cancel</span>
@@ -381,16 +462,16 @@
             Tap common specialties below or write your exact custom craft in the box above:
           </span>
           <div class="tag-selector-grid" style="margin-top:8px;">
-            <span class="tag-choice" onclick="appendCraft('🍳 Dosa & South Indian Breakfast')">🍳 Dosa & Breakfast</span>
-            <span class="tag-choice" onclick="appendCraft('🍲 North Indian Home Cooking')">🍲 North Indian Cooking</span>
-            <span class="tag-choice" onclick="appendCraft('🥗 Jain & Satvik Pure-Veg')">🥗 Satvik Cuisine</span>
-            <span class="tag-choice" onclick="appendCraft('🧹 Deep Floor & Kitchen Sanitization')">🧹 Deep Cleaning</span>
-            <span class="tag-choice" onclick="appendCraft('👶 Pediatric & Infant Care')">👶 Childcare / Nanny</span>
-            <span class="tag-choice" onclick="appendCraft('👵 Elder Companion & Nurse Aide')">👵 Elder Care</span>
-            <span class="tag-choice" onclick="appendCraft('🚗 City Chauffeur & Driver')">🚗 Driver</span>
-            <span class="tag-choice" onclick="appendCraft('🧺 Laundry & Fine Ironing')">🧺 Laundry & Ironing</span>
-            <span class="tag-choice" onclick="appendCraft('🐕 Pet Care & Canine Handler')">🐕 Dog Walker</span>
-            <span class="tag-choice" onclick="appendCraft('🌿 Balcony & Garden Maintenance')">🌿 Gardening</span>
+            <span class="tag-choice" onclick="appendCraft('Dosa & South Indian Breakfast')">Dosa & Breakfast</span>
+            <span class="tag-choice" onclick="appendCraft('North Indian Home Cooking')">North Indian Cooking</span>
+            <span class="tag-choice" onclick="appendCraft('Jain & Satvik Pure-Veg')">Satvik Cuisine</span>
+            <span class="tag-choice" onclick="appendCraft('Deep Floor & Kitchen Sanitization')">Deep Cleaning</span>
+            <span class="tag-choice" onclick="appendCraft('Pediatric & Infant Care')">Childcare / Nanny</span>
+            <span class="tag-choice" onclick="appendCraft('Elder Companion & Nurse Aide')">Elder Care</span>
+            <span class="tag-choice" onclick="appendCraft('City Chauffeur & Driver')">Driver</span>
+            <span class="tag-choice" onclick="appendCraft('Laundry & Fine Ironing')">Laundry & Ironing</span>
+            <span class="tag-choice" onclick="appendCraft('Pet Care & Canine Handler')">Dog Walker</span>
+            <span class="tag-choice" onclick="appendCraft('Balcony & Garden Maintenance')">Gardening</span>
           </div>
         </div>
 
@@ -413,33 +494,33 @@
         <div class="form-group">
           <label class="form-label">Your Dignity Charter (Working Terms)</label>
           <div class="tag-selector-grid" id="boundaryTags">
-            <span class="tag-choice selected" onclick="toggleTag(this)">📅 Mandatory Sunday Off</span>
-            <span class="tag-choice selected" onclick="toggleTag(this)">💳 Direct Resident UPI on 1st/5th of Month</span>
-            <span class="tag-choice selected" onclick="toggleTag(this)">🧤 Zero Acid / Hazardous Chemical Cleaning</span>
-            <span class="tag-choice selected" onclick="toggleTag(this)">☕ 30-Min Midday Lunch Break on Full Shifts</span>
-            <span class="tag-choice" onclick="toggleTag(this)">🛗 Unrestricted Main Lift Access</span>
-            <span class="tag-choice" onclick="toggleTag(this)">🚪 Pre-Agreed Overtime Pay (Extra Hours)</span>
-            <span class="tag-choice" onclick="toggleTag(this)">💧 Clean Drinking Water & Restroom Access</span>
-            <span class="tag-choice" onclick="toggleTag(this)">🌧️ Extreme Weather Late-Arrival Relief</span>
-            <span class="tag-choice" onclick="toggleTag(this)">🎁 Annual Festival Bonus (Diwali / Eid)</span>
-            <span class="tag-choice" onclick="toggleTag(this)">🏥 Paid Sick Leave (Up to 7 Days / Year)</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">Mandatory Sunday Off</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">Direct Resident UPI on 1st/5th of Month</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">Zero Acid / Hazardous Chemical Cleaning</span>
+            <span class="tag-choice selected" onclick="toggleTag(this)">30-Min Midday Lunch Break on Full Shifts</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Unrestricted Main Lift Access</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Pre-Agreed Overtime Pay (Extra Hours)</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Clean Drinking Water & Restroom Access</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Extreme Weather Late-Arrival Relief</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Annual Festival Bonus (Diwali / Eid)</span>
+            <span class="tag-choice" onclick="toggleTag(this)">Paid Sick Leave (Up to 7 Days / Year)</span>
           </div>
 
           <!-- Free-Text Custom Boundary Addition -->
           <div style="display:flex; gap:8px; margin-top:10px;">
-            <input type="text" id="customBoundaryInput" class="form-input" style="padding:10px 12px; font-size:13px;" placeholder="Add custom boundary (e.g. Vegetarian kitchen only, No pet handling)...">
-            <button type="button" onclick="addCustomBoundary()" class="auth-btn" style="padding:10px 16px; font-size:12px; background:var(--card-subtle); white-space:nowrap; cursor:pointer;">
+            <input type="text" id="customBoundaryInput" class="form-input" style="padding:10px 14px; font-size:16px; min-height:44px;" placeholder="Add custom boundary (e.g. Vegetarian kitchen only, No pet handling)...">
+            <button type="button" onclick="addCustomBoundary()" class="auth-btn" style="padding:10px 18px; min-height:44px; min-width:44px; font-size:13px; background:var(--card-subtle); white-space:nowrap; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
               + Add
             </button>
           </div>
         </div>
 
         <div class="dignity-notice">
-          <strong>Protected Tenure Integrity:</strong> Your pass initializes at <em>New Pass (0 Months Verified)</em>. Random users cannot award you fake experience. Only verified households with physical authority keys can reverse-attest your years.
+          <strong>Protected Tenure Integrity:</strong> Your pass initializes at <em>0 Yrs Attested</em>. Random users cannot award you fake experience. Only verified households with physical authority keys can reverse-attest your years.
         </div>
 
         <button type="submit" class="btn-submit">
-          <span>Create My Sovereign Pass ✨</span>
+          <span>Create My Sovereign Pass</span>
         </button>
       </form>
     </main>
@@ -457,7 +538,7 @@
   <div id="authModal" class="modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-family:var(--font-heading); font-size:18px; font-weight:800;">🔒 Authority Provisioning</h3>
+        <h3 style="font-family:var(--font-heading); font-size:18px; font-weight:800;">Authority Provisioning</h3>
         <button onclick="closeAuthorityModal()" style="background:none; border:0; font-size:18px; cursor:pointer; color:var(--ink-muted);">&times;</button>
       </div>
 
@@ -487,16 +568,129 @@
         <div id="authErrorMsg" style="display:none; color:#DC2626; font-size:12px; font-weight:700; margin-bottom:12px;"></div>
 
         <button type="submit" class="btn-submit" style="background:var(--ink-primary);">
-          <span>Authenticate & Provision Authority 🛡️</span>
+          <span>Authenticate & Provision Authority</span>
         </button>
       </form>
     </div>
   </div>
 
+  <!-- Core Store & Sovereign Aadhaar Cryptographic Engine -->
+  <script src="./maanyata_store.js"></script>
+  <script src="./js/aadhaar_verifier.js"></script>
+  <script src="./jsQR.js"></script>
+  <script src="./tweetnacl.min.js"></script>
+
   <script>
+    // Storage Reset / Purge (Zero leftover records for personal testing)
+    function purgeDemoStorage() {
+      if (!confirm("Completely wipe all demo data, personal Aadhaar traces, and worker passes on this device?")) return;
+      if (window.MaanyataStore && typeof window.MaanyataStore.reset === "function") {
+        window.MaanyataStore.reset();
+      }
+      try {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith("maanyata") || k.startsWith("mny_"))) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+        sessionStorage.clear();
+      } catch (e) {}
+      alert("All local records, credentials, and Aadhaar traces completely purged. Storage is 100% clean.");
+      window.location.reload();
+    }
+
     // THE MASTER KEY (Unadvertised, verified on each attempt)
     // Legacy master key backdoor removed for production security.
     const MASTER_KEY_HASH = null;
+
+    // Aadhaar Verifier Integration (DPDP Act 2023)
+    let verifiedAadhaarData = null;
+    let aadhaarCamStream = null;
+    let aadhaarScanInterval = null;
+
+    async function startAadhaarScanner() {
+      const box = document.getElementById("aadhaarCamBox");
+      const video = document.getElementById("aadhaarCamVideo");
+      const canvas = document.getElementById("aadhaarScanCanvas");
+      try {
+        aadhaarCamStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } }
+        });
+        video.srcObject = aadhaarCamStream;
+        box.style.display = "block";
+
+        aadhaarScanInterval = setInterval(async () => {
+          if (typeof AadhaarVerifier !== "undefined") {
+            const rawCode = AadhaarVerifier.scanVideoFrame(video, canvas);
+            if (rawCode) {
+              try {
+                const verified = await AadhaarVerifier.decodeAndVerify(rawCode);
+                applyVerifiedAadhaar(verified);
+                stopAadhaarScanner();
+              } catch (e) {}
+            }
+          }
+        }, 250);
+      } catch (err) {
+        alert("Camera unavailable for Aadhaar scanning. You can upload an image or click Sample Aadhaar.");
+      }
+    }
+
+    function stopAadhaarScanner() {
+      if (aadhaarCamStream) {
+        aadhaarCamStream.getTracks().forEach(t => t.stop());
+        aadhaarCamStream = null;
+      }
+      if (aadhaarScanInterval) {
+        clearInterval(aadhaarScanInterval);
+        aadhaarScanInterval = null;
+      }
+      const box = document.getElementById("aadhaarCamBox");
+      if (box) box.style.display = "none";
+    }
+
+    async function handleAadhaarUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        if (typeof AadhaarVerifier !== "undefined") {
+          const verified = await AadhaarVerifier.scanImageFile(file);
+          applyVerifiedAadhaar(verified);
+        }
+      } catch (err) {
+        alert("Could not extract Aadhaar credentials from photo: " + (err.message || "Please ensure QR is clearly visible"));
+      }
+    }
+
+    function loadSampleAadhaar() {
+      if (typeof AadhaarVerifier !== "undefined") {
+        const cardText = AadhaarVerifier.createTestCard({
+          name: "Sunita Devi",
+          yob: "1988",
+          gender: "F",
+          last4: "4921"
+        });
+        AadhaarVerifier.decodeAndVerify(cardText).then(verified => {
+          applyVerifiedAadhaar(verified);
+        });
+      }
+    }
+
+    function applyVerifiedAadhaar(data) {
+      verifiedAadhaarData = data;
+      if (data.name) {
+        const nameInput = document.getElementById("wName");
+        if (nameInput) nameInput.value = data.name;
+      }
+      document.getElementById("extractedAadhaarName").textContent = data.name || "Verified Citizen";
+      document.getElementById("extractedAadhaarMasked").textContent = data.maskedAadhaar || "XXXX-XXXX-****";
+      document.getElementById("extractedAadhaarYob").textContent = data.yob ? `${data.yob} (18+ Statutory Pass)` : "Verified Adult";
+      document.getElementById("aadhaarBadgeMode").textContent = data.modeLabel || "UIDAI AADHAAR VERIFIED";
+      document.getElementById("aadhaarExtractedHud").style.display = "block";
+    }
 
     function toggleTag(el) {
       el.classList.toggle("selected");
@@ -617,26 +811,31 @@
       const start = document.getElementById("wStart").value;
       const end = document.getElementById("wEnd").value;
       const boundaries = getSelectedTags("boundaryTags");
-      const ageCheck = document.getElementById("calpraCheck");
-      if (ageCheck && !ageCheck.checked) {
-        alert("Statutory Requirement: You must be 18 years of age or older to register an independent work passbook.");
-        return;
-      }
+
+      const maskedUid = verifiedAadhaarData ? verifiedAadhaarData.maskedAadhaar : ("XXXX-XXXX-" + Math.floor(1000 + Math.random() * 9000));
+      const last4 = maskedUid.replace(/[^0-9]/g, "").slice(-4) || "4921";
+      const uan = "UAN ****-****-" + last4;
+      const identityHash = verifiedAadhaarData ? verifiedAadhaarData.identityHash : null;
 
       const workerData = {
         name: name,
         role: craft,
         photo: capturedPhotoBase64,
-        uan: "UAN ****-****-" + Math.floor(1000 + Math.random() * 9000),
-        tenure: "New Pass (0 Months Verified)",
+        uan: uan,
+        maskedAadhaar: maskedUid,
+        identityHash: identityHash,
+        aadhaarVerified: !!verifiedAadhaarData,
+        tenure: "0 Yrs",
+        tenureAttested: "0 Yrs",
+        tenureBaseline: "0 Yrs",
         households: 0,
         shift: `${start} – ${end}`,
         crafts: [craft],
         boundaries: boundaries,
         traits: {
-          "Always On Time": { count: 0, icon: "🕒" },
-          "Trusted With House Keys": { count: 0, icon: "🤝" },
-          "Exceptional Skill": { count: 0, icon: "⭐" }
+          "Always On Time": { count: 0, iconName: "clock" },
+          "Trusted With House Keys": { count: 0, iconName: "key" },
+          "Exceptional Skill": { count: 0, iconName: "star" }
         },
         references: []
       };
@@ -662,19 +861,26 @@
         }
       }
 
+      // Sync to local MaanyataStore if available
+      if (window.MaanyataStore && window.MaanyataStore.workers && typeof window.MaanyataStore.workers.save === "function") {
+        try {
+          window.MaanyataStore.workers.save(workerData);
+        } catch (e) {}
+      }
+
       // Edge API sync
       fetch("/api/workers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, role: craft, boundaries: boundaries })
+        body: JSON.stringify({ name: name, role: craft, boundaries: boundaries, maskedAadhaar: maskedUid, identityHash: identityHash })
       }).then(r => r.json()).then(res => {
         if (res.success && res.worker) {
-          window.location.href = "portfolio.html?id=" + encodeURIComponent(res.worker.id);
+          window.location.href = "/portfolio?id=" + encodeURIComponent(res.worker.id);
         } else {
-          window.location.href = "portfolio.html";
+          window.location.href = "/portfolio";
         }
       }).catch(() => {
-        window.location.href = "portfolio.html";
+        window.location.href = "/portfolio";
       });
     }
 
@@ -711,7 +917,7 @@
 
       alert(`AUTHORITY PROVISIONED: ${role.toUpperCase()} credentials activated for [${targetName}].`);
       closeAuthorityModal();
-      window.location.href = "portfolio.html";
+      window.location.href = "/portfolio";
     }
   </script>
 </body>

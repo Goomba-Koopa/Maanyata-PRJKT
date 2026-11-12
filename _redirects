@@ -1,2 +1,38 @@
-# PROJECT MAANYATA — CLOUDFLARE PAGES REDIRECTS
-/proposal  /rwa_pilot_proposal.html   302
+# ==============================================================================
+# PROJECT MAANYATA — CLOUDFLARE PAGES CLEAN ROUTING REWRITES & REDIRECTS
+# Preserves query parameters across all routes without .html extensions
+# ==============================================================================
+
+# Clean Human-Facing Application Routes (200 Rewrites)
+/verify             /verify.html             200
+/verify/            /verify.html             200
+
+/portfolio          /portfolio.html          200
+/portfolio/         /portfolio.html          200
+
+/directory          /directory.html          200
+/directory/         /directory.html          200
+
+/onboard            /onboard.html            200
+/onboard/           /onboard.html            200
+
+/endorse            /endorse.html            200
+/endorse/           /endorse.html            200
+
+# RWA Pilot Proposals & Society Dossiers
+/proposal           /rwa_pilot_proposal.html 200
+/proposal/          /rwa_pilot_proposal.html 200
+/rwa_pilot_proposal /rwa_pilot_proposal.html 200
+/rwa_pilot_proposal/ /rwa_pilot_proposal.html 200
+
+/sandstone_dossier  /sandstone_dossier.html  200
+/sandstone_dossier/ /sandstone_dossier.html  200
+
+/vasudev_dossier    /vasudev_dossier.html    200
+/vasudev_dossier/   /vasudev_dossier.html    200
+
+# Beta & Council Interactive Environments
+/beta               /index_beta.html         200
+/beta/              /index_beta.html         200
+/council            /THE_HEAVY_COUNCIL_LIVE.html 200
+/council/           /THE_HEAVY_COUNCIL_LIVE.html 200

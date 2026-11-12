@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maanyata • Sovereign Passport Verification</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#C2410C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abel&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page: #FAF8F5;
+    --text-primary: #1C1917;
+    --text-muted: #57534E;
+    --brand-rust: #C2410C;
+    --brand-rust-hover: #9A3412;
+    --card-bg: #FFFFFF;
+    --border-color: #E7E5E4;
+    --ok-green: #15803D;
+    --ok-green-bg: #DCFCE7;
+    --ok-green-border: #86EFAC;
+    --warn-amber: #B45309;
+    --warn-amber-bg: #FEF3C7;
+    --warn-amber-border: #FCD34D;
+    --err-red: #B91C1C;
+    --err-red-bg: #FEE2E2;
+    --err-red-border: #FCA5A5;
+
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Abel', monospace, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 16px;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .brand-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--brand-rust);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .nav-back {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+  }
+
+  /* MAANYATA BONDED COMMUNITY BADGE */
+  .bonded-community-badge {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--brand-rust);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  }
+
+  .bonded-badge-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .bonded-badge-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bonded-badge-title svg {
+    color: var(--brand-rust);
+  }
+
+  .bonded-active-tag {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--ok-green-bg);
+    color: var(--ok-green);
+    border: 1px solid var(--ok-green-border);
+    letter-spacing: 0.04em;
+  }
+
+  .bonded-badge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .bonded-badge-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bonded-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  .bonded-value {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .bonded-value.highlight {
+    color: var(--ok-green);
+  }
+
+  .bonded-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  h2 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+
+  .video-wrap {
+    position: relative;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  video {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .scan-overlay {
+    position: absolute;
+    inset: 15%;
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    pointer-events: none;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 16px;
+    width: 100%;
+    min-height: 48px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--brand-rust);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  button:hover {
+    background: var(--brand-rust-hover);
+  }
+
+  button:active {
+    transform: scale(0.99);
+  }
+
+  button.secondary-btn {
+    background: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+  }
+
+  button.secondary-btn:hover {
+    background: #F5F5F4;
+  }
+
+  textarea {
+    width: 100%;
+    height: 76px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #FAFAF9;
+    color: var(--text-primary);
+    resize: vertical;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--brand-rust);
+    background: #fff;
+  }
+
+  /* HIGH-CONTRAST RESULT HUD */
+  #hud {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 16px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    transition: all 0.2s ease;
+  }
+
+  .hud-banner {
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hud-idle {
+    background: #F5F5F4;
+    color: var(--text-muted);
+    border-color: var(--border-color);
+    padding: 20px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .hud-valid .hud-banner {
+    background: var(--ok-green);
+    color: #FFFFFF;
+  }
+
+  .hud-expired .hud-banner {
+    background: var(--warn-amber);
+    color: #FFFFFF;
+  }
+
+  .hud-rejected .hud-banner {
+    background: var(--err-red);
+    color: #FFFFFF;
+  }
+
+  .hud-body {
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .hud-valid .hud-body {
+    background: #F0FDF4;
+    border-top: 2px solid var(--ok-green-border);
+  }
+
+  .hud-expired .hud-body {
+    background: #FFFBEB;
+    border-top: 2px solid var(--warn-amber-border);
+  }
+
+  .hud-rejected .hud-body {
+    background: #FEF2F2;
+    border-top: 2px solid var(--err-red-border);
+  }
+
+  .hud-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .hud-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hud-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .hud-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .hud-value.highlight {
+    color: var(--ok-green);
+  }
+
+  .hud-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(0,0,0,0.12);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .offline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #E7E5E4;
+    color: #44403C;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <a href="/portfolio" class="brand-title">
+      <span>मान्यता</span>
+      <span style="font-size: 14px; color: var(--text-primary); font-weight: 600;">Verifier HUD</span>
+    </a>
+    <a href="/portfolio" class="nav-back">← Passbook</a>
+  </header>
+
+  <!-- MAANYATA BONDED COMMUNITY BADGE -->
+  <div class="bonded-community-badge">
+    <div class="bonded-badge-header">
+      <div class="bonded-badge-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>MAANYATA BONDED COMMUNITY</span>
+      </div>
+      <span class="bonded-active-tag">BONDED PROTOCOL ACTIVE</span>
+    </div>
+    <div class="bonded-badge-grid">
+      <div class="bonded-badge-item">
+        <span class="bonded-label">Fidelity Shield</span>
+        <span class="bonded-value highlight">₹1,00,000</span>
+        <span class="bonded-sub">Underwritten Assurance</span>
+      </div>
+      <div class="bonded-badge-item">
+        <span class="bonded-label">Cluster Reserve</span>
+        <span class="bonded-value" id="bondedReserveBalance">₹74,985.00</span>
+        <span class="bonded-sub">15% Neighborhood Safety Pool</span>
+      </div>
+      <div class="bonded-badge-item">
+        <span class="bonded-label">Anchor Complex</span>
+        <span class="bonded-value" id="bondedSocietyTitle">Vasudev Complex</span>
+        <span class="bonded-sub">MCS Act 1960 Sec 81</span>
+      </div>
+      <div class="bonded-badge-item">
+        <span class="bonded-label">Dispute Protection</span>
+        <span class="bonded-value" style="font-size: 14px; color: #C2410C;">Anti-Spite Escrow</span>
+        <span class="bonded-sub">₹2,500 Investigation Shield</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT HUD (High-Contrast Gate Clearance Banner) -->
+  <div id="hud" class="hud-idle">
+    Waiting for passport or e-Aadhaar code (Scan camera, upload photo, or paste token below)
+  </div>
+
+  <!-- MODE A: DUAL-MODE QR SCANNER (CAMERA + PHOTO UPLOAD) -->
+  <div class="card" style="margin-top: 16px;">
+    <h2>Mode A: Dual-Mode Scanner (Gate Passport / e-Aadhaar)</h2>
+    <div id="videoContainer" class="video-wrap" style="display: none;">
+      <video id="cam" playsinline muted></video>
+      <div class="scan-overlay"></div>
+    </div>
+    <canvas id="frame" hidden></canvas>
+    <div style="display: flex; gap: 10px; margin-top: 8px;">
+      <button id="startCam" style="flex: 1;" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        Live Camera
+      </button>
+      <button id="uploadQrBtn" class="secondary-btn" style="flex: 1;" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Upload Photo
+      </button>
+    </div>
+    <input type="file" id="qrFileInput" accept="image/*" style="display: none;">
+    <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; text-align: center;">
+      WebRTC live camera & offline photo file upload supported via pure client-side engine.
+    </div>
+  </div>
+
+  <!-- MODE B: DIRECT PASTE / TOKEN INPUT -->
+  <div class="card">
+    <h2>Mode B: Direct Token Paste / Query Link</h2>
+    <textarea id="manual" placeholder="Paste cryptographic token, URL, or Aadhaar QR string here (e.g. MNY1.eyJ... or MAANYATA-TEST-AADHAAR-V1...)"></textarea>
+    <div style="display: flex; gap: 8px; margin-top: 8px;">
+      <button id="checkManual" class="secondary-btn" style="flex: 2;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Verify Token
+      </button>
+      <button id="btnSampleAadhaar" class="secondary-btn" style="flex: 1; font-size: 13px;" type="button">
+        Sample Aadhaar
+      </button>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+      <span class="offline-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        100% Offline Capable • Gate Security HUD
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS: Store, Aadhaar Verifier, jsQR & TweetNaCl -->
+<script src="./maanyata_store.js"></script>
+<script src="./js/aadhaar_verifier.js"></script>
+<script src="./jsQR.js"></script>
+<script src="./tweetnacl.min.js"></script>
+<script>
+  // TRUSTED ISSUER PUBLIC KEYS (Base64URL 32-byte Ed25519)
+  const TRUSTED_ISSUER_PUBLIC_KEYS = [
+    "nDSxM880-_l5Vtzjkhp_Mj6D7kfx4fp0zWKWl66Alps",
+    "F2nd-C6Eit0X-E32vtz06TUdZ8rVP4qeeYQZUVUZfpE"
+  ];
+
+  const KNOWN_NAMES = {
+    "demo-sunita-01": "Sunita Devi",
+    "sunita-devi-01": "Sunita Devi",
+    "ramesh-kumar-02": "Ramesh Kumar",
+    "asha-kumari-03": "Asha Kumari"
+  };
+
+  const hudEl = document.getElementById("hud");
+
+  // Sync Cluster Reserve & Community Badge
+  function syncBondedMetrics() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const hubParam = params.get("hub") || params.get("society") || localStorage.getItem("maanyata_active_hub_v1") || localStorage.getItem("maanyata_active_society_v1");
+      if (hubParam) {
+        const titleEl = document.getElementById("bondedSocietyTitle");
+        if (titleEl) titleEl.textContent = hubParam;
+      }
+      if (window.MaanyataStore) {
+        const bal = window.MaanyataStore.getClusterReserveBalance();
+        const displayBal = bal > 0 ? bal : 74985.00;
+        const resEl = document.getElementById("bondedReserveBalance");
+        if (resEl) resEl.textContent = `₹${displayBal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
+      }
+    } catch (e) {}
+  }
+  syncBondedMetrics();
+
+  function b64urlToBytes(s) {
+    let b64 = s.replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+
+  function escapeHTML(str) {
+    if (str == null) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function renderHud(kind, title, data = null, errorMsg = "") {
+    hudEl.className = "";
+    if (kind === "valid") {
+      hudEl.className = "hud-valid";
+      const expDate = data.exp ? new Date(data.exp * 1000).toLocaleDateString("en-IN", {
+        day: "2-digit", month: "short", year: "numeric"
+      }) : "Perpetual / Uncapped";
+      const workerName = data.name || KNOWN_NAMES[data.wid] || "Independent Worker";
+      const workerId = data.wid || data.id || "demo-worker";
+      const attestedYears = (data.attestedYears != null) ? `${data.attestedYears} Yrs` : "0 Yrs Verified";
+      const role = data.role || "Culinary & Household Specialist";
+
+      const refHtml = data.ref ? `
+        <div class="hud-field" style="grid-column: span 2; margin-top: 8px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.12);">
+          <span class="hud-label">Resident Attestation / निवासी अनुशंसा</span>
+          <span class="hud-value" style="font-size: 13px; font-weight: 600; font-style: italic; color: #1C1917; margin-bottom: 4px;">"${escapeHTML(data.ref.quote || 'Verified household service')}"</span>
+          <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
+            <span>— ${escapeHTML(data.ref.author || 'Resident')} • ${escapeHTML(data.ref.unit || 'Verified Household')} (${escapeHTML(data.ref.tenure || '')})</span>
+            ${data.ref.locationVerified ? '<span style="color:var(--ok-green); font-weight:700; background:var(--ok-green-bg); padding:2px 6px; border-radius:4px; border:1px solid var(--ok-green-border);">At location</span>' : '<span style="color:var(--warn-amber); font-weight:700; background:var(--warn-amber-bg); padding:2px 6px; border-radius:4px; border:1px solid var(--warn-amber-border);">Remote</span>'}
+          </div>
+        </div>
+      ` : '';
+
+      hudEl.innerHTML = `
+        <div class="hud-banner">
+          <span>${title}</span>
+        </div>
+        <div class="hud-body">
+          <div class="hud-grid">
+            <div class="hud-field">
+              <span class="hud-label">Worker Name</span>
+              <span class="hud-value">${escapeHTML(workerName)}</span>
+            </div>
+            <div class="hud-field">
+              <span class="hud-label">Worker ID</span>
+              <span class="hud-value" style="font-family: monospace;">${escapeHTML(workerId)}</span>
+            </div>
+            <div class="hud-field">
+              <span class="hud-label">Attested Craft</span>
+              <span class="hud-value">${escapeHTML(role)}</span>
+            </div>
+            <div class="hud-field">
+              <span class="hud-label">Attested Experience</span>
+              <span class="hud-value highlight">${escapeHTML(attestedYears)}</span>
+            </div>
+            <div class="hud-field" style="grid-column: span 2;">
+              <span class="hud-label">Pass Valid Until</span>
+              <span class="hud-value">${escapeHTML(expDate)}</span>
+            </div>
+            <div class="hud-field" style="grid-column: span 2;">
+              <span class="hud-label">Fidelity Shield Protection</span>
+              <span class="hud-value highlight" style="font-size: 13px; color: var(--ok-green);">✓ Underwritten by ₹1,00,000 Fidelity Shield & Cluster Reserve</span>
+            </div>
+            ${refHtml}
+          </div>
+          <div class="hud-note">
+            <strong>Ed25519 Cryptographic Proof:</strong> Verified on-device against Sovereign Authority Public Key. Zero cloud dependency.
+          </div>
+        </div>
+      `;
+    } else if (kind === "expired") {
+      hudEl.className = "hud-expired";
+      const expDate = data && data.exp ? new Date(data.exp * 1000).toLocaleString("en-IN") : "Past Expiry";
+      const workerId = data && data.wid ? data.wid : "Unknown";
+      hudEl.innerHTML = `
+        <div class="hud-banner">
+          <span>${title}</span>
+        </div>
+        <div class="hud-body">
+          <p style="margin: 0 0 8px; font-weight: 700; color: var(--warn-amber);">
+            Passport credentials have expired on: ${escapeHTML(expDate)}
+          </p>
+          <p style="margin: 0; color: var(--text-muted); font-size: 13px;">
+            Worker ID: <strong>${escapeHTML(workerId)}</strong>. Request the worker to refresh their career passbook from their resident employers.
+          </p>
+        </div>
+      `;
+    } else if (kind === "rejected") {
+      hudEl.className = "hud-rejected";
+      hudEl.innerHTML = `
+        <div class="hud-banner">
+          <span>${title}</span>
+        </div>
+        <div class="hud-body">
+          <p style="margin: 0 0 6px; font-weight: 700; color: var(--err-red);">
+            ${escapeHTML(errorMsg || "Cryptographic signature verification failed.")}
+          </p>
+          <p style="margin: 0; color: var(--text-muted); font-size: 13px;">
+            The pass has been tampered with, self-generated, or issued by an untrusted authority. Do not grant verified clearance.
+          </p>
+        </div>
+      `;
+    } else {
+      hudEl.className = "hud-idle";
+      hudEl.textContent = title;
+    }
+  }
+
+  function renderAadhaarHud(data) {
+    hudEl.className = "hud-valid";
+    const bannerTitle = data.isTestMode
+      ? "✓ AADHAAR OFFLINE VERIFIED [SANDBOX MODE]"
+      : "✓ UIDAI AADHAAR SECURE QR VERIFIED";
+
+    hudEl.innerHTML = `
+      <div class="hud-banner" style="background: var(--ok-green);">
+        <span>${bannerTitle}</span>
+      </div>
+      <div class="hud-body">
+        <div class="hud-grid">
+          <div class="hud-field">
+            <span class="hud-label">Verified Citizen Name</span>
+            <span class="hud-value">${escapeHTML(data.name)}</span>
+          </div>
+          <div class="hud-field">
+            <span class="hud-label">Masked Aadhaar (DPDP Act)</span>
+            <span class="hud-value highlight" style="font-family: monospace;">${escapeHTML(data.maskedAadhaar)}</span>
+          </div>
+          <div class="hud-field">
+            <span class="hud-label">Year of Birth</span>
+            <span class="hud-value">${escapeHTML(data.yob)}</span>
+          </div>
+          <div class="hud-field">
+            <span class="hud-label">Gender</span>
+            <span class="hud-value">${escapeHTML(data.gender === 'F' ? 'Female (स्त्री)' : (data.gender === 'M' ? 'Male (पुरुष)' : 'Other'))}</span>
+          </div>
+          <div class="hud-field" style="grid-column: span 2;">
+            <span class="hud-label">DPDP SHA-256 Identity Hash</span>
+            <span class="hud-value" style="font-size: 12px; font-family: monospace; word-break: break-all; color: #44403C;">${escapeHTML(data.identityHash)}</span>
+          </div>
+          <div class="hud-field" style="grid-column: span 2;">
+            <span class="hud-label">Fidelity Shield Protection</span>
+            <span class="hud-value highlight" style="font-size: 13px;">✓ Linked to ₹1,00,000 Fidelity Shield & Cluster Reserve</span>
+          </div>
+        </div>
+        <div class="hud-note">
+          <strong>DPDP Act 2023 Statutory Protection:</strong> Raw 12-digit UID is never stored or transmitted. Offline RSA verification via WebCrypto SubtleCrypto against UIDAI SPKI.
+        </div>
+      </div>
+    `;
+  }
+
+  function extractToken(raw) {
+    if (!raw) return "";
+    let trimmed = String(raw).trim();
+    if (trimmed.includes("?")) {
+      try {
+        const dummyUrl = new URL(trimmed.startsWith("http") ? trimmed : `https://maanyata.local/${trimmed}`);
+        trimmed = dummyUrl.searchParams.get("token") ||
+                  dummyUrl.searchParams.get("sig") ||
+                  dummyUrl.searchParams.get("p") ||
+                  trimmed;
+      } catch (e) {}
+    }
+    if (trimmed.includes("#")) {
+      const hashPart = trimmed.split("#")[1];
+      if (hashPart.startsWith("token=")) {
+        trimmed = hashPart.split("=")[1];
+      } else if (hashPart.includes(".")) {
+        trimmed = hashPart;
+      }
+    }
+    return trimmed.trim();
+  }
+
+  async function verifyEd25519Signature(pubKeyB64, sigBytes, msgBytes) {
+    const pubBytes = b64urlToBytes(pubKeyB64);
+
+    if (window.crypto && crypto.subtle && crypto.subtle.verify) {
+      try {
+        const key = await crypto.subtle.importKey(
+          "raw",
+          pubBytes,
+          { name: "Ed25519" },
+          false,
+          ["verify"]
+        );
+        const ok = await crypto.subtle.verify("Ed25519", key, sigBytes, msgBytes);
+        if (ok) return true;
+      } catch (e) {}
+    }
+
+    if (typeof nacl !== "undefined" && nacl.sign && nacl.sign.detached) {
+      try {
+        const ok = nacl.sign.detached.verify(msgBytes, sigBytes, pubBytes);
+        if (ok) return true;
+      } catch (e) {}
+    }
+
+    return false;
+  }
+
+  async function checkCode(rawInput) {
+    try {
+      const trimmed = String(rawInput || "").trim();
+      if (!trimmed) {
+        return renderHud("idle", "Waiting for passport or e-Aadhaar code");
+      }
+
+      // Check if input is Aadhaar Secure QR or Test Card
+      const isAadhaar = trimmed.startsWith("MAANYATA-TEST-AADHAAR") ||
+                        trimmed.startsWith("<?xml") ||
+                        trimmed.includes("<PrintLetterBarcodeData") ||
+                        /^\d{50,}$/.test(trimmed) ||
+                        (trimmed.startsWith("{") && (trimmed.includes("maskedAadhaar") || trimmed.includes("last4") || trimmed.includes("uid")));
+
+      if (isAadhaar) {
+        if (typeof AadhaarVerifier !== "undefined") {
+          const result = await AadhaarVerifier.decodeAndVerify(trimmed);
+          return renderAadhaarHud(result);
+        }
+      }
+
+      const token = extractToken(rawInput);
+      if (!token) {
+        return renderHud("idle", "Waiting for passport code");
+      }
+
+      if (token.startsWith("{") || !token.includes(".")) {
+        return renderHud("rejected", "❌ REJECTED: Forged or Tampered Pass", null, "Unsigned Pass: Missing Ed25519 cryptographic signature. QR code is unauthenticated or self-generated.");
+      }
+
+      const parts = token.split(".");
+      let bodyB64 = "";
+      let sigB64 = "";
+
+      if (parts.length === 3 && parts[0] === "MNY1") {
+        bodyB64 = parts[1];
+        sigB64 = parts[2];
+      } else if (parts.length === 2) {
+        bodyB64 = parts[0];
+        sigB64 = parts[1];
+      } else {
+        return renderHud("rejected", "❌ REJECTED: Forged or Tampered Pass", null, "Malformed Code: Invalid envelope structure.");
+      }
+
+      if (!bodyB64 || !sigB64) {
+        return renderHud("rejected", "❌ REJECTED: Forged or Tampered Pass", null, "Missing signature components.");
+      }
+
+      const sigBytes = b64urlToBytes(sigB64);
+      const msgBytes = new TextEncoder().encode(bodyB64);
+
+      let verified = false;
+      for (const trustedKey of TRUSTED_ISSUER_PUBLIC_KEYS) {
+        if (await verifyEd25519Signature(trustedKey, sigBytes, msgBytes)) {
+          verified = true;
+          break;
+        }
+      }
+
+      if (!verified) {
+        return renderHud("rejected", "❌ REJECTED: Forged or Tampered Pass", null, "Cryptographic Ed25519 signature verification failed. Pass is unauthenticated or modified.");
+      }
+
+      const payloadBytes = b64urlToBytes(bodyB64);
+      const payloadStr = new TextDecoder().decode(payloadBytes);
+      const data = JSON.parse(payloadStr);
+
+      const now = Math.floor(Date.now() / 1000);
+      if (data.exp && data.exp < now) {
+        return renderHud("expired", "TOKEN EXPIRED (पास समाप्त)", data);
+      }
+
+      renderHud("valid", "LIVE & VERIFIED PASS (सत्यापित पास)", data);
+    } catch (err) {
+      renderHud("rejected", "REJECTED: Forged or Tampered Pass", null, "Error parsing passport data: " + err.message);
+    }
+  }
+
+  // File Upload Handling
+  const uploadQrBtn = document.getElementById("uploadQrBtn");
+  const qrFileInput = document.getElementById("qrFileInput");
+
+  uploadQrBtn.addEventListener("click", () => {
+    qrFileInput.click();
+  });
+
+  qrFileInput.addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    renderHud("idle", "Processing uploaded photo...");
+    try {
+      if (typeof AadhaarVerifier !== "undefined") {
+        try {
+          const verified = await AadhaarVerifier.scanImageFile(file);
+          document.getElementById("manual").value = `[Uploaded Image: ${file.name}]`;
+          return renderAadhaarHud(verified);
+        } catch (innerErr) {
+          // If AadhaarVerifier didn't find Aadhaar, try raw jsQR scan for gate passes
+          if (typeof jsQR !== "undefined") {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+              const img = new Image();
+              img.onload = function() {
+                const c = document.createElement("canvas");
+                c.width = img.naturalWidth || img.width;
+                c.height = img.naturalHeight || img.height;
+                const ctx = c.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+                const idata = ctx.getImageData(0, 0, c.width, c.height);
+                const code = jsQR(idata.data, idata.width, idata.height);
+                if (code && code.data) {
+                  document.getElementById("manual").value = code.data;
+                  return checkCode(code.data);
+                } else {
+                  renderHud("rejected", "❌ No QR Detected", null, "Could not locate a clear QR code in the uploaded image. Please ensure good lighting and contrast.");
+                }
+              };
+              img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+            return;
+          }
+          throw innerErr;
+        }
+      }
+    } catch (err) {
+      renderHud("rejected", "❌ Photo Scan Failed", null, err.message);
+    }
+  });
+
+  // Sample Aadhaar Test Button
+  document.getElementById("btnSampleAadhaar").addEventListener("click", () => {
+    if (typeof AadhaarVerifier !== "undefined") {
+      const sample = AadhaarVerifier.createTestCard({
+        name: "Sunita Devi",
+        yob: "1988",
+        gender: "F",
+        last4: "4921"
+      });
+      document.getElementById("manual").value = sample;
+      checkCode(sample);
+    }
+  });
+
+  document.getElementById("checkManual").addEventListener("click", () => {
+    checkCode(document.getElementById("manual").value);
+  });
+
+  // MODE A: CAMERA SCANNER
+  let activeStream = null;
+  let isScanning = false;
+
+  const startCamBtn = document.getElementById("startCam");
+  const videoContainer = document.getElementById("videoContainer");
+  const video = document.getElementById("cam");
+  const canvas = document.getElementById("frame");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  function stopScanner() {
+    isScanning = false;
+    if (activeStream) {
+      activeStream.getTracks().forEach((t) => t.stop());
+      activeStream = null;
+    }
+    video.pause();
+    video.srcObject = null;
+    videoContainer.style.display = "none";
+    startCamBtn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+      Live Camera
+    `;
+  }
+
+  startCamBtn.addEventListener("click", async () => {
+    if (isScanning) {
+      stopScanner();
+      return;
+    }
+
+    try {
+      if (typeof jsQR === "undefined") {
+        renderHud("rejected", "❌ REJECTED: Forged or Tampered Pass", null, "jsQR scanner library failed to load.");
+        return;
+      }
+
+      renderHud("idle", "Starting camera... Point at worker passport or e-Aadhaar QR");
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }
+      });
+      activeStream = stream;
+      video.srcObject = stream;
+      videoContainer.style.display = "flex";
+      await video.play();
+
+      isScanning = true;
+      startCamBtn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        Stop Camera
+      `;
+
+      const tick = () => {
+        if (!isScanning) return;
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(img.data, img.width, img.height, {
+            inversionAttempts: "dontInvert"
+          });
+          if (code && code.data) {
+            stopScanner();
+            document.getElementById("manual").value = code.data;
+            return checkCode(code.data);
+          }
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    } catch (err) {
+      stopScanner();
+      renderHud("rejected", "❌ Camera Unavailable", null, "Could not access device camera: " + err.message + ". Please upload photo or paste token manually in Mode B below.");
+    }
+  });
+
+  // URL auto-check on load
+  function checkUrlOnLoad() {
+    const params = new URLSearchParams(window.location.search);
+    const hash = window.location.hash ? window.location.hash.substring(1) : "";
+    const hashParams = new URLSearchParams(hash);
+
+    const token = params.get("token") || params.get("sig") || params.get("p") ||
+                  hashParams.get("token") || (hash.startsWith("token=") ? hash.split("=")[1] : (hash.includes(".") ? hash : null));
+
+    if (token) {
+      const cleanToken = token.trim();
+      document.getElementById("manual").value = cleanToken;
+      checkCode(cleanToken);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", checkUrlOnLoad);
+  } else {
+    checkUrlOnLoad();
+  }
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>

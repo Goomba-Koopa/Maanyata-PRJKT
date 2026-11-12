@@ -105,7 +105,7 @@ export async function onRequestPost(context) {
       });
     }
     if (Object.keys(cleanTraits).length === 0) {
-      cleanTraits["Always On Time"] = { count: 1, icon: "🕒" };
+      cleanTraits["Always On Time"] = { count: 1, icon: "clock" };
     }
 
     const cleanBoundaries = Array.isArray(data.boundaries)

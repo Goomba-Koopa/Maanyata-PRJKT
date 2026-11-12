@@ -5,3 +5,24 @@ node_modules/
 .env*
 .DS_Store
 .wrangler/
+_worker.bundle
+
+# Scratch & audit harnesses
+*.py
+__pycache__/
+.agents/
+screenshot_*.png
+test_evidence_*.png
+test_buttons_harness.html
+test_challenger_browser_adversarial.html
+test_eval_scope.html
+test_grid_columns*.html
+test_iframe*.html
+test_store_browser*.html
+test_w.html
+audit_dom_and_flow.cjs
+test_viewport_probe_living_room.cjs
+test_adversarial_*.js
+test_audit.js
+test_templates.js
+

@@ -1,29 +1,110 @@
 # ==============================================================================
 # PROJECT MAANYATA — CLOUDFLARE PAGES HTTP HEADERS CONFIGURATION
+# Hardened for project-maanyata.pages.dev / Mira Road Ground Pilot
 # ==============================================================================
 
 # Global Security & Device Hardware Access Rules
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(self), geolocation=(self), microphone=(), payment=()
+  Permissions-Policy: camera=(self), geolocation=(self), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' blob: data:; connect-src 'self' https:; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self';
   Cross-Origin-Opener-Policy: same-origin-allow-popups
 
-# HTML Deliverables — Immediate freshness for active housing society ground pilot
+# HTML Deliverables & Clean Routing Endpoints — Immediate freshness
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
   Content-Type: text/html; charset=utf-8
 
-# Core Local-First Persistence DAO
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/verify
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/portfolio
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/directory
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/onboard
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/endorse
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/proposal
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/rwa_pilot_proposal
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/sandstone_dossier
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/vasudev_dossier
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+/beta
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/html; charset=utf-8
+
+# Service Worker Script — NEVER lock users into stale caches
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/javascript; charset=utf-8
+
+# PWA Web App Manifest
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json; charset=utf-8
+
+# Core Local-First Persistence & Cryptographic Engines
 /maanyata_store.js
   Cache-Control: public, max-age=3600, must-revalidate
   Content-Type: application/javascript; charset=utf-8
 
-# Static Pure-JS QR Scanner Engine
-/jsQR.js
+/qr_engine.js
   Cache-Control: public, max-age=3600, must-revalidate
   Content-Type: application/javascript; charset=utf-8
+
+/jsQR.js
+  Cache-Control: public, max-age=86400
+  Content-Type: application/javascript; charset=utf-8
+
+/tweetnacl.min.js
+  Cache-Control: public, max-age=86400
+  Content-Type: application/javascript; charset=utf-8
+
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: application/javascript; charset=utf-8
+
+# Stylesheets
+/styles.css
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: text/css; charset=utf-8
+
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: text/css; charset=utf-8
+
+# Application Icons
+/icon-*.png
+  Cache-Control: public, max-age=604800
 
 # Evidentiary Screen Audits & Image Captures
 /evidence/*

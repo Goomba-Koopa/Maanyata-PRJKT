@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supporting Everyday Heroes Plan (Maanyata) • Krishiv Sukul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #f59e0b;
+      --primary-glow: rgba(245, 158, 11, 0.15);
+      --emerald: #10b981;
+      --blue: #38bdf8;
+      --purple: #c084fc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Action Bar (Screen Only) */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1f2937;
+      border: 1px solid #374151;
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .action-bar .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #10b981;
+      font-weight: 600;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #d97706;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
+    }
+    .btn-outline:hover {
+      background: #374151;
+    }
+
+    /* Document Paper Container */
+    .document-paper {
+      background: #ffffff;
+      color: #111827;
+      border-radius: 16px;
+      padding: 56px 64px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Document Header */
+    .doc-meta {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+    .doc-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .participant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 14px;
+    }
+    .participant-grid .label {
+      color: #6b7280;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .participant-grid .val {
+      color: #111827;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* Word Count Scoreboard */
+    .word-count-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+    }
+    .wc-item { text-align: center; }
+    .wc-item .wc-num {
+      font-size: 20px;
+      font-weight: 800;
+      color: #166534;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .wc-item .wc-label {
+      font-size: 12px;
+      color: #15803d;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Section Styles */
+    .section-block {
+      margin-bottom: 40px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1.5px solid #e5e7eb;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1f2937;
+    }
+    .section-badge {
+      font-size: 13px;
+      font-weight: 700;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    p {
+      margin-bottom: 16px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #374151;
+      text-align: justify;
+    }
+
+    .sub-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      margin: 20px 0 8px 0;
+    }
+
+    .bullet-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    .bullet-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #374151;
+    }
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      top: -1px;
+      color: #f59e0b;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .bullet-list strong {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    /* Infographic Preview Box */
+    .infographic-wrapper {
+      margin: 40px 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    .infographic-header {
+      padding: 12px 20px;
+      background: #1e293b;
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+    .infographic-wrapper img, .infographic-wrapper svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Print Formatting */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .action-bar { display: none !important; }
+      .document-paper {
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+      }
+      .word-count-banner {
+        border-color: #cbd5e1;
+        background: #f8fafc;
+      }
+      .word-count-banner .wc-num { color: #0f172a; }
+      .word-count-banner .wc-label { color: #475569; }
+      .section-badge { display: none; }
+      .infographic-wrapper {
+        page-break-inside: avoid;
+        margin: 24px 0;
+      }
+      p { font-size: 13px; line-height: 1.6; }
+      .bullet-list li { font-size: 13px; line-height: 1.55; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Action Bar for Screen Viewing -->
+    <div class="action-bar">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Audited, Hardened &amp; Formatted: 847 / 1100 Words • 100% Verified</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="copyDocumentText()">📋 Copy Document Text</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      </div>
+    </div>
+
+    <!-- The Exact Printable Submission Document -->
+    <main class="document-paper" id="submissionDocument">
+      
+      <!-- Meta Information Header -->
+      <header class="doc-meta">
+        <h1 class="doc-title">Supporting Everyday Heroes Plan (Maanyata)</h1>
+        <div class="participant-grid">
+          <div>
+            <div class="label">Participant Name</div>
+            <div class="val">Krishiv Sukul</div>
+          </div>
+          <div>
+            <div class="label">School Name</div>
+            <div class="val">Seven Eleven Scholastic School (Mira Road)</div>
+          </div>
+          <div>
+            <div class="label">Grade</div>
+            <div class="val">Grade 7</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Word Count Audit Badge -->
+      <div class="word-count-banner">
+        <div class="wc-item">
+          <div class="wc-num">218 / 300</div>
+          <div class="wc-label">Section A (Words)</div>
+        </div>
+        <div class="wc-item">
+          <div class="wc-num">349 / 500</div>
+          <div class="wc-label">Section B (Words)</div>
+        </div>
+        <div class="wc-item">
+          <div class="wc-num">280 / 300</div>
+          <div class="wc-label">Section C (Words)</div>
+        </div>
+        <div class="wc-item">
+          <div class="wc-num">847 / 1100</div>
+          <div class="wc-label">Total Word Count</div>
+        </div>
+      </div>
+
+      <!-- SECTION A -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">A) Identifying the problem</h2>
+          <span class="section-badge">218 Words • Max 300</span>
+        </div>
+        <p>Domestic workers and ancillary staff in Indian housing and enterprise often work for years without any record of their service except word-of-mouth recommendations and their former employer’s network and goodwill. Only private gig platforms offer ratings for their own hourly workers, while long-term informal labour and direct employment have no such system. Hence, it becomes much harder to find new employment for these workers and to ensure a better, fairer experience for guards.</p>
+        <p>These workers, by their median income bracket, usually own feature phones or low-performance mobiles. They are usually migrants from other areas with little formal schooling. Despite these hurdles, they keep our urban infrastructure running from the ground up.</p>
+        <p>Even though apps exist, like Snabbit for household help, they operate purely on an hourly gig basis. For longer-term workers, there is almost no protection except apps like MyGate, NoBrokerHood, and ApnaComplex, which have a severe structural flaw: they are built primarily for surveillance and affluent resident peace of mind. They keep workers trapped in single-society silos, have no concept of local job mobility, and fail to protect guards from unverified complaints.</p>
+        <p>Ultimately, my goal is to support all four pillars of any residency: administrators for fair management, residents for privacy and peace of mind, and ancillary staff—house help and guards—for protection, mobility, and dignity.</p>
+      </section>
+
+      <!-- SECTION B -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">B) Solution Conceptualisation</h2>
+          <span class="section-badge">349 Words • Max 500</span>
+        </div>
+        <p>Maanyata is a hybrid digital-physical product: a lightweight kiosk app running on a sub-₹5,000 cabin tablet, backed by an offline local database. It replaces expensive commercial apps that charge monthly subscriptions and lock worker data inside company servers.</p>
+        
+        <div class="sub-heading">1. Registration and Approval Chain:</div>
+        <ul class="bullet-list">
+          <li><strong>Admin:</strong> The society committee sets up the system once on the society office laptop.</li>
+          <li><strong>Resident:</strong> Chooses their flat and registers household members. The Admin verifies society occupancy records before approving them.</li>
+          <li><strong>Guard:</strong> Registers with their name, agency ID, and shift. The Admin approves them before the gate terminal allows duty check-ins.</li>
+          <li><strong>House Help:</strong> The employing resident adds the worker to their flat (or the worker selects the flat). Once both the resident and Admin confirm, the system generates the worker's persistent 4-digit gate PIN. If she works in multiple flats, all of them link to the same PIN.</li>
+        </ul>
+
+        <div class="sub-heading">2. Daily Gate Pipeline:</div>
+        <ul class="bullet-list">
+          <li><strong>Instant Check-in:</strong> Regular staff punch their 4-digit PIN on the tablet keypad. The local SQLite database verifies it in under a second with zero active internet.</li>
+          <li><strong>Privacy at the Gate:</strong> The screen flashes green with masked flat numbers only (like "Flat B-402 Verified"). Phone numbers and salary details are never exposed to people standing around the cabin.</li>
+          <li><strong>Visitors and Deliveries:</strong> Residents generate quick 4-digit codes for visitors or delivery drivers, which burn after a single use.</li>
+          <li><strong>The Portable Service Record:</strong> Every completed shift logs entry and exit times locally, paired with direct peer-to-peer UPI salary receipts (0% commission). When a worker leaves, the terminal exports a signed QR pass verifying clean tenure. Crucially, negative marks cannot be added arbitrarily; disciplinary strikes require official police documentation, ending retaliatory blacklisting.</li>
+        </ul>
+
+        <div class="sub-heading">3. Simplicity and Cost:</div>
+        <ul class="bullet-list">
+          <li><strong>Accessibility:</strong> Built with high-contrast buttons following WCAG rules so older guards can read it easily. Available in Hindi and English.</li>
+          <li><strong>Cost Basis:</strong> Commercial apps cost ₹15 to ₹25 per flat every month. Maanyata needs only a single, one-time ₹4,500 tablet for the gate cabin. For a 200-flat society, that is a one-time ₹22.50 per flat (less than ₹1.90 a month in year one), and ₹0 after that.</li>
+        </ul>
+      </section>
+
+      <!-- INFOGRAPHIC EMBED -->
+      <div class="infographic-wrapper">
+        <div class="infographic-header">
+          <span>MAANYATA ARCHITECTURAL SCHEMATIC &amp; FOUR PILLARS</span>
+          <span>1080p Vector Standard (Zero-Dependency)</span>
+        </div>
+        <object type="image/svg+xml" data="maanyata_infographic.svg" style="width: 100%; display: block;"></object>
+      </div>
+
+      <!-- SECTION C -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2 class="section-title">C) Solution Iteration</h2>
+          <span class="section-badge">280 Words • Max 300</span>
+        </div>
+        <p>To be honest, in the realm of theory, I could not find any software bugs or logical inconsistencies; the physical world is very different. Putting Maanyata into action brings real-world hurdles that we have actively engineered around:</p>
+        
+        <ul class="bullet-list">
+          <li><strong>Guard Tech &amp; Hardware Durability:</strong> Older guards might struggle with complex apps. We solve this using an affordable tablet (under ₹5,000) mounted outside the cabin with a 4-digit keypad and direct voice fallback to the guard. To prevent battery swelling and flash wear in uncooled Mumbai guard cabins, the device runs in battery-bypass kiosk mode with daily automated encrypted exports to the RWA office laptop over local Wi-Fi or USB.</li>
+          <li><strong>The Gate Privacy &amp; Stalker Threat:</strong> Traditional paper registers expose resident phone numbers, flat details, and entry timings to anyone lingering at the gate or watching from upper-floor windows with binoculars—a severe hazard for women’s safety. Upgrading to digital records with local data encryption ensures raw personal details remain locked away from casual onlookers.</li>
+          <li><strong>The Offline Portability Paradox:</strong> If societies operate on isolated local databases with zero cloud dependency, an unverified digital record could be forged in a text editor. We resolve this using asymmetric public-key cryptography: the issuing society cryptographically signs the worker’s tenure summary into an offline QR credential. Any new housing society verifies this signature offline using the former society’s public registry key, ensuring tamper-proof portability without a central server.</li>
+          <li><strong>Emergency Hazards vs. Worker Demerits:</strong> When crises occur (such as sudden resignations over hazardous spills that leave elderly residents vulnerable), Maanyata separates physical maintenance from reputation tracking. Emergency cleanup routes immediately to equipped society staff, while avoiding unfair punitive marks against domestic workers exercising their right to safe working conditions.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    function copyDocumentText() {
+      const text = `Supporting Everyday Heroes Plan (Maanyata)
+
+Participant Name: Krishiv Sukul
+School Name: Seven Eleven Scholastic School (Mira Road)
+Grade: Grade 7
+
+A) Identifying the problem
+Domestic workers and ancillary staff in Indian housing and enterprise often work for years without any record of their service except word-of-mouth recommendations and their former employer’s network and goodwill. Only private gig platforms offer ratings for their own hourly workers, while long-term informal labour and direct employment have no such system. Hence, it becomes much harder to find new employment for these workers and to ensure a better, fairer experience for guards.
+
+These workers, by their median income bracket, usually own feature phones or low-performance mobiles. They are usually migrants from other areas with little formal schooling. Despite these hurdles, they keep our urban infrastructure running from the ground up.
+
+Even though apps exist, like Snabbit for household help, they operate purely on an hourly gig basis. For longer-term workers, there is almost no protection except apps like MyGate, NoBrokerHood, and ApnaComplex, which have a severe structural flaw: they are built primarily for surveillance and affluent resident peace of mind. They keep workers trapped in single-society silos, have no concept of local job mobility, and fail to protect guards from unverified complaints.
+
+Ultimately, my goal is to support all four pillars of any residency: administrators for fair management, residents for privacy and peace of mind, and ancillary staff—house help and guards—for protection, mobility, and dignity.
+
+B) Solution Conceptualisation
+Maanyata is a hybrid digital-physical product: a lightweight kiosk app running on a sub-₹5,000 cabin tablet, backed by an offline local database. It replaces expensive commercial apps that charge monthly subscriptions and lock worker data inside company servers.
+
+1. Registration and Approval Chain:
+Admin: The society committee sets up the system once on the society office laptop.
+Resident: Chooses their flat and registers household members. The Admin verifies society occupancy records before approving them.
+Guard: Registers with their name, agency ID, and shift. The Admin approves them before the gate terminal allows duty check-ins.
+House Help: The employing resident adds the worker to their flat (or the worker selects the flat). Once both the resident and Admin confirm, the system generates the worker's persistent 4-digit gate PIN. If she works in multiple flats, all of them link to the same PIN.
+
+2. Daily Gate Pipeline:
+Instant Check-in: Regular staff punch their 4-digit PIN on the tablet keypad. The local SQLite database verifies it in under a second with zero active internet.
+Privacy at the Gate: The screen flashes green with masked flat numbers only (like "Flat B-402 Verified"). Phone numbers and salary details are never exposed to people standing around the cabin.
+Visitors and Deliveries: Residents generate quick 4-digit codes for visitors or delivery drivers, which burn after a single use.
+The Portable Service Record: Every completed shift logs entry and exit times locally, paired with direct peer-to-peer UPI salary receipts (0% commission). When a worker leaves, the terminal exports a signed QR pass verifying clean tenure. Crucially, negative marks cannot be added arbitrarily; disciplinary strikes require official police documentation, ending retaliatory blacklisting.
+
+3. Simplicity and Cost:
+Accessibility: Built with high-contrast buttons following WCAG rules so older guards can read it easily. Available in Hindi and English.
+Cost Basis: Commercial apps cost ₹15 to ₹25 per flat every month. Maanyata needs only a single, one-time ₹4,500 tablet for the gate cabin. For a 200-flat society, that is a one-time ₹22.50 per flat (less than ₹1.90 a month in year one), and ₹0 after that.
+
+C) Solution Iteration
+To be honest, in the realm of theory, I could not find any software bugs or logical inconsistencies; the physical world is very different. Putting Maanyata into action brings real-world hurdles that we have actively engineered around:
+
+• Guard Tech & Hardware Durability: Older guards might struggle with complex apps. We solve this using an affordable tablet (under ₹5,000) mounted outside the cabin with a 4-digit keypad and direct voice fallback to the guard. To prevent battery swelling and flash wear in uncooled Mumbai guard cabins, the device runs in battery-bypass kiosk mode with daily automated encrypted exports to the RWA office laptop over local Wi-Fi or USB.
+
+• The Gate Privacy & Stalker Threat: Traditional paper registers expose resident phone numbers, flat details, and entry timings to anyone lingering at the gate or watching from upper-floor windows with binoculars—a severe hazard for women’s safety. Upgrading to digital records with local data encryption ensures raw personal details remain locked away from casual onlookers.
+
+• The Offline Portability Paradox: If societies operate on isolated local databases with zero cloud dependency, an unverified digital record could be forged in a text editor. We resolve this using asymmetric public-key cryptography: the issuing society cryptographically signs the worker’s tenure summary into an offline QR credential. Any new housing society verifies this signature offline using the former society’s public registry key, ensuring tamper-proof portability without a central server.
+
+• Emergency Hazards vs. Worker Demerits: When crises occur (such as sudden resignations over hazardous spills that leave elderly residents vulnerable), Maanyata separates physical maintenance from reputation tracking. Emergency cleanup routes immediately to equipped society staff, while avoiding unfair punitive marks against domestic workers exercising their right to safe working conditions.`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Document text successfully copied to clipboard!");
+      }).catch(err => {
+        console.error("Copy failed", err);
+      });
+    }
+  </script>
+</body>
+</html>

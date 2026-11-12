@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maanyata - Who Are You? (Role Gateway)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abel&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg-page: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --text-subtle: #94A3B8;
+    
+    /* Clean, disciplined accents */
+    --accent-blue: #2563EB;
+    --accent-blue-bg: #EFF6FF;
+    --accent-emerald: #059669;
+    --accent-emerald-bg: #ECFDF5;
+    --accent-amber: #D97706;
+    --accent-amber-bg: #FFFBEB;
+    --accent-purple: #7C3AED;
+    --accent-purple-bg: #F5F3FF;
+    --accent-slate: #475569;
+    --accent-slate-bg: #F1F5F9;
+    --accent-coral: #E11D48;
+    --accent-coral-bg: #FFF1F2;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1080px;
+    width: 100%;
+  }
+
+  /* Top Navigation Bar */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    background: #0F172A;
+    color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+  }
+
+  .badge-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #E2E8F0;
+    color: #475569;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .lang-toggle {
+    display: flex;
+    background: #E2E8F0;
+    border-radius: 20px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .lang-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .lang-btn.active {
+    background: #FFFFFF;
+    color: var(--text-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 48px auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Role Grid */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 900px) {
+    .role-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .role-grid { grid-template-columns: 1fr; }
+  }
+
+  .role-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .role-card:hover {
+    transform: translateY(-3px);
+    border-color: #CBD5E1;
+    box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.03);
+  }
+
+  .role-card.featured {
+    border: 1.5px solid #2563EB;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.12);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .icon-box {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .role-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid #F1F5F9;
+  }
+
+  .action-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .action-arrow {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #F1F5F9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: transform 0.15s ease;
+  }
+
+  .role-card:hover .action-arrow {
+    transform: translateX(3px);
+    background: #0F172A;
+    color: #FFFFFF;
+  }
+
+  /* Specific Role Accent Styles */
+  .helper .icon-box { background: #FEF3C7; color: #92400E; }
+  .helper .role-tag { background: #FEF3C7; color: #92400E; }
+
+  .guard .icon-box { background: #ECFDF5; color: #047857; }
+  .guard .role-tag { background: #ECFDF5; color: #047857; }
+
+  .resident .icon-box { background: #EFF6FF; color: #1D4ED8; }
+  .resident .role-tag { background: #EFF6FF; color: #1D4ED8; }
+
+  .independent .icon-box { background: #FFF7ED; color: #C2410C; }
+  .independent .role-tag { background: #FFF7ED; color: #C2410C; }
+
+  .admin .icon-box { background: #F5F3FF; color: #6D28D9; }
+  .admin .role-tag { background: #F5F3FF; color: #6D28D9; }
+
+  .enterprise .icon-box { background: #F1F5F9; color: #334155; }
+  .enterprise .role-tag { background: #F1F5F9; color: #334155; }
+
+  /* Bottom Trust Strip */
+  .trust-strip {
+    text-align: center;
+    padding: 20px;
+    border-radius: 14px;
+    background: #FFFFFF;
+    border: 1px solid var(--card-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Navigation Header -->
+  <div class="top-nav">
+    <div class="brand-group">
+      <div class="brand-mark">M</div>
+      <div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="brand-text">Maanyata</span>
+          <span class="badge-tag">v2.0 Beta</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lang-toggle">
+      <button class="lang-btn active">English</button>
+      <button class="lang-btn">हिन्दी</button>
+    </div>
+  </div>
+
+  <!-- Hero Header -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span>✦</span> Community & Mobility Gateway
+    </div>
+    <h1>Who are you?</h1>
+    <p>Select your role to access your sovereign pass, physical gate terminal, or society household management portal.</p>
+  </div>
+
+  <!-- 6-Role Grid -->
+  <div class="role-grid">
+    
+    <!-- 1. House Helper (Domestic Worker) -->
+    <div class="role-card helper featured">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">🪪</div>
+          <span class="role-tag">Sovereign Pass</span>
+        </div>
+        <div class="card-title">House Helper</div>
+        <p class="card-desc">For cooks, housekeepers, caregivers, and drivers. Instant 4-digit gate PIN, offline QR pass, zero-brokerage job board, and direct salary history.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Open Pass / Register</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 2. Security Guard -->
+    <div class="role-card guard">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">🛡️</div>
+          <span class="role-tag">Gate Station</span>
+        </div>
+        <div class="card-title">Security Guard</div>
+        <p class="card-desc">For on-duty gate personnel (Bahadur Bhaiya mode). Touch dialpad for rapid PIN clearance, phone lookup, and physical shift handover.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Station Terminal Login</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 3. Society Resident -->
+    <div class="role-card resident">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">🏢</div>
+          <span class="role-tag">Gated Flat</span>
+        </div>
+        <div class="card-title">Resident</div>
+        <p class="card-desc">For apartment owners and tenants in gated complexes. Grant morning auto-entry clearance, manage domestic staff, and pay direct salaries via UPI.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Enter Flat Portal</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 4. Independent Resident -->
+    <div class="role-card independent">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">🏡</div>
+          <span class="role-tag">Standalone</span>
+        </div>
+        <div class="card-title">Independent Resident</div>
+        <p class="card-desc">For bungalow and standalone home employers without society gatekeepers. Verify domestic helper passes, log workdays, and send direct pay.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Manage Household</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 5. Residential Admin -->
+    <div class="role-card admin">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">📋</div>
+          <span class="role-tag">RWA / Committee</span>
+        </div>
+        <div class="card-title">Residential Admin</div>
+        <p class="card-desc">For society office management and RWA committees. Configure society gate policies, audit shift activity logs, and resolve access disputes.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Society Dashboard</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 6. Other Enterprise -->
+    <div class="role-card enterprise">
+      <div>
+        <div class="card-top">
+          <div class="icon-box">📦</div>
+          <span class="role-tag">Vendors & Delivery</span>
+        </div>
+        <div class="card-title">Other Enterprise</div>
+        <p class="card-desc">For couriers, maintenance technicians, utility contractors, and commercial vendors requesting temporary gate clearance passes.</p>
+      </div>
+      <div class="card-footer">
+        <span class="action-text">Request Entry Token</span>
+        <span class="action-arrow">→</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Trust & Compliance Strip -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <span class="trust-dot"></span>
+      <span>e-Shram & Aadhaar Aligned</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-dot"></span>
+      <span>100% Offline-Resilient Local DB</span>
+    </div>
+    <div class="trust-item">
+      <span class="trust-dot"></span>
+      <span>Zero Commission / Non-Paternalistic</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

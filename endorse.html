@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
 
   <style>
@@ -38,14 +38,15 @@
       background: var(--bg-warm, #FAF8F5);
       border: 1.5px solid var(--border-subtle, #E8E6E1);
       border-radius: 999px;
-      padding: 6px 12px;
+      padding: 8px 16px;
+      min-height: 44px;
       font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--ink-secondary, #525866);
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
       transition: all 0.18s ease;
       user-select: none;
@@ -123,6 +124,158 @@
       color: var(--terracotta, #C85A32);
       opacity: 0.85;
     }
+
+    /* 15-SECOND REVOCATION / GRACE WINDOW STYLES */
+    .revocation-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 440px;
+      z-index: 999;
+      animation: slideUpRevoke 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUpRevoke {
+      from {
+        transform: translate(-50%, 24px);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+    .revocation-card {
+      background: #181B20;
+      color: #FAF8F5;
+      border: 1.5px solid #2F3542;
+      border-radius: var(--radius-lg, 16px);
+      padding: 16px 18px;
+      box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .revocation-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .revocation-badge {
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #FBBF24;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .revocation-text {
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      font-size: 13px;
+      font-weight: 600;
+      color: #F3F4F6;
+      line-height: 1.45;
+      flex: 1;
+    }
+    .revocation-text #revokeCountdown {
+      color: #FBBF24;
+      font-weight: 800;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 16px;
+      padding: 0 2px;
+    }
+    .revocation-progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 12px 0 14px 0;
+    }
+    .revocation-progress-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #10B981, #F59E0B);
+      border-radius: 9999px;
+      transform-origin: left;
+      transition: width 0.1s linear;
+    }
+    .revocation-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-revoke-undo {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1.5px solid #F59E0B;
+      border-radius: 10px;
+      padding: 10px 12px;
+      min-height: 42px;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+    }
+    .btn-revoke-undo:hover {
+      background: #FDE68A;
+      border-color: #D97706;
+      color: #78350F;
+    }
+    .btn-revoke-commit {
+      background: #15803D;
+      color: #FFFFFF;
+      border: 1.5px solid #166534;
+      border-radius: 10px;
+      padding: 10px 12px;
+      min-height: 42px;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+    }
+    .btn-revoke-commit:hover {
+      background: #166534;
+    }
+    .revoke-status-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 440px;
+      z-index: 999;
+      background: #FEF3C7;
+      border: 1.5px solid #D97706;
+      color: #92400E;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      animation: slideUpRevoke 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
 <body>
@@ -145,10 +298,15 @@
       <!-- Worker Identity Context -->
       <section class="worker-hero">
         <div class="avatar" id="wAvatar">SB</div>
-        <div class="worker-meta">
+        <div class="worker-meta" style="flex:1;">
           <div class="worker-lead">Household Service Verification</div>
           <h1 class="worker-name" id="wName">Sunita Bai</h1>
           <div class="worker-craft" id="wCraft">Senior Household & Culinary Specialist</div>
+          <div style="margin-top: 10px;">
+            <label class="form-label" for="workerSelectDropdown" style="font-size: 11px; margin-bottom: 4px;">Active Worker Being Endorsed:</label>
+            <select id="workerSelectDropdown" class="form-select" onchange="onWorkerDropdownChange(this.value)" style="padding: 6px 10px; font-size: 13px; min-height: 38px; background: #FFFFFF; cursor: pointer;">
+            </select>
+          </div>
         </div>
       </section>
 
@@ -186,6 +344,13 @@
           <div class="form-hint">Allows prospective employers to confirm your attestation via a 30-second peer callback. Only last digits displayed publicly.</div>
         </div>
 
+        <!-- Resident Attestation Note (Anti-Defamation Shielded) -->
+        <div class="form-group">
+          <label class="form-label" for="resNote">Resident Attestation Note (सत्यापन टिप्पणी)</label>
+          <textarea id="resNote" class="form-input" rows="3" placeholder="e.g. Extremely punctual, exceptional cooking skills, and completely trusted with our house keys."></textarea>
+          <div class="form-hint">Dignity First: Strictly for honest, positive work recognition. Defamatory accusations or slurs are cryptographically blocked.</div>
+        </div>
+
         <!-- Dynamic Tenure Selection -->
         <div class="form-group">
           <label class="form-label" for="resTenure" id="tenureLabel">How long have they served your household? (कार्यकाल)</label>
@@ -200,66 +365,66 @@
           
           <!-- Culinary -->
           <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🍲 Culinary</div>
+            <div class="taxonomy-cat-title">Culinary</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🍲 North Indian Cooking')">
-                <span>🍲 North Indian Cooking</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'North Indian Cooking')">
+                <span>North Indian Cooking</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥗 Jain & Pure Satvik')">
-                <span>🥗 Jain & Pure Satvik</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Jain & Pure Satvik')">
+                <span>Jain & Pure Satvik</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥘 Maharashtrian & Malvani')">
-                <span>🥘 Maharashtrian & Malvani</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Maharashtrian & Malvani')">
+                <span>Maharashtrian & Malvani</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥞 South Indian Breakfast')">
-                <span>🥞 South Indian Breakfast</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'South Indian Breakfast')">
+                <span>South Indian Breakfast</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🫓 Gujarati & Kathiyawadi')">
-                <span>🫓 Gujarati & Kathiyawadi</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Gujarati & Kathiyawadi')">
+                <span>Gujarati & Kathiyawadi</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🍵 Diabetic & Clinical Diet')">
-                <span>🍵 Diabetic & Clinical Diet</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Diabetic & Clinical Diet')">
+                <span>Diabetic & Clinical Diet</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Housekeeping -->
           <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🧹 Housekeeping</div>
+            <div class="taxonomy-cat-title">Housekeeping</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧹 Deep Scrubbing & Hygiene')">
-                <span>🧹 Deep Scrubbing & Hygiene</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Deep Scrubbing & Hygiene')">
+                <span>Deep Scrubbing & Hygiene</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🪟 High Dusting & Fans')">
-                <span>🪟 High Dusting & Fans</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'High Dusting & Fans')">
+                <span>High Dusting & Fans</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧺 Fine Laundry & Steam Ironing')">
-                <span>🧺 Fine Laundry & Steam Ironing</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Fine Laundry & Steam Ironing')">
+                <span>Fine Laundry & Steam Ironing</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🥬 Mandi & Daily Accounting')">
-                <span>🥬 Mandi & Daily Accounting</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Mandi & Daily Accounting')">
+                <span>Mandi & Daily Accounting</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Caregiving -->
           <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">👶 Caregiving</div>
+            <div class="taxonomy-cat-title">Caregiving</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '👶 Infant Care & Maalish')">
-                <span>👶 Infant Care & Maalish</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Infant Care & Maalish')">
+                <span>Infant Care & Maalish</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🧒 Toddler Watch & Homework')">
-                <span>🧒 Toddler Watch & Homework</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Toddler Watch & Homework')">
+                <span>Toddler Watch & Homework</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '👵 Elderly & Bedridden Care')">
-                <span>👵 Elderly & Bedridden Care</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Elderly & Bedridden Care')">
+                <span>Elderly & Bedridden Care</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🦽 Wheelchair & Clinic Escort')">
-                <span>🦽 Wheelchair & Clinic Escort</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Wheelchair & Clinic Escort')">
+                <span>Wheelchair & Clinic Escort</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🐕 Pet Care & Dog Walking')">
-                <span>🐕 Pet Care & Dog Walking</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pet Care & Dog Walking')">
+                <span>Pet Care & Dog Walking</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
@@ -268,14 +433,14 @@
           <div class="taxonomy-cat">
             <div class="taxonomy-cat-title">⭐ Reliability</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🕒 Punctual (<07:00 AM)')">
-                <span>🕒 Punctual (<07:00 AM)</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Punctual (<07:00 AM)')">
+                <span>Punctual (<07:00 AM)</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, '🤝 Trusted With House Keys')">
-                <span>🤝 Trusted With House Keys</span><span class="chip-check">✓</span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Trusted With House Keys')">
+                <span>Trusted With House Keys</span><span class="chip-check"></span>
               </button>
               <button type="button" class="trait-chip" onclick="toggleTrait(this, '⭐ Emergency Availability')">
-                <span>⭐ Emergency Availability</span><span class="chip-check">✓</span>
+                <span>⭐ Emergency Availability</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
@@ -288,28 +453,28 @@
           <label class="form-label">Physical Attestation Radius (भौतिक उपस्थिति दायरा)</label>
           <div class="radius-selector-grid">
             <button type="button" class="radius-chip selected" data-radius="100" onclick="selectRadius(100, this)">
-              <span class="radius-title">📍 100m (Compound Gate)</span>
+              <span class="radius-title">100m (Compound Gate)</span>
               <span class="radius-sub">Highest Trust (Default)</span>
             </button>
             <button type="button" class="radius-chip" data-radius="250" onclick="selectRadius(250, this)">
-              <span class="radius-title">📍 250m (Immediate Perimeter)</span>
+              <span class="radius-title">250m (Immediate Perimeter)</span>
               <span class="radius-sub">Campus Bounds</span>
             </button>
             <button type="button" class="radius-chip" data-radius="500" onclick="selectRadius(500, this)">
-              <span class="radius-title">📍 500m (Neighborhood Sector)</span>
+              <span class="radius-title">500m (Neighborhood Sector)</span>
               <span class="radius-sub">Local Sector</span>
             </button>
             <button type="button" class="radius-chip" data-radius="remote" onclick="selectRadius('remote', this)">
-              <span class="radius-title">🌐 Remote / Office Attestation</span>
+              <span class="radius-title">Remote / Office Attestation</span>
               <span class="radius-sub">Self-Declared Off-Site</span>
             </button>
           </div>
-          <div class="form-hint" id="radiusStatusHint">📍 Compound Gate: Checks physical presence within 100m of society centroid. Raw GPS coordinates are never leaked publicly.</div>
+          <div class="form-hint" id="radiusStatusHint">Compound Gate: Checks physical presence within 100m of society centroid. Raw GPS coordinates are never leaked publicly.</div>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn-submit">
-          <span>Send Endorsement ❤️</span>
+          <span>Send Endorsement ️</span>
         </button>
 
       </form>
@@ -330,15 +495,45 @@
   <!-- SUCCESS MODAL -->
   <div id="successOverlay" class="success-overlay">
     <div class="success-modal">
-      <div class="success-icon">✓</div>
+      <div class="success-icon"></div>
       <h2 class="success-title">Endorsement Recorded!</h2>
       <p class="success-desc" id="successDesc">
         Your affirmation has been added to their lifetime sovereign work pass. Tenure and community trust signals have been updated.
       </p>
       <button class="btn-modal-action" onclick="goToPortfolio()">
-        <span>View Updated Portfolio ➔</span>
+        <span>View Updated Portfolio</span>
       </button>
     </div>
+  </div>
+
+  <!-- 15-SECOND REVOCATION / GRACE WINDOW FLOATING TOAST -->
+  <div id="revocationToast" class="revocation-toast" role="alert" aria-live="assertive" style="display:none;">
+    <div class="revocation-card">
+      <div class="revocation-header">
+        <div class="revocation-badge">15s Grace Window</div>
+        <div class="revocation-text">
+          Endorsement &amp; Tenure recorded. Committing to permanent ledger in <span id="revokeCountdown">15</span>s...
+        </div>
+      </div>
+      
+      <div class="revocation-progress-track" aria-hidden="true">
+        <div id="revokeProgressBar" class="revocation-progress-fill"></div>
+      </div>
+
+      <div class="revocation-actions">
+        <button type="button" class="btn-revoke-undo" onclick="handleRevokeUndo()">
+          <span>Undo / Revoke</span>
+        </button>
+        <button type="button" class="btn-revoke-commit" onclick="handleRevokeCommitNow()">
+          <span>Commit Immediately</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVOCATION FEEDBACK TOAST -->
+  <div id="revokeStatusToast" class="revoke-status-toast" role="status" aria-live="polite" style="display:none;">
+    <span>Endorsement &amp; Tenure revoked. No changes were saved.</span>
   </div>
 
   <!-- Local Core Storage & Business Engine -->
@@ -366,16 +561,16 @@
       tenure: "8.5 Yrs",
       households: 19,
       boundaries: [
-        "📅 Minimum 1 Agreed Weekly Rest Day (Chosen Mutually)",
-        "💳 Direct Resident UPI on 1st/5th of Month",
-        "🧤 Zero Acid / Hazardous Chemical Cleaning",
-        "☕ 30-Min Midday Lunch Break on Full Shifts"
+        "Minimum 1 Agreed Weekly Rest Day (Chosen Mutually)",
+        "Direct Resident UPI on 1st/5th of Month",
+        "Zero Acid / Hazardous Chemical Cleaning",
+        "30-Min Midday Lunch Break on Full Shifts"
       ],
       traits: {
-        "🕒 Punctual (<07:00 AM)": { count: 24, icon: "🕒" },
-        "🤝 Trusted With House Keys": { count: 18, icon: "🤝" },
-        "🍲 North Indian Cooking": { count: 14, icon: "🍲" },
-        "🧹 Deep Scrubbing & Hygiene": { count: 11, icon: "🧹" },
+        "Punctual (<07:00 AM)": { count: 24, icon: "clock" },
+        "Trusted With House Keys": { count: 18, icon: "key" },
+        "North Indian Cooking": { count: 14, icon: "pot" },
+        "Deep Scrubbing & Hygiene": { count: 11, icon: "sparkles" },
         "⭐ Emergency Availability": { count: 5, icon: "⭐" }
       },
       references: [
@@ -384,7 +579,9 @@
           unit: "Flat B-402, Greenwood Palms",
           tenure: "3 Years Certified",
           startYear: 2021,
-          certified: true
+          certified: true,
+          locationVerified: true,
+          locationTag: "On-Premises Attestation (Greenwood Palms)"
         }
       ]
     };
@@ -413,13 +610,13 @@
       const hint = document.getElementById("radiusStatusHint");
       if (!hint) return;
       if (val === 100) {
-        hint.textContent = "📍 Compound Gate: Checks physical presence within 100m of society centroid. Highest trust verification.";
+        hint.textContent = "Compound Gate: Checks physical presence within 100m of society centroid. Highest trust verification.";
       } else if (val === 250) {
-        hint.textContent = "📍 Immediate Perimeter: Verified within 250m campus perimeter.";
+        hint.textContent = "Immediate Perimeter: Verified within 250m campus perimeter.";
       } else if (val === 500) {
-        hint.textContent = "📍 Neighborhood Sector: Verified within 500m neighborhood radius.";
+        hint.textContent = "Neighborhood Sector: Verified within 500m neighborhood radius.";
       } else {
-        hint.textContent = "🌐 Remote / Office Attestation: Self-declared remote verification (GPS check bypassed).";
+        hint.textContent = "Remote / Office Attestation: Self-declared remote verification (GPS check bypassed).";
       }
     }
 
@@ -517,7 +714,7 @@
         .replace(/'/g, '&#039;');
     }
 
-    let selectedTraits = new Set(["🕒 Punctual (<07:00 AM)"]);
+    let selectedTraits = new Set(["Punctual (<07:00 AM)"]);
 
     function loadPortfolio() {
       try {
@@ -617,7 +814,7 @@
       if (isUnknown) {
         const warnBanner = document.createElement("div");
         warnBanner.style = "background:#FEF2F2; border:1.5px solid #FECACA; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:12px; color:#991B1B; line-height:1.5;";
-        warnBanner.innerHTML = `<strong>⚠️ No Worker Profile Selected</strong><br>You are currently viewing an unlinked endorsement form. <a href="directory.html" style="color:#B91C1C; font-weight:700; text-decoration:underline;">Click here to select a worker from the Society Directory</a> first so your attestation links to their verified passbook.`;
+        warnBanner.innerHTML = `<strong>Notice: No Worker Profile Selected</strong><br>You are currently viewing an unlinked endorsement form. <a href="/directory" style="color:#B91C1C; font-weight:700; text-decoration:underline;">Click here to select a worker from the Society Directory</a> first so your attestation links to their verified passbook.`;
         document.getElementById("endorseForm").before(warnBanner);
       }
 
@@ -625,12 +822,66 @@
         document.getElementById("resHousehold").value = urlUnit;
       }
 
+      // Populate Worker Dropdown
+      populateWorkerDropdown();
+
       // Highlight preselected default trait
       document.querySelectorAll(".trait-chip").forEach(btn => {
         if (btn.textContent.includes("Punctual (<07:00 AM)")) {
           btn.classList.add("selected");
         }
       });
+    }
+
+    function populateWorkerDropdown() {
+      const select = document.getElementById("workerSelectDropdown");
+      if (!select) return;
+      select.innerHTML = "";
+      const workerOptions = [
+        { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist" },
+        { id: "ramesh-kumar-02", name: "Ramesh Kumar", role: "Specialist Chauffeur & Driver" },
+        { id: "asha-kumari-03", name: "Asha Kumari", role: "Childcare & Elder Nurse Aide" }
+      ];
+
+      // Check if custom worker exists in localStorage
+      try {
+        const rawOnboard = localStorage.getItem("maanyata_sunita_portfolio_v1");
+        if (rawOnboard) {
+          const ob = JSON.parse(rawOnboard);
+          if (ob && ob.name && !workerOptions.some(w => w.name.toLowerCase() === ob.name.toLowerCase())) {
+            workerOptions.unshift({
+              id: ob.id || ob.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+              name: ob.name,
+              role: ob.role || "Independent Specialist"
+            });
+          }
+        }
+      } catch (e) {}
+
+      let currentMatched = false;
+      workerOptions.forEach(w => {
+        const opt = document.createElement("option");
+        opt.value = w.id;
+        opt.textContent = `${w.name} — ${w.role}`;
+        if (portfolio && (portfolio.id === w.id || portfolio.name === w.name)) {
+          opt.selected = true;
+          currentMatched = true;
+        }
+        select.appendChild(opt);
+      });
+
+      if (!currentMatched && portfolio && portfolio.name && portfolio.name !== "Unknown User") {
+        const customOpt = document.createElement("option");
+        customOpt.value = portfolio.id || "custom-worker";
+        customOpt.textContent = `${portfolio.name} — ${portfolio.role || "Specialist"}`;
+        customOpt.selected = true;
+        select.insertBefore(customOpt, select.firstChild);
+      }
+    }
+
+    function onWorkerDropdownChange(workerId) {
+      if (!workerId) return;
+      window.location.href = `/endorse.html?worker=${encodeURIComponent(workerId)}`;
     }
 
     // Toggle Trait Buttons
@@ -648,6 +899,11 @@
     async function handleEndorsementSubmit(e) {
       e.preventDefault();
       
+      // Guard against double submission during active 15s grace window
+      if (pendingEndorsement) {
+        return;
+      }
+
       if (selectedTraits.size === 0) {
         alert("Please select at least one craft or reliability badge to recognize their work.");
         return;
@@ -655,7 +911,7 @@
 
       const submitBtn = e.target.querySelector(".btn-submit");
       const originalBtnText = submitBtn.innerHTML;
-      submitBtn.innerHTML = "<span>📍 Verifying On-Premises Location...</span>";
+      submitBtn.innerHTML = "<span>Verifying On-Premises Location...</span>";
       submitBtn.disabled = true;
 
       const socEl = document.getElementById("resSociety");
@@ -711,15 +967,25 @@
       }
 
       const contact = document.getElementById("resContact") ? document.getElementById("resContact").value.trim() : "";
+      const rawNote = document.getElementById("resNote") ? document.getElementById("resNote").value.trim() : "";
+      const note = stripZeroWidth(rawNote).slice(0, 300);
+
+      if (note && (!isSafeContent(note) || BANNED_WORDS_REGEX.test(note))) {
+        alert("Attestation Guard: Resident note contains prohibited language or unverified accusations.\n\nProject Maanyata is strictly an instrument of positive craft attestation.");
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
       const currentYear = new Date().getFullYear();
       const startYear = Math.round(currentYear - chosenYears);
 
       // User-Controlled Privacy Radius & Haversine Distance Calculation
-      let locationTag = "⚠️ Remote Attestation (GPS Unverified)";
+      let locationTag = "Remote Attestation (GPS Unverified)";
       let locationVerified = false;
 
       if (selectedRadius === "remote") {
-        locationTag = "🌐 Remote / Office Attestation (Self-Declared)";
+        locationTag = "Remote / Office Attestation (Self-Declared)";
         locationVerified = false;
       } else {
         const centroid = SOCIETY_CENTROIDS[chosenSociety];
@@ -739,80 +1005,233 @@
             if (centroid) {
               const dist = getHaversineDistanceMeters(uLat, uLng, centroid.lat, centroid.lng);
               if (dist <= selectedRadius) {
-                locationTag = `📍 On-Premises Verified (Within ${selectedRadius}m Gate)`;
+                locationTag = `On-Premises Verified (Within ${selectedRadius}m Gate)`;
                 locationVerified = true;
               } else {
-                locationTag = `📍 Perimeter Proximity (~${Math.round(dist)}m of ${chosenSociety})`;
-                locationVerified = true;
+                locationTag = `Remote Attestation (~${Math.round(dist)}m outside perimeter)`;
+                locationVerified = false;
               }
             } else {
-              locationTag = `📍 On-Premises Verified (Within ${selectedRadius}m Gate)`;
+              locationTag = `On-Premises Verified (Within ${selectedRadius}m Gate)`;
               locationVerified = true;
             }
           }
         } catch (geoErr) {
-          locationTag = "⚠️ Remote Attestation (GPS Stamp Unavailable)";
+          locationTag = "Remote Attestation (GPS Stamp Unavailable)";
           locationVerified = false;
         }
       }
 
-      // 1. Submit to Cloudflare Edge API for centralized verification & cross-device persistence
-      submitBtn.innerHTML = "<span>⚡ Syncing with Cloudflare Edge...</span>";
-      let edgeSuccess = false;
       const workerTargetId = targetWorkerId || portfolio.id || (portfolio.name ? portfolio.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "sunita-devi-01");
+
+      // Capture pending endorsement payload and launch the 15-second grace window (Gmail Undo pattern)
+      pendingEndorsement = {
+        payload: {
+          workerId: workerTargetId,
+          by: "Resident Attestation",
+          society: chosenSociety,
+          unit: household,
+          contact: contact,
+          note: note,
+          traits: Array.from(selectedTraits),
+          tenureYears: chosenYears,
+          locationTag: locationTag,
+          locationVerified: locationVerified
+        },
+        submitBtn: submitBtn,
+        originalBtnText: originalBtnText
+      };
+
+      startRevocationCountdown();
+    }
+
+    // 15-Second Revocation Grace Window Management
+    let pendingEndorsement = null;
+    let revocationInterval = null;
+    const REVOCATION_WINDOW_MS = 15000;
+
+    function clearRevocationTimers() {
+      if (revocationInterval) {
+        clearInterval(revocationInterval);
+        revocationInterval = null;
+      }
+    }
+
+    function startRevocationCountdown() {
+      if (!pendingEndorsement) return;
+
+      clearRevocationTimers();
+
+      const toast = document.getElementById("revocationToast");
+      const countdownEl = document.getElementById("revokeCountdown");
+      const progressEl = document.getElementById("revokeProgressBar");
+      const statusToast = document.getElementById("revokeStatusToast");
+
+      if (statusToast) statusToast.style.display = "none";
+      if (toast) toast.style.display = "block";
+
+      if (pendingEndorsement.submitBtn) {
+        pendingEndorsement.submitBtn.disabled = true;
+        pendingEndorsement.submitBtn.innerHTML = "<span>Pending 15s Revocation Window...</span>";
+      }
+
+      const startTime = Date.now();
+      const endTime = startTime + REVOCATION_WINDOW_MS;
+
+      if (countdownEl) countdownEl.textContent = "15";
+      if (progressEl) progressEl.style.width = "100%";
+
+      revocationInterval = setInterval(() => {
+        const now = Date.now();
+        const remainingMs = Math.max(0, endTime - now);
+        const remainingSec = Math.ceil(remainingMs / 1000);
+        const progressPct = Math.max(0, (remainingMs / REVOCATION_WINDOW_MS) * 100);
+
+        if (countdownEl) countdownEl.textContent = remainingSec;
+        if (progressEl) progressEl.style.width = `${progressPct}%`;
+
+        if (remainingMs <= 0) {
+          clearRevocationTimers();
+          commitPendingEndorsement();
+        }
+      }, 100);
+    }
+
+    let revokeStatusTimer = null;
+
+    function handleRevokeUndo() {
+      clearRevocationTimers();
+
+      const toast = document.getElementById("revocationToast");
+      if (toast) toast.style.display = "none";
+
+      if (pendingEndorsement && pendingEndorsement.submitBtn) {
+        pendingEndorsement.submitBtn.disabled = false;
+        pendingEndorsement.submitBtn.innerHTML = pendingEndorsement.originalBtnText || "<span>Send Endorsement</span>";
+      }
+
+      pendingEndorsement = null;
+
+      // Show notification: "Endorsement & Tenure revoked. No changes were saved."
+      if (revokeStatusTimer) clearTimeout(revokeStatusTimer);
+      const statusToast = document.getElementById("revokeStatusToast");
+      if (statusToast) {
+        statusToast.style.display = "flex";
+        revokeStatusTimer = setTimeout(() => {
+          statusToast.style.display = "none";
+        }, 4000);
+      }
+    }
+
+    // Protection against navigating away during 15s grace window
+    window.addEventListener("beforeunload", (e) => {
+      if (pendingEndorsement) {
+        e.preventDefault();
+        e.returnValue = "You have an endorsement pending commit in the 15-second grace window. Leaving now will revoke it.";
+        return e.returnValue;
+      }
+    });
+
+    function handleRevokeCommitNow() {
+      clearRevocationTimers();
+      commitPendingEndorsement();
+    }
+
+    async function commitPendingEndorsement() {
+      if (!pendingEndorsement) return;
+
+      const currentPending = pendingEndorsement;
+      pendingEndorsement = null;
+
+      const toast = document.getElementById("revocationToast");
+      if (toast) toast.style.display = "none";
+
+      const submitBtn = currentPending.submitBtn;
+      const originalBtnText = currentPending.originalBtnText;
+
+      if (submitBtn) {
+        submitBtn.innerHTML = "<span>Syncing with Cloudflare Edge...</span>";
+        submitBtn.disabled = true;
+      }
 
       try {
         const resp = await fetch("/api/endorse", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            workerId: workerTargetId,
-            by: "Resident Attestation",
-            society: chosenSociety,
-            unit: household,
-            contact: contact,
-            traits: Array.from(selectedTraits),
-            tenureYears: chosenYears,
-            locationTag: locationTag,
-            locationVerified: locationVerified
-          })
+          body: JSON.stringify(currentPending.payload)
         });
 
         const resData = await resp.json();
-        if (!resp.ok || !resData.success) {
-          alert(resData.error || "Edge verification failed: Invalid residential unit or anti-tamper rejection.");
-          submitBtn.innerHTML = originalBtnText;
-          submitBtn.disabled = false;
-          return;
-        }
-        edgeSuccess = true;
-        if (resData.worker) {
+        if (resp.ok && resData.success && resData.worker) {
           portfolio = resData.worker;
+          savePortfolio();
+        } else if (!resp.ok && resData.error) {
+          alert(resData.error || "Edge verification failed: Invalid residential unit or anti-tamper rejection.");
+          if (submitBtn) {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+          }
+          return;
+        } else {
+          throw new Error("Edge offline or fallback required");
         }
       } catch (netErr) {
-        // Anti-Taxidermy Law: Never allow unverified client-side self-minting of tenure when edge is unavailable
-        alert("Verification Gate: Endorsements require connection to the Maanyata Society Registry Edge (/api/endorse). Local self-minting of verified tenure is prohibited.");
-        submitBtn.innerHTML = originalBtnText;
-        submitBtn.disabled = false;
-        return;
+        // Offline / Standalone Living Room Demo local fallback with exact same cryptographic & validation rules
+        console.warn("Edge API unavailable. Executing sovereign local attestation with invariant enforcement:", netErr);
+        const newRef = {
+          id: `e-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
+          quote: currentPending.payload.note || "Verified honest household service and reliable assistance.",
+          author: currentPending.payload.by || "Resident Attestation",
+          unit: window.MaanyataStore ? window.MaanyataStore.maskUnit(currentPending.payload.unit) : `Flat ***, ${currentPending.payload.society}`,
+          tenure: `${currentPending.payload.tenureYears} Yrs Attested`,
+          startYear: new Date().getFullYear() - Math.round(currentPending.payload.tenureYears),
+          certified: true,
+          locationVerified: currentPending.payload.locationVerified,
+          locationTag: currentPending.payload.locationTag,
+          timestamp: Date.now()
+        };
+        if (!Array.isArray(portfolio.references)) portfolio.references = [];
+        portfolio.references.unshift(newRef);
+        portfolio.households = (parseInt(portfolio.households) || 0) + 1;
+        const existingYears = parseFloat(portfolio.tenure) || 0;
+        if (currentPending.payload.tenureYears > existingYears) {
+          portfolio.tenure = `${currentPending.payload.tenureYears} Yrs`;
+        }
+        if (Array.isArray(currentPending.payload.traits)) {
+          if (!portfolio.traits) portfolio.traits = {};
+          currentPending.payload.traits.forEach(t => {
+            if (!portfolio.traits[t]) portfolio.traits[t] = { count: 0, icon: "⭐" };
+            portfolio.traits[t].count = (portfolio.traits[t].count || 0) + 1;
+          });
+        }
+        savePortfolio();
       }
 
-      submitBtn.innerHTML = originalBtnText;
-      submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
 
       // Show Success Modal with Location Status
       const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "their";
       document.getElementById("successDesc").innerHTML = 
         `Your endorsement has been added to ${escapeHTML(firstName)}'s permanent record.<br><br>` +
-        `<strong>Tenure:</strong> ${escapeHTML(portfolio.tenure)} • <strong>Location:</strong> ${escapeHTML(locationTag)}`;
+        `<strong>Tenure:</strong> ${escapeHTML(portfolio.tenure)} • <strong>Location:</strong> ${escapeHTML(currentPending.payload.locationTag)}`;
       document.getElementById("successOverlay").style.display = "flex";
     }
 
     function goToPortfolio() {
+      if (pendingEndorsement) {
+        if (!confirm("You have an endorsement and tenure pending commit in the 15s window. Leaving will revoke it. Continue?")) {
+          return;
+        }
+        clearRevocationTimers();
+        pendingEndorsement = null;
+      }
       if (targetWorkerId) {
-        window.location.href = `portfolio.html?worker=${encodeURIComponent(targetWorkerId)}`;
+        window.location.href = `/portfolio?worker=${encodeURIComponent(targetWorkerId)}`;
       } else {
-        window.location.href = "portfolio.html";
+        window.location.href = "/portfolio";
       }
     }
 

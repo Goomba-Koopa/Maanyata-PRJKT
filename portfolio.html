@@ -8,24 +8,32 @@
   <!-- Font Infrastructure -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Baloo+2:wght@600;700;800&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Sarala:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Anek+Devanagari:wdth,wght@75..100,100..800&family=Baloo+2:wght@600;700;800&family=Eczar:wght@600;700;800&family=Fraunces:opsz,wght@9..144,600..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Sarala:wght@400;700&family=Space+Grotesk:wght@500;600;700&family=Teko:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Compartmentalized Module Styles -->
+  <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./css/portfolio.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
   <div class="shell">
     <!-- Header: Logo & Share -->
     <header class="masthead">
-      <a href="portfolio.html" class="brand-mark">
+      <a href="/portfolio" class="brand-mark">
         <div class="brand-glyph" aria-hidden="true">M</div>
         <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
-      <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()" aria-label="Share passbook on WhatsApp">
-        <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-        <span>Share</span>
-      </button>
+      <div class="masthead-actions">
+        <button id="btnHeaderCustomize" class="mode-toggle-btn" onclick="openStudioModal()" aria-label="Customize typography and palette">
+          <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span data-i18n="btnHeaderCustomize">Customize</span>
+        </button>
+        <button id="btnHeaderShare" class="mode-toggle-btn" onclick="sharePassbookWhatsApp()" aria-label="Share passbook on WhatsApp">
+          <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+          <span data-i18n="btnHeaderShare">Share</span>
+        </button>
+      </div>
     </header>
 
     <!-- ============================================================
@@ -64,10 +72,6 @@
             <svg class="mny-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
             <span data-i18n="btnShareWhatsApp">Share Passbook on WhatsApp</span>
           </button>
-          <a href="verify.html" class="btn-action is-outline">
-            <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span data-i18n="btnVerifyGate">Verify Pass</span>
-          </a>
         </div>
       </div>
     </section>
@@ -80,7 +84,8 @@
         <div class="metrics-grid" style="margin-top:0; padding-top:0; border-top:none;">
           <div class="metric-col">
             <div class="metric-val" id="metricTenure">—</div>
-            <div class="metric-lbl" data-i18n="lblTenure">Tenure</div>
+            <div class="metric-lbl" id="metricTenureLabel" data-i18n="lblTenure">Resident-Attested</div>
+            <div id="metricSelfDeclared" class="metric-sub">Self-Declared: — (Unverified)</div>
           </div>
           <div class="metric-col">
             <div class="metric-val" id="metricHouseholds">—</div>
@@ -157,20 +162,63 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         TAB 4: DIRECTORY
-         ============================================================ -->
-    <section id="panel-directory" class="tab-panel" role="tabpanel" aria-labelledby="tab-directory" tabindex="0">
-      <div class="card">
+      <!-- ============================================================
+           BONDED TRUST SERVICE CONTRACTS (4-State Contract Machine)
+           ============================================================ -->
+      <div class="card" id="contractsCard">
         <div class="section-title">
-          <h2 data-i18n="navDirectory">Directory</h2>
+          <div>
+            <h2 style="margin: 0; font-size: 16px;">Bonded Service Contracts</h2>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+              4-State Machine: ACTIVE • SETTLED • DISPUTED • QUARANTINED
+            </div>
+          </div>
+          <span class="count-badge" id="contractsCountBadge" style="background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;">
+            ₹1L Fidelity Shield
+          </span>
         </div>
-        <p class="card-help" style="margin-bottom:14px;">Browse the verified staff directory for Demo Society.</p>
-        <a href="directory.html?society=demo-complex" class="btn-action is-outline">Open Complex Directory</a>
+
+        <div id="contractsListContainer" style="margin-top: 14px; display: flex; flex-direction: column; gap: 12px;">
+          <!-- Dynamically populated by renderContracts() -->
+        </div>
+
+        <!-- Create New Contract Accordion / Form -->
+        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">
+          <button type="button" class="btn-action is-outline" id="btnToggleNewContract" onclick="toggleNewContractForm()" style="width: 100%;">
+            + Establish Service Contract / नया अनुबंध जोड़ें
+          </button>
+          <div id="newContractFormWrap" style="display: none; margin-top: 12px; background: #FAF8F5; border: 1px solid var(--border); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">
+              Establish Verified Household Contract
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+              <div>
+                <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Employer Residence Unit *</label>
+                <input type="text" id="ncEmployerUnit" class="studio-select" placeholder="e.g. Flat B-402" style="width: 100%;">
+              </div>
+              <div>
+                <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Daily Shift Hours *</label>
+                <input type="number" id="ncShiftHours" class="studio-select" value="2.5" step="0.5" min="0.5" max="14" style="width: 100%;">
+              </div>
+            </div>
+            <div style="margin-bottom: 10px;">
+              <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Role & Craft Scope *</label>
+              <input type="text" id="ncRoleScope" class="studio-select" placeholder="e.g. Culinary Preparation & Kitchen Care" style="width: 100%;">
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn-action" style="flex: 1; background: var(--terracotta);" onclick="submitNewContract()">
+                Initiate Contract
+              </button>
+              <button type="button" class="btn-action is-outline" onclick="toggleNewContractForm()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+
 
     <!-- ============================================================
          TAB 5: PROFILE
@@ -196,26 +244,62 @@
         </div>
       </div>
 
+      <div class="card" id="milestonesCard">
+        <div class="section-title">
+          <h2 data-i18n="secMilestones">Career Milestones & Service Hours</h2>
+          <span class="count-badge" id="milestoneTierBadge" data-i18n="badgeMasterCraft">Master Craft</span>
+        </div>
+        
+        <div class="hours-hero">
+          <div class="hours-val" id="metricTotalHours">1,480 hrs</div>
+          <div class="hours-lbl" data-i18n="lblTotalHours">Cumulative Active Service Hours</div>
+          <div class="milestone-progress-wrap">
+            <div class="milestone-progress-fill" id="milestoneProgressFill" style="width: 74%;"></div>
+          </div>
+          <div class="milestone-progress-lbl" id="milestoneProgressLabel">74% to 2,000-Hour Veteran Seal</div>
+        </div>
+
+        <div class="milestones-tiers-grid" id="milestonesTiersGrid">
+          <!-- Populated dynamically by renderMilestones() -->
+        </div>
+
+        <button type="button" class="btn-action is-outline" id="btnToggleAllMilestones" style="margin-top: 10px; width: 100%;">View Full Career Ladder (18 Tiers) / पूरी मील का पत्थर सूची</button>
+
+        <div class="milestones-ladder-wrap" id="milestonesLadderWrap" style="display: none; margin-top: 10px;">
+          <!-- Populated dynamically by renderMilestones() -->
+        </div>
+
+        <div class="active-shifts-list" id="activeShiftsList" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
+          <!-- Populated dynamically: household hours breakdown -->
+        </div>
+      </div>
+
       <div class="card">
         <div class="profile-row">
-          <span class="profile-row-label">Language / भाषा</span>
+          <span class="profile-row-label" data-i18n="lblProfileStudio">Visual Studio / डिज़ाइन स्टूडियो</span>
+          <button onclick="openStudioModal()">
+            <span id="btnProfileStudio" data-i18n="btnProfileStudio">Customize</span>
+          </button>
+        </div>
+        <div class="profile-row">
+          <span class="profile-row-label" data-i18n="lblProfileLang">Language / भाषा</span>
           <button onclick="applyLanguage(currentLang === 'en' ? 'hi' : 'en')">
             <span id="langProfileLabel">हिंदी में देखें</span>
           </button>
         </div>
         <div class="profile-row">
-          <span class="profile-row-label">Bright-sun mode</span>
+          <span class="profile-row-label" id="lblSolMode" data-i18n="lblSolMode">Bright-sun mode</span>
           <button id="btnSolToggle" onclick="toggleSolMode()" aria-pressed="false">
             <span id="solBtnLabel">Turn on</span>
           </button>
         </div>
         <div class="profile-row">
-          <span class="profile-row-label">Reset Local Demo Data</span>
-          <button onclick="resetLocalDemo()">Reset</button>
+          <span class="profile-row-label" id="lblResetDemo" data-i18n="lblResetDemo">Reset Local Demo Data</span>
+          <button onclick="resetLocalDemo()" id="btnResetDemo" data-i18n="btnResetDemo">Reset</button>
         </div>
       </div>
 
-      <p class="card-help" style="text-align:center; font-size:12px; margin: 12px auto 0;">
+      <p class="card-help" id="footerCredits" data-i18n="footerCredits" style="text-align:center; font-size:12px; margin: 12px auto 0;">
         Project Maanyata • Sovereign Career Passbook<br>
         100% Free, Open-Source & Privacy-First
       </p>
@@ -238,31 +322,126 @@
         <span class="tab-btn-icon">
           <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </span>
-        <span data-i18n="tabReviews">Record</span>
+        <span data-i18n="tabRecord">Record</span>
       </button>
 
       <button id="tab-terms" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-terms" tabindex="-1" onclick="showTab('terms')">
         <span class="tab-btn-icon">
-          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
         </span>
         <span data-i18n="tabTerms">Terms</span>
-      </button>
-
-      <button id="tab-directory" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-directory" tabindex="-1" onclick="showTab('directory')">
-        <span class="tab-btn-icon">
-          <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/></svg>
-        </span>
-        <span data-i18n="navDirectory">Directory</span>
       </button>
 
       <button id="tab-profile" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-profile" tabindex="-1" onclick="showTab('profile')">
         <span class="tab-btn-icon">
           <svg class="mny-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
         </span>
-        <span>Profile</span>
+        <span data-i18n="tabProfile">Profile</span>
       </button>
     </div>
   </nav>
+
+  <!-- Modal: Customization Studio (Typography + Palettes) -->
+  <div id="studioModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="studioModalTitle">
+    <div class="modal-card studio-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="studioModalTitle" data-i18n="studioModalTitle">Customization Studio</h2>
+        <button class="modal-close" onclick="closeStudioModal()" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Color Palette Engine -->
+      <section class="studio-section">
+        <div class="studio-section-label" data-i18n="lblColorScheme">Color Scheme</div>
+        <div class="palette-grid" role="radiogroup" aria-label="Color Scheme Presets">
+          <button type="button" class="palette-tile" data-palette="daylight" onclick="selectPalette('daylight')">
+            <span class="palette-swatch" style="background:#FAF8F5; border-color:#B04B26;">
+              <span class="palette-accent" style="background:#B04B26;"></span>
+            </span>
+            <span class="palette-name">Warm Daylight</span>
+          </button>
+          <button type="button" class="palette-tile" data-palette="indigo" onclick="selectPalette('indigo')">
+            <span class="palette-swatch" style="background:#F6F8FC; border-color:#1F2A44;">
+              <span class="palette-accent" style="background:#1F2A44;"></span>
+            </span>
+            <span class="palette-name">Indigo Stamp</span>
+          </button>
+          <button type="button" class="palette-tile" data-palette="saffron" onclick="selectPalette('saffron')">
+            <span class="palette-swatch" style="background:#FFFDF7; border-color:#B45309;">
+              <span class="palette-accent" style="background:#B45309;"></span>
+            </span>
+            <span class="palette-name">Saffron Seal</span>
+          </button>
+          <button type="button" class="palette-tile" data-palette="olive" onclick="selectPalette('olive')">
+            <span class="palette-swatch" style="background:#F8F7F0; border-color:#4F6B2F;">
+              <span class="palette-accent" style="background:#4F6B2F;"></span>
+            </span>
+            <span class="palette-name">Olive Ledger</span>
+          </button>
+          <button type="button" class="palette-tile" data-palette="midnight" onclick="selectPalette('midnight')">
+            <span class="palette-swatch" style="background:#14161A; border-color:#E8A33D;">
+              <span class="palette-accent" style="background:#E8A33D;"></span>
+            </span>
+            <span class="palette-name">Midnight Gate</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="studio-divider"></div>
+
+      <!-- Typography Engine: Low-Data Native Presets -->
+      <section class="studio-section">
+        <div class="studio-section-label" data-i18n="lblTypoPresets">Typography Presets (Low Data)</div>
+        <div class="typo-presets-grid" role="group" aria-label="Typography native presets">
+          <button type="button" class="typo-preset-btn" onclick="applyNativePreset('sans')">
+            <span class="preset-title" style="font-family:system-ui, -apple-system, Roboto, sans-serif;">Sans</span>
+            <span class="preset-meta">System Native</span>
+          </button>
+          <button type="button" class="typo-preset-btn" onclick="applyNativePreset('serif')">
+            <span class="preset-title" style="font-family:serif, 'Times New Roman'; font-style:italic;">Serif</span>
+            <span class="preset-meta">Editorial</span>
+          </button>
+          <button type="button" class="typo-preset-btn" onclick="applyNativePreset('geometric')">
+            <span class="preset-title" style="font-family:'Space Grotesk', system-ui, sans-serif;">Geometric</span>
+            <span class="preset-meta">MODERN</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="studio-divider"></div>
+
+      <!-- Typography Engine: Custom Selectors -->
+      <section class="studio-section">
+        <div class="studio-section-label" data-i18n="lblFontPair">Font Pair Customization</div>
+        <div class="font-selectors-row">
+          <div class="font-select-field">
+            <label for="selectFontBody" class="font-select-label">Body Text</label>
+            <select id="selectFontBody" class="studio-select" onchange="onCustomFontChange()">
+              <option value="'Plus Jakarta Sans', system-ui, sans-serif">Plus Jakarta Sans</option>
+              <option value="'Anek Devanagari', sans-serif">Anek Devanagari</option>
+              <option value="'IBM Plex Sans', sans-serif">IBM Plex Sans</option>
+              <option value="'Work Sans', sans-serif">Work Sans</option>
+              <option value="system-ui, -apple-system, Roboto, 'Noto Sans Devanagari', sans-serif">System Sans</option>
+            </select>
+          </div>
+          <div class="font-select-field">
+            <label for="selectFontHeader" class="font-select-label">Headers & Titles</label>
+            <select id="selectFontHeader" class="studio-select" onchange="onCustomFontChange()">
+              <option value="'Outfit', system-ui, sans-serif">Outfit</option>
+              <option value="'Anek Devanagari', sans-serif">Anek Devanagari 800</option>
+              <option value="'Teko', sans-serif">Teko</option>
+              <option value="'Eczar', serif">Eczar</option>
+              <option value="'Fraunces', serif">Fraunces</option>
+              <option value="system-ui, -apple-system, Roboto, sans-serif">System Bold</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions" style="margin-top:20px;">
+        <button type="button" class="btn-action" style="flex:1; background:var(--terracotta);" onclick="closeStudioModal()" data-i18n="btnDone">Done</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal: Working Terms -->
   <div id="customizeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -294,7 +473,11 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite">Passbook updated!</div>
 
-  <!-- QR Engine & Compartmentalized Controller -->
+  <!-- Cryptographic Engine, Store, Aadhaar Verifier, Dispute Modal & Compartmentalized Controller -->
+  <script src="./maanyata_store.js"></script>
+  <script src="./js/aadhaar_verifier.js"></script>
+  <script src="./js/dispute_modal.js"></script>
+  <script src="./tweetnacl.min.js"></script>
   <script src="./qr_engine.js"></script>
   <script src="./js/portfolio.js"></script>
 </body>

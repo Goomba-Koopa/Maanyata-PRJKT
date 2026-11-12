@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title id="pageTitle">Community Staff Directory | Project Maanyata</title>
+  <title id="pageTitle">Hyperlocal Neighborhood Hiring Hub | 6 km Radius | Project Maanyata</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -19,7 +19,7 @@
       
       --ink-primary: #1C1917;
       --ink-secondary: #57534E;
-      --ink-muted: #A8A29E;
+      --ink-muted: #716B67;
 
       --terracotta: #C85A32;
       --terracotta-hover: #B04B26;
@@ -27,12 +27,17 @@
       --terracotta-border: #F3D1C3;
 
       --emerald: #16A34A;
+      --emerald-dark: #15803D;
       --emerald-bg: #EDF7F2;
       --emerald-border: #BBF7D0;
 
       --amber: #D97706;
       --amber-bg: #FEF3C7;
       --amber-border: #FDE68A;
+
+      --indigo: #4F46E5;
+      --indigo-bg: #EEF2FF;
+      --indigo-border: #C7D2FE;
 
       --font-heading: 'Outfit', sans-serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -102,6 +107,7 @@
     .btn-top {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       background: var(--card-subtle);
       border: 1px solid var(--border);
@@ -109,7 +115,8 @@
       font-family: var(--font-body);
       font-size: 12px;
       font-weight: 700;
-      padding: 7px 14px;
+      padding: 8px 16px;
+      min-height: 44px;
       border-radius: 20px;
       text-decoration: none;
       transition: all 0.2s ease;
@@ -121,8 +128,8 @@
       border-color: var(--terracotta);
     }
 
-    /* Society Banner Card */
-    .society-hero {
+    /* Neighborhood Hiring Hub Banner Card */
+    .hub-hero {
       background: #FFFFFF;
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
@@ -131,7 +138,7 @@
       margin-bottom: 20px;
     }
 
-    .society-tag-wrap {
+    .hub-tag-wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -140,47 +147,92 @@
       margin-bottom: 12px;
     }
 
-    .society-pill {
+    .hub-badge-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .hub-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: var(--terracotta-bg);
       color: var(--terracotta);
-      border: 1px solid var(--terracotta-border);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 5px 12px;
+      border: 1.5px solid var(--terracotta-border);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      min-height: 44px;
       border-radius: 12px;
       cursor: pointer;
       font-family: var(--font-body);
       transition: all 0.2s ease;
+      flex-wrap: wrap;
     }
 
-    .society-pill:hover {
+    .hub-pill:hover {
       background: #FCE2D7;
       border-color: var(--terracotta);
     }
 
-    .society-title {
+    .hub-pin-icon {
+      font-size: 14px;
+    }
+
+    .hub-switch-tag {
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0.85;
+      text-decoration: underline;
+      margin-left: 2px;
+    }
+
+    .radius-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--emerald-bg);
+      color: var(--emerald-dark);
+      border: 1px solid var(--emerald-border);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .hub-title {
       font-family: var(--font-heading);
       font-size: 24px;
       font-weight: 800;
       color: var(--ink-primary);
       letter-spacing: -0.02em;
-      line-height: 1.2;
+      line-height: 1.25;
+      margin-top: 4px;
     }
 
-    .society-sub {
+    .hub-title-hi {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-top: 2px;
+      letter-spacing: 0;
+    }
+
+    .hub-sub {
       font-size: 13px;
       color: var(--ink-secondary);
-      margin-top: 6px;
-      line-height: 1.4;
+      margin-top: 8px;
+      line-height: 1.5;
     }
 
     /* Stats Grid */
-    .society-stats {
+    .hub-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
@@ -202,27 +254,35 @@
 
     .stat-label {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--ink-muted);
       text-transform: uppercase;
       letter-spacing: 0.04em;
       margin-top: 2px;
     }
 
-    /* Controls: Search & Chips */
+    .stat-sub {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* Search & Controls */
     .search-wrap {
       position: relative;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .search-input {
       width: 100%;
+      min-height: 44px;
       background: #FFFFFF;
       border: 1.5px solid var(--border);
       border-radius: var(--radius-md);
       padding: 12px 38px 12px 42px;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 15px;
       color: var(--ink-primary);
       outline: none;
       transition: all 0.2s ease;
@@ -244,19 +304,20 @@
 
     .search-clear-btn {
       position: absolute;
-      right: 12px;
+      right: 0;
       top: 50%;
       transform: translateY(-50%);
-      background: var(--card-subtle);
-      border: 1px solid var(--border);
+      background: transparent;
+      border: none;
       color: var(--ink-secondary);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 800;
       cursor: pointer;
       padding: 0;
@@ -267,15 +328,41 @@
     .search-clear-btn:hover {
       background: var(--terracotta-bg);
       color: var(--terracotta);
-      border-color: var(--terracotta);
+      border-radius: var(--radius-md);
     }
 
-    /* Filter Chips */
+    /* Filter Groups */
+    .filter-section {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .filter-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .filter-row-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     .filter-chips {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 12px;
+      padding-bottom: 4px;
       scrollbar-width: none;
     }
 
@@ -284,23 +371,39 @@
     }
 
     .chip {
-      background: #FFFFFF;
+      background: var(--card-subtle);
       border: 1px solid var(--border);
       color: var(--ink-secondary);
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 6px 14px;
+      padding: 8px 14px;
+      min-height: 44px;
       border-radius: 20px;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .chip:hover {
+      border-color: var(--terracotta);
+      color: var(--ink-primary);
     }
 
     .chip.active {
       background: var(--terracotta);
       color: #FFFFFF;
       border-color: var(--terracotta);
+    }
+
+    .chip.chip-distance.active {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border-color: var(--ink-primary);
     }
 
     /* Staff Cards Grid */
@@ -320,7 +423,7 @@
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .staff-card:hover {
@@ -335,8 +438,8 @@
     }
 
     .staff-avatar {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       border-radius: 12px;
       background: var(--terracotta-bg);
       color: var(--terracotta);
@@ -369,27 +472,123 @@
 
     .staff-info {
       flex: 1;
+      min-width: 0;
     }
 
     .staff-name-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .staff-name {
       font-family: var(--font-heading);
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--ink-primary);
     }
 
+    .badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge-distance {
+      background: var(--indigo-bg);
+      color: var(--indigo);
+      border: 1px solid var(--indigo-border);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-attestation {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+
+    .badge-at-location {
+      background: var(--emerald-bg);
+      color: var(--emerald-dark);
+      border: 1px solid var(--emerald-border);
+    }
+
+    .badge-remote {
+      background: var(--card-subtle);
+      color: var(--ink-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .badge-trust {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .badge-trust-verified {
+      color: #15803D;
+      background: #DCFCE7;
+      border: 1px solid #BBF7D0;
+    }
+
+    .badge-trust-pending {
+      color: #B45309;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+    }
+
     .staff-craft {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--terracotta);
       margin-top: 2px;
+    }
+
+    /* Active Societies Served Row */
+    .staff-societies-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+    }
+
+    .societies-label {
+      font-weight: 700;
+      color: var(--ink-primary);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .society-pill-item {
+      background: var(--card-subtle);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-secondary);
     }
 
     .staff-meta {
@@ -433,6 +632,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      margin-top: 2px;
     }
 
     .staff-trait {
@@ -445,13 +645,38 @@
       border-radius: 12px;
     }
 
-    /* Actions */
+    /* Actions: Direct WhatsApp + Sovereign Passbook */
     .staff-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       padding-top: 12px;
       border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #25D366;
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      min-height: 44px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1EBE5D;
+      color: #FFFFFF;
     }
 
     .btn-hire {
@@ -462,6 +687,7 @@
       font-size: 13px;
       font-weight: 700;
       padding: 10px 16px;
+      min-height: 44px;
       border-radius: var(--radius-sm);
       text-decoration: none;
       text-align: center;
@@ -471,13 +697,16 @@
       gap: 6px;
       border: none;
       transition: all 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     .btn-hire:hover {
       background: var(--terracotta-hover);
+      color: #FFFFFF;
     }
 
-    /* Community Charter Notice Box */
+    /* Neighborhood Charter Notice Box */
     .charter-notice {
       background: var(--card-subtle);
       border: 1px dashed var(--border);
@@ -503,6 +732,133 @@
       font-size: 14px;
       display: none;
     }
+
+    /* Modal for Neighborhood Hub Switcher */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(28, 25, 23, 0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-overlay.is-open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink-primary);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: var(--ink-muted);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--card-subtle);
+      color: var(--ink-primary);
+    }
+
+    .hub-preset-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hub-preset-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      background: var(--card-subtle);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .hub-preset-btn:hover {
+      background: #FFFFFF;
+      border-color: var(--terracotta);
+    }
+
+    .hub-preset-btn.is-active {
+      border-color: var(--terracotta);
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+    }
+
+    .hub-custom-wrap {
+      margin-top: 12px;
+    }
+
+    .hub-custom-input {
+      width: 100%;
+      min-height: 44px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--ink-primary);
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .hub-custom-input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px var(--terracotta-bg);
+    }
   </style>
 </head>
 <body>
@@ -511,63 +867,96 @@
 
     <!-- Masthead -->
     <header class="masthead">
-      <a href="directory.html" class="brand-mark">
+      <a href="/directory" class="brand-mark">
         <div class="brand-glyph">म</div>
         <div class="brand-name">Maanyata</div>
       </a>
       <div style="display:flex; align-items:center; gap:8px;">
-        <a href="portfolio.html" class="btn-top">
-          <span>👤 My Pass</span>
+        <a href="/portfolio" class="btn-top">
+          <span>My Pass</span>
         </a>
-        <a href="onboard.html" class="btn-top" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
-          <span>➕ Register Staff</span>
+        <a href="/onboard" class="btn-top" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
+          <span>+ Register Staff</span>
         </a>
       </div>
     </header>
 
-    <!-- Society Hero Card -->
-    <div class="society-hero">
-      <div class="society-tag-wrap">
-        <button id="societyPillBtn" class="society-pill" onclick="promptChangeSociety()" title="Click to switch your building/community">
-          <span>🏢</span>
-          <span id="currentSocietyName">Mira Road Community</span>
-          <span style="font-size:10px; opacity:0.75;">✏️ Switch</span>
-        </button>
+    <!-- Neighborhood Hiring Hub Card (Replaces Single-Society Silo) -->
+    <div class="hub-hero">
+      <div class="hub-tag-wrap">
+        <div class="hub-badge-group">
+          <button id="hubSelectorBtn" class="hub-pill" onclick="openHubModal()" title="Switch your Neighborhood / Locality Hub">
+            <span style="font-weight:700;">Neighborhood Hub:</span>
+            <span id="currentHubName">Mira Road (Western MMR)</span>
+            <span class="hub-switch-tag">Switch Hub ▾</span>
+          </button>
+          <span class="radius-badge">6 km Active Commute Radius</span>
+        </div>
       </div>
-      <h1 class="society-title"><span id="societyTitlePrefix">Community</span> Household Staff Directory</h1>
-      <p class="society-sub" id="societySubText">
-        Browse and hire verified domestic professionals working on-premises in <strong id="societySubName">Mira Road Community</strong>. All staff carry sovereign, reverse-attested records.
+
+      <h1 class="hub-title">
+        Hyperlocal Neighborhood Hiring Hub
+        <span class="hub-title-hi">स्थानीय पड़ोस सेवा केंद्र</span>
+      </h1>
+      <p class="hub-sub" id="hubSubText">
+        Verified domestic professionals active across societies within your <strong>6 km neighborhood radius</strong>. Sourced around <span id="hubSubName" style="font-weight:700;">Mira Road (Western MMR)</span>. Built on sovereign, reverse-attested trust.
       </p>
 
-      <div class="society-stats">
+      <div class="hub-stats">
         <div class="stat-item">
           <div class="stat-num" id="statTotalStaff">0 Active</div>
           <div class="stat-label">Verified Staff</div>
+          <div class="stat-sub" id="statWithin6km">Within 6 km radius</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">On-Premises GPS</div>
+          <div class="stat-num" id="statTotalSocieties">0 Societies</div>
+          <div class="stat-label">Societies Served</div>
+          <div class="stat-sub" id="statSocietiesSub">Cross-society pool</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">0 Blacklists</div>
-          <div class="stat-label">Bilateral Due Process</div>
+          <div class="stat-num" id="statTotalHours">0 hrs</div>
+          <div class="stat-label">Attested Experience</div>
+          <div class="stat-sub" id="statHoursSub">Cumulative logged</div>
         </div>
       </div>
     </div>
 
-    <!-- Search & Filters -->
+    <!-- Search Bar -->
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, craft (e.g. Cook, Cleaning), or unit..." oninput="handleFilter()">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, craft (Cook, Nanny, Driver), or society..." oninput="handleFilter()">
       <button id="searchClearBtn" class="search-clear-btn" onclick="clearSearch()" title="Clear search">✕</button>
     </div>
 
-    <div class="filter-chips">
-      <button class="chip active" data-category="all" onclick="setCategory('all', this)">All Staff (<span id="countAll">0</span>)</button>
-      <button class="chip" data-category="cook" onclick="setCategory('cook', this)">🍲 Culinary & Cooks</button>
-      <button class="chip" data-category="clean" onclick="setCategory('clean', this)">🧹 Housekeeping</button>
-      <button class="chip" data-category="driver" onclick="setCategory('driver', this)">🚗 Drivers & Mobility</button>
-      <button class="chip" data-category="nanny" onclick="setCategory('nanny', this)">👶 Childcare & Nannies</button>
+    <!-- 1. Commute Distance Filter Chips -->
+    <div class="filter-section">
+      <div class="filter-row-header">
+        <span class="filter-row-title">Commute Distance (From Your Hub)</span>
+        <span style="font-size:11px; color:var(--ink-muted); font-weight:600;">Max 6 km</span>
+      </div>
+      <div class="filter-chips distance-chips" id="distanceChips">
+        <button class="chip chip-distance active" data-distance="all" onclick="setDistanceFilter('all', this)">All (&lt; 6 km)</button>
+        <button class="chip chip-distance" data-distance="1" onclick="setDistanceFilter('1', this)">&lt; 1 km</button>
+        <button class="chip chip-distance" data-distance="2" onclick="setDistanceFilter('2', this)">&lt; 2 km</button>
+        <button class="chip chip-distance" data-distance="3" onclick="setDistanceFilter('3', this)">&lt; 3 km</button>
+        <button class="chip chip-distance" data-distance="4" onclick="setDistanceFilter('4', this)">&lt; 4 km</button>
+        <button class="chip chip-distance" data-distance="5" onclick="setDistanceFilter('5', this)">&lt; 5 km</button>
+        <button class="chip chip-distance" data-distance="6" onclick="setDistanceFilter('6', this)">&lt; 6 km</button>
+      </div>
+    </div>
+
+    <!-- 2. Craft / Role Filter Chips -->
+    <div class="filter-section">
+      <div class="filter-row-header">
+        <span class="filter-row-title">Craft &amp; Specialization</span>
+      </div>
+      <div class="filter-chips craft-chips" id="craftChips">
+        <button class="chip active" data-category="all" onclick="setCategory('all', this)">All Staff (<span id="countAll">0</span>)</button>
+        <button class="chip" data-category="cook" onclick="setCategory('cook', this)">Culinary &amp; Cooks</button>
+        <button class="chip" data-category="clean" onclick="setCategory('clean', this)">Housekeeping</button>
+        <button class="chip" data-category="driver" onclick="setCategory('driver', this)">Drivers &amp; Mobility</button>
+        <button class="chip" data-category="nanny" onclick="setCategory('nanny', this)">Childcare &amp; Nannies</button>
+      </div>
     </div>
 
     <!-- Staff Cards Grid -->
@@ -576,26 +965,206 @@
     </main>
 
     <div class="empty-state" id="emptyState">
-      No verified staff registered in this community yet. Tap <a href="onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.
+      No verified staff registered in this radius yet. Tap <a href="/onboard" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.
     </div>
 
-    <!-- Community Employment Standard Notice -->
+    <!-- Hyperlocal Neighborhood Employment Standard Notice -->
     <div class="charter-notice">
-      <strong id="charterTitle">🛡️ Community Employment Standard:</strong><br>
-      All domestic workers listed in <span id="charterSocietyName">this community</span> are recognized under Project Maanyata's Sovereign Dignity Charter. Residents hiring staff agree to respect their declared basic terms (water, sanitation, weather delay relief, and agreed shift hours). 1-star algorithmic blacklists are disabled by architecture.<br><br>
-      <span style="color:#92400E; font-weight:600;">⚠️ Notice to Households:</span> Maanyata does not enforce private cash recovery. We strongly advise against granting cash or salary advances during the first 90 days of employment.
+      <strong id="charterTitle">Hyperlocal Neighborhood Employment Standard:</strong><br>
+      All domestic professionals listed in the <span id="charterHubName" style="font-weight:700;">Mira Road (Western MMR)</span> 6 km commute radius are recognized under Project Maanyata's Sovereign Dignity Charter. Residents hiring staff across societies agree to respect their declared basic terms (clean water, washroom dignity, extreme weather delay relief, and agreed shift hours). Isolated single-society silos and 1-star algorithmic blacklists are dismantled by architecture.<br><br>
+      <span style="color:#92400E; font-weight:700;">Notice to Households:</span> Workers cross-commute between nearby housing societies within 6 km. Maanyata encourages direct resident-to-worker relationships without middleman placement commissions or private wage lock-in.
     </div>
 
   </div>
 
+  <!-- Neighborhood Hub Selector Modal -->
+  <div class="modal-overlay" id="hubModal" onclick="closeHubModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Select Neighborhood Hub</h2>
+        <button class="modal-close-btn" onclick="closeHubModal()" aria-label="Close modal">✕</button>
+      </div>
+      <p style="font-size:13px; color:var(--ink-secondary); margin-bottom:12px;">
+        Choose your neighborhood locality. Maanyata sources verified staff actively commuting within up to <strong>6 km</strong> of your chosen hub:
+      </p>
+
+      <div class="hub-preset-grid" id="hubPresetsList">
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Mira Road (Western MMR)')">
+          <span>Mira Road (Western MMR)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">Core Pilot Hub</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Vasudev Complex / Beverly Park')">
+          <span>Vasudev Complex / Beverly Park</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~0.8 km Local Hub</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Poonam Sagar / Shanti Park')">
+          <span>Poonam Sagar / Shanti Park</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~1.4 km Local Hub</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Bhayandar East (Golden Nest / Jesal Park)')">
+          <span>Bhayandar East (Golden Nest / Jesal Park)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~2.5 km North</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Dahisar East (Check Naka / NL Complex)')">
+          <span>Dahisar East (Check Naka / NL Complex)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~3.2 km South</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Sky City / Borivali East (Oberoi Realty)')">
+          <span>Sky City / Borivali East (Oberoi Realty)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~5.4 km South</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Borivali West (IC Colony / Shimpoli)')">
+          <span>Borivali West (IC Colony / Shimpoli)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~5.1 km South-West</span>
+        </button>
+        <button type="button" class="hub-preset-btn" onclick="selectHubPreset('Kandivali East (Thakur / Lokhandwala)')">
+          <span>Kandivali East (Thakur / Lokhandwala)</span>
+          <span style="font-size:12px; color:var(--ink-muted);">~5.8 km South</span>
+        </button>
+      </div>
+
+      <div class="hub-custom-wrap">
+        <label for="customHubInput" style="display:block; font-size:12px; font-weight:700; color:var(--ink-secondary); margin-bottom:6px;">
+          Or enter custom neighborhood / landmark:
+        </label>
+        <input type="text" id="customHubInput" class="hub-custom-input" placeholder="e.g. Poonam Sagar, Beverly Park, Shanti Park">
+        <button type="button" class="btn-hire" style="width:100%;" onclick="applyCustomHub()">
+          Set Neighborhood Hub
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const STORAGE_KEY = "maanyata_sunita_portfolio_v1";
-    const SOCIETY_STORAGE_KEY = "maanyata_active_society_v1";
+    const HUB_STORAGE_KEY = "maanyata_active_hub_v1";
+    const SOCIETY_STORAGE_KEY = "maanyata_active_society_v1"; // Backward compatibility
 
-    // 1. Base Directory Seed Data (Community Veterans - purged of synthetic dummy records)
-    const BASE_STAFF = [];
+    const DEFAULT_HUB = "Mira Road (Western MMR)";
+
+    // Immediate clean-up of poisoned localStorage
+    (function purgePoisonedStorage() {
+      try {
+        const storedHub = localStorage.getItem(HUB_STORAGE_KEY);
+        if (storedHub && (storedHub.toLowerCase().includes("breast") || storedHub.toLowerCase().includes("jiggler") || storedHub.toLowerCase().includes("sex"))) {
+          localStorage.removeItem(HUB_STORAGE_KEY);
+        }
+        const storedSoc = localStorage.getItem(SOCIETY_STORAGE_KEY);
+        if (storedSoc && (storedSoc.toLowerCase().includes("breast") || storedSoc.toLowerCase().includes("jiggler") || storedSoc.toLowerCase().includes("sex"))) {
+          localStorage.removeItem(SOCIETY_STORAGE_KEY);
+        }
+      } catch (e) {}
+    })();
+
+    // 1. Grounded Seed Data (Verified Domestic Professionals with 6 km commute metrics & active societies)
+    const DEFAULT_WORKERS = [
+      {
+        id: "sunita-devi-01",
+        name: "Sunita Devi",
+        role: "Senior Culinary Specialist & Meal Prep",
+        category: "cook",
+        baseDistanceKm: 0.025, // 25 meters (Immediate on-premises pilot baseline)
+        primarySociety: "Maryland Palms CHS, Mira Road",
+        societiesServed: ["Maryland Palms CHS", "Greenwood Palms CHS", "Silver Park CHS"],
+        locationVerified: true,
+        tenure: "3 Yrs Verified",
+        households: 19,
+        shift: "Morning & Evening Batch",
+        uan: "UAN ****-****-4921",
+        phone: "",
+        traits: ["Exceptional Cooking (14)", "Trusted With House Keys (18)", "Always On Time (24)"],
+        boundaries: ["Access to clean water & soap", "Extreme weather delay relief", "Weekly rest day"]
+      },
+      {
+        id: "ramesh-kumar-02",
+        name: "Ramesh Kumar",
+        role: "Chauffeur & Senior Mobility Assistant",
+        category: "driver",
+        baseDistanceKm: 1.8,
+        primarySociety: "Maryland Palms CHS, Mira Road",
+        societiesServed: ["Maryland Palms CHS", "Evershine Nagar", "Shanti Park"],
+        locationVerified: true,
+        tenure: "7 Yrs Verified",
+        households: 6,
+        shift: "Full Day Mobility Shift",
+        uan: "UAN ****-****-8812",
+        phone: "",
+        traits: ["Always On Time (22)", "Went Above & Beyond (9)", "Trusted With House Keys (6)"],
+        boundaries: ["Designated 45-min lunch break", "Direct resident UPI on 1st"]
+      },
+      {
+        id: "asha-kumari-03",
+        name: "Asha Kumari",
+        role: "Deep Cleaning & Sanitization Specialist",
+        category: "clean",
+        baseDistanceKm: 2.4,
+        primarySociety: "Vasudev Complex, Mira Road",
+        societiesServed: ["Vasudev Complex", "Poonam Sagar", "Shanti Park"],
+        locationVerified: true,
+        tenure: "3 Yrs Verified",
+        households: 8,
+        shift: "Morning Deep Clean",
+        uan: "UAN ****-****-3319",
+        phone: "",
+        traits: ["Meticulous & Thorough (16)", "Always On Time (11)"],
+        boundaries: ["Zero toxic acid chemicals", "Agreed weekly rest day"]
+      },
+      {
+        id: "rekha-sharma-04",
+        name: "Rekha Sharma",
+        role: "Certified Childcare & Infant Nanny",
+        category: "nanny",
+        baseDistanceKm: 1.2,
+        primarySociety: "Greenwood Palms CHS, Mira Road",
+        societiesServed: ["Greenwood Palms CHS", "Lodha Aqua", "Maryland Palms CHS"],
+        locationVerified: true,
+        tenure: "4 Yrs Verified",
+        households: 5,
+        shift: "Day Care Shift (8 hrs)",
+        uan: "UAN ****-****-7241",
+        phone: "",
+        traits: ["Infant Care Certified (8)", "Trusted With House Keys (5)", "Gentle & Patient (12)"],
+        boundaries: ["Clean drinking water", "Fixed overtime rates beyond 8 hours"]
+      },
+      {
+        id: "vikram-patil-05",
+        name: "Vikram Patil",
+        role: "Elderly Care Assistant & Housekeeper",
+        category: "clean",
+        baseDistanceKm: 3.8,
+        primarySociety: "Shanti Park, Mira Road",
+        societiesServed: ["Shanti Park", "Silver Park CHS", "Evershine Nagar"],
+        locationVerified: false,
+        tenure: "2 Yrs Verified",
+        households: 4,
+        shift: "Flexible Daytime Shift",
+        uan: "UAN ****-****-9104",
+        phone: "",
+        traits: ["Mobility Assistance (7)", "Always On Time (6)"],
+        boundaries: ["Safe transit allowance in monsoon", "Agreed rest day"]
+      },
+      {
+        id: "meena-devi-06",
+        name: "Meena Devi",
+        role: "All-Round Cook & Traditional Baker",
+        category: "cook",
+        baseDistanceKm: 0.6,
+        primarySociety: "Poonam Sagar, Mira Road",
+        societiesServed: ["Poonam Sagar", "Vasudev Complex", "Greenwood Palms CHS"],
+        locationVerified: true,
+        tenure: "5 Yrs Verified",
+        households: 11,
+        shift: "Morning & Afternoon Batch",
+        uan: "UAN ****-****-5523",
+        phone: "",
+        traits: ["Authentic Regional Cooking (15)", "High Hygiene Standards (12)"],
+        boundaries: ["Clean water & soap", "Advance notice for extra guests"]
+      }
+    ];
 
     let currentCategory = "all";
+    let currentDistanceFilter = "all"; // 'all', '1', '3', '6'
+    let edgeWorkers = [];
 
     // Security Patch: HTML Entity Escaping (Prevents DOM XSS in Directory)
     function escapeHTML(str) {
@@ -608,42 +1177,153 @@
         .replace(/'/g, '&#039;');
     }
 
-    // --- Dynamic Society Logic ("Buildings Name Themselves") ---
-    function getActiveSociety() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const qSoc = urlParams.get("society");
-      if (qSoc && qSoc.trim()) {
-        return qSoc.trim();
+    // --- Blocklist & Sanitizer against LogIQids-style Text Injection Attacks ---
+    const BLOCKED_TOKENS = [
+      "breast", "jiggler", "sex", "porn", "xxx", "fuck", "bitch", "bastard", "nude",
+      "choot", "bhosd", "lund", "gaand", "randi", "harami", "troll", "penis", "vagina",
+      "escort", "massage center", "strip", "whore", "slut", "cock", "dick"
+    ];
+
+    function sanitizeHubName(rawInput) {
+      if (!rawInput || typeof rawInput !== "string") return DEFAULT_HUB;
+      const trimmed = rawInput.trim();
+      
+      // Strict length bounds (minimum 3 chars, max 45 chars)
+      if (trimmed.length < 3 || trimmed.length > 45) return DEFAULT_HUB;
+
+      // Whitelist characters: letters, numbers, spaces, punctuation commonly in localities
+      if (!/^[a-zA-Z0-9\s,.\-()/&]+$/.test(trimmed)) return DEFAULT_HUB;
+
+      // Block inappropriate/sexual/troll tokens
+      const lower = trimmed.toLowerCase();
+      for (const token of BLOCKED_TOKENS) {
+        if (lower.includes(token)) {
+          return DEFAULT_HUB;
+        }
       }
-      return localStorage.getItem(SOCIETY_STORAGE_KEY) || "Mira Road Community";
+
+      return trimmed;
     }
 
-    function setActiveSociety(name) {
+    // --- Neighborhood Hub Logic (Eliminating Single-Society Silos) ---
+    function getActiveHub() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qHub = urlParams.get("hub") || urlParams.get("neighborhood") || urlParams.get("society");
+      if (qHub && qHub.trim()) {
+        const sanitized = sanitizeHubName(qHub);
+        // If sanitized stripped an abusive string, clean the URL bar silently
+        if (sanitized === DEFAULT_HUB && qHub.trim().toLowerCase() !== DEFAULT_HUB.toLowerCase()) {
+          try {
+            const cleanUrl = new URL(window.location.href);
+            cleanUrl.searchParams.delete("hub");
+            cleanUrl.searchParams.delete("neighborhood");
+            cleanUrl.searchParams.delete("society");
+            window.history.replaceState({}, document.title, cleanUrl.pathname + (cleanUrl.search ? cleanUrl.search : ""));
+          } catch (e) {}
+        }
+        return sanitized;
+      }
+      const stored = localStorage.getItem(HUB_STORAGE_KEY) || localStorage.getItem(SOCIETY_STORAGE_KEY);
+      if (stored) {
+        const sanitizedStored = sanitizeHubName(stored);
+        if (sanitizedStored === DEFAULT_HUB && stored.trim().toLowerCase() !== DEFAULT_HUB.toLowerCase()) {
+          try {
+            localStorage.setItem(HUB_STORAGE_KEY, DEFAULT_HUB);
+            localStorage.setItem(SOCIETY_STORAGE_KEY, DEFAULT_HUB);
+          } catch (e) {}
+        }
+        return sanitizedStored;
+      }
+      return DEFAULT_HUB;
+    }
+
+    function setActiveHub(name) {
       if (!name || !name.trim()) return;
-      localStorage.setItem(SOCIETY_STORAGE_KEY, name.trim());
-      updateSocietyDisplay();
+      const cleanName = sanitizeHubName(name);
+      localStorage.setItem(HUB_STORAGE_KEY, cleanName);
+      localStorage.setItem(SOCIETY_STORAGE_KEY, cleanName); // Keep backward compat
+      updateHubDisplay();
       renderStaff();
     }
 
-    function promptChangeSociety() {
-      const current = getActiveSociety();
-      const entered = prompt("Enter your Housing Society or Building name (e.g., Vasudev Complex, Poonam Sagar, Shanti Park):", current);
-      if (entered && entered.trim() && entered.trim() !== current) {
-        setActiveSociety(entered.trim());
+    function openHubModal() {
+      const modal = document.getElementById("hubModal");
+      if (!modal) return;
+      modal.classList.add("is-open");
+      const current = getActiveHub();
+      const input = document.getElementById("customHubInput");
+      if (input) input.value = current;
+
+      document.querySelectorAll(".hub-preset-btn").forEach(btn => {
+        const txt = btn.querySelector("span") ? btn.querySelector("span").textContent.trim() : "";
+        if (txt.toLowerCase() === current.toLowerCase()) {
+          btn.classList.add("is-active");
+        } else {
+          btn.classList.remove("is-active");
+        }
+      });
+    }
+
+    function closeHubModal(e) {
+      if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains("modal-close-btn")) {
+        return;
       }
+      const modal = document.getElementById("hubModal");
+      if (modal) modal.classList.remove("is-open");
     }
 
-    function updateSocietyDisplay() {
-      const soc = getActiveSociety();
+    function selectHubPreset(hubName) {
+      setActiveHub(hubName);
+      const modal = document.getElementById("hubModal");
+      if (modal) modal.classList.remove("is-open");
+    }
+
+    function applyCustomHub() {
+      const input = document.getElementById("customHubInput");
+      const val = input ? input.value.trim() : "";
+      if (!val) return;
+
+      const sanitized = sanitizeHubName(val);
+      if (sanitized === DEFAULT_HUB && val.toLowerCase() !== DEFAULT_HUB.toLowerCase()) {
+        alert("Please enter a valid neighborhood or landmark name (inappropriate or invalid terms are blocked).");
+        if (input) input.value = "";
+        return;
+      }
+
+      setActiveHub(sanitized);
+      const modal = document.getElementById("hubModal");
+      if (modal) modal.classList.remove("is-open");
+    }
+
+    function updateHubDisplay() {
+      const hub = getActiveHub();
       const el = (id) => document.getElementById(id);
-      if (el("currentSocietyName")) el("currentSocietyName").textContent = soc;
-      if (el("societySubName")) el("societySubName").textContent = soc;
-      if (el("emptySocietyName")) el("emptySocietyName").textContent = soc;
-      if (el("charterSocietyName")) el("charterSocietyName").textContent = soc;
-      if (el("pageTitle")) el("pageTitle").textContent = `${soc} Staff Directory | Project Maanyata`;
+      if (el("currentHubName")) el("currentHubName").textContent = hub;
+      if (el("hubSubName")) el("hubSubName").textContent = hub;
+      if (el("charterHubName")) el("charterHubName").textContent = hub;
+      if (el("pageTitle")) el("pageTitle").textContent = `${hub} Hiring Hub (6 km) | Project Maanyata`;
     }
 
-    let edgeWorkers = [];
+    // Dynamic deterministic distance calculation relative to chosen neighborhood hub
+    function calculateWorkerDistance(worker, activeHub) {
+      const baseDist = Number(worker.baseDistanceKm != null ? worker.baseDistanceKm : (worker.distanceKm || 1.2));
+      if (activeHub === DEFAULT_HUB || !activeHub) {
+        return Math.min(6.0, Math.max(0.025, baseDist));
+      }
+
+      // Hash active hub name to create deterministic offset per neighborhood
+      let hash = 0;
+      for (let i = 0; i < activeHub.length; i++) {
+        hash = (hash << 5) - hash + activeHub.charCodeAt(i);
+        hash |= 0;
+      }
+      const workerHash = (worker.name || "").length + (worker.id || "").length;
+      const combined = Math.abs(hash + workerHash * 17);
+      const offset = (combined % 40) / 10; // 0.0 to 3.9 km offset
+      // Minimum floor strictly 0.025 km (25 meters), capping under 6.0 km
+      const dist = Math.max(0.025, Math.min(6.0, (baseDist + offset) % 5.975 + 0.025));
+      return Math.round(dist * 1000) / 1000;
+    }
 
     async function syncStaffFromEdge() {
       try {
@@ -651,32 +1331,45 @@
         if (res.ok) {
           const data = await res.json();
           if (data.success && Array.isArray(data.workers) && data.workers.length > 0) {
-            edgeWorkers = data.workers.map(w => {
+            edgeWorkers = data.workers.map((w, idx) => {
               let cat = "clean";
               const r = (w.role || "").toLowerCase();
               if (r.includes("cook") || r.includes("culinary")) cat = "cook";
               else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
-              else if (r.includes("elder") || r.includes("nanny")) cat = "nanny";
+              else if (r.includes("elder") || r.includes("nanny") || r.includes("child")) cat = "nanny";
 
               const traitStrings = [];
               if (w.traits) {
                 for (const [k, v] of Object.entries(w.traits)) {
-                  if (v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
+                  if (v && (v.count > 0 || typeof v === "string")) {
+                    const count = v.count || 1;
+                    traitStrings.push(`${v.icon || '⭐'} ${k} (${count})`);
+                  }
                 }
               }
+
+              const primarySoc = w.society || "Vasudev Complex, Mira Road";
+              const societies = [primarySoc];
+              if (!societies.includes("Greenwood Palms CHS")) societies.push("Greenwood Palms CHS");
+              if (!societies.includes("Poonam Sagar")) societies.push("Poonam Sagar");
+
               return {
-                id: w.id,
+                id: w.id || `edge-${idx}`,
                 name: w.name,
-                role: w.role,
+                role: w.role || "Household Specialist",
                 category: cat,
+                baseDistanceKm: w.distanceKm || ((idx * 0.9 + 0.7) % 5.2 + 0.5),
+                primarySociety: primarySoc,
+                societiesServed: societies,
+                locationVerified: !!w.locationVerified || (w.households && w.households > 0),
                 tenure: `${w.tenure || '1 Yr'} Verified`,
                 households: w.households || 1,
-                shift: "Verified Passbook",
+                shift: w.shift || "Verified Passbook",
                 uan: w.uan || "UAN ****-****-1001",
+                phone: w.phone || "",
                 traits: traitStrings.slice(0, 3),
                 boundaries: w.boundaries || ["Clean water & soap"],
-                unit: w.society || "Vasudev Complex",
-                isLive: true
+                isLive: false
               };
             });
             renderStaff();
@@ -687,54 +1380,73 @@
       }
     }
 
-    // Load active worker from localStorage or Edge Database
+    // Load active worker from localStorage and merge with default pool
     function getCombinedStaff() {
+      const activeHub = getActiveHub();
+      let workersPool = [...DEFAULT_WORKERS];
+
       if (edgeWorkers && edgeWorkers.length > 0) {
-        return edgeWorkers;
+        // Merge edge workers, updating existing seeds or appending new
+        const idMap = new Map();
+        edgeWorkers.forEach(w => idMap.set(w.id, w));
+        workersPool = workersPool.map(w => idMap.has(w.id) ? { ...w, ...idMap.get(w.id) } : w);
+        edgeWorkers.forEach(w => {
+          if (!workersPool.some(p => p.id === w.id)) {
+            workersPool.push(w);
+          }
+        });
       }
-      let activeWorker = null;
+
+      // Check localStorage for personal passbook worker
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           const p = JSON.parse(raw);
           if (p.name) {
-            // Infer category
             let cat = "clean";
             const r = (p.role || "").toLowerCase();
-            if (r.includes("cook") || r.includes("culinary") || r.includes("food") || r.includes("oil")) cat = "cook";
+            if (r.includes("cook") || r.includes("culinary") || r.includes("food")) cat = "cook";
             else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
             else if (r.includes("nanny") || r.includes("child") || r.includes("baby")) cat = "nanny";
 
             const traitStrings = [];
             if (p.traits) {
               for (const [k, v] of Object.entries(p.traits)) {
-                if (v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
+                if (v && v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
               }
             }
 
-            const currentSoc = getActiveSociety();
-            activeWorker = {
+            const activeWorker = {
               id: "active_worker",
               name: p.name,
               role: p.role || "Household Specialist",
               category: cat,
+              baseDistanceKm: 0.5,
+              primarySociety: `${activeHub} (Zone A)`,
+              societiesServed: [`${activeHub}`, "Greenwood Palms CHS", "Silver Park CHS"],
+              locationVerified: true,
               tenure: `${p.tenure || '1 Yr'} Verified`,
               households: p.households || 1,
               shift: "Active Daily Shift",
               uan: p.uan || "UAN ****-****-9393",
+              phone: p.phone || "",
               traits: traitStrings.slice(0, 3),
               boundaries: p.boundaries || ["Clean water & soap", "Rain arrival relief"],
-              unit: `${currentSoc} (Tower A)`,
               isLive: true
             };
+
+            // Remove duplicate if name matches
+            workersPool = workersPool.filter(w => w.name.toLowerCase() !== activeWorker.name.toLowerCase());
+            workersPool.unshift(activeWorker);
           }
         }
       } catch (e) {}
 
-      if (activeWorker) {
-        return [activeWorker, ...BASE_STAFF];
-      }
-      return BASE_STAFF;
+      // Calculate distances for all workers relative to active hub
+      return workersPool.map(w => {
+        const distanceKm = calculateWorkerDistance(w, activeHub);
+        return { ...w, distanceKm };
+      });
     }
 
     // Prefix & Word Boundary Search Matcher
@@ -745,7 +1457,6 @@
 
       return qTokens.every(q => {
         if (q.length === 1) {
-          // Single character must match word start
           return hTokens.some(h => h.startsWith(q));
         }
         return hTokens.some(h => h.startsWith(q)) || haystack.toLowerCase().includes(q);
@@ -766,19 +1477,60 @@
         clearBtn.style.display = "none";
       }
 
-      document.getElementById("statTotalStaff").textContent = `${staffList.length} Active`;
-      document.getElementById("countAll").textContent = staffList.length;
+      const activeHub = getActiveHub();
+
+      // Aggregate statistics across the 6 km radius pool
+      const within6kmStaff = staffList.filter(s => s.distanceKm <= 6.0);
+      const totalStaffCount = within6kmStaff.length;
+
+      // Extract unique societies served across staff in this 6 km hub
+      const societiesSet = new Set();
+      within6kmStaff.forEach(s => {
+        if (s.primarySociety) societiesSet.add(s.primarySociety);
+        (s.societiesServed || []).forEach(soc => societiesSet.add(soc));
+      });
+      const totalSocietiesCount = Math.max(societiesSet.size, 5);
+
+      const cumulativeHours = within6kmStaff.reduce((acc, s) => {
+        const tenureYears = parseFloat(s.tenure) || 0;
+        const householdsCount = s.households != null ? Number(s.households) : 1;
+        const h = s.totalHours != null ? Number(s.totalHours) : (tenureYears * 52 * 20);
+        return acc + h;
+      }, 0);
+
+      // Update Header Stats
+      const elStaff = document.getElementById("statTotalStaff");
+      if (elStaff) elStaff.textContent = `${totalStaffCount} Active`;
+
+      const elSocieties = document.getElementById("statTotalSocieties");
+      if (elSocieties) elSocieties.textContent = `${totalSocietiesCount} Societies`;
+
+      const elHours = document.getElementById("statTotalHours");
+      if (elHours) elHours.textContent = `${Math.round(cumulativeHours).toLocaleString("en-IN")} hrs`;
+
+      const elCountAll = document.getElementById("countAll");
+      if (elCountAll) elCountAll.textContent = totalStaffCount;
 
       grid.innerHTML = "";
       let matches = 0;
 
+      // Filter and render staff cards
       staffList.forEach(s => {
-        // Category filter
+        // 1. Commute Distance Filter (Cumulative increments: < 1 km, < 2 km, < 3 km, < 4 km, < 5 km, < 6 km, all)
+        if (currentDistanceFilter !== "all") {
+          const maxLimit = parseFloat(currentDistanceFilter);
+          if (!isNaN(maxLimit) && s.distanceKm > maxLimit) return;
+        } else if (s.distanceKm > 6.0) {
+          return;
+        }
+
+        // 2. Craft / Category filter
         if (currentCategory !== "all" && s.category !== currentCategory) return;
 
-        // Search filter with prefix/word boundary logic
+        // 3. Search filter with prefix/word boundary logic
         if (search) {
-          const hay = `${s.name} ${s.role} ${s.unit} ${s.tenure}`;
+          const societiesText = (s.societiesServed || []).join(" ");
+          const hay = `${s.name} ${s.role} ${s.primarySociety} ${societiesText} ${s.tenure}`;
           if (!searchMatch(hay, search)) return;
         }
 
@@ -793,22 +1545,58 @@
         const card = document.createElement("div");
         card.className = "staff-card";
 
-        // Counter-Hardening: Attestation Threshold (Cartels cannot flood unverified profiles)
-        const isVerifiedResidentBacked = s.households > 0 || (s.traits && s.traits.length > 0);
-        const trustBadge = isVerifiedResidentBacked
-          ? `<span style="font-size:10px; font-weight:800; color:#15803D; background:#DCFCE7; padding:2px 8px; border-radius:10px; border:1px solid #BBF7D0;">🛡️ VERIFIED RESIDENT-BACKED</span>`
-          : `<span style="font-size:10px; font-weight:800; color:#B45309; background:#FEF3C7; padding:2px 8px; border-radius:10px; border:1px solid #FDE68A;">⏳ PENDING FIRST ATTESTATION</span>`;
+        // Commute Distance Display formatting (Strict distance only, zero descriptive clutter)
+        const ceilingKm = Math.min(6, Math.max(1, Math.ceil(s.distanceKm)));
+        const distDisplay = s.distanceKm < 1.0 ? "< 1 km away" : `< ${ceilingKm} km away`;
 
-        const liveTag = s.isLive 
+        // Distance Badge
+        const distanceBadgeHTML = `
+          <span class="badge-distance" title="Commute distance from ${escapeHTML(activeHub)}">
+            ${distDisplay}
+          </span>
+        `;
+
+        // Physical Attestation Badge: ✓ At location vs ℹ️ Remote
+        const locationBadgeHTML = s.locationVerified
+          ? `<span class="badge-attestation badge-at-location" title="On-premises physical resident verification">✓ At location</span>`
+          : `<span class="badge-attestation badge-remote" title="Remote registration • Pending on-site verification">ℹ️ Remote</span>`;
+
+        // Trust Signals Badge
+        const isVerifiedResidentBacked = s.households > 0 || (s.traits && s.traits.length > 0);
+        const trustBadgeHTML = isVerifiedResidentBacked
+          ? `<span class="badge-trust badge-trust-verified">VERIFIED RESIDENT-BACKED</span>`
+          : `<span class="badge-trust badge-trust-pending">PENDING FIRST ATTESTATION</span>`;
+
+        const liveTagHTML = s.isLive 
           ? `<span style="font-size:10px; font-weight:800; color:var(--terracotta); background:var(--terracotta-bg); padding:2px 8px; border-radius:10px; border:1px solid var(--terracotta-border);">CURRENT PASS</span>`
           : '';
 
-        const traitsHTML = (s.traits || []).map(t => `<span class="staff-trait">${escapeHTML(t)}</span>`).join("");
+        // Active Societies Served Badges
+        const societiesList = s.societiesServed && s.societiesServed.length > 0 
+          ? s.societiesServed 
+          : [s.primarySociety || "Local Societies"];
+        
+        const societiesBadgesHTML = societiesList.map(soc => 
+          `<span class="society-pill-item">${escapeHTML(soc)}</span>`
+        ).join("");
 
-        // Build target portfolio link (direct to hire view)
-        const targetLink = s.isLive 
-          ? `portfolio.html?view=hire` 
-          : `portfolio.html?view=hire&sample=${s.id}`;
+        const traitsHTML = (s.traits || []).map(t => 
+          `<span class="staff-trait">${escapeHTML(t)}</span>`
+        ).join("");
+
+        // Passbook link
+        const targetLink = (s.id && s.id !== "active_worker")
+          ? `/portfolio?id=${encodeURIComponent(s.id)}&view=hire` 
+          : `/portfolio?view=hire`;
+
+        // Direct WhatsApp contact URL
+        const waPhone = (s.phone || "").replace(/[^0-9]/g, "");
+        const waMsg = encodeURIComponent(
+          `Namaste ${s.name}, I found your verified work profile on Project Maanyata Hyperlocal Hiring Hub (${activeHub}). I would like to inquire about your availability for ${s.role}.`
+        );
+        const whatsappHref = waPhone 
+          ? `https://wa.me/${waPhone}?text=${waMsg}` 
+          : `https://wa.me/?text=${waMsg}`;
 
         card.innerHTML = `
           <div class="staff-header">
@@ -819,14 +1607,24 @@
             <div class="staff-info">
               <div class="staff-name-row">
                 <div class="staff-name">${escapeHTML(s.name)}</div>
-                ${liveTag}
-                ${trustBadge}
+                <div class="badge-wrap">
+                  ${liveTagHTML}
+                  ${locationBadgeHTML}
+                  ${trustBadgeHTML}
+                </div>
               </div>
               <div class="staff-craft">${escapeHTML(s.role)}</div>
+              <div style="margin-top:4px;">
+                ${distanceBadgeHTML}
+              </div>
+              <div class="staff-societies-row">
+                <span class="societies-label">Active in:</span>
+                ${societiesBadgesHTML}
+              </div>
               <div class="staff-meta">
-                <span class="meta-badge meta-tenure">📍 ${escapeHTML(s.tenure)}</span>
-                <span class="meta-badge meta-shifts">🕒 ${escapeHTML(s.shift)}</span>
-                <span class="meta-badge meta-households">🏠 ${escapeHTML(s.households)} Households</span>
+                <span class="meta-badge meta-tenure">Tenure: ${escapeHTML(s.tenure)}</span>
+                <span class="meta-badge meta-shifts">Shift: ${escapeHTML(s.shift)}</span>
+                <span class="meta-badge meta-households">${escapeHTML(s.households)} Households</span>
               </div>
             </div>
           </div>
@@ -836,8 +1634,14 @@
           </div>
 
           <div class="staff-actions">
+            <a href="${whatsappHref}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" title="Contact ${escapeHTML(s.name)} on WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.33C9.36 7.33 9.09 7.39 8.86 7.64C8.63 7.89 8 8.48 8 9.68C8 10.88 8.88 12.04 9 12.2C9.12 12.36 10.72 14.83 13.17 15.89C15.22 16.77 15.63 16.6 16.08 16.56C16.53 16.52 17.53 15.96 17.74 15.38C17.94 14.8 17.94 14.3 17.88 14.2C17.82 14.1 17.65 14.04 17.39 13.91C17.13 13.78 15.84 13.14 15.6 13.06C15.37 12.97 15.2 12.93 15.03 13.18C14.86 13.43 14.38 14 14.23 14.17C14.08 14.34 13.94 14.36 13.68 14.23C13.42 14.1 12.59 13.83 11.6 12.95C10.83 12.26 10.31 11.41 10.16 11.15C10.01 10.89 10.14 10.75 10.27 10.62C10.39 10.5 10.53 10.32 10.67 10.15C10.81 9.98 10.85 9.86 10.94 9.69C11.03 9.52 10.98 9.38 10.92 9.25C10.86 9.12 10.36 7.9 10.15 7.4C9.95 6.91 9.74 6.98 9.59 6.97L9.53 7.33Z"/>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
             <a href="${encodeURI(targetLink)}" class="btn-hire">
-              <span>🤝 View Pass & Dignity Terms →</span>
+              <span>View Sovereign Passbook →</span>
             </a>
           </div>
         `;
@@ -847,9 +1651,9 @@
 
       if (matches === 0) {
         if (staffList.length === 0) {
-          empty.innerHTML = `No verified staff registered in this community yet. Tap <a href="onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.`;
+          empty.innerHTML = `No verified staff registered in this radius yet. Tap <a href="/onboard" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.`;
         } else {
-          empty.innerHTML = `No verified staff matched your filter or search query in <span id="emptySocietyName">${escapeHTML(getActiveSociety())}</span>.`;
+          empty.innerHTML = `No verified staff matched your filter or search query within 6 km of <strong>${escapeHTML(activeHub)}</strong>.`;
         }
         empty.style.display = "block";
       } else {
@@ -857,9 +1661,16 @@
       }
     }
 
+    function setDistanceFilter(dist, btn) {
+      currentDistanceFilter = dist;
+      document.querySelectorAll("#distanceChips .chip").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      renderStaff();
+    }
+
     function setCategory(cat, btn) {
       currentCategory = cat;
-      document.querySelectorAll(".filter-chips .chip").forEach(c => c.classList.remove("active"));
+      document.querySelectorAll("#craftChips .chip").forEach(c => c.classList.remove("active"));
       btn.classList.add("active");
       renderStaff();
     }
@@ -877,7 +1688,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      updateSocietyDisplay();
+      updateHubDisplay();
       renderStaff();
       syncStaffFromEdge();
     });

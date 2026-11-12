@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "description": "Project Maanyata Pages Route Configuration - Intercept API only",
+  "include": [
+    "/api/*"
+  ],
+  "exclude": []
+}

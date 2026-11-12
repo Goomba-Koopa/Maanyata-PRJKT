@@ -5,7 +5,7 @@ import {
   isValidResidenceUnit,
   normalizeUnit,
   maskUnit
-} from "./functions/api/_common.js";
+} from "../functions/api/_common.js";
 
 console.log("=== RUNNING EDGE DEFENSE UNIT TESTS ===");
 
@@ -74,9 +74,10 @@ test("Dummy garbage inputs fail", () => {
   if (isValidResidenceUnit("none")) throw new Error("none should fail");
 });
 
-test("Privacy masking masks flat number accurately", () => {
+test("Privacy masking suppresses flat number and preserves society", () => {
   const masked = maskUnit("Flat B-402, Maryland Palms CHS");
-  if (!masked.includes("B-***")) throw new Error(`Expected B-***, got ${masked}`);
+  if (masked.includes("B-402") || masked.includes("402")) throw new Error(`Expected flat number to be purged, got ${masked}`);
+  if (!masked.includes("Maryland Palms CHS")) throw new Error(`Expected Maryland Palms CHS, got ${masked}`);
 });
 
 console.log(`\nResults: ${passed}/${total} passed`);

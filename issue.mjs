@@ -85,7 +85,7 @@ function verifyToken(token) {
   const data = JSON.parse(Buffer.from(body, "base64url").toString());
   const now = Math.floor(Date.now() / 1000);
   if (data.exp < now) {
-    console.log("⚠️ TOKEN EXPIRED on:", new Date(data.exp * 1000).toISOString());
+    console.log("[WARN] TOKEN EXPIRED on:", new Date(data.exp * 1000).toISOString());
     return false;
   }
   console.log("✅ LIVE & VERIFIED PASS");
