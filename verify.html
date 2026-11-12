@@ -883,7 +883,11 @@
 
       renderHud("idle", "Starting camera... Point at worker passport or e-Aadhaar QR");
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" }
+        video: {
+          facingMode: "environment",
+          width: { ideal: 1920, min: 1280 },
+          height: { ideal: 1080, min: 720 }
+        }
       });
       activeStream = stream;
       video.srcObject = stream;
@@ -896,16 +900,52 @@
         Stop Camera
       `;
 
-      const tick = () => {
+      // Hardware BarcodeDetector (iOS 17+ / Android Chrome)
+      let nativeDetector = null;
+      try {
+        const DetectorClass = (typeof BarcodeDetector !== "undefined") ? BarcodeDetector : 
+                              ((typeof window !== "undefined" && window.BarcodeDetector) ? window.BarcodeDetector : null);
+        if (DetectorClass) {
+          nativeDetector = new DetectorClass({ formats: ["qr_code"] });
+        }
+      } catch (e) {}
+
+      const tick = async () => {
         if (!isScanning) return;
         if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          // Pass 1: Hardware-accelerated detector (handles dense Aadhaar QRs)
+          if (nativeDetector) {
+            try {
+              const barcodes = await nativeDetector.detect(video);
+              if (barcodes && barcodes.length > 0 && barcodes[0].rawValue) {
+                stopScanner();
+                document.getElementById("manual").value = barcodes[0].rawValue;
+                return checkCode(barcodes[0].rawValue);
+              }
+            } catch (e) {}
+          }
+
+          // Pass 2: jsQR full frame fallback
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const code = jsQR(img.data, img.width, img.height, {
+          let code = jsQR(img.data, img.width, img.height, {
             inversionAttempts: "dontInvert"
           });
+
+          // Pass 3: Center-crop zoom for dense QR held at close distance
+          if (!code && canvas.width >= 600) {
+            const cw = Math.round(canvas.width * 0.55);
+            const ch = Math.round(canvas.height * 0.55);
+            const cx = Math.round((canvas.width - cw) / 2);
+            const cy = Math.round((canvas.height - ch) / 2);
+            const centerData = ctx.getImageData(cx, cy, cw, ch);
+            code = jsQR(centerData.data, cw, ch, {
+              inversionAttempts: "dontInvert"
+            });
+          }
+
           if (code && code.data) {
             stopScanner();
             document.getElementById("manual").value = code.data;

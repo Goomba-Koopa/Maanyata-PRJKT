@@ -617,14 +617,32 @@
       const canvas = document.getElementById("aadhaarScanCanvas");
       try {
         aadhaarCamStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } }
+          video: { facingMode: "environment", width: { ideal: 1920, min: 1280 }, height: { ideal: 1080, min: 720 } }
         });
         video.srcObject = aadhaarCamStream;
         box.style.display = "block";
 
+        let nativeDetector = null;
+        try {
+          const DetectorClass = (typeof BarcodeDetector !== "undefined") ? BarcodeDetector : 
+                                ((typeof window !== "undefined" && window.BarcodeDetector) ? window.BarcodeDetector : null);
+          if (DetectorClass) nativeDetector = new DetectorClass({ formats: ["qr_code"] });
+        } catch (e) {}
+
         aadhaarScanInterval = setInterval(async () => {
           if (typeof AadhaarVerifier !== "undefined") {
-            const rawCode = AadhaarVerifier.scanVideoFrame(video, canvas);
+            let rawCode = null;
+            if (nativeDetector) {
+              try {
+                const barcodes = await nativeDetector.detect(video);
+                if (barcodes && barcodes.length > 0 && barcodes[0].rawValue) {
+                  rawCode = barcodes[0].rawValue;
+                }
+              } catch (e) {}
+            }
+            if (!rawCode) {
+              rawCode = AadhaarVerifier.scanVideoFrame(video, canvas);
+            }
             if (rawCode) {
               try {
                 const verified = await AadhaarVerifier.decodeAndVerify(rawCode);
@@ -633,7 +651,7 @@
               } catch (e) {}
             }
           }
-        }, 250);
+        }, 200);
       } catch (err) {
         alert("Camera unavailable for Aadhaar scanning. You can upload an image or click Sample Aadhaar.");
       }

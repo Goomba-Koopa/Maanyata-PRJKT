@@ -471,21 +471,40 @@
   // 1. Scan image file (photo upload via <input type="file">)
   async function scanImageFile(fileOrBlob) {
     if (!fileOrBlob) throw new Error("No file provided for scanning");
-    if (typeof jsQR === "undefined" && !global.jsQR) {
-      throw new Error("jsQR scanning library is required but not loaded");
-    }
-    const scanner = global.jsQR || jsQR;
 
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = async function (e) {
         const img = new Image();
         img.onload = async function () {
           try {
+            // PASS 1: Native Hardware BarcodeDetector (iOS 17+ Apple Vision / Android Chrome)
+            // Resolves dense Version 25-40 Aadhaar matrices in milliseconds on device GPU/NPU
+            const DetectorClass = (typeof BarcodeDetector !== "undefined") ? BarcodeDetector : 
+                                  ((typeof window !== "undefined" && window.BarcodeDetector) ? window.BarcodeDetector : null);
+            if (DetectorClass) {
+              try {
+                const detector = new DetectorClass({ formats: ["qr_code"] });
+                const barcodes = await detector.detect(img);
+                if (barcodes && barcodes.length > 0 && barcodes[0].rawValue) {
+                  const verifiedResult = await decodeAndVerify(barcodes[0].rawValue);
+                  return resolve(verifiedResult);
+                }
+              } catch (detErr) {
+                // Fall through to canvas passes
+              }
+            }
+
+            // PASS 2: Canvas multi-scale jsQR (Full-Res & Contrast Enhanced)
+            if (typeof jsQR === "undefined" && !global.jsQR && (typeof window === "undefined" || !window.jsQR)) {
+              throw new Error("QR scanning library failed to detect code");
+            }
+            const scanner = global.jsQR || (typeof window !== "undefined" && window.jsQR) || jsQR;
+
             const canvas = document.createElement("canvas");
             let width = img.naturalWidth || img.width;
             let height = img.naturalHeight || img.height;
-            const maxDim = 1600;
+            const maxDim = 2400; // Preserves high-density matrix modules
             if (width > maxDim || height > maxDim) {
               if (width > height) {
                 height = Math.round((height * maxDim) / width);
@@ -497,14 +516,32 @@
             }
             canvas.width = width;
             canvas.height = height;
-            const ctx = canvas.getContext("2d");
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
             ctx.drawImage(img, 0, 0, width, height);
             const imageData = ctx.getImageData(0, 0, width, height);
-            const code = scanner(imageData.data, imageData.width, imageData.height, {
+            let code = scanner(imageData.data, imageData.width, imageData.height, {
               inversionAttempts: "attemptBoth"
             });
+
+            // PASS 3: Center-crop zoom pass (60% center box)
             if (!code || !code.data) {
-              return reject(new Error("No QR code detected in the uploaded image. Please ensure good lighting and clear focus."));
+              const cropW = Math.round(width * 0.60);
+              const cropH = Math.round(height * 0.60);
+              const cropX = Math.round((width - cropW) / 2);
+              const cropY = Math.round((height - cropH) / 2);
+              const cropCanvas = document.createElement("canvas");
+              cropCanvas.width = cropW;
+              cropCanvas.height = cropH;
+              const cropCtx = cropCanvas.getContext("2d", { willReadFrequently: true });
+              cropCtx.drawImage(canvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+              const cropData = cropCtx.getImageData(0, 0, cropW, cropH);
+              code = scanner(cropData.data, cropW, cropH, {
+                inversionAttempts: "attemptBoth"
+              });
+            }
+
+            if (!code || !code.data) {
+              return reject(new Error("No QR code detected in the uploaded image. Aadhaar cards use ultra-dense QRs; please upload a clear, well-lit close-up photo, or enter credentials directly."));
             }
             const verifiedResult = await decodeAndVerify(code.data);
             resolve(verifiedResult);
@@ -523,8 +560,8 @@
   // 2. Scan frame from video element
   function scanVideoFrame(videoElement, canvasElement) {
     if (!videoElement || !canvasElement) return null;
-    if (typeof jsQR === "undefined" && !global.jsQR) return null;
-    const scanner = global.jsQR || jsQR;
+    if (typeof jsQR === "undefined" && !global.jsQR && (typeof window === "undefined" || !window.jsQR)) return null;
+    const scanner = global.jsQR || (typeof window !== "undefined" && window.jsQR) || jsQR;
 
     if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
       canvasElement.width = videoElement.videoWidth;
@@ -532,8 +569,19 @@
       const ctx = canvasElement.getContext("2d", { willReadFrequently: true });
       ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
       const img = ctx.getImageData(0, 0, canvasElement.width, canvasElement.height);
-      const code = scanner(img.data, img.width, img.height, {
-        inversionAttempts: "dontInvert"
+      let code = scanner(img.data, img.width, img.height, {
+        inversionAttempts: "attemptBoth"
+      });
+      if (code && code.data) return code.data;
+
+      // Try center crop (50% center box) for dense QRs held close
+      const cw = Math.round(canvasElement.width * 0.5);
+      const ch = Math.round(canvasElement.height * 0.5);
+      const cx = Math.round((canvasElement.width - cw) / 2);
+      const cy = Math.round((canvasElement.height - ch) / 2);
+      const centerData = ctx.getImageData(cx, cy, cw, ch);
+      code = scanner(centerData.data, cw, ch, {
+        inversionAttempts: "attemptBoth"
       });
       return code ? code.data : null;
     }
