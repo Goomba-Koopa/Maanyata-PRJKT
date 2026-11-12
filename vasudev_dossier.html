@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vasudev Complex CHS — Bonded Trust & Workforce Verification Dossier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
        PRINT-OPTIMIZED A4 DOSSIER STYLING
@@ -34,7 +37,7 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--ink-dark);
       background: #F1F5F9;
       margin: 0;
@@ -100,7 +103,7 @@
     }
 
     .society-name {
-      font-family: "Georgia", "Times New Roman", serif;
+      font-family: "Outfit", sans-serif;
       font-size: 15pt;
       font-weight: 800;
       color: var(--ink-black);
@@ -124,15 +127,15 @@
     }
 
     .dossier-badge {
-      border: 1.5px solid var(--brand-rust);
-      background: var(--brand-rust-light);
-      color: var(--brand-rust);
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      color: var(--ink-dark);
       font-size: 8pt;
-      font-weight: 800;
-      padding: 4px 10px;
+      font-weight: 700;
+      padding: 4px 8px;
       border-radius: 4px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-align: right;
     }
 
@@ -168,7 +171,7 @@
     }
 
     h2 {
-      font-family: "Georgia", "Times New Roman", serif;
+      font-family: "Outfit", sans-serif;
       font-size: 11.5pt;
       font-weight: 800;
       color: var(--ink-black);
@@ -224,6 +227,7 @@
     }
 
     table.dossier-table th {
+      font-family: "Outfit", sans-serif;
       background: #0F172A;
       color: #FFFFFF;
       font-weight: 700;
@@ -245,7 +249,7 @@
       background: var(--table-stripe);
     }
 
-    .chai-highlight-row td {
+    .chai-highlight-row td, .highlight-row td {
       background: var(--ok-green-bg) !important;
       font-weight: 700;
       color: var(--ok-green) !important;
@@ -258,8 +262,7 @@
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
     }
 
     .pill-green {
@@ -276,8 +279,8 @@
 
     /* Plaque Visual Spec */
     .plaque-spec-box {
-      border: 2px solid #D97706;
-      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 1.5px solid #D97706;
+      background: #FFFBEB;
       border-radius: 8px;
       padding: 12px 16px;
       margin: 12px 0;
@@ -288,6 +291,7 @@
     }
 
     .plaque-title {
+      font-family: "Outfit", sans-serif;
       font-size: 11pt;
       font-weight: 800;
       color: #92400E;
@@ -443,11 +447,14 @@
       </p>
 
       <!-- Section 2 -->
-      <h2><span class="section-num">2.0</span> Statutory Justification: MCS Act 1960 Sec 81 & Model Bye-Laws</h2>
+      <h2><span class="section-num">2.0</span> Statutory Authority: MCS Act 1960 Sec 81(1)(a) & Model Bye-Laws</h2>
       <div class="statutory-callout">
-        <div class="statutory-title">Maharashtra Co-operative Societies Act, 1960 — Section 81 & Bye-laws 160–168</div>
-        <p style="margin: 0; font-size: 8.5pt;">
-          Section 81 mandates periodic administrative and financial audits, holding office bearers strictly liable for vigilance failures, negligence in premises maintenance, and unauthorized service vendor disbursements. Model Bye-law 160 establishes the Committee’s affirmative duty to enforce security protocols for domestic staff without inflicting unlawful discrimination or privacy infringement.
+        <div class="statutory-title">Maharashtra Co-operative Societies Act, 1960 — Section 81(1)(a) Statutory Audit Mandate</div>
+        <p style="margin: 0 0 6px 0; font-size: 8.5pt; font-style: italic; color: var(--ink-black); line-height: 1.45;">
+          "The society shall cause its accounts to be audited at least once in each financial year... audit shall include an examination of overdue debts, if any, the verification of the cash balance and securities, a valuation of the assets and liabilities, and an examination of the statutory registers and records of the society."
+        </p>
+        <p style="margin: 0; font-size: 8.5pt; color: var(--ink-dark);">
+          <strong>Managing Committee Legal Responsibility:</strong> Section 81 holds office bearers strictly accountable for administrative audit compliance, maintenance of authentic workforce registers, and prevention of negligent disbursements. Model Bye-law 160 establishes the Committee’s affirmative statutory duty to maintain verified premises security for domestic personnel while adhering strictly to privacy mandates.
         </p>
       </div>
       <p>
@@ -455,7 +462,7 @@
       </p>
 
       <!-- Section 3 -->
-      <h2><span class="section-num">3.0</span> "Cutting Chai" Economic Model: ₹5.20 / Flat / Month</h2>
+      <h2><span class="section-num">3.0</span> Society Annual Compliance & Unit Economics: ₹5.20 / Flat / Month</h2>
       <p>
         Vasudev Complex operates on a disciplined maintenance budget. Commercial gate security vendors quote between ₹18,000 and ₹36,000 annually for proprietary SaaS logins with recurrent hardware lock-in. Project Maanyata deploys on an open-architecture, sovereign flat fee:
       </p>
@@ -488,11 +495,11 @@
             <td>₹4,999.00 ÷ 12 months</td>
             <td>Negligible Maintenance Impact</td>
           </tr>
-          <tr class="chai-highlight-row">
-            <td><strong>Net Household Burden ("Cutting Chai")</strong></td>
+          <tr class="highlight-row">
+            <td><strong>Net Household Allocation</strong></td>
             <td><strong>₹5.20 / flat / month</strong></td>
-            <td><strong>₹416.58 ÷ 80 residential flats</strong></td>
-            <td><strong>&lt; Half of One Local Chai (₹12)</strong></td>
+            <td><strong>₹416.58 ÷ 80 residential flats (₹62.49/yr)</strong></td>
+            <td><strong>Standard Household Contribution (₹0.17 / day)</strong></td>
           </tr>
           <tr>
             <td><strong>Cluster Reserve Pool (15%)</strong></td>
@@ -596,11 +603,11 @@
         <div>
           <div class="plaque-title">Architectural Brushed Brass Plaque (12 × 8 in)</div>
           <div class="plaque-details">
-            • <strong>Material:</strong> Marine-grade 2.5 mm solid architectural brushed brass.<br>
-            • <strong>Engraving:</strong> High-precision fiber laser deep-etched with matte-black chemical oxidation fill.<br>
-            • <strong>High-Contrast 2D QR:</strong> Encodes sovereign complex gate verification URL (readable in direct sunlight by budget CMOS cameras).<br>
-            • <strong>Tamper-Proof Mounting:</strong> 4 corner 316-grade stainless steel security standoffs with anti-vandal one-way drive screws anchored directly into main gate granite masonry.<br>
-            • <strong>Weather Resistance:</strong> Dual-coat automotive hydrophobic UV lacquer; impervious to monsoon salt-fog corrosion.
+            • <strong>Material:</strong> Solid 2.5 mm architectural brushed brass plate.<br>
+            • <strong>Engraving:</strong> High-precision fiber laser deep-etched with matte-black permanent fill.<br>
+            • <strong>High-Contrast 2D QR:</strong> Encodes complex gate verification URL (readable in direct sunlight by budget phone cameras).<br>
+            • <strong>Tamper-Resistant Mounting:</strong> 4 corner stainless steel standoffs anchored directly into gate masonry.<br>
+            • <strong>Weather Resistance:</strong> Weatherproof protective lacquer for outdoor monsoon durability.
           </div>
         </div>
         <div class="plaque-qr-mock" style="text-align: center; background: #FFFFFF; padding: 6px; border: 1.5px solid #CBD5E1; border-radius: 8px;">
