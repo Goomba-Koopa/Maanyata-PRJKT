@@ -763,12 +763,16 @@
       "i"
     );
 
-    // Residence Grammar Validator: Rejects spam dummy entries like 'ff', 'asdf'
+    // Residence Grammar Validator: Rejects spam dummy entries and meme/toxic injections
     function isValidResidenceUnit(unitStr, societyStr = "") {
       if (!unitStr) return false;
       const s = stripZeroWidth(unitStr);
       if (s.length < 3 || s.length > 90) return false;
       if (/^(test|asdf|qwerty|none|na|null|undefined|ff|xxx|aaa)$/i.test(s)) return false;
+
+      // Anti-Meme / Anti-Defamation Lexicon Guard
+      const MEME_BAN_REGEX = /\b(diddy|epstein|skibidi|rizz|onlyfans|porn|freak|pedo|penis|boob|sex|escort|hooker|weed|ganja|party\s*suite)\b/i;
+      if (MEME_BAN_REGEX.test(s)) return false;
       
       const full = `${s} ${societyStr}`.trim();
       if (/vasudev/i.test(full)) {

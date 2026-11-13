@@ -192,20 +192,34 @@
       .trim();
   };
 
-  // Context-Aware Privacy Masking
+  // Context-Aware Privacy Masking (Anti-Taxidermy & Anti-Meme Hardened)
   const maskUnit = (unitStr) => {
     if (!unitStr) return "Resident Attestation";
     const s = String(unitStr).trim();
     if (/^(row\s*house|bungalow|villa|plot|kothi|cottage)\b/i.test(s)) {
-      return s.replace(/\d+.*$/, "** (Private Residence)");
+      return "Private Residence (***)";
     }
     if (/^(room|chawl|pada|gala|wadi)\b/i.test(s)) {
       return "Local Resident Attestation";
     }
-    return s
-      .replace(/(^|\s|,)\b\d{2,4}\b/g, "$1***")
-      .replace(/\b([A-Za-z0-9]+)-(\d{2,4})\b/g, "$1-***")
-      .replace(/\b(flat|room|unit)\s*\d+/gi, "$1 ***");
+
+    // Preserve registered society suffix if present (e.g. ", Vasudev Complex")
+    const societySuffixMatch = s.match(/,\s*([A-Za-z0-9\s]+(?:chs|complex|palms|society|enclave|heights|residency))\b/i);
+    const societySuffix = societySuffixMatch ? `, ${societySuffixMatch[1].trim()}` : "";
+
+    // Extract strictly structured Wing and Unit components, purging any free-text meme strings
+    const wingMatch = s.match(/\b(?:wing|bldg|building|tower|block)?\s*([A-Za-z])\b/i);
+    const flatMatch = s.match(/\b(?:flat|unit|room|g-)?\s*(\d{1,4})\b/i) || s.match(/\b([A-Za-z])-?(\d{1,4})\b/i);
+
+    const wing = wingMatch ? wingMatch[1].toUpperCase() : (flatMatch && flatMatch[1] && isNaN(flatMatch[1]) ? flatMatch[1].toUpperCase() : "");
+    
+    if (wing) {
+      return `Flat ${wing}-***${societySuffix}`;
+    }
+    if (flatMatch) {
+      return `Flat ***${societySuffix}`;
+    }
+    return `Resident Unit (***)${societySuffix}`;
   };
 
   // Cryptographic 8-Character Sovereign Fingerprint
