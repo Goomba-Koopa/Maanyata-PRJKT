@@ -1369,10 +1369,24 @@
         if (!Array.isArray(portfolio.references)) portfolio.references = [];
         portfolio.references.unshift(newRef);
         portfolio.households = (parseInt(portfolio.households) || 0) + 1;
-        const existingYears = parseFloat(portfolio.tenure) || 0;
-        if (currentPending.payload.tenureYears > existingYears) {
-          portfolio.tenure = `${currentPending.payload.tenureYears} Yrs`;
+
+        // Calendar Span Union Invariant (Consistent Across Online & Offline):
+        // Compute span from earliest verified startYear to currentYear
+        const validStartYears = portfolio.references
+          .map(r => parseInt(r.startYear, 10))
+          .filter(y => !isNaN(y) && y > 1990 && y <= new Date().getFullYear());
+        
+        if (validStartYears.length > 0) {
+          const earliestYear = Math.min(...validStartYears);
+          const computedSpan = Math.max(1, new Date().getFullYear() - earliestYear);
+          portfolio.tenure = `${computedSpan} Yrs`;
+        } else {
+          const existingYears = parseFloat(portfolio.tenure) || 0;
+          if (currentPending.payload.tenureYears > existingYears) {
+            portfolio.tenure = `${currentPending.payload.tenureYears} Yrs`;
+          }
         }
+
         if (Array.isArray(currentPending.payload.traits)) {
           if (!portfolio.traits) portfolio.traits = {};
           currentPending.payload.traits.forEach(t => {
@@ -1381,6 +1395,24 @@
           });
         }
         savePortfolio();
+
+        // Dual-Store Sync: Sync to MaanyataStore if loaded
+        if (window.MaanyataStore && window.MaanyataStore.workers) {
+          try {
+            window.MaanyataStore.workers.get(currentPending.payload.workerId).then(existingWorker => {
+              if (existingWorker) {
+                const updatedRefs = existingWorker.references || [];
+                updatedRefs.unshift(newRef);
+                window.MaanyataStore.workers.save({
+                  ...existingWorker,
+                  references: updatedRefs,
+                  households: (existingWorker.households || 0) + 1,
+                  tenure: portfolio.tenure
+                });
+              }
+            }).catch(() => {});
+          } catch (e) {}
+        }
       }
 
       if (submitBtn) {

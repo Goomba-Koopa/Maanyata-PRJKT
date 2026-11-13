@@ -53,8 +53,17 @@
   }
 
   // Compute SHA-256 hash using WebCrypto SubtleCrypto, Node crypto, or standard pure JS fallback
-  // FIPS 180-4 / RFC 6234 standard pure JS SHA-256 fallback
-  function sha256PureJs(ascii) {
+  // FIPS 180-4 / RFC 6234 standard pure JS SHA-256 fallback (UTF-8 binary safe)
+  function sha256PureJs(inputStr) {
+    // Inoculate against multi-byte UTF-16 code units (e.g. Devanagari, regional names)
+    // Convert string to canonical binary UTF-8 octet string
+    let ascii = "";
+    try {
+      ascii = unescape(encodeURIComponent(inputStr));
+    } catch (e) {
+      ascii = String(inputStr);
+    }
+
     const mathPow = Math.pow;
     const maxWord = mathPow(2, 32);
     let i, j, result = "";
@@ -72,7 +81,7 @@
       }
     }
     for (i = 0; i < ascii.length; i++) {
-      words[i >> 2] |= ascii.charCodeAt(i) << (24 - (i % 4) * 8);
+      words[i >> 2] |= (ascii.charCodeAt(i) & 0xFF) << (24 - (i % 4) * 8);
     }
     words[ascii.length >> 2] |= 128 << (24 - (ascii.length % 4) * 8);
     words[(((ascii.length + 8) >> 6) + 1) * 16 - 1] = asciiBitLength;
