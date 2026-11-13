@@ -330,11 +330,74 @@
           <input type="text" id="resSocietyCustom" class="form-input" style="display:none; margin-top:8px;" placeholder="Enter Registered Society Name (e.g. Royal Complex CHS)">
         </div>
 
-        <!-- Flat / Household -->
+        <!-- Flat / Household (Anti-Defamation Deterministic Unit Selector) -->
         <div class="form-group">
-          <label class="form-label" for="resHousehold">Your Wing & Flat / Unit Number</label>
-          <input type="text" id="resHousehold" class="form-input" placeholder="e.g. Flat B-204, G-1, or Unit 001" required autocomplete="off">
-          <div class="form-hint" id="resHouseholdHint">Supports apartments, bungalows, and row houses. Verified against society plan. Privacy-masked on public passes.</div>
+          <label class="form-label">Your Wing & Flat / Unit Number</label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <div>
+              <label for="resWing" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Wing / Block</label>
+              <select id="resWing" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
+                <option value="A">Wing A</option>
+                <option value="B" selected>Wing B</option>
+                <option value="C">Wing C</option>
+                <option value="D">Wing D</option>
+                <option value="E">Wing E</option>
+                <option value="F">Wing F</option>
+                <option value="G">Wing G</option>
+                <option value="H">Wing H</option>
+                <option value="Tower 1">Tower 1</option>
+                <option value="Tower 2">Tower 2</option>
+                <option value="Row House">Row House</option>
+                <option value="Bungalow">Bungalow</option>
+              </select>
+            </div>
+            <div>
+              <label for="resFloor" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Floor</label>
+              <select id="resFloor" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
+                <option value="G">Ground</option>
+                <option value="1">1st Floor</option>
+                <option value="2">2nd Floor</option>
+                <option value="3">3rd Floor</option>
+                <option value="4" selected>4th Floor</option>
+                <option value="5">5th Floor</option>
+                <option value="6">6th Floor</option>
+                <option value="7">7th Floor</option>
+                <option value="8">8th Floor</option>
+                <option value="9">9th Floor</option>
+                <option value="10">10th Floor</option>
+                <option value="11">11th Floor</option>
+                <option value="12">12th Floor</option>
+                <option value="13">13th Floor</option>
+                <option value="14">14th Floor</option>
+                <option value="15">15th Floor</option>
+                <option value="16">16th Floor</option>
+                <option value="17">17th Floor</option>
+                <option value="18">18th Floor</option>
+                <option value="19">19th Floor</option>
+                <option value="20">20th Floor</option>
+                <option value="21">21st Floor</option>
+                <option value="22">22nd Floor</option>
+              </select>
+            </div>
+            <div>
+              <label for="resFlatNum" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Flat / Unit</label>
+              <select id="resFlatNum" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
+                <option value="01">01</option>
+                <option value="02" selected>02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+              </select>
+            </div>
+          </div>
+          <!-- Hidden synthesized canonical unit passed to storage and guards -->
+          <input type="hidden" id="resHousehold" value="Flat B-402">
+          <div class="form-hint" id="resHouseholdHint" style="margin-top:6px; font-weight:600; color:#0284C7;">
+            Selected Canonical Address: <span id="resHouseholdPreview" style="font-weight:800; color:#0F172A;">Flat B-402</span> (Privacy-masked on public passes)
+          </div>
         </div>
 
         <!-- Resident Peer Callback (Anti-Sybil Grounding) -->
@@ -718,32 +781,45 @@
         .trim();
     }
 
+    // Canonical Household Unit Synthesizer (No-Keyboard Deterministic Engine)
+    function syncHouseholdUnit() {
+      const wingEl = document.getElementById("resWing");
+      const floorEl = document.getElementById("resFloor");
+      const flatEl = document.getElementById("resFlatNum");
+      const targetInput = document.getElementById("resHousehold");
+      const preview = document.getElementById("resHouseholdPreview");
+
+      if (!wingEl || !floorEl || !flatEl || !targetInput) return;
+
+      const wing = wingEl.value;
+      const floor = floorEl.value;
+      const flat = flatEl.value;
+
+      let canonical = "";
+      if (wing === "Row House" || wing === "Bungalow") {
+        canonical = `${wing} ${floor === "G" ? "Ground" : floor}-${flat}`;
+      } else {
+        const floorPrefix = floor === "G" ? "G" : floor;
+        canonical = `Flat ${wing}-${floorPrefix}${flat}`;
+      }
+
+      targetInput.value = canonical;
+      if (preview) preview.textContent = canonical;
+    }
+
     // Dynamic Society Hint Updater
     function onSocietyChange() {
       const soc = document.getElementById("resSociety").value;
       const customInput = document.getElementById("resSocietyCustom");
-      const hint = document.getElementById("resHouseholdHint");
-      const householdInput = document.getElementById("resHousehold");
 
       if (soc === "OTHER") {
         customInput.style.display = "block";
         customInput.required = true;
-        hint.textContent = "Specify your registered society and flat number (e.g. Flat B-402, Royal Complex CHS).";
-        householdInput.placeholder = "e.g. Flat B-402, Building 4";
       } else {
         customInput.style.display = "none";
         customInput.required = false;
-        if (soc === "Vasudev Complex") {
-          hint.textContent = "Verified Vasudev Complex: Wings A to G. Supports G-1, 001, Flat 101-404.";
-          householdInput.placeholder = "e.g. G-1, 001 or Flat B-203";
-        } else if (soc === "Maryland Palms CHS") {
-          hint.textContent = "Verified Maryland Palms: Wings A, B, C, D (Flats 101 to 704).";
-          householdInput.placeholder = "e.g. Flat B-402";
-        } else {
-          hint.textContent = `Verified ${soc}. Flat number privacy-masked on public passes.`;
-          householdInput.placeholder = "e.g. Flat A-202";
-        }
       }
+      syncHouseholdUnit();
     }
 
     // Strict Content Safety Guard: Slurs, profanity, and defamatory accusations banned
@@ -900,6 +976,21 @@
 
       if (urlUnit) {
         document.getElementById("resHousehold").value = urlUnit;
+        const preview = document.getElementById("resHouseholdPreview");
+        if (preview) preview.textContent = urlUnit;
+        
+        // Attempt to parse wing, floor, flat into selects if formatted like Flat B-402
+        const m = urlUnit.match(/Flat\s+([A-Za-z])-(G|\d)(\d{2})/i);
+        if (m) {
+          const wEl = document.getElementById("resWing");
+          const flEl = document.getElementById("resFloor");
+          const fnEl = document.getElementById("resFlatNum");
+          if (wEl) wEl.value = m[1].toUpperCase();
+          if (flEl) flEl.value = m[2];
+          if (fnEl) fnEl.value = m[3];
+        }
+      } else {
+        syncHouseholdUnit();
       }
 
       // Populate Worker Dropdown
