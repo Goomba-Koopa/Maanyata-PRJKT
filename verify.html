@@ -517,7 +517,7 @@
 
       const refHtml = data.ref ? `
         <div class="hud-field" style="grid-column: span 2; margin-top: 8px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.12);">
-          <span class="hud-label">Resident Attestation / निवासी अनुशंसा</span>
+          <span class="hud-label">Resident Attestation</span>
           <span class="hud-value" style="font-size: 13px; font-weight: 600; font-style: italic; color: #1C1917; margin-bottom: 4px;">"${escapeHTML(data.ref.quote || 'Verified household service')}"</span>
           <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
             <span>— ${escapeHTML(data.ref.author || 'Resident')} • ${escapeHTML(data.ref.unit || 'Verified Household')} (${escapeHTML(data.ref.tenure || '')})</span>
@@ -627,7 +627,7 @@
           </div>
           <div class="hud-field">
             <span class="hud-label">Gender</span>
-            <span class="hud-value">${escapeHTML(data.gender === 'F' ? 'Female (स्त्री)' : (data.gender === 'M' ? 'Male (पुरुष)' : 'Other'))}</span>
+            <span class="hud-value">${escapeHTML(data.gender === 'F' ? 'Female' : (data.gender === 'M' ? 'Male' : 'Other'))}</span>
           </div>
           <div class="hud-field" style="grid-column: span 2;">
             <span class="hud-label">DPDP SHA-256 Identity Hash</span>
@@ -764,10 +764,10 @@
 
       const now = Math.floor(Date.now() / 1000);
       if (data.exp && data.exp < now) {
-        return renderHud("expired", "TOKEN EXPIRED (पास समाप्त)", data);
+        return renderHud("expired", "TOKEN EXPIRED", data);
       }
 
-      renderHud("valid", "LIVE & VERIFIED PASS (सत्यापित पास)", data);
+      renderHud("valid", "LIVE & VERIFIED PASS", data);
     } catch (err) {
       renderHud("rejected", "REJECTED: Forged or Tampered Pass", null, "Error parsing passport data: " + err.message);
     }

@@ -107,9 +107,9 @@ console.log("  ✓ Worker profile successfully initialized and saved without raw
 // -----------------------------------------------------------------------------
 console.log("\n[STEP 2] Testing Endorsement Workflow with Content Safety & Anti-Spite...");
 
-// 2A: Verify endorse.html has the resident note field and worker selection
+// 2A: Verify endorse.html has the resident passcode field and worker selection
 const endorseHtml = fs.readFileSync(path.join(__dirname, "endorse.html"), "utf8");
-assert(endorseHtml.includes('id="resNote"'), "endorse.html must have #resNote textarea");
+assert(endorseHtml.includes('id="resPasscode"'), "endorse.html must have #resPasscode verification input");
 assert(endorseHtml.includes('id="workerSelectDropdown"'), "endorse.html must have worker selection dropdown");
 
 // 2B: Simulate resident submitting active endorsement
