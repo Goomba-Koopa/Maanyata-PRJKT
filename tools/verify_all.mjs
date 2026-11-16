@@ -25,6 +25,7 @@ const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]/u;
 
 const pages = [
   'portfolio.html',
+  'portfolio_aqua.html',
   'endorse.html',
   'directory.html',
   'onboard.html',

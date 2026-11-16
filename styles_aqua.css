@@ -1,0 +1,730 @@
+/* ==========================================================================
+   AQUAMORPHIC LIQUID GLASS DESIGN SYSTEM (ColorOS / OxygenOS 14 Inspired)
+   Project Maanyata — styles_aqua.css
+   ========================================================================== */
+
+:root, [data-theme="aqua"] {
+  /* Aquatic Depth Tokens */
+  --aqua-depth-0: #040D1A;
+  --aqua-depth-1: #061426;
+  --aqua-depth-2: #0A1E38;
+  --aqua-depth-3: #0B2545;
+  --aqua-depth-4: #13335C;
+
+  /* Luminous Fluid Accents */
+  --aqua-cyan-light: #67E8F9;
+  --aqua-cyan: #06B6D4;
+  --aqua-azure: #0EA5E9;
+  --aqua-azure-glow: rgba(14, 165, 233, 0.45);
+  --aqua-sky: #38BDF8;
+  --aqua-mint: #34D399;
+  --aqua-pearl: #F0F9FF;
+
+  /* Frosted Glass Substrates */
+  --glass-card: rgba(10, 30, 56, 0.65);
+  --glass-card-subtle: rgba(14, 42, 78, 0.45);
+  --glass-card-hover: rgba(19, 51, 92, 0.8);
+  --glass-pill: rgba(14, 165, 233, 0.16);
+
+  /* Refractive Light Gleams */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.14);
+  --glass-border-top: 1px solid rgba(255, 255, 255, 0.38);
+  --glass-border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* High Tactile Contrast Inks (WCAG AAA >= 7:1) */
+  --ink-primary: #F0F9FF;
+  --ink-secondary: #BAE6FD;
+  --ink-muted: #7DD3FC;
+  --ink-faint: #38BDF8;
+
+  /* Dynamic Theme Overrides for Core Portfolio Components */
+  --canvas: var(--aqua-depth-1);
+  --surface: var(--glass-card);
+  --card-bg: var(--glass-card);
+  --card-subtle: var(--glass-card-subtle);
+  --border: rgba(56, 189, 248, 0.22);
+  --border-strong: rgba(56, 189, 248, 0.45);
+  --border-subtle: rgba(56, 189, 248, 0.15);
+
+  --terracotta: #0EA5E9;
+  --terracotta-hover: #0284C7;
+  --terracotta-bg: rgba(14, 165, 233, 0.18);
+  --terracotta-border: rgba(56, 189, 248, 0.4);
+
+  --emerald: #34D399;
+  --emerald-bg: rgba(52, 211, 153, 0.18);
+  --emerald-border: rgba(52, 211, 153, 0.45);
+
+  --amber: #FBBF24;
+  --amber-bg: rgba(251, 191, 36, 0.18);
+  --amber-border: rgba(251, 191, 36, 0.45);
+
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+
+  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Anek Devanagari', sans-serif;
+}
+
+/* ==========================================================================
+   GLOBAL CANVAS & HYDROSTATIC LIGHTING
+   ========================================================================== */
+
+body.theme-aqua, [data-theme="aqua"] body {
+  background-color: #061426;
+  background-image: 
+    radial-gradient(circle at 20% 12%, rgba(14, 165, 233, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(11, 37, 69, 0.4) 0%, transparent 70%),
+    linear-gradient(160deg, #040D1A 0%, #061426 35%, #0A1E38 70%, #0B2545 100%);
+  background-attachment: fixed;
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   MASTHEAD & BRANDING
+   ========================================================================== */
+
+.masthead {
+  padding: 16px 4px 20px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink-primary);
+}
+
+.brand-glyph {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 50%, #2563EB 100%);
+  color: #FFFFFF;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 20px;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: #F0F9FF;
+  text-shadow: 0 2px 10px rgba(14, 165, 233, 0.3);
+}
+
+.masthead-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.mode-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 42, 78, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #BAE6FD;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  min-height: 44px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.mode-toggle-btn:hover {
+  background: rgba(19, 51, 92, 0.8);
+  color: #F0F9FF;
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.25);
+}
+
+/* ==========================================================================
+   LIQUID GLASS CARDS & SQUIRCLE GEOMETRY
+   ========================================================================== */
+
+.card {
+  background: rgba(10, 30, 56, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    0 16px 40px -8px rgba(2, 6, 23, 0.65),
+    0 0 24px 2px rgba(14, 165, 233, 0.12),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25) !important;
+  padding: 24px !important;
+  margin-bottom: 20px !important;
+  color: var(--ink-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.card-presentation {
+  text-align: center;
+  padding: 28px 24px !important;
+}
+
+/* ==========================================================================
+   PASS HERO & AUTHENTIC MONOGRAM AVATAR
+   ========================================================================== */
+
+.pass-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pass-hero {
+  position: relative;
+}
+
+.pass-hero-avatar, .avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #075985 100%) !important;
+  color: #FFFFFF !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+.pass-hero-check, .verified-seal {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  background: #10B981 !important;
+  color: #FFFFFF !important;
+  border-radius: 50%;
+  border: 2px solid #061426 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+}
+
+.pass-meta {
+  text-align: right;
+}
+
+.liveness-ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #38BDF8;
+  background: rgba(14, 165, 233, 0.15);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.liveness-dot {
+  width: 7px;
+  height: 7px;
+  background: #34D399;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #34D399;
+}
+
+.pass-fingerprint {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 12px;
+  color: #BAE6FD;
+  margin-top: 5px;
+  letter-spacing: 0.03em;
+}
+
+.pass-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 12px rgba(14, 165, 233, 0.25);
+}
+
+.card-help {
+  font-size: 13px;
+  color: #BAE6FD;
+  line-height: 1.5;
+  max-width: 440px;
+  margin: 0 auto 20px;
+}
+
+/* ==========================================================================
+   QR BEZEL & ILLUMINATED WATER DROPLET
+   ========================================================================== */
+
+.qr-canvas-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #FFFFFF !important;
+  border-radius: 22px;
+  box-shadow: 
+    0 0 35px rgba(14, 165, 233, 0.4),
+    0 12px 30px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 3px rgba(56, 189, 248, 0.3);
+  margin: 10px auto 20px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qr-canvas-wrap:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 45px rgba(14, 165, 233, 0.6),
+    0 16px 36px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 3px rgba(56, 189, 248, 0.5);
+}
+
+.tap-liveness-toast {
+  position: absolute;
+  bottom: -10px;
+  background: #0B2545;
+  color: #38BDF8;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   METRICS & FLOATING PILLS
+   ========================================================================== */
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  text-align: center;
+}
+
+.metric-col {
+  padding: 14px 8px;
+  background: rgba(14, 42, 78, 0.45);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.metric-val {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(14, 165, 233, 0.3);
+}
+
+.metric-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #BAE6FD;
+  margin-top: 4px;
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: #7DD3FC;
+  margin-top: 4px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title h2 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(14, 165, 233, 0.2) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  min-height: 24px;
+}
+
+/* ==========================================================================
+   BUTTONS & TACTILE TAP TARGETS (min-height: 44px)
+   ========================================================================== */
+
+.btn-action {
+  min-height: 44px !important;
+  border-radius: 14px !important;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.btn-action.is-green, .btn-action.is-primary {
+  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.btn-action.is-green:hover, .btn-action.is-primary:hover {
+  background: linear-gradient(135deg, #0891B2 0%, #0284C7 100%) !important;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-action.is-outline {
+  background: rgba(14, 42, 78, 0.5) !important;
+  color: #BAE6FD !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.btn-action.is-outline:hover {
+  background: rgba(19, 51, 92, 0.75) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(56, 189, 248, 0.6) !important;
+}
+
+/* ==========================================================================
+   INPUTS & SELECTS (font-size: 16px to prevent iOS auto-zoom)
+   ========================================================================== */
+
+.studio-select, input[type="text"], input[type="number"], select, textarea {
+  font-size: 16px !important;
+  min-height: 44px;
+  background: rgba(6, 20, 38, 0.75) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.25) !important;
+  border-radius: 12px !important;
+  color: #F0F9FF !important;
+  padding: 10px 14px !important;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+
+.studio-select:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #0EA5E9 !important;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25) !important;
+  background: rgba(11, 37, 69, 0.85) !important;
+}
+
+/* ==========================================================================
+   FLOATING BOTTOM TAB BAR (AQUAMORPHIC CAPSULE)
+   ========================================================================== */
+
+.tabbar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 520px;
+  background: rgba(10, 30, 56, 0.75) !important;
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-radius: 9999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 
+    0 16px 40px -4px rgba(2, 6, 23, 0.8),
+    0 0 25px rgba(14, 165, 233, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  padding: 6px 10px;
+  z-index: 1000;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #7DD3FC;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  padding: 4px 0;
+}
+
+.tab-btn:hover {
+  color: #F0F9FF;
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.tab-btn[aria-selected="true"] {
+  color: #FFFFFF !important;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(14, 165, 233, 0.45) 100%) !important;
+  box-shadow: 0 2px 12px rgba(14, 165, 233, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   MILESTONES PROGRESS & CARDS
+   ========================================================================== */
+
+.hours-hero {
+  background: rgba(6, 20, 38, 0.6);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  margin-bottom: 16px;
+}
+
+.hours-val {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 16px rgba(14, 165, 233, 0.5);
+}
+
+.hours-lbl {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #BAE6FD;
+  margin-top: 4px;
+}
+
+.milestone-progress-wrap {
+  width: 100%;
+  height: 10px;
+  background: rgba(14, 42, 78, 0.6);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin: 14px 0 8px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.milestone-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #06B6D4 0%, #38BDF8 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.7);
+  transition: width 0.4s ease;
+}
+
+.milestone-progress-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38BDF8;
+}
+
+/* ==========================================================================
+   TRAIT CHIPS & SHIFT ROWS
+   ========================================================================== */
+
+.trait-chip {
+  background: rgba(14, 42, 78, 0.5) !important;
+  color: #F0F9FF !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 14px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shift-row {
+  background: rgba(14, 42, 78, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.shift-row-household {
+  font-weight: 700;
+  color: #FFFFFF;
+  font-size: 13px;
+}
+
+.shift-row-meta {
+  font-size: 11px;
+  color: #BAE6FD;
+  margin-top: 2px;
+}
+
+.shift-row-hours {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  color: #38BDF8;
+}
+
+/* ==========================================================================
+   PROFILE SETTINGS ROWS & MODAL CARDS
+   ========================================================================== */
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+.profile-row-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F0F9FF;
+}
+
+.profile-row button {
+  background: rgba(14, 42, 78, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #BAE6FD;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  min-height: 44px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-row button:hover {
+  background: rgba(19, 51, 92, 0.85);
+  color: #FFFFFF;
+  border-color: rgba(56, 189, 248, 0.6);
+}
+
+.modal-overlay {
+  background: rgba(4, 13, 26, 0.8) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.modal-card {
+  background: rgba(10, 30, 56, 0.9) !important;
+  border-radius: 26px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(14, 165, 233, 0.25) !important;
+  color: #F0F9FF !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2) !important;
+  padding-bottom: 14px;
+}
+
+.modal-title {
+  color: #FFFFFF !important;
+  font-family: var(--font-heading);
+}
+
+.modal-close {
+  min-height: 44px;
+  min-width: 44px;
+  color: #BAE6FD !important;
+}
