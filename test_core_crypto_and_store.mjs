@@ -321,7 +321,9 @@ assert(disputeModalJs.includes("₹2,000.00 forfeits directly to the worker"), "
 assert(disputeModalJs.includes("₹500.00"), "Must include ₹500 administrative review fee");
 assert(disputeModalJs.includes("Police Station NC Number"), "Must require Police Station NC Number");
 assert(disputeModalJs.includes("Jurisdiction Station Name"), "Must require Jurisdiction Station Name");
-assert(disputeModalJs.includes("upi://pay"), "Must include UPI escrow trigger URI");
+assert(!disputeModalJs.includes("upi://pay"), "Must eliminate fake UPI escrow simulation to preserve zero-custody invariant");
+assert(disputeModalJs.includes("maanyata_disputes_audit"), "Must include timestamped localStorage audit record");
+assert.strictEqual(typeof DisputeModal.getAuditLog, "function", "DisputeModal.getAuditLog must be a function");
 console.log("✓ js/dispute_modal.js contains all mandatory statutory escrow, Police NC, and forfeiture rules");
 
 console.log("\n================================================================================");

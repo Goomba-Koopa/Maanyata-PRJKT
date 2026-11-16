@@ -503,7 +503,7 @@
    * Initiate a formal contract dispute under the Bonded Trust Protocol.
    * Statutory Invariant: Minimum ₹2,500 Investigation Escrow + Police NC Number required.
    */
-  async function initiateDispute({ contractId, reason, escrowAmount = 2500, policeNcNumber, stationName }) {
+  async function initiateDispute({ contractId, reason, escrowAmount = 2500, policeNcNumber, stationName, societyRef }) {
     const c = readContract(contractId);
     if (!c) throw new Error("Contract not found: " + contractId);
     if (c.state === CONTRACT_STATE.DISPUTED) {
@@ -525,13 +525,11 @@
     }
 
     const nc = text(policeNcNumber, 60);
-    if (!nc) {
-      throw new Error("Police Station NC/Diary Number is required to record a formal dispute.");
-    }
-
     const station = text(stationName, 80);
-    if (!station) {
-      throw new Error("Police Station jurisdiction name is required.");
+    const socRef = text(societyRef, 80);
+
+    if (!nc && !socRef) {
+      throw new Error("Either a Police Station NC Number or Housing Society Committee Reference is required to record a formal dispute.");
     }
 
     // Update contract state to DISPUTED (or QUARANTINED if serious security breach)
@@ -541,8 +539,9 @@
       initiatedAt: new Date().toISOString(),
       reason: cleanReason,
       escrowAmount: escrow,
-      policeNcNumber: nc,
-      stationName: station,
+      policeNcNumber: nc || (socRef ? `SOC:${socRef}` : "ADMIN-PENDING"),
+      stationName: station || (socRef ? "Housing Society Management Committee" : "Local Jurisdiction Review"),
+      societyRef: socRef || null,
       status: "INVESTIGATION_PENDING",
       escrowLocked: true,
       resolvedAt: null,

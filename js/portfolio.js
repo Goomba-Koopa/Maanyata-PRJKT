@@ -1176,7 +1176,7 @@ function openDisputeModal(contractId) {
       workerId: (portfolio && portfolio.id) || "w-active",
       onSubmitted: () => {
         renderContracts();
-        showToast("✓ Dispute Lodged & Escrow Locked");
+        showToast(currentLang === "hi" ? "✓ विवाद दर्ज • प्रशासनिक समीक्षा हेतु अग्रेषित" : "✓ Dispute Lodged & Audit Recorded");
       }
     });
   } else {
