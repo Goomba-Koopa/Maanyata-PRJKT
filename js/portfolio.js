@@ -1028,11 +1028,11 @@ async function renderContracts() {
 
   if (!contractList || contractList.length === 0) {
     container.innerHTML = `
-      <div style="background: #FAF8F5; border: 1px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center;">
-        <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">
+      <div class="contracts-empty-state" style="background: var(--card-subtle); border: 1px dashed var(--border); border-radius: 12px; padding: 18px; text-align: center;">
+        <div style="font-size: 14px; font-weight: 700; color: var(--ink-primary); margin-bottom: 6px;">
           No Active Household Shifts Recorded
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); max-width: 420px; margin: 0 auto;">
+        <div style="font-size: 12px; color: var(--ink-muted); max-width: 420px; margin: 0 auto; line-height: 1.5;">
           Log daily household shifts to certify your service continuity and career milestones.
         </div>
       </div>
@@ -1090,14 +1090,14 @@ async function renderContracts() {
     ` : "";
 
     return `
-      <div style="background: #FFFFFF; border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+      <div class="contract-card-item" style="background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 4px;">
-          <strong style="font-size: 14px; color: var(--text-primary); font-family: var(--font-heading);">${escapeHTML(c.maskedUnit || c.employerUnit)} • ${escapeHTML(c.roleScope || "Household Care")}</strong>
+          <strong style="font-size: 14px; color: var(--ink-primary); font-family: var(--font-heading);">${escapeHTML(c.maskedUnit || c.employerUnit)} • ${escapeHTML(c.roleScope || "Household Care")}</strong>
           <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; ${stateStyle}">
             ${stateBadge}
           </span>
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">
+        <div style="font-size: 12px; color: var(--ink-muted); font-weight: 600;">
           ${escapeHTML(c.shiftHours)} hrs/day • Active Service
         </div>
         ${disputeDetails}
@@ -1272,7 +1272,7 @@ function renderOfflineQR() {
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
-  const size = 200;
+  const size = 240;
   canvas.width = size;
   canvas.height = size;
   ctx.fillStyle = "#FFFFFF";
@@ -1291,7 +1291,7 @@ function renderOfflineQR() {
   }
 
   // Cryptographic QR Envelope (Ed25519 Token Format MNY1.<bodyB64>.<sigB64>)
-  const payload = generateEd25519Token(
+  let payload = generateEd25519Token(
     portfolio.id || "sunita-devi-01",
     portfolio.name,
     portfolio.role,
@@ -1310,18 +1310,44 @@ function renderOfflineQR() {
       : (typeof window !== "undefined" && window.QRErrorCorrectLevel ? window.QRErrorCorrectLevel.L : 1);
 
     if (QRCodeClass) {
-      const qr = new QRCodeClass(0, ECLevel);
-      qr.addData(payload);
-      qr.make();
+      let qr = new QRCodeClass(0, ECLevel);
+      try {
+        qr.addData(payload);
+        qr.make();
+      } catch (overflowErr) {
+        console.warn("Primary QR token payload exceeded standard capacity, generating compact cryptographic pass:", overflowErr);
+        // Resilient Fallback: Compact verifiable Ed25519 token (wid, cleanName, role, tenure, households)
+        const compactToken = generateEd25519Token(
+          portfolio.id || "sunita-devi-01",
+          portfolio.name,
+          portfolio.role,
+          attestedYearsNum,
+          portfolio.households,
+          {},
+          []
+        );
+        qr = new QRCodeClass(0, ECLevel);
+        qr.addData(compactToken);
+        qr.make();
+      }
+
       const count = qr.getModuleCount();
       const pad = 2;
       const cell = size / (count + pad * 2);
 
-      ctx.fillStyle = "#0A1E38";
+      // High-contrast dark QR matrix (#061426) on clean white background
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, size, size);
+      ctx.fillStyle = "#061426";
       for (let r = 0; r < count; r++) {
         for (let c = 0; c < count; c++) {
           if (qr.isDark(r, c)) {
-            ctx.fillRect(Math.round((c + pad) * cell), Math.round((r + pad) * cell), Math.ceil(cell), Math.ceil(cell));
+            ctx.fillRect(
+              Math.floor((c + pad) * cell),
+              Math.floor((r + pad) * cell),
+              Math.ceil(cell),
+              Math.ceil(cell)
+            );
           }
         }
       }

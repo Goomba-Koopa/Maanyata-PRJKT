@@ -279,7 +279,7 @@
       make() {
         if (this.typeNumber < 1) {
           let typeNumber = 1;
-          for (; typeNumber < 40; typeNumber++) {
+          for (; typeNumber <= 40; typeNumber++) {
             const rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
             let totalDataCount = 0;
             for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
@@ -288,6 +288,9 @@
               totalBits += 4 + QRUtil.getLengthInBits(this.dataList[i].mode, typeNumber) + this.dataList[i].getLength() * 8;
             }
             if (totalBits <= totalDataCount * 8) break;
+          }
+          if (typeNumber > 40) {
+            throw new Error("Data payload too large for QR Code Version 40 (max 2953 bytes)");
           }
           this.typeNumber = typeNumber;
         }
