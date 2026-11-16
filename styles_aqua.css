@@ -494,10 +494,30 @@ body.theme-aqua, [data-theme="aqua"] body {
 }
 
 /* ==========================================================================
+   TAB PANELS & VISIBILITY
+   ========================================================================== */
+
+.tab-panel {
+  display: none !important;
+}
+
+.tab-panel.is-active {
+  display: flex !important;
+  flex-direction: column;
+  gap: 16px;
+  animation: aquaFadeIn 0.2s ease-out;
+}
+
+@keyframes aquaFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
    FLOATING BOTTOM TAB BAR (AQUAMORPHIC CAPSULE)
    ========================================================================== */
 
-.tabbar {
+.tabbar, .bottom-nav {
   position: fixed;
   bottom: 16px;
   left: 50%;
@@ -518,7 +538,7 @@ body.theme-aqua, [data-theme="aqua"] body {
   z-index: 1000;
 }
 
-.tab-btn {
+.tab-btn, .nav-item {
   flex: 1;
   background: transparent;
   border: none;
@@ -536,14 +556,15 @@ body.theme-aqua, [data-theme="aqua"] body {
   border-radius: 9999px;
   transition: all 0.2s ease;
   padding: 4px 0;
+  text-decoration: none;
 }
 
-.tab-btn:hover {
+.tab-btn:hover, .nav-item:hover {
   color: #F0F9FF;
   background: rgba(14, 165, 233, 0.12);
 }
 
-.tab-btn[aria-selected="true"] {
+.tab-btn[aria-selected="true"], .nav-item[aria-selected="true"], .tab-btn.is-active, .nav-item.is-active {
   color: #FFFFFF !important;
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(14, 165, 233, 0.45) 100%) !important;
   box-shadow: 0 2px 12px rgba(14, 165, 233, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);

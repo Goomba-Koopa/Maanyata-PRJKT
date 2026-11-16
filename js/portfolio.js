@@ -371,6 +371,7 @@ function showTab(name) {
     if (btn) {
       btn.setAttribute("aria-selected", active ? "true" : "false");
       btn.setAttribute("tabindex", active ? "0" : "-1");
+      btn.classList.toggle("is-active", active);
     }
   });
 
@@ -1162,11 +1163,6 @@ async function settleContractAction(contractId) {
     alert("Error settling shift: " + err.message);
   }
 }
-    }
-  } catch (err) {
-    alert(err.message);
-  }
-}
 
 function openDisputeModal(contractId) {
   if (window.DisputeModal) {
@@ -1200,12 +1196,33 @@ async function resolveDisputeAction(contractId, outcome) {
   }
 }
 
-window.renderContracts = renderContracts;
-window.toggleNewContractForm = toggleNewContractForm;
-window.submitNewContract = submitNewContract;
-window.settleContractAction = settleContractAction;
-window.openDisputeModal = openDisputeModal;
-window.resolveDisputeAction = resolveDisputeAction;
+if (typeof window !== "undefined") {
+  window.renderContracts = renderContracts;
+  window.toggleNewContractForm = toggleNewContractForm;
+  window.submitNewContract = submitNewContract;
+  window.settleContractAction = settleContractAction;
+  window.openDisputeModal = openDisputeModal;
+  window.resolveDisputeAction = resolveDisputeAction;
+  window.showTab = showTab;
+  window.openStudioModal = openStudioModal;
+  window.closeStudioModal = closeStudioModal;
+  window.openCustomizeModal = openCustomizeModal;
+  window.closeCustomizeModal = closeCustomizeModal;
+  window.saveCustomProfile = saveCustomProfile;
+  window.sharePassbookWhatsApp = sharePassbookWhatsApp;
+  window.triggerLivenessProof = triggerLivenessProof;
+  window.applyLanguage = applyLanguage;
+  window.applyNativePreset = applyNativePreset;
+  window.selectPalette = selectPalette;
+  window.toggleSolMode = toggleSolMode;
+  window.resetLocalDemo = resetLocalDemo;
+  window.renderOfflineQR = renderOfflineQR;
+  window.startLiveTicker = startLiveTicker;
+  window.restoreCustomizationStudio = restoreCustomizationStudio;
+  window.generateEd25519Token = generateEd25519Token;
+  window.renderPortfolio = renderPortfolio;
+  window.initApp = initApp;
+}
 
 if (typeof window !== "undefined" && window.MaanyataStore && window.MaanyataStore.subscribe) {
   window.MaanyataStore.subscribe(() => {
@@ -1254,7 +1271,8 @@ function renderOfflineQR() {
   const canvas = document.getElementById("workerQrCanvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  const size = 160;
+  if (!ctx) return;
+  const size = 200;
   canvas.width = size;
   canvas.height = size;
   ctx.fillStyle = "#FFFFFF";
@@ -1272,7 +1290,7 @@ function renderOfflineQR() {
     }
   }
 
-  // Strike 3: Cryptographic QR Envelope (Ed25519 Token Format MNY1.<bodyB64>.<sigB64>)
+  // Cryptographic QR Envelope (Ed25519 Token Format MNY1.<bodyB64>.<sigB64>)
   const payload = generateEd25519Token(
     portfolio.id || "sunita-devi-01",
     portfolio.name,
@@ -1284,15 +1302,22 @@ function renderOfflineQR() {
   );
 
   try {
-    if (typeof QRCodeModel !== "undefined") {
-      const qr = new QRCodeModel(0, QRErrorCorrectLevel.L);
+    const QRCodeClass = typeof QRCodeModel !== "undefined"
+      ? QRCodeModel
+      : (typeof window !== "undefined" ? window.QRCodeModel : null);
+    const ECLevel = typeof QRErrorCorrectLevel !== "undefined"
+      ? QRErrorCorrectLevel.L
+      : (typeof window !== "undefined" && window.QRErrorCorrectLevel ? window.QRErrorCorrectLevel.L : 1);
+
+    if (QRCodeClass) {
+      const qr = new QRCodeClass(0, ECLevel);
       qr.addData(payload);
       qr.make();
       const count = qr.getModuleCount();
       const pad = 2;
       const cell = size / (count + pad * 2);
 
-      ctx.fillStyle = "#1C1917";
+      ctx.fillStyle = "#0A1E38";
       for (let r = 0; r < count; r++) {
         for (let c = 0; c < count; c++) {
           if (qr.isDark(r, c)) {
@@ -1395,7 +1420,11 @@ function initThemeAndLang() {
 }
 
 function restoreCustomizationStudio() {
-  const theme = localStorage.getItem("maanyata_theme") || localStorage.getItem("mny_theme") || "daylight";
+  const currentDocTheme = document.documentElement.getAttribute("data-theme");
+  const storedTheme = localStorage.getItem("maanyata_theme") || localStorage.getItem("mny_theme");
+  const theme = (currentDocTheme === "aqua")
+    ? "aqua"
+    : (storedTheme || "daylight");
   selectPalette(theme, false);
 
   const fontBody = localStorage.getItem("maanyata_font_body");
@@ -1417,7 +1446,7 @@ function restoreCustomizationStudio() {
 }
 
 function selectPalette(themeName, persist = true) {
-  const validThemes = ["daylight", "indigo", "saffron", "olive", "midnight"];
+  const validThemes = ["daylight", "indigo", "saffron", "olive", "midnight", "aqua"];
   if (!validThemes.includes(themeName)) themeName = "daylight";
   document.documentElement.setAttribute("data-theme", themeName);
   if (persist) {
