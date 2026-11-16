@@ -217,7 +217,7 @@
       border: 1.5px solid #F59E0B;
       border-radius: 10px;
       padding: 10px 12px;
-      min-height: 42px;
+      min-height: 44px;
       font-family: var(--font-heading, 'Outfit', sans-serif);
       font-size: 13px;
       font-weight: 700;
@@ -239,7 +239,7 @@
       border: 1.5px solid #166534;
       border-radius: 10px;
       padding: 10px 12px;
-      min-height: 42px;
+      min-height: 44px;
       font-family: var(--font-heading, 'Outfit', sans-serif);
       font-size: 13px;
       font-weight: 700;
@@ -304,7 +304,7 @@
           <div class="worker-craft" id="wCraft">Senior Household & Culinary Specialist</div>
           <div style="margin-top: 10px;">
             <label class="form-label" for="workerSelectDropdown" style="font-size: 11px; margin-bottom: 4px;">Active Worker Being Endorsed:</label>
-            <select id="workerSelectDropdown" class="form-select" onchange="onWorkerDropdownChange(this.value)" style="padding: 6px 10px; font-size: 13px; min-height: 38px; background: #FFFFFF; cursor: pointer;">
+            <select id="workerSelectDropdown" class="form-select" onchange="onWorkerDropdownChange(this.value)" style="padding: 8px 12px; font-size: 16px; min-height: 44px; background: #FFFFFF; cursor: pointer;">
             </select>
           </div>
         </div>
@@ -427,84 +427,84 @@
           <label class="form-label">Recognize What They Did Well (Tap to select)</label>
           
           <!-- Automotive Care -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🚗 Automotive Care</div>
+          <div class="taxonomy-cat" data-craft="automotive">
+            <div class="taxonomy-cat-title">Automotive Care</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Daily Exterior & Windshield Wash')">
-                <span>Daily Exterior & Windshield Wash</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Exterior Wash & Glass')">
+                <span>Exterior Wash & Glass</span><span class="chip-check"></span>
               </button>
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Interior Dusting & Vacuum')">
                 <span>Interior Dusting & Vacuum</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Tire Pressure & Fluid Inspection')">
-                <span>Tire Pressure & Fluid Inspection</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Tire & Fluid Check')">
+                <span>Tire & Fluid Check</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Early Morning Shift (05:00 AM)')">
-                <span>Early Morning Shift (05:00 AM)</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Early Morning Shift')">
+                <span>Early Morning Shift</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Security & Facility Operations -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🛡️ Security & Operations</div>
+          <div class="taxonomy-cat" data-craft="security">
+            <div class="taxonomy-cat-title">Security & Operations</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Turnstile & Gate Access Control')">
-                <span>Turnstile & Gate Access Control</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Turnstile & Gate Access')">
+                <span>Turnstile & Gate Access</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Perimeter Night Patrolling')">
-                <span>Perimeter Night Patrolling</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Perimeter Night Patrol')">
+                <span>Perimeter Night Patrol</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Visitor Muster Enforcement')">
-                <span>Visitor Muster Enforcement</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Visitor Gate Muster')">
+                <span>Visitor Gate Muster</span><span class="chip-check"></span>
               </button>
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Emergency First Response')">
                 <span>Emergency First Response</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'CCTV System Monitoring')">
-                <span>CCTV System Monitoring</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'CCTV Monitoring')">
+                <span>CCTV Monitoring</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Technical & Maintenance Trades -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🔧 Facility & Maintenance Trades</div>
+          <div class="taxonomy-cat" data-craft="maintenance">
+            <div class="taxonomy-cat-title">Facility & Maintenance Trades</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Plumbing & Pipeline Maintenance')">
-                <span>Plumbing & Pipeline Maintenance</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Plumbing & Pipe Repair')">
+                <span>Plumbing & Pipe Repair</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Water Pump & Motor Operations')">
-                <span>Water Pump & Motor Operations</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pump & Motor Operations')">
+                <span>Pump & Motor Operations</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Electrical & Switchgear Troubleshooting')">
-                <span>Electrical & Switchgear Troubleshooting</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Electrical & Switchgear')">
+                <span>Electrical & Switchgear</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'General Facility Repairs')">
-                <span>General Facility Repairs</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'General Repairs')">
+                <span>General Repairs</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Transport & Chauffeur Services -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🚙 Transport & Chauffeur</div>
+          <div class="taxonomy-cat" data-craft="transport">
+            <div class="taxonomy-cat-title">Transport & Chauffeur</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Safe City Passenger Driving')">
-                <span>Safe City Passenger Driving</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Safe City Driving')">
+                <span>Safe City Driving</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'School Transit Route Reliability')">
-                <span>School Transit Route Reliability</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'School Transit Route')">
+                <span>School Transit Route</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Vehicle Maintenance & Upkeep')">
-                <span>Vehicle Maintenance & Upkeep</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Vehicle Maintenance')">
+                <span>Vehicle Maintenance</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Culinary -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🍳 Culinary</div>
+          <div class="taxonomy-cat" data-craft="culinary">
+            <div class="taxonomy-cat-title">Culinary & Cooking</div>
             <div class="trait-chips-wrap">
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'North Indian Cooking')">
                 <span>North Indian Cooking</span><span class="chip-check"></span>
@@ -515,40 +515,40 @@
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Maharashtrian & Malvani')">
                 <span>Maharashtrian & Malvani</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Traditional & Regional Cuisine')">
-                <span>Traditional & Regional Cuisine</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Traditional Cuisine')">
+                <span>Traditional Cuisine</span><span class="chip-check"></span>
               </button>
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Gujarati & Kathiyawadi')">
                 <span>Gujarati & Kathiyawadi</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Diabetic & Clinical Diet')">
-                <span>Diabetic & Clinical Diet</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Diabetic & Healthy Diet')">
+                <span>Diabetic & Healthy Diet</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Housekeeping -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🧹 Housekeeping</div>
+          <div class="taxonomy-cat" data-craft="housekeeping">
+            <div class="taxonomy-cat-title">Housekeeping</div>
             <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Deep Scrubbing & Hygiene')">
-                <span>Deep Scrubbing & Hygiene</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Deep Scrub & Hygiene')">
+                <span>Deep Scrub & Hygiene</span><span class="chip-check"></span>
               </button>
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'High Dusting & Fans')">
                 <span>High Dusting & Fans</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Fine Laundry & Steam Ironing')">
-                <span>Fine Laundry & Steam Ironing</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Steam Iron & Laundry')">
+                <span>Steam Iron & Laundry</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Mandi & Daily Accounting')">
-                <span>Mandi & Daily Accounting</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Mandi Accounting')">
+                <span>Mandi Accounting</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Caregiving -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">🤝 Caregiving</div>
+          <div class="taxonomy-cat" data-craft="caregiving">
+            <div class="taxonomy-cat-title">Caregiving & Assistance</div>
             <div class="trait-chips-wrap">
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Infant Care & Maalish')">
                 <span>Infant Care & Maalish</span><span class="chip-check"></span>
@@ -562,15 +562,15 @@
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Wheelchair & Clinic Escort')">
                 <span>Wheelchair & Clinic Escort</span><span class="chip-check"></span>
               </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pet Care & Dog Walking')">
-                <span>Pet Care & Dog Walking</span><span class="chip-check"></span>
+              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pet Care & Walking')">
+                <span>Pet Care & Walking</span><span class="chip-check"></span>
               </button>
             </div>
           </div>
 
           <!-- Reliability -->
-          <div class="taxonomy-cat">
-            <div class="taxonomy-cat-title">⭐ Reliability & Trust</div>
+          <div class="taxonomy-cat" data-craft="reliability">
+            <div class="taxonomy-cat-title" style="display:flex; align-items:center; gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Reliability & Trust</div>
             <div class="trait-chips-wrap">
               <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Punctual (<07:00 AM)')">
                 <span>Punctual (<07:00 AM)</span><span class="chip-check"></span>
@@ -710,7 +710,7 @@
         "Trusted With House Keys": { count: 18, icon: "key" },
         "North Indian Cooking": { count: 14, icon: "pot" },
         "Deep Scrubbing & Hygiene": { count: 11, icon: "sparkles" },
-        "⭐ Emergency Availability": { count: 5, icon: "⭐" }
+        "Emergency Availability": { count: 5, icon: "star" }
       },
       references: [
         {
@@ -970,7 +970,7 @@
       if (isUnknown) {
         const warnBanner = document.createElement("div");
         warnBanner.style = "background:#FEF2F2; border:1.5px solid #FECACA; border-radius:12px; padding:12px 14px; margin-bottom:16px; font-size:12px; color:#991B1B; line-height:1.5;";
-        warnBanner.innerHTML = `<strong>Notice: No Worker Profile Selected</strong><br>You are currently viewing an unlinked endorsement form. <a href="/directory" style="color:#B91C1C; font-weight:700; text-decoration:underline;">Click here to select a worker from the Society Directory</a> first so your attestation links to their verified passbook.`;
+        warnBanner.innerHTML = `<strong>Notice: No Worker Profile Selected</strong><br>You are currently viewing an unlinked endorsement form. <a href="/directory.html" style="color:#B91C1C; font-weight:700; text-decoration:underline;">Click here to select a worker from the Society Directory</a> first so your attestation links to their verified passbook.`;
         document.getElementById("endorseForm").before(warnBanner);
       }
 
@@ -993,6 +993,9 @@
         syncHouseholdUnit();
       }
 
+      // Filter and order trait categories dynamically based on worker's craft
+      filterAndOrderTaxonomy(portfolio.role);
+
       // Populate Worker Dropdown
       populateWorkerDropdown();
 
@@ -1000,6 +1003,88 @@
       document.querySelectorAll(".trait-chip").forEach(btn => {
         if (btn.textContent.includes("Punctual (<07:00 AM)")) {
           btn.classList.add("selected");
+        }
+      });
+    }
+
+    function normalizeWorkerKey(str) {
+      return (str || "").toLowerCase().replace(/\[.*?\]|\(.*?\)/g, "").replace(/[^a-z0-9]/g, "");
+    }
+
+    function filterAndOrderTaxonomy(role) {
+      const container = document.querySelector(".taxonomy-section");
+      if (!container) return;
+      const cats = Array.from(container.querySelectorAll(".taxonomy-cat"));
+      if (cats.length === 0) return;
+
+      const r = (role || "").toLowerCase();
+      let primaryCraft = "culinary";
+      let secondaryCraft = "housekeeping";
+
+      if (r.includes("chauffeur") || r.includes("driver") || r.includes("mobility")) {
+        primaryCraft = "transport";
+        secondaryCraft = "automotive";
+      } else if (r.includes("child") || r.includes("nanny") || r.includes("elder") || r.includes("nurse") || r.includes("aide")) {
+        primaryCraft = "caregiving";
+        secondaryCraft = "housekeeping";
+      } else if (r.includes("security") || r.includes("guard") || r.includes("patrol")) {
+        primaryCraft = "security";
+        secondaryCraft = "maintenance";
+      } else if (r.includes("plumb") || r.includes("electr") || r.includes("repair") || r.includes("maintenance")) {
+        primaryCraft = "maintenance";
+        secondaryCraft = "security";
+      } else if (r.includes("housekeep") || r.includes("maid") || r.includes("clean")) {
+        primaryCraft = "housekeeping";
+        secondaryCraft = "culinary";
+      } else if (r.includes("cook") || r.includes("culinary")) {
+        primaryCraft = "culinary";
+        secondaryCraft = "housekeeping";
+      }
+
+      const priorityOrder = [primaryCraft, "reliability", secondaryCraft];
+
+      cats.sort((a, b) => {
+        const craftA = a.getAttribute("data-craft") || "";
+        const craftB = b.getAttribute("data-craft") || "";
+        let idxA = priorityOrder.indexOf(craftA);
+        let idxB = priorityOrder.indexOf(craftB);
+        if (idxA === -1) idxA = 99;
+        if (idxB === -1) idxB = 99;
+        return idxA - idxB;
+      });
+
+      const hint = container.querySelector(".form-hint");
+      cats.forEach((cat) => {
+        const craft = cat.getAttribute("data-craft");
+        const titleEl = cat.querySelector(".taxonomy-cat-title");
+        const existingBadge = cat.querySelector(".primary-craft-badge");
+        if (existingBadge) existingBadge.remove();
+
+        if (craft === primaryCraft) {
+          cat.style.border = "1.5px solid var(--terracotta-border, #F1D2C5)";
+          cat.style.background = "var(--terracotta-bg, #FDF4F0)";
+          cat.style.padding = "10px 12px";
+          cat.style.borderRadius = "12px";
+          cat.style.marginBottom = "10px";
+          if (titleEl) {
+            const badge = document.createElement("span");
+            badge.className = "primary-craft-badge";
+            badge.style = "font-size:10px; font-weight:800; background:var(--terracotta); color:#FFFFFF; border-radius:999px; padding:2px 8px; margin-left:8px; text-transform:uppercase; letter-spacing:0.04em;";
+            badge.textContent = "Primary Craft";
+            titleEl.appendChild(badge);
+          }
+        } else {
+          cat.style.border = "";
+          cat.style.background = "";
+          cat.style.padding = "";
+          cat.style.borderRadius = "";
+          cat.style.marginBottom = "";
+        }
+
+        if (hint) {
+          container.insertBefore(cat, hint);
+        } else {
+          container.appendChild(cat);
         }
       });
     }
@@ -1014,37 +1099,61 @@
         { id: "asha-kumari-03", name: "Asha Kumari", role: "Childcare & Elder Nurse Aide" }
       ];
 
-      // Check if custom worker exists in localStorage
+      // Check if custom worker exists in localStorage (prevent duplicate if already in workerOptions or Sunita)
       try {
         const rawOnboard = localStorage.getItem("maanyata_sunita_portfolio_v1");
         if (rawOnboard) {
           const ob = JSON.parse(rawOnboard);
-          if (ob && ob.name && !workerOptions.some(w => w.name.toLowerCase() === ob.name.toLowerCase())) {
-            workerOptions.unshift({
-              id: ob.id || ob.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-              name: ob.name,
-              role: ob.role || "Independent Specialist"
+          if (ob && ob.name) {
+            const normId = normalizeWorkerKey(ob.id);
+            const normName = normalizeWorkerKey(ob.name);
+            const isDuplicate = workerOptions.some(w => {
+              const wNormId = normalizeWorkerKey(w.id);
+              const wNormName = normalizeWorkerKey(w.name);
+              return (normId && (normId === wNormId || normId.includes("sunita"))) ||
+                     (normName && (normName === wNormName || normName.includes("sunitadevi")));
             });
+            if (!isDuplicate) {
+              workerOptions.unshift({
+                id: ob.id || ob.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+                name: ob.name.replace(/\[.*?\]/, "").trim(),
+                role: ob.role || "Independent Specialist"
+              });
+            }
           }
         }
       } catch (e) {}
 
       let currentMatched = false;
+      const currentNormId = portfolio && portfolio.id ? normalizeWorkerKey(portfolio.id) : "";
+      const currentNormName = portfolio && portfolio.name ? normalizeWorkerKey(portfolio.name) : "";
+
       workerOptions.forEach(w => {
         const opt = document.createElement("option");
         opt.value = w.id;
-        opt.textContent = `${w.name} — ${w.role}`;
-        if (portfolio && (portfolio.id === w.id || portfolio.name === w.name)) {
+        opt.textContent = `${w.name} • ${w.role}`;
+        const wNormId = normalizeWorkerKey(w.id);
+        const wNormName = normalizeWorkerKey(w.name);
+        if (currentNormId && (currentNormId === wNormId || currentNormId.includes(wNormId) || wNormId.includes(currentNormId))) {
+          opt.selected = true;
+          currentMatched = true;
+        } else if (currentNormName && (currentNormName === wNormName || currentNormName.includes(wNormName) || wNormName.includes(currentNormName))) {
           opt.selected = true;
           currentMatched = true;
         }
         select.appendChild(opt);
       });
 
-      if (!currentMatched && portfolio && portfolio.name && portfolio.name !== "Unknown User") {
+      const portKey = normalizeWorkerKey(portfolio ? (portfolio.id || portfolio.name) : "");
+      const isAlreadyInOptions = workerOptions.some(w => {
+        const wKey = normalizeWorkerKey(w.id || w.name);
+        return portKey && (portKey === wKey || portKey.includes(wKey) || wKey.includes(portKey));
+      });
+
+      if (!currentMatched && !isAlreadyInOptions && portfolio && portfolio.name && !portfolio.name.startsWith("Unknown")) {
         const customOpt = document.createElement("option");
         customOpt.value = portfolio.id || "custom-worker";
-        customOpt.textContent = `${portfolio.name} — ${portfolio.role || "Specialist"}`;
+        customOpt.textContent = `${portfolio.name.replace(/\[.*?\]/, "").trim()} • ${portfolio.role || "Specialist"}`;
         customOpt.selected = true;
         select.insertBefore(customOpt, select.firstChild);
       }
@@ -1390,7 +1499,7 @@
         if (Array.isArray(currentPending.payload.traits)) {
           if (!portfolio.traits) portfolio.traits = {};
           currentPending.payload.traits.forEach(t => {
-            if (!portfolio.traits[t]) portfolio.traits[t] = { count: 0, icon: "⭐" };
+            if (!portfolio.traits[t]) portfolio.traits[t] = { count: 0, icon: "star" };
             portfolio.traits[t].count = (portfolio.traits[t].count || 0) + 1;
           });
         }
@@ -1437,9 +1546,9 @@
         pendingEndorsement = null;
       }
       if (targetWorkerId) {
-        window.location.href = `/portfolio?worker=${encodeURIComponent(targetWorkerId)}`;
+        window.location.href = `/portfolio.html?worker=${encodeURIComponent(targetWorkerId)}`;
       } else {
-        window.location.href = "/portfolio";
+        window.location.href = "/portfolio.html";
       }
     }
 

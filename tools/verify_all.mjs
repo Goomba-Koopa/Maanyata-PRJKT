@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const baseDir = 'C:\\Users\\chand\\OneDrive\\Desktop\\Maanyata POC';
+const baseDir = process.env.BASE_DIR || process.cwd();
 
 function srgbLuminance(hex) {
   hex = hex.replace('#', '');
@@ -51,8 +51,8 @@ const palettes = {
   },
   'Saffron Seal': {
     card: '#FFFFFF',
-    canvas: '#FCF9F2',
-    inks: { primary: '#292015', secondary: '#4A3E31', muted: '#7A6B5B', terracotta: '#B45309', emerald: '#1E4620' }
+    canvas: '#FFFBEB',
+    inks: { primary: '#372305', secondary: '#5C4018', muted: '#8C6A34', terracotta: '#B45309', emerald: '#1E4620' }
   },
   'Olive Ledger': {
     card: '#FFFFFF',
@@ -166,7 +166,7 @@ console.log('\n3. Hindi Devanagari Numeral Audit:');
 const pfJs = fs.readFileSync(path.join(baseDir, 'js', 'portfolio.js'), 'utf8');
 const hasDevanagariFn = pfJs.includes('toDevanagariNumerals');
 const hasTenureLocalized = pfJs.includes('metricTenure') && pfJs.includes('toDevanagariNumerals(attestedYears)');
-const hasHouseholdsLocalized = pfJs.includes('metricHouseholds') && pfJs.includes('toDevanagariNumerals(portfolio.households)');
+const hasHouseholdsLocalized = pfJs.includes('metricHouseholds') && /toDevanagariNumerals\(.*portfolio\.households.*\)/.test(pfJs);
 const hasRecognitionsLocalized = pfJs.includes('metricRecognitions') && pfJs.includes('toDevanagariNumerals(total)');
 const hasSignalsLocalized = pfJs.includes('signalsTotal') && pfJs.includes('toDevanagariNumerals(total)');
 const hasTraitCountLocalized = pfJs.includes('trait-count') && pfJs.includes('toDevanagariNumerals(info.count)');

@@ -2,7 +2,7 @@
  * js/dispute_modal.js — Project Maanyata (मान्यता)
  *
  * Modular, self-contained UI modal for logging a formal contract dispute
- * under the Bonded Trust & Anti-Spite Protocol.
+ * under the Verified Trust & Anti-Spite Protocol.
  *
  * Statutory Invariants:
  *  - Mandatory ₹2,500 Investigation Escrow deposit.
@@ -274,7 +274,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 Warning: Frivolous Claim Forfeiture Rule
               </div>
-              Under Maanyata Bonded Trust Protocol, lodging a formal dispute requires an investigation escrow deposit of <strong>₹2,500.00</strong>.
+              Under Maanyata Verified Trust Protocol, lodging a formal dispute requires an investigation escrow deposit of <strong>₹2,500.00</strong>.
               If statutory review or committee inquiry determines this claim to be frivolous, retaliatory, or false, <strong>₹2,000.00 forfeits directly to the worker</strong> as compensatory restitution, and <strong>₹500.00</strong> is retained as administrative review fee.
             </div>
 

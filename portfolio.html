@@ -20,7 +20,7 @@
   <div class="shell">
     <!-- Header: Logo & Share -->
     <header class="masthead">
-      <a href="/portfolio" class="brand-mark">
+      <a href="/portfolio.html" class="brand-mark">
         <div class="brand-glyph" aria-hidden="true">M</div>
         <div class="brand-name" id="brandTitle">Maanyata</div>
       </a>
@@ -164,18 +164,15 @@
       </div>
 
       <!-- ============================================================
-           BONDED TRUST SERVICE CONTRACTS (4-State Contract Machine)
+           HOUSEHOLD SHIFTS & AGREEMENTS
            ============================================================ -->
       <div class="card" id="contractsCard">
         <div class="section-title">
           <div>
-            <h2 style="margin: 0; font-size: 16px;">Bonded Service Contracts</h2>
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
-              4-State Machine: ACTIVE • SETTLED • DISPUTED • QUARANTINED
-            </div>
+            <h2 style="margin: 0; font-size: 16px;" data-i18n="secHouseholdShifts">Household Shifts & Agreements</h2>
           </div>
           <span class="count-badge" id="contractsCountBadge" style="background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;">
-            ₹1L Fidelity Shield
+            0 Active
           </span>
         </div>
 
@@ -183,32 +180,32 @@
           <!-- Dynamically populated by renderContracts() -->
         </div>
 
-        <!-- Create New Contract Accordion / Form -->
+        <!-- Add Household Shift Form -->
         <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">
           <button type="button" class="btn-action is-outline" id="btnToggleNewContract" onclick="toggleNewContractForm()" style="width: 100%;">
-            + Establish Service Contract
+            + Add Household Shift
           </button>
           <div id="newContractFormWrap" style="display: none; margin-top: 12px; background: #FAF8F5; border: 1px solid var(--border); border-radius: 8px; padding: 14px;">
             <div style="font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">
-              Establish Verified Household Contract
+              Log Household Shift
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
               <div>
-                <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Employer Residence Unit *</label>
-                <input type="text" id="ncEmployerUnit" class="studio-select" placeholder="e.g. Flat B-402" style="width: 100%;">
+                <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Household / Flat Number *</label>
+                <input type="text" id="ncEmployerUnit" class="studio-select" placeholder="e.g. Flat B-402, Wing B" style="width: 100%;">
               </div>
               <div>
                 <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Daily Shift Hours *</label>
-                <input type="number" id="ncShiftHours" class="studio-select" value="2.5" step="0.5" min="0.5" max="14" style="width: 100%;">
+                <input type="number" id="ncShiftHours" class="studio-select" value="2.0" step="0.5" min="0.5" max="14" style="width: 100%;">
               </div>
             </div>
             <div style="margin-bottom: 10px;">
-              <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Role & Craft Scope *</label>
-              <input type="text" id="ncRoleScope" class="studio-select" placeholder="e.g. Culinary Preparation & Kitchen Care" style="width: 100%;">
+              <label style="display:block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">Work Scope / Timing *</label>
+              <input type="text" id="ncRoleScope" class="studio-select" placeholder="e.g. Morning Cooking: 07:30 - 09:30 AM" style="width: 100%;">
             </div>
             <div style="display: flex; gap: 8px;">
               <button type="button" class="btn-action" style="flex: 1; background: var(--terracotta);" onclick="submitNewContract()">
-                Initiate Contract
+                Save Household Shift
               </button>
               <button type="button" class="btn-action is-outline" onclick="toggleNewContractForm()">
                 Cancel
@@ -366,8 +363,8 @@
             <span class="palette-name">Indigo Stamp</span>
           </button>
           <button type="button" class="palette-tile" data-palette="saffron" onclick="selectPalette('saffron')">
-            <span class="palette-swatch" style="background:#FFFDF7; border-color:#B45309;">
-              <span class="palette-accent" style="background:#B45309;"></span>
+            <span class="palette-swatch" style="background:#FFFBEB; border-color:#D97706;">
+              <span class="palette-accent" style="background:#D97706;"></span>
             </span>
             <span class="palette-name">Saffron Seal</span>
           </button>
@@ -390,7 +387,7 @@
 
       <!-- Typography Engine: Low-Data Native Presets -->
       <section class="studio-section">
-        <div class="studio-section-label" data-i18n="lblTypoPresets">Typography Presets (Low Data)</div>
+        <div class="studio-section-label" data-i18n="lblTypoPresets">Presets</div>
         <div class="typo-presets-grid" role="group" aria-label="Typography native presets">
           <button type="button" class="typo-preset-btn" onclick="applyNativePreset('sans')">
             <span class="preset-title" style="font-family:system-ui, -apple-system, Roboto, sans-serif;">Sans</span>

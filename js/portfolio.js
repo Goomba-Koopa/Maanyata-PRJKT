@@ -357,7 +357,7 @@ let currentTab = "pass";
 
 function showTab(name) {
   if (name === "directory") {
-    window.location.href = "/directory";
+    window.location.href = "/directory.html";
     return;
   }
   if (!TABS.includes(name)) return;
@@ -763,18 +763,8 @@ function calculateCumulativeHours(port) {
     }
   }
 
-  // If newly registered worker with 0 attested tenure and no references
-  if ((parseFloat(port.tenureAttested) === 0 || port.tenure === "0 Yrs") && (!port.references || port.references.length === 0)) {
-    return { totalHours: 0, shifts: [] };
-  }
-
-  // Fallback default cumulative hours for Sunita demo (1,480 hrs total)
-  // B-402 (12 hrs/wk x 80 wks = 960 hrs) + C-104 (10 hrs/wk x 52 wks = 520 hrs) = 1,480 hrs
-  const defaultShifts = [
-    { household: "Demo Heights B-402", role: "Culinary & Kitchen Care", hoursPerWeek: 12, weeks: 80, totalHours: 960 },
-    { household: "Demo Heights C-104", role: "Household Specialist", hoursPerWeek: 10, weeks: 52, totalHours: 520 }
-  ];
-  return { totalHours: 1480, shifts: defaultShifts };
+  // Zero unmeasured synthetic hours: return 0 if no explicit shifts and no certified references
+  return { totalHours: 0, shifts: [] };
 }
 
 // Rendering
@@ -840,8 +830,30 @@ function renderPortfolio() {
   document.getElementById("metricHouseholds").textContent = toDevanagariNumerals(portfolio.households != null ? portfolio.households : 0);
 
   const isUnknown = portfolio.isUnknown || (portfolio.name && portfolio.name.startsWith("Unknown"));
-  const nameParts = (portfolio.name || "").replace(/\[.*?\]/, "").trim().split(/\s+/);
-  const initials = isUnknown ? "?" : (nameParts.length >= 2 ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : (portfolio.name || "SD").slice(0, 2).toUpperCase());
+  
+  // Humanize and clean worker name if it contains a slug like "sunita-devi-01"
+  let cleanName = (portfolio.name || "").replace(/\[.*?\]|\(.*?\)/g, "").trim();
+  const lowerName = cleanName.toLowerCase();
+  let humanFirstName = "";
+
+  if (lowerName.includes("sunita-devi") || lowerName === "sunita_devi" || lowerName.includes("sunita devi") || lowerName === "sunita") {
+    cleanName = currentLang === "hi" ? "सुनीता देवी" : "Sunita Devi";
+    humanFirstName = currentLang === "hi" ? "सुनीता" : "Sunita";
+  } else if (lowerName.includes("ramesh-kumar") || lowerName === "ramesh_kumar" || lowerName.includes("ramesh kumar") || lowerName === "ramesh") {
+    cleanName = currentLang === "hi" ? "रमेश कुमार" : "Ramesh Kumar";
+    humanFirstName = currentLang === "hi" ? "रमेश" : "Ramesh";
+  } else if (lowerName.includes("asha-kumari") || lowerName === "asha_kumari" || lowerName.includes("asha kumari") || lowerName === "asha") {
+    cleanName = currentLang === "hi" ? "आशा कुमारी" : "Asha Kumari";
+    humanFirstName = currentLang === "hi" ? "आशा" : "Asha";
+  } else if (cleanName.includes("-") || cleanName.includes("_")) {
+    cleanName = cleanName.replace(/[-_]\d+$/, "").split(/[-_]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    humanFirstName = cleanName.split(/\s+/)[0];
+  } else {
+    humanFirstName = cleanName.split(/\s+/)[0] || "";
+  }
+
+  const nameParts = cleanName.split(/\s+/);
+  const initials = isUnknown ? "?" : (nameParts.length >= 2 ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase() : (cleanName || "SD").slice(0, 2).toUpperCase());
   
   const av = document.getElementById("pAvatar");
   if (av) av.textContent = initials;
@@ -849,8 +861,8 @@ function renderPortfolio() {
   const passAv = document.getElementById("passHeroInitials");
   if (passAv) passAv.textContent = initials;
 
-  const firstName = isUnknown ? "" : (nameParts[0] || "");
-  document.title = `${portfolio.name} — Sovereign Work Portfolio | Maanyata`;
+  const firstName = isUnknown ? "" : humanFirstName;
+  document.title = `${cleanName || portfolio.name} — Sovereign Work Portfolio | Maanyata`;
 
   const passTitle = document.getElementById("passCardTitle");
   if (passTitle) {
@@ -871,7 +883,7 @@ function renderPortfolio() {
   document.getElementById("metricRecognitions").textContent = toDevanagariNumerals(total);
   document.getElementById("signalsTotal").textContent = currentLang === "hi" ? `${toDevanagariNumerals(total)} कुल` : `${total} Total`;
 
-  // Traits Cluster with Lucide SVGs (Zero Emojis)
+  // Traits Cluster with Lucide SVGs (Zero Emojis, prevent double icon leak)
   const traitsBox = document.getElementById("traitsList");
   if (traitsBox) {
     traitsBox.innerHTML = "";
@@ -879,7 +891,11 @@ function renderPortfolio() {
       const el = document.createElement("div");
       el.className = "trait-badge";
       const svgIcon = ICONS[info.iconName] || ICONS.star;
-      const traitDisplayName = (currentLang === "hi" && TRAIT_MAP_HI[name]) ? TRAIT_MAP_HI[name] : name;
+      const cleanKey = name.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").trim();
+      const rawDisplay = (currentLang === "hi" && (TRAIT_MAP_HI[cleanKey] || TRAIT_MAP_HI[name]))
+        ? (TRAIT_MAP_HI[cleanKey] || TRAIT_MAP_HI[name])
+        : cleanKey;
+      const traitDisplayName = rawDisplay.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").trim();
       el.innerHTML = `<span>${svgIcon} ${escapeHTML(traitDisplayName)}</span><span class="trait-count">${escapeHTML(toDevanagariNumerals(info.count))}</span>`;
       traitsBox.appendChild(el);
     }
@@ -986,7 +1002,7 @@ function renderPortfolio() {
 }
 
 // ============================================================
-// 4-STATE CONTRACT MACHINE & DISPUTE HANDLERS
+// HOUSEHOLD SHIFTS & SERVICE AGREEMENTS
 // ============================================================
 async function renderContracts() {
   const container = document.getElementById("contractsListContainer");
@@ -1004,21 +1020,20 @@ async function renderContracts() {
 
   if (badgeEl) {
     const activeCount = contractList.filter(c => c.state === "ACTIVE").length;
-    badgeEl.textContent = `${activeCount} Active • ₹1L Shield`;
+    badgeEl.textContent = currentLang === "hi"
+      ? `${toDevanagariNumerals(activeCount)} सक्रिय घर`
+      : `${activeCount} Active ${activeCount === 1 ? 'Household' : 'Households'}`;
   }
 
   if (!contractList || contractList.length === 0) {
     container.innerHTML = `
       <div style="background: #FAF8F5; border: 1px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center;">
         <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">
-          No Active Service Contracts Recorded
+          No Active Household Shifts Recorded
         </div>
-        <div style="font-size: 12px; color: var(--text-muted); max-width: 420px; margin: 0 auto 12px;">
-          Service contracts establish mutual dignity terms, shift hours, and underwrite the relationship with the ₹1,00,000 Fidelity Shield and 15% Cluster Reserve.
+        <div style="font-size: 12px; color: var(--text-muted); max-width: 420px; margin: 0 auto;">
+          Log daily household shifts to certify your service continuity and career milestones.
         </div>
-        <button type="button" class="btn-action is-outline" onclick="toggleNewContractForm()" style="display: inline-flex; margin: 0 auto; width: auto; padding: 8px 16px; font-size: 13px;">
-          + Create First Household Contract
-        </button>
       </div>
     `;
     return;
@@ -1028,16 +1043,16 @@ async function renderContracts() {
     let stateBadge = "";
     let stateStyle = "";
     if (c.state === "ACTIVE") {
-      stateBadge = "ACTIVE • सक्रिय";
+      stateBadge = "Active • सक्रिय";
       stateStyle = "background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;";
     } else if (c.state === "SETTLED") {
-      stateBadge = "SETTLED • पूर्ण";
+      stateBadge = "Settled • पूर्ण";
       stateStyle = "background: #E0F2FE; color: #075985; border: 1px solid #BAE6FD;";
     } else if (c.state === "DISPUTED") {
-      stateBadge = "DISPUTED • विवादित (₹2,500 Escrow Held)";
+      stateBadge = "Disputed • समीक्षाधीन (₹2,500 Escrow)";
       stateStyle = "background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;";
     } else if (c.state === "QUARANTINED") {
-      stateBadge = "QUARANTINED • सुरक्षा समीक्षा";
+      stateBadge = "Quarantined • सुरक्षा समीक्षा";
       stateStyle = "background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5;";
     }
 
@@ -1064,36 +1079,25 @@ async function renderContracts() {
       <div style="margin-top: 12px; display: flex; gap: 8px; border-top: 1px dashed var(--border); padding-top: 10px;">
         <button type="button" class="btn-action is-outline" style="flex: 1; padding: 8px 12px; font-size: 12px; border-color: #B91C1C; color: #B91C1C;" onclick="openDisputeModal('${c.id}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M3.6 9h16.8L12 2 3.6 9z"/></svg>
-          Report Dispute
+          Report Dispute / Issue
         </button>
         <button type="button" class="btn-action is-outline" style="flex: 1; padding: 8px 12px; font-size: 12px;" onclick="settleContractAction('${c.id}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Settle Contract
+          Mark Month Completed
         </button>
       </div>
     ` : "";
 
     return `
-      <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px; padding: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-          <span style="font-family: ui-monospace, monospace; font-size: 12px; font-weight: 700; color: var(--text-muted);">${escapeHTML(c.id)}</span>
+      <div style="background: #FFFFFF; border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 4px;">
+          <strong style="font-size: 14px; color: var(--text-primary); font-family: var(--font-heading);">${escapeHTML(c.maskedUnit || c.employerUnit)} • ${escapeHTML(c.roleScope || "Household Care")}</strong>
           <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; ${stateStyle}">
             ${stateBadge}
           </span>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px;">
-          <div>
-            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block;">Employer Unit</span>
-            <strong style="color: var(--text-primary);">${escapeHTML(c.maskedUnit || c.employerUnit)}</strong>
-          </div>
-          <div>
-            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block;">Daily Service Shift</span>
-            <strong style="color: var(--text-primary);">${escapeHTML(c.shiftHours)} hrs/day</strong>
-          </div>
-          <div style="grid-column: span 2;">
-            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block;">Role & Scope</span>
-            <span style="color: var(--text-primary); font-weight: 600;">${escapeHTML(c.roleScope)}</span>
-          </div>
+        <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">
+          ${escapeHTML(c.shiftHours)} hrs/day • Active Service
         </div>
         ${disputeDetails}
         ${activeActions}
@@ -1116,14 +1120,14 @@ async function submitNewContract() {
 
   const unit = unitInput ? unitInput.value.trim() : "";
   const scope = scopeInput ? scopeInput.value.trim() : "";
-  const hours = hoursInput ? parseFloat(hoursInput.value) || 2.5 : 2.5;
+  const hours = hoursInput ? parseFloat(hoursInput.value) || 2.0 : 2.0;
 
   if (!unit) {
-    alert("Please enter a valid residence unit (e.g. Flat B-402).");
+    alert("Please enter a valid household unit (e.g. Flat B-402, Wing B).");
     return;
   }
   if (!scope) {
-    alert("Please specify the service role scope.");
+    alert("Please specify the work scope or timing (e.g. Morning Cooking: 07:30 - 09:30 AM).");
     return;
   }
 
@@ -1139,20 +1143,25 @@ async function submitNewContract() {
       if (scopeInput) scopeInput.value = "";
       toggleNewContractForm();
       await renderContracts();
-      showToast("✓ Bonded Service Contract Activated");
+      showToast("✓ Household Shift Activated");
     }
   } catch (err) {
-    alert("Error creating contract: " + err.message);
+    alert("Error saving shift: " + err.message);
   }
 }
 
 async function settleContractAction(contractId) {
-  if (!confirm("Confirm successful completion and settlement of this contract?")) return;
+  if (!confirm("Confirm successful completion and settlement of this month's household shift?")) return;
   try {
     if (window.MaanyataStore && window.MaanyataStore.settleContract) {
       await window.MaanyataStore.settleContract({ contractId, confirmationMethod: "MUTUAL_CONFIRMATION" });
       await renderContracts();
-      showToast("✓ Contract Marked SETTLED");
+      showToast("✓ Shift Marked Completed");
+    }
+  } catch (err) {
+    alert("Error settling shift: " + err.message);
+  }
+}
     }
   } catch (err) {
     alert(err.message);
@@ -1552,7 +1561,7 @@ function resetLocalDemo() {
     keysToRemove.forEach(k => localStorage.removeItem(k));
     sessionStorage.clear();
   } catch (e) {}
-  location.href = "/portfolio?sample=sunita_devi";
+  location.href = "/portfolio.html?sample=sunita_devi";
 }
 
 const TRAIT_MAP_HI = {
@@ -1579,7 +1588,28 @@ const TRAIT_MAP_HI = {
   "Elderly & Bedridden Care": "बुजुर्ग व उपचाराधीन देखभाल",
   "Wheelchair & Clinic Escort": "व्हीलचेयर व अस्पताल सहायता",
   "Pet Care & Dog Walking": "पालतू पशु देखभाल व टहलाना",
-  "⭐ Emergency Availability": "आपातकालीन उपलब्धता",
+  "Pet Care & Walking": "पालतू पशु देखभाल व टहलाना",
+  "Exterior Wash & Glass": "वाहन धुलाई व ग्लास सफाई",
+  "Interior Dusting & Vacuum": "वाहन आंतरिक सफाई व वैक्यूम",
+  "Tire & Fluid Check": "टायर दबाव व फ्लूइड जांच",
+  "Early Morning Shift": "प्रातःकालीन शिफ्ट",
+  "Turnstile & Gate Access": "टर्नस्टाइल व गेट एक्सेस",
+  "Perimeter Night Patrol": "सुरक्षा गश्त व निगरानी",
+  "Visitor Gate Muster": "आगंतुक रजिस्टर जांच",
+  "Emergency First Response": "आपातकालीन प्राथमिक सहायता",
+  "CCTV Monitoring": "सीसीटीवी निगरानी",
+  "Plumbing & Pipe Repair": "प्लंबिंग व पाइप मरम्मत",
+  "Pump & Motor Operations": "मोटर व पंप संचालन",
+  "Electrical & Switchgear": "विद्युत व स्विचगियर कार्य",
+  "General Repairs": "सामान्य मरम्मत",
+  "Safe City Driving": "सुरक्षित नगर ड्राइविंग",
+  "School Transit Route": "स्कूल मार्ग वाहन संचालन",
+  "Vehicle Maintenance": "वाहन रखरखाव",
+  "Traditional Cuisine": "पारंपरिक व्यंजन",
+  "Diabetic & Healthy Diet": "मधुमेह एवं स्वास्थ्यवर्धक आहार",
+  "Deep Scrub & Hygiene": "गहन स्वच्छता एवं सफाई",
+  "Steam Iron & Laundry": "वस्त्र धुलाई एवं स्टीम इस्त्री",
+  "Mandi Accounting": "सब्जी मंडी व दैनिक हिसाब",
   "Emergency Availability": "आपातकालीन उपलब्धता"
 };
 
@@ -1709,6 +1739,7 @@ const I18N = {
     navDirectory: "Directory",
     tabProfile: "Profile",
     secMilestones: "Career Milestones & Service Hours",
+    secHouseholdShifts: "Household Shifts & Agreements",
     badgeMasterCraft: "Master Craft",
     lblTotalHours: "Cumulative Active Service Hours",
     tier100: "100 hrs: Foundation",
@@ -1717,7 +1748,7 @@ const I18N = {
     tier2500: "2,500 hrs: Veteran Specialist",
     studioModalTitle: "Customization Studio",
     lblColorScheme: "Color Scheme",
-    lblTypoPresets: "Typography Presets (Low Data)",
+    lblTypoPresets: "Presets",
     lblFontPair: "Font Pair Customization",
     btnDone: "Done"
   },
@@ -1770,6 +1801,7 @@ const I18N = {
     tabProfile: "प्रोफ़ाइल",
     secMilestones: "करियर मील के पत्थर एवं सेवा घंटे",
     badgeMasterCraft: "मास्टर क्राफ्ट",
+    secHouseholdShifts: "घरेलू कार्य शिफ्ट एवं समझौते",
     lblTotalHours: "कुल सक्रिय सेवा घंटे",
     tier100: "१०० घंटे: आधारशिला",
     tier500: "५०० घंटे: कर्मठता",
@@ -1777,7 +1809,7 @@ const I18N = {
     tier2500: "२,५०० घंटे: वयोवृद्ध विशेषज्ञ",
     studioModalTitle: "डिज़ाइन स्टूडियो",
     lblColorScheme: "रंग योजना",
-    lblTypoPresets: "फ़ॉन्ट प्रीसेट (कम डेटा)",
+    lblTypoPresets: "प्रीसेट",
     lblFontPair: "फ़ॉन्ट चयन",
     btnDone: "संपन्न"
   }
@@ -1850,7 +1882,7 @@ function sharePassbookWhatsApp() {
     portfolio.boundaries
   );
 
-  const shareUrl = `${window.location.origin}/portfolio#token=${encodeURIComponent(signedToken)}`;
+  const shareUrl = `${window.location.origin}/portfolio.html#token=${encodeURIComponent(signedToken)}`;
   const msg = `Namaste, I am sharing my verified frontline work passbook on Project Maanyata:\n\n*${workerName}*\n${workerRole}\nSeniority: ${tenure} (Verified by local residents)\n\nView my authenticated passbook here:\n${shareUrl}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
 }

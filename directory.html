@@ -155,7 +155,7 @@
       width: 100%;
     }
 
-    .hub-pill {
+    .hub-pill, .society-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -282,7 +282,7 @@
       border-radius: var(--radius-md);
       padding: 12px 38px 12px 42px;
       font-family: var(--font-body);
-      font-size: 15px;
+      font-size: 16px;
       color: var(--ink-primary);
       outline: none;
       transition: all 0.2s ease;
@@ -581,7 +581,7 @@
       letter-spacing: 0.03em;
     }
 
-    .society-pill-item {
+    .society-badge-item {
       background: var(--card-subtle);
       border: 1px solid var(--border-subtle);
       padding: 2px 7px;
@@ -867,15 +867,15 @@
 
     <!-- Masthead -->
     <header class="masthead">
-      <a href="/directory" class="brand-mark">
+      <a href="/directory.html" class="brand-mark">
         <div class="brand-glyph">म</div>
         <div class="brand-name">Maanyata</div>
       </a>
       <div style="display:flex; align-items:center; gap:8px;">
-        <a href="/portfolio" class="btn-top">
+        <a href="/portfolio.html" class="btn-top">
           <span>My Pass</span>
         </a>
-        <a href="/onboard" class="btn-top" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
+        <a href="/onboard.html" class="btn-top" style="background:var(--terracotta-bg); color:var(--terracotta); border-color:var(--terracotta-border);">
           <span>+ Register Staff</span>
         </a>
       </div>
@@ -964,7 +964,7 @@
     </main>
 
     <div class="empty-state" id="emptyState">
-      No verified staff registered in this radius yet. Tap <a href="/onboard" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.
+      No verified staff registered in this radius yet. Tap <a href="/onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.
     </div>
 
     <!-- Hyperlocal Neighborhood Employment Standard Notice -->
@@ -1342,7 +1342,8 @@
                 for (const [k, v] of Object.entries(w.traits)) {
                   if (v && (v.count > 0 || typeof v === "string")) {
                     const count = v.count || 1;
-                    traitStrings.push(`${v.icon || '⭐'} ${k} (${count})`);
+                    const cleanIcon = (v.icon && !/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(v.icon)) ? v.icon : '✓';
+                    traitStrings.push(`${cleanIcon} ${k} (${count})`);
                   }
                 }
               }
@@ -1411,7 +1412,10 @@
             const traitStrings = [];
             if (p.traits) {
               for (const [k, v] of Object.entries(p.traits)) {
-                if (v && v.count > 0) traitStrings.push(`${v.icon || '⭐'} ${k} (${v.count})`);
+                if (v && v.count > 0) {
+                  const cleanIcon = (v.icon && !/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(v.icon)) ? v.icon : '✓';
+                  traitStrings.push(`${cleanIcon} ${k} (${v.count})`);
+                }
               }
             }
 
@@ -1576,7 +1580,7 @@
           : [s.primarySociety || "Local Societies"];
         
         const societiesBadgesHTML = societiesList.map(soc => 
-          `<span class="society-pill-item">${escapeHTML(soc)}</span>`
+          `<span class="society-badge-item">${escapeHTML(soc)}</span>`
         ).join("");
 
         const traitsHTML = (s.traits || []).map(t => 
@@ -1585,8 +1589,8 @@
 
         // Passbook link
         const targetLink = (s.id && s.id !== "active_worker")
-          ? `/portfolio?id=${encodeURIComponent(s.id)}&view=hire` 
-          : `/portfolio?view=hire`;
+          ? `/portfolio.html?id=${encodeURIComponent(s.id)}&view=hire` 
+          : `/portfolio.html?view=hire`;
 
         // Direct WhatsApp contact URL
         const waPhone = (s.phone || "").replace(/[^0-9]/g, "");
@@ -1650,7 +1654,7 @@
 
       if (matches === 0) {
         if (staffList.length === 0) {
-          empty.innerHTML = `No verified staff registered in this radius yet. Tap <a href="/onboard" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.`;
+          empty.innerHTML = `No verified staff registered in this radius yet. Tap <a href="/onboard.html" style="color:var(--terracotta); font-weight:700; text-decoration:underline;">'Register Staff'</a> to onboard the first passbook.`;
         } else {
           empty.innerHTML = `No verified staff matched your filter or search query within 6 km of <strong>${escapeHTML(activeHub)}</strong>.`;
         }

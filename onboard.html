@@ -325,7 +325,7 @@
 
     <!-- Masthead -->
     <header class="masthead">
-      <a href="/portfolio" class="brand-mark">
+      <a href="/portfolio.html" class="brand-mark">
         <div class="brand-glyph">म</div>
         <div class="brand-name">Maanyata</div>
       </a>
@@ -336,7 +336,7 @@
         <button class="auth-btn" type="button" onclick="openAuthorityModal()">
           <span>Authority Access</span>
         </button>
-        <a href="/portfolio" class="auth-btn" style="text-decoration:none;">
+        <a href="/portfolio.html" class="auth-btn" style="text-decoration:none;">
           <span>Portfolio →</span>
         </a>
       </div>
@@ -367,14 +367,14 @@
 
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button type="button" onclick="startAadhaarScanner()" class="auth-btn" style="flex:1; min-width:130px; background:var(--card-bg); justify-content:center;">
-              <span>📷 Scan Aadhaar QR</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision" style="vertical-align:-2px;"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>Scan Aadhaar QR</span>
             </button>
             <input type="file" id="aadhaarFileInput" accept="image/*" style="display:none;" onchange="handleAadhaarUpload(event)">
             <button type="button" onclick="document.getElementById('aadhaarFileInput').click()" class="auth-btn" style="flex:1; min-width:130px; background:var(--card-bg); justify-content:center;">
-              <span>📁 Upload Aadhaar</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision" style="vertical-align:-2px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload Aadhaar</span>
             </button>
             <button type="button" onclick="loadSampleAadhaar()" class="auth-btn" style="flex:1; min-width:120px; background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-border); justify-content:center;">
-              <span>⚡ Sample Aadhaar</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision" style="vertical-align:-2px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Sample Aadhaar</span>
             </button>
           </div>
 
@@ -739,7 +739,7 @@
       const container = document.getElementById("boundaryTags");
       const span = document.createElement("span");
       span.className = "tag-choice selected";
-      span.textContent = "⭐ " + val;
+      span.textContent = "✓ " + val;
       span.onclick = function() { toggleTag(this); };
       container.appendChild(span);
       input.value = "";
@@ -893,12 +893,12 @@
         body: JSON.stringify({ name: name, role: craft, boundaries: boundaries, maskedAadhaar: maskedUid, identityHash: identityHash })
       }).then(r => r.json()).then(res => {
         if (res.success && res.worker) {
-          window.location.href = "/portfolio?id=" + encodeURIComponent(res.worker.id);
+          window.location.href = "/portfolio.html?id=" + encodeURIComponent(res.worker.id);
         } else {
-          window.location.href = "/portfolio";
+          window.location.href = "/portfolio.html";
         }
       }).catch(() => {
-        window.location.href = "/portfolio";
+        window.location.href = "/portfolio.html";
       });
     }
 
@@ -935,7 +935,7 @@
 
       alert(`AUTHORITY PROVISIONED: ${role.toUpperCase()} credentials activated for [${targetName}].`);
       closeAuthorityModal();
-      window.location.href = "/portfolio";
+      window.location.href = "/portfolio.html";
     }
   </script>
 </body>
