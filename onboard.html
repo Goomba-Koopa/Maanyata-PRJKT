@@ -835,7 +835,11 @@
       const uan = "UAN ****-****-" + last4;
       const identityHash = verifiedAadhaarData ? verifiedAadhaarData.identityHash : null;
 
+      const nameSlug = (name || "worker").toLowerCase().trim().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "worker";
+      const workerId = `w_${nameSlug}_${Date.now().toString(36)}`;
+
       const workerData = {
+        id: workerId,
         name: name,
         role: craft,
         photo: capturedPhotoBase64,
@@ -859,15 +863,18 @@
       };
 
       try {
-        localStorage.setItem("maanyata_sunita_portfolio_v1", JSON.stringify(workerData));
-        localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", name: name }));
+        localStorage.setItem("mny_worker_" + workerId, JSON.stringify(workerData));
+        if (!localStorage.getItem("maanyata_sunita_portfolio_v1")) {
+          localStorage.setItem("maanyata_sunita_portfolio_v1", JSON.stringify(workerData));
+        }
+        localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", id: workerId, name: name }));
       } catch (err) {
         // QuotaExceededError fallback on budget phones: drop large photo to preserve identity
         if (workerData.photo) {
           try {
             workerData.photo = null;
-            localStorage.setItem("maanyata_sunita_portfolio_v1", JSON.stringify(workerData));
-            localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", name: name }));
+            localStorage.setItem("mny_worker_" + workerId, JSON.stringify(workerData));
+            localStorage.setItem("maanyata_active_user", JSON.stringify({ role: "worker", id: workerId, name: name }));
             alert("Storage Notice: Device memory low. Passbook created without photo to preserve credentials.");
           } catch (e2) {
             alert("Device Storage Full: Please clear browser cache to create your passbook.");
@@ -890,15 +897,11 @@
       fetch("/api/workers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, role: craft, boundaries: boundaries, maskedAadhaar: maskedUid, identityHash: identityHash })
+        body: JSON.stringify({ id: workerId, name: name, role: craft, boundaries: boundaries, maskedAadhaar: maskedUid, identityHash: identityHash })
       }).then(r => r.json()).then(res => {
-        if (res.success && res.worker) {
-          window.location.href = "/portfolio.html?id=" + encodeURIComponent(res.worker.id);
-        } else {
-          window.location.href = "/portfolio.html";
-        }
+        window.location.href = "/portfolio_aqua.html?worker=" + encodeURIComponent(workerId);
       }).catch(() => {
-        window.location.href = "/portfolio.html";
+        window.location.href = "/portfolio_aqua.html?worker=" + encodeURIComponent(workerId);
       });
     }
 

@@ -30,7 +30,8 @@ const pages = [
   'directory.html',
   'onboard.html',
   'rwa_pilot_proposal.html',
-  'index.html'
+  'index.html',
+  'demo.html'
 ];
 
 console.log('================================================================');

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Project Maanyata (मान्यता) • Evaluator & Demo Launchpad</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --canvas: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --card-subtle: #F6F4F0;
+      --border: #E8E2D5;
+      --border-subtle: #F0EDE8;
+      --ink-primary: #1C1917;
+      --ink-secondary: #57534E;
+      --ink-muted: #78716C;
+      --terracotta: #C2410C;
+      --terracotta-hover: #9A3412;
+      --terracotta-bg: #FFF7ED;
+      --terracotta-border: #FFEDD5;
+      --emerald: #047857;
+      --emerald-bg: #ECFDF5;
+      --emerald-border: #A7F3D0;
+      --amber: #B45309;
+      --amber-bg: #FEF3C7;
+      --amber-border: #FDE68A;
+      --blue: #1D4ED8;
+      --blue-bg: #EFF6FF;
+      --blue-border: #BFDBFE;
+      --purple: #6D28D9;
+      --purple-bg: #F5F3FF;
+      --purple-border: #DDD6FE;
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Masthead */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink-primary);
+    }
+
+    .brand-glyph {
+      width: 42px;
+      height: 42px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(194, 65, 12, 0.25);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .manifest-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 16px;
+      min-height: 44px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .manifest-badge:hover {
+      background: #FFFFFF;
+      color: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(28, 25, 23, 0.04);
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--terracotta-bg);
+      color: var(--terracotta);
+      border: 1px solid var(--terracotta-border);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ink-primary);
+      margin-bottom: 8px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--ink-secondary);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .hero-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .feat-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .feat-tag.offline {
+      background: var(--emerald-bg);
+      color: var(--emerald);
+      border: 1px solid var(--emerald-border);
+    }
+
+    .feat-tag.crypto {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid var(--blue-border);
+    }
+
+    .feat-tag.sovereign {
+      background: var(--purple-bg);
+      color: var(--purple);
+      border: 1px solid var(--purple-border);
+    }
+
+    .feat-tag.dignity {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid var(--amber-border);
+    }
+
+    /* Section Header */
+    .section-header {
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--ink-primary);
+    }
+
+    .section-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+
+    /* Role Cards Grid */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .role-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.03);
+      position: relative;
+    }
+
+    .role-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--terracotta);
+      box-shadow: 0 10px 24px rgba(194, 65, 12, 0.1);
+    }
+
+    .card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .role-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .role-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .persona-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink-primary);
+      line-height: 1.25;
+    }
+
+    .persona-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-top: 2px;
+    }
+
+    .role-purpose {
+      font-size: 13px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    .file-ref {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--ink-muted);
+      background: var(--card-subtle);
+      padding: 3px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+      margin-top: 8px;
+    }
+
+    .card-bottom {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 44px;
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .btn-launch:hover {
+      background: var(--terracotta);
+      box-shadow: 0 4px 12px rgba(194, 65, 12, 0.25);
+    }
+
+    /* Role Specific Accents */
+    .accent-worker .role-icon { background: var(--terracotta-bg); color: var(--terracotta); border: 1px solid var(--terracotta-border); }
+    .accent-worker .role-badge { background: var(--terracotta-bg); color: var(--terracotta); }
+
+    .accent-resident .role-icon { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+    .accent-resident .role-badge { background: var(--amber-bg); color: var(--amber); }
+
+    .accent-directory .role-icon { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+    .accent-directory .role-badge { background: var(--purple-bg); color: var(--purple); }
+
+    .accent-onboard .role-icon { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+    .accent-onboard .role-badge { background: var(--blue-bg); color: var(--blue); }
+
+    .accent-security .role-icon { background: var(--emerald-bg); color: var(--emerald); border: 1px solid var(--emerald-border); }
+    .accent-security .role-badge { background: var(--emerald-bg); color: var(--emerald); }
+
+    .accent-aqua .role-icon { background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.35); }
+    .accent-aqua .role-badge { background: rgba(14, 165, 233, 0.12); color: #0284C7; }
+
+    .accent-rwa .role-icon { background: var(--card-subtle); color: var(--ink-primary); border: 1px solid var(--border); }
+    .accent-rwa .role-badge { background: var(--card-subtle); color: var(--ink-primary); border: 1px solid var(--border); }
+
+    /* Footer */
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .hero-banner { padding: 20px; }
+      .hero-title { font-size: 22px; }
+      .roles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <a href="/" class="brand-mark">
+        <div class="brand-glyph" aria-hidden="true">M</div>
+        <div class="brand-text">
+          <span class="brand-name">Maanyata (मान्यता)</span>
+          <span class="brand-tagline">Sovereign Trust & Worker Dignity Architecture</span>
+        </div>
+      </a>
+      <div class="top-actions">
+        <a href="/index.html" class="manifest-badge" title="Public Institutional Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span>Institutional Portal</span>
+        </a>
+        <a href="ROLES_AND_PAGES.md" class="manifest-badge" title="Read Roles Manifest">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <span>ROLES_AND_PAGES.md</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <span class="hero-pill">Decentralized Housing Society Infrastructure</span>
+      <h1 class="hero-title">Role Switchboard & Interactive Launchpad</h1>
+      <p class="hero-desc">
+        Project Maanyata replaces exploitative intermediary aggregators with self-sovereign cryptographic work records.
+        Every domestic professional owns their verified history, portable across employers and housing complexes with zero platform surveillance.
+      </p>
+      <div class="hero-pills-row">
+        <span class="feat-tag offline">0.5s Offline Verification</span>
+        <span class="feat-tag crypto">Ed25519 Cryptographic Signatures</span>
+        <span class="feat-tag sovereign">Self-Sovereign Device Storage</span>
+        <span class="feat-tag dignity">Zero Wage Deductions & Human Dignity</span>
+      </div>
+    </section>
+
+    <!-- Roles Grid Section -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Core Ecosystem Role Interfaces</h2>
+        <span class="section-count">7 Active Production Surfaces</span>
+      </div>
+
+      <div class="roles-grid">
+
+        <!-- 1. Domestic Worker Passbook (Standard) -->
+        <article class="role-card accent-worker">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg></div>
+              <span class="role-badge">Standard Passbook</span>
+            </div>
+            <div>
+              <h3 class="persona-title">The Domestic Worker (Standard)</h3>
+              <p class="persona-name">Sunita Devi (Culinary & Housekeeping)</p>
+            </div>
+            <p class="role-purpose">
+              Personal sovereign passbook displaying verified tenure, resident craft endorsements, and live dynamic QR code for secure gate access.
+            </p>
+            <span class="file-ref">portfolio.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/portfolio.html" class="btn-launch">
+              <span>Open Standard Passbook</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 2. Domestic Worker Passbook (Aquamorphic Liquid Glass) -->
+        <article class="role-card accent-aqua">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+              <span class="role-badge">Aquamorphic Edition</span>
+            </div>
+            <div>
+              <h3 class="persona-title">The Domestic Worker (Aqua Glass)</h3>
+              <p class="persona-name">Liquid Glass Showcase Edition</p>
+            </div>
+            <p class="role-purpose">
+              Hydrostatic depth, frosted cards (24px blur), luminous caustics, real-time clock ticker, and dynamic offline Ed25519 QR matrix.
+            </p>
+            <span class="file-ref">portfolio_aqua.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/portfolio_aqua.html" class="btn-launch" style="background:#0284C7;">
+              <span>Open Aqua Passbook</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 3. Employing Resident Endorsement -->
+        <article class="role-card accent-resident">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+              <span class="role-badge">Attestation Portal</span>
+            </div>
+            <div>
+              <h3 class="persona-title">The Employing Resident</h3>
+              <p class="persona-name">Mrs. Pooja Sharma (Tower B - 402)</p>
+            </div>
+            <p class="role-purpose">
+              15-second zero-friction tap endorsement to attest positive craft skills, tenure milestones, and character traits without administrative friction.
+            </p>
+            <span class="file-ref">endorse.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/endorse.html" class="btn-launch">
+              <span>Open Endorsement Portal</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 4. Gate Security & Verifier HUD -->
+        <article class="role-card accent-security">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+              <span class="role-badge">Gate Verification HUD</span>
+            </div>
+            <div>
+              <h3 class="persona-title">Society Gate Security</h3>
+              <p class="persona-name">Offline QR Gate Verification</p>
+            </div>
+            <p class="role-purpose">
+              0.5-second offline cryptographic passbook verification HUD inspecting Ed25519 signatures, resident attestations, and ₹1,00,000 Fidelity Shield.
+            </p>
+            <span class="file-ref">verify.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/verify.html" class="btn-launch">
+              <span>Open Gate Verifier HUD</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 5. Society Resident Directory -->
+        <article class="role-card accent-directory">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <span class="role-badge">Discovery Hub</span>
+            </div>
+            <div>
+              <h3 class="persona-title">Society Resident / Hiring</h3>
+              <p class="persona-name">Apartment Complex Resident</p>
+            </div>
+            <p class="role-purpose">
+              Browse active verified domestic staff inside the society complex categorized by craft with verified tenure and direct contact.
+            </p>
+            <span class="file-ref">directory.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/directory.html" class="btn-launch">
+              <span>Browse Staff Directory</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 6. New Worker Onboarding -->
+        <article class="role-card accent-onboard">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
+              <span class="role-badge">Self-Registration</span>
+            </div>
+            <div>
+              <h3 class="persona-title">The New Worker</h3>
+              <p class="persona-name">Self-Registration Flow</p>
+            </div>
+            <p class="role-purpose">
+              Create initial portable pass with camera selfie photo capture, shift windows, craft selection, and Dignity Charter acceptance.
+            </p>
+            <span class="file-ref">onboard.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/onboard.html" class="btn-launch">
+              <span>Start Worker Onboarding</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 7. Society Committee / RWA Proposal -->
+        <article class="role-card accent-rwa">
+          <div class="card-top">
+            <div class="card-header-row">
+              <div class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 3l9 7H3z"/></svg></div>
+              <span class="role-badge">Governance & Pilot</span>
+            </div>
+            <div>
+              <h3 class="persona-title">The Society Committee</h3>
+              <p class="persona-name">RWA Secretary Narang & Board</p>
+            </div>
+            <p class="role-purpose">
+              Complete 30-day zero-cost society pilot proposal, operational memorandum, board resolution, and legal compliance dossier.
+            </p>
+            <span class="file-ref">rwa_pilot_proposal.html</span>
+          </div>
+          <div class="card-bottom">
+            <a href="/rwa_pilot_proposal.html" class="btn-launch">
+              <span>View Pilot Proposal</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p><strong>Project Maanyata (मान्यता)</strong> • Built with zero-framework vanilla web standards.</p>
+      <p>Official Public Institutional Portal: <a href="/index.html">Project Maanyata Home</a> • Technical Specification: <a href="ROLES_AND_PAGES.md">ROLES_AND_PAGES.md</a> • Test Suites: <a href="tests/">tests/</a></p>
+    </footer>
+
+  </div>
+</body>
+</html>

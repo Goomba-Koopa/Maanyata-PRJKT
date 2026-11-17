@@ -252,9 +252,51 @@ function loadPortfolio() {
       return JSON.parse(JSON.stringify(SAMPLES[sampleId]));
     }
 
-    // Strike 2: Unauthenticated URL query reflection (?worker=, ?name=, ?role=) is PERMANENTLY KILLED.
-    // DOM will NOT reflect unauthenticated parameters.
+    // Dynamic Multi-Worker Resolution: ?worker=<id> or ?id=<id>
+    const targetWorkerId = params.get("worker") || params.get("id");
+    if (targetWorkerId && targetWorkerId !== "unknown") {
+      // 1. Check multi-worker storage (mny_worker_<id>)
+      const multiRaw = localStorage.getItem("mny_worker_" + targetWorkerId);
+      if (multiRaw) {
+        const parsed = JSON.parse(multiRaw);
+        if (parsed) return parsed;
+      }
+      // 2. Check SAMPLES by key or id property
+      if (SAMPLES[targetWorkerId]) {
+        return JSON.parse(JSON.stringify(SAMPLES[targetWorkerId]));
+      }
+      for (const k in SAMPLES) {
+        if (SAMPLES[k] && SAMPLES[k].id === targetWorkerId) {
+          return JSON.parse(JSON.stringify(SAMPLES[k]));
+        }
+      }
+      // 3. Fallback for sunita-devi-01
+      if (targetWorkerId === "sunita-devi-01" || targetWorkerId === "sunita_devi") {
+        const sunitaRaw = localStorage.getItem("maanyata_sunita_portfolio_v1");
+        if (sunitaRaw) {
+          const parsed = JSON.parse(sunitaRaw);
+          if (parsed) return parsed;
+        }
+        return JSON.parse(JSON.stringify(SAMPLES.sunita_devi));
+      }
+    }
 
+    // Check active user session if no explicit parameter passed
+    const activeUserRaw = localStorage.getItem("maanyata_active_user");
+    if (activeUserRaw) {
+      try {
+        const activeUser = JSON.parse(activeUserRaw);
+        if (activeUser && activeUser.id) {
+          const multiRaw = localStorage.getItem("mny_worker_" + activeUser.id);
+          if (multiRaw) {
+            const parsed = JSON.parse(multiRaw);
+            if (parsed) return parsed;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Fallback: Default to Sunita Devi passbook
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
@@ -269,7 +311,12 @@ function loadPortfolio() {
 
 function savePortfolio() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+    if (portfolio && portfolio.id) {
+      localStorage.setItem("mny_worker_" + portfolio.id, JSON.stringify(portfolio));
+    }
+    if (!portfolio || !portfolio.id || portfolio.id === "sunita-devi-01") {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+    }
   } catch (e) {}
 }
 
@@ -1221,6 +1268,8 @@ if (typeof window !== "undefined") {
   window.restoreCustomizationStudio = restoreCustomizationStudio;
   window.generateEd25519Token = generateEd25519Token;
   window.renderPortfolio = renderPortfolio;
+  window.loadPortfolio = loadPortfolio;
+  window.savePortfolio = savePortfolio;
   window.initApp = initApp;
 }
 
@@ -1272,7 +1321,7 @@ function renderOfflineQR() {
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
-  const size = 240;
+  const size = 200;
   canvas.width = size;
   canvas.height = size;
   ctx.fillStyle = "#FFFFFF";
@@ -1335,10 +1384,10 @@ function renderOfflineQR() {
       const pad = 2;
       const cell = size / (count + pad * 2);
 
-      // High-contrast dark QR matrix (#061426) on clean white background
+      // High-contrast dark QR matrix (#0A1E38) on clean white background
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, size, size);
-      ctx.fillStyle = "#061426";
+      ctx.fillStyle = "#0A1E38";
       for (let r = 0; r < count; r++) {
         for (let c = 0; c < count; c++) {
           if (qr.isDark(r, c)) {

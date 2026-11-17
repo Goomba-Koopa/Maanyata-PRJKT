@@ -1397,52 +1397,75 @@
         });
       }
 
-      // Check localStorage for personal passbook worker
+      // Check multi-worker storage (mny_worker_<id>) and legacy personal passbook
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const p = JSON.parse(raw);
-          if (p.name) {
-            let cat = "clean";
-            const r = (p.role || "").toLowerCase();
-            if (r.includes("cook") || r.includes("culinary") || r.includes("food")) cat = "cook";
-            else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
-            else if (r.includes("nanny") || r.includes("child") || r.includes("baby")) cat = "nanny";
+        const storedWorkers = [];
 
-            const traitStrings = [];
-            if (p.traits) {
-              for (const [k, v] of Object.entries(p.traits)) {
-                if (v && v.count > 0) {
-                  const cleanIcon = (v.icon && !/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(v.icon)) ? v.icon : '✓';
-                  traitStrings.push(`${cleanIcon} ${k} (${v.count})`);
-                }
-              }
+        // 1. Scan for all dynamic multi-workers (mny_worker_<id>)
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith("mny_worker_")) {
+            const raw = localStorage.getItem(k);
+            if (raw) {
+              try {
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.name) storedWorkers.push(parsed);
+              } catch (e) {}
             }
-
-            const activeWorker = {
-              id: "active_worker",
-              name: p.name,
-              role: p.role || "Household Specialist",
-              category: cat,
-              baseDistanceKm: 0.5,
-              primarySociety: `${activeHub} (Zone A)`,
-              societiesServed: [`${activeHub}`, "Greenwood Palms CHS", "Silver Park CHS"],
-              locationVerified: true,
-              tenure: `${p.tenure || '1 Yr'} Verified`,
-              households: p.households || 1,
-              shift: "Active Daily Shift",
-              uan: p.uan || "UAN ****-****-9393",
-              phone: p.phone || "",
-              traits: traitStrings.slice(0, 3),
-              boundaries: p.boundaries || ["Clean water & soap", "Rain arrival relief"],
-              isLive: true
-            };
-
-            // Remove duplicate if name matches
-            workersPool = workersPool.filter(w => w.name.toLowerCase() !== activeWorker.name.toLowerCase());
-            workersPool.unshift(activeWorker);
           }
         }
+
+        // 2. Scan fallback Sunita portfolio if not already scanned
+        const sunitaRaw = localStorage.getItem(STORAGE_KEY);
+        if (sunitaRaw) {
+          try {
+            const p = JSON.parse(sunitaRaw);
+            if (p && p.name && !storedWorkers.some(w => w.name.toLowerCase() === p.name.toLowerCase())) {
+              storedWorkers.push({ ...p, id: p.id || "sunita-devi-01" });
+            }
+          } catch (e) {}
+        }
+
+        storedWorkers.forEach(p => {
+          let cat = "clean";
+          const r = (p.role || "").toLowerCase();
+          if (r.includes("cook") || r.includes("culinary") || r.includes("food")) cat = "cook";
+          else if (r.includes("drive") || r.includes("chauffeur")) cat = "driver";
+          else if (r.includes("nanny") || r.includes("child") || r.includes("baby")) cat = "nanny";
+
+          const traitStrings = [];
+          if (p.traits) {
+            for (const [k, v] of Object.entries(p.traits)) {
+              if (v && v.count > 0) {
+                const cleanIcon = (v.icon && !/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(v.icon)) ? v.icon : '✓';
+                traitStrings.push(`${cleanIcon} ${k} (${v.count})`);
+              }
+            }
+          }
+
+          const dynamicWorker = {
+            id: p.id || ("worker_" + p.name.toLowerCase().replace(/[^a-z0-9]/g, "_")),
+            name: p.name,
+            role: p.role || "Household Specialist",
+            category: cat,
+            baseDistanceKm: 0.5,
+            primarySociety: `${activeHub} (Zone A)`,
+            societiesServed: [`${activeHub}`, "Greenwood Palms CHS", "Silver Park CHS"],
+            locationVerified: true,
+            tenure: `${p.tenure || p.tenureAttested || '1 Yr'} Verified`,
+            households: p.households || 1,
+            shift: p.shift || "Active Daily Shift",
+            uan: p.uan || "UAN ****-****-9393",
+            phone: p.phone || "",
+            traits: traitStrings.slice(0, 3),
+            boundaries: p.boundaries || ["Clean water & soap", "Rain arrival relief"],
+            isLive: true
+          };
+
+          // Remove duplicate if name or id matches, then prepend
+          workersPool = workersPool.filter(w => w.name.toLowerCase() !== dynamicWorker.name.toLowerCase() && w.id !== dynamicWorker.id);
+          workersPool.unshift(dynamicWorker);
+        });
       } catch (e) {}
 
       // Calculate distances for all workers relative to active hub
@@ -1589,8 +1612,8 @@
 
         // Passbook link
         const targetLink = (s.id && s.id !== "active_worker")
-          ? `/portfolio.html?id=${encodeURIComponent(s.id)}&view=hire` 
-          : `/portfolio.html?view=hire`;
+          ? `/portfolio_aqua.html?worker=${encodeURIComponent(s.id)}&view=hire` 
+          : `/portfolio_aqua.html?view=hire`;
 
         // Direct WhatsApp contact URL
         const waPhone = (s.phone || "").replace(/[^0-9]/g, "");
