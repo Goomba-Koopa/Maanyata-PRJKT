@@ -3,16 +3,19 @@
  * 
  * Invariant: 100% Offline Resilience (Gate Clearance in Cell-Dead Lobbies)
  * Strategy: Network-First for HTML Navigations, Stale-While-Revalidate with 7-Day TTL for Assets & Worker API
- * Cache Version: maanyata-v12-live
+ * Cache Version: maanyata-v13-aqua-live
  */
 
-const CACHE_NAME = "maanyata-v12-live";
+const CACHE_NAME = "maanyata-v13-aqua-live";
 const MAX_CACHE_AGE_MS = 7 * 86400 * 1000; // 7 days TTL
 
 const OFFLINE_URLS = [
   "./",
   "./index.html",
   "./portfolio.html",
+  "./portfolio_aqua.html",
+  "./styles_aqua.css",
+  "./demo.html",
   "./directory.html",
   "./onboard.html",
   "./endorse.html",
@@ -105,6 +108,12 @@ async function getCachedNavigationResponse(cache, pathname) {
   }
   if (clean.endsWith("/proposal") || clean.endsWith("/rwa_pilot_proposal") || clean.endsWith("/rwa_pilot_proposal.html")) {
     return cache.match("./rwa_pilot_proposal.html");
+  }
+  if (clean.endsWith("/portfolio_aqua") || clean.endsWith("/portfolio_aqua.html")) {
+    return cache.match("./portfolio_aqua.html");
+  }
+  if (clean.endsWith("/demo") || clean.endsWith("/demo.html")) {
+    return cache.match("./demo.html");
   }
   if (clean.endsWith("/portfolio") || clean.endsWith("/portfolio.html")) {
     return cache.match("./portfolio.html");

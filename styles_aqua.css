@@ -3,7 +3,7 @@
    Project Maanyata — styles_aqua.css
    ========================================================================== */
 
-:root, [data-theme="aqua"] {
+:root, [data-theme="aqua"], body.theme-aqua {
   /* Aquatic Depth Tokens */
   --aqua-depth-0: #040D1A;
   --aqua-depth-1: #061426;
@@ -107,29 +107,33 @@ body.theme-aqua, [data-theme="aqua"] body {
   color: var(--ink-primary);
 }
 
-.brand-glyph {
+.brand-glyph,
+[data-theme="aqua"] .brand-glyph,
+body.theme-aqua .brand-glyph {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 50%, #2563EB 100%);
-  color: #FFFFFF;
-  border-radius: 14px;
+  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 50%, #2563EB 100%) !important;
+  color: #FFFFFF !important;
+  border-radius: 14px !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 20px;
-  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
 }
 
-.brand-name {
+.brand-name,
+[data-theme="aqua"] .brand-name,
+body.theme-aqua .brand-name {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 20px;
   letter-spacing: -0.01em;
-  color: #F0F9FF;
-  text-shadow: 0 2px 10px rgba(14, 165, 233, 0.3);
+  color: #F0F9FF !important;
+  text-shadow: 0 2px 10px rgba(14, 165, 233, 0.3) !important;
 }
 
 .masthead-actions {
@@ -137,33 +141,37 @@ body.theme-aqua, [data-theme="aqua"] body {
   gap: 10px;
 }
 
-.mode-toggle-btn {
+.mode-toggle-btn,
+[data-theme="aqua"] .mode-toggle-btn,
+body.theme-aqua .mode-toggle-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(14, 42, 78, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(14, 42, 78, 0.55) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  color: #BAE6FD;
+  color: #BAE6FD !important;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
   padding: 8px 16px;
   min-height: 44px;
-  border-radius: 9999px;
+  border-radius: 9999px !important;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
 }
 
-.mode-toggle-btn:hover {
-  background: rgba(19, 51, 92, 0.8);
-  color: #F0F9FF;
-  border-color: rgba(56, 189, 248, 0.5);
+.mode-toggle-btn:hover,
+[data-theme="aqua"] .mode-toggle-btn:hover,
+body.theme-aqua .mode-toggle-btn:hover {
+  background: rgba(19, 51, 92, 0.8) !important;
+  color: #F0F9FF !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.25);
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.25) !important;
 }
 
 /* ==========================================================================
@@ -187,6 +195,12 @@ body.theme-aqua, [data-theme="aqua"] body {
   color: var(--ink-primary);
   position: relative;
   overflow: hidden;
+}
+
+[data-theme="aqua"] .fancy-rosette,
+body.theme-aqua .fancy-rosette {
+  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+  background-image: none !important;
 }
 
 .card::before {
@@ -224,16 +238,39 @@ body.theme-aqua, [data-theme="aqua"] body {
   width: 58px;
   height: 58px;
   border-radius: 18px !important;
-  background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #075985 100%) !important;
-  color: #FFFFFF !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 800;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="aqua"] .avatar,
+body.theme-aqua .avatar,
+[data-theme="aqua"] .pass-hero-avatar,
+body.theme-aqua .pass-hero-avatar {
+  background: rgba(14, 42, 78, 0.7) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.4) !important;
+  color: #38BDF8 !important;
+}
+
+[data-theme="aqua"] .profile-role,
+body.theme-aqua .profile-role {
+  color: #38BDF8 !important;
+}
+
+[data-theme="aqua"] .profile-meta h1,
+body.theme-aqua .profile-meta h1 {
+  color: #F0F9FF !important;
+}
+
+[data-theme="aqua"] .profile-gov-id,
+body.theme-aqua .profile-gov-id {
+  background: rgba(52, 211, 153, 0.15) !important;
+  border: 1px solid rgba(52, 211, 153, 0.4) !important;
+  color: #34D399 !important;
 }
 
 .pass-hero-check, .verified-seal {

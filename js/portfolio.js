@@ -1492,11 +1492,24 @@ function initThemeAndLang() {
 }
 
 function restoreCustomizationStudio() {
-  const currentDocTheme = document.documentElement.getAttribute("data-theme");
-  const storedTheme = localStorage.getItem("maanyata_theme") || localStorage.getItem("mny_theme");
-  const theme = (currentDocTheme === "aqua")
-    ? "aqua"
-    : (storedTheme || "daylight");
+  const isAqua = (typeof window !== "undefined" && window.location && window.location.pathname && window.location.pathname.includes("portfolio_aqua")) ||
+    (typeof window !== "undefined" && window.location && window.location.href && window.location.href.includes("portfolio_aqua")) ||
+    (document.documentElement && document.documentElement.getAttribute("data-theme") === "aqua") ||
+    (document.body && document.body.classList && document.body.classList.contains("theme-aqua"));
+
+  let theme;
+  if (isAqua) {
+    theme = "aqua";
+    if (document.documentElement) {
+      document.documentElement.setAttribute("data-theme", "aqua");
+    }
+  } else {
+    const currentDocTheme = document.documentElement ? document.documentElement.getAttribute("data-theme") : null;
+    const storedTheme = localStorage.getItem("maanyata_theme") || localStorage.getItem("mny_theme");
+    theme = (currentDocTheme === "aqua")
+      ? "aqua"
+      : (storedTheme || "daylight");
+  }
   selectPalette(theme, false);
 
   const fontBody = localStorage.getItem("maanyata_font_body");
