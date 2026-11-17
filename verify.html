@@ -520,7 +520,7 @@
           <span class="hud-label">Resident Attestation</span>
           <span class="hud-value" style="font-size: 13px; font-weight: 600; font-style: italic; color: #1C1917; margin-bottom: 4px;">"${escapeHTML(data.ref.quote || 'Verified household service')}"</span>
           <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
-            <span>— ${escapeHTML(data.ref.author || 'Resident')} • ${escapeHTML(data.ref.unit || 'Verified Household')} (${escapeHTML(data.ref.tenure || '')})</span>
+            <span>— ${escapeHTML(data.ref.author || 'Resident')} • ${escapeHTML(data.ref.unit || 'Verified Household')}${data.ref.tenure ? ` (${escapeHTML(data.ref.tenure)})` : ''}</span>
             ${data.ref.locationVerified ? '<span style="color:var(--ok-green); font-weight:700; background:var(--ok-green-bg); padding:2px 6px; border-radius:4px; border:1px solid var(--ok-green-border);">At location</span>' : '<span style="color:var(--warn-amber); font-weight:700; background:var(--warn-amber-bg); padding:2px 6px; border-radius:4px; border:1px solid var(--warn-amber-border);">Remote</span>'}
           </div>
         </div>

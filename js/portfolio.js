@@ -64,20 +64,11 @@ function generateEd25519Token(wid, name, role, attestedYears, households, traits
     role: role || "Specialist",
     attestedYears: Number(attestedYears) || 0,
     households: Number(households != null ? households : 1),
-    traits: traits || (portfolio && portfolio.traits ? portfolio.traits : {}),
-    boundaries: Array.isArray(boundaries) ? boundaries : (portfolio && Array.isArray(portfolio.boundaries) ? portfolio.boundaries : []),
     exp: exp
   };
-  const topRef = (portfolio && portfolio.references && portfolio.references.find(r => r.certified !== false)) || null;
-  if (topRef) {
-    payload.ref = {
-      author: topRef.author,
-      unit: topRef.unit,
-      tenure: topRef.tenure,
-      quote: topRef.quote,
-      locationVerified: topRef.locationVerified,
-      locationTag: topRef.locationTag
-    };
+  const topRef = (typeof portfolio !== "undefined" && portfolio && portfolio.references && portfolio.references.find(r => r.certified !== false)) || null;
+  if (topRef && topRef.unit) {
+    payload.ref = { author: topRef.author || "Resident", unit: topRef.unit };
   }
   const bodyStr = JSON.stringify(payload);
   const bodyB64 = base64UrlEncode(bodyStr);
@@ -242,7 +233,13 @@ function loadPortfolio() {
             "Access to clean water and soap to wash my hands",
             "Minimum 1 Agreed Weekly Rest Day"
           ],
-          references: verifiedPayload.ref ? [verifiedPayload.ref] : (SAMPLES[verifiedPayload.wid] ? SAMPLES[verifiedPayload.wid].references : [])
+          references: verifiedPayload.ref ? [{
+            author: verifiedPayload.ref.author || "Resident",
+            unit: verifiedPayload.ref.unit || "Verified Household",
+            tenure: verifiedPayload.ref.tenure || `${verifiedPayload.attestedYears || 0} Yrs`,
+            quote: verifiedPayload.ref.quote || `Verified household service with ${verifiedPayload.ref.author || "Resident"} (${verifiedPayload.attestedYears || 0} Yrs).`,
+            certified: true
+          }] : (SAMPLES[verifiedPayload.wid] ? SAMPLES[verifiedPayload.wid].references : [])
         };
       }
     }
@@ -1384,10 +1381,10 @@ function renderOfflineQR() {
       const pad = 2;
       const cell = size / (count + pad * 2);
 
-      // High-contrast dark QR matrix (#0A1E38) on clean white background
+      // High-contrast dark QR matrix (#061426) on clean white background
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, size, size);
-      ctx.fillStyle = "#0A1E38";
+      ctx.fillStyle = "#061426";
       for (let r = 0; r < count; r++) {
         for (let c = 0; c < count; c++) {
           if (qr.isDark(r, c)) {

@@ -232,9 +232,10 @@ assert.strictEqual(fills[0].w, 200, "Canvas size width must be 200");
 assert.strictEqual(fills[0].h, 200, "Canvas size height must be 200");
 
 // Following fills should be dark QR matrix modules
-const darkFills = fills.filter(f => f.fillStyle === "#0A1E38" || f.fillStyle === "#1C1917" || f.fillStyle === "#061426");
+const darkFills = fills.filter(f => f.fillStyle === "#061426" || f.fillStyle === "#0A1E38" || f.fillStyle === "#1C1917");
 console.log(`  ✓ Dark QR matrix modules rendered: ${darkFills.length} blocks`);
 assert(darkFills.length > 100, `Expected > 100 dark modules for Ed25519 QR, got ${darkFills.length}`);
+assert(darkFills.some(f => f.fillStyle === "#061426"), "Dark fills must contain #061426");
 console.log("  ✓ High-contrast QR matrix correctly rendered on canvas without throwing");
 
 console.log("\n[TEST 3] Auditing Live Clock Ticker...");
