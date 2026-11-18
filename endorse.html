@@ -11,42 +11,96 @@
   <link href="styles.css" rel="stylesheet">
 
   <style>
-    /* TAXONOMY & CRAFT CATEGORY STYLES */
-    .taxonomy-section {
-      margin-top: 14px;
-    }
-    .taxonomy-cat {
-      margin-bottom: 12px;
-    }
-    .taxonomy-cat-title {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ink-secondary, #525866);
-      margin-bottom: 6px;
+    /* DOMESTIC SPECIALIST AVATAR & HERO */
+    .worker-hero {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-subtle, #F0EDE8);
+      margin-bottom: 20px;
     }
+    html.page-endorse .avatar,
+    .worker-hero .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--terracotta-bg, #FBECE6) !important;
+      border: 1.5px solid var(--terracotta-border, #F3D1C3) !important;
+      color: var(--terracotta, #C85A32) !important;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-weight: 800;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(200, 90, 50, 0.12) !important;
+    }
+    .worker-hero .worker-meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .worker-hero .worker-lead {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--terracotta, #C85A32);
+      margin-bottom: 2px;
+    }
+    .worker-hero .worker-name {
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink-primary, #1C1917);
+      line-height: 1.2;
+      margin: 2px 0;
+    }
+    .worker-hero .worker-craft {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-secondary, #57534E);
+    }
+
+    /* ATTESTING RESIDENT IDENTITY BADGE */
+    .attesting-identity-badge {
+      margin-top: 10px;
+      background: var(--card-subtle, #F6F4F0);
+      border: 1.5px solid var(--border, #E7E2DA);
+      border-radius: 12px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-primary, #1C1917);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .attesting-identity-badge svg {
+      flex-shrink: 0;
+    }
+
+    /* UNIVERSAL & CRAFT TRAIT BADGES */
     .trait-chips-wrap {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
     .trait-chip {
       background: var(--bg-warm, #FAF8F5);
-      border: 1.5px solid var(--border-subtle, #E8E6E1);
+      border: 1.5px solid var(--border, #E7E2DA);
       border-radius: 999px;
       padding: 8px 16px;
       min-height: 44px;
       font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
       font-size: 13px;
       font-weight: 600;
-      color: var(--ink-secondary, #525866);
+      color: var(--ink-secondary, #57534E);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       cursor: pointer;
       transition: all 0.18s ease;
       user-select: none;
@@ -54,17 +108,17 @@
     .trait-chip:hover {
       background: #FFFFFF;
       border-color: var(--border-strong, #D5D2CA);
-      color: var(--ink-primary, #1A1D20);
+      color: var(--ink-primary, #1C1917);
     }
     .trait-chip.selected {
-      background: var(--terracotta-bg, #FDF4F0);
+      background: var(--terracotta-bg, #FBECE6);
       border-color: var(--terracotta, #C85A32);
       color: var(--terracotta, #C85A32);
       font-weight: 700;
       box-shadow: 0 2px 6px rgba(200, 90, 50, 0.12);
     }
     .trait-chip .chip-check {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       opacity: 0;
       width: 0;
@@ -74,55 +128,53 @@
     .trait-chip.selected .chip-check {
       opacity: 1;
       width: auto;
+      margin-left: 2px;
     }
 
-    /* PRIVACY RADIUS SELECTOR STYLES */
-    .radius-selector-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .radius-chip {
-      background: var(--bg-warm, #FAF8F5);
-      border: 1.5px solid var(--border-subtle, #E8E6E1);
-      border-radius: var(--radius-md, 12px);
-      padding: 9px 10px;
+    /* PROGRESSIVE DISCLOSURE CRAFT HIERARCHY */
+    .craft-cat-btn {
+      background: var(--card-subtle, #F6F4F0);
+      border: 1.5px solid var(--border, #E7E2DA);
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-height: 44px;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-secondary, #57534E);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
       cursor: pointer;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
       transition: all 0.18s ease;
       user-select: none;
+      text-align: center;
     }
-    .radius-chip:hover {
+    .craft-cat-btn:hover {
       background: #FFFFFF;
       border-color: var(--border-strong, #D5D2CA);
+      color: var(--ink-primary, #1C1917);
     }
-    .radius-chip.selected {
-      background: var(--terracotta-bg, #FDF4F0);
+    .craft-cat-btn.active {
+      background: var(--terracotta-bg, #FBECE6);
       border-color: var(--terracotta, #C85A32);
-      box-shadow: 0 2px 8px rgba(200, 90, 50, 0.12);
-    }
-    .radius-title {
-      font-family: var(--font-heading, 'Outfit', sans-serif);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-primary, #1A1D20);
-      line-height: 1.3;
-    }
-    .radius-chip.selected .radius-title {
       color: var(--terracotta, #C85A32);
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(200, 90, 50, 0.12);
     }
-    .radius-sub {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--ink-muted, #868C98);
+    .craft-panels-container {
+      background: var(--card-subtle, #F6F4F0);
+      border: 1px solid var(--border, #E7E2DA);
+      border-radius: 14px;
+      padding: 12px;
     }
-    .radius-chip.selected .radius-sub {
-      color: var(--terracotta, #C85A32);
-      opacity: 0.85;
+    .craft-panel {
+      animation: fadeInPanel 0.2s ease-out;
+    }
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* 15-SECOND REVOCATION / GRACE WINDOW STYLES */
@@ -286,7 +338,7 @@
     <header class="brand-header">
       <div class="brand-pill">
         <span>Project Maanyata</span>
-        <span>•</span>
+        <span>&bull;</span>
         <span>Trust Attestation</span>
       </div>
       <div class="mode-note">15-Second Tap</div>
@@ -297,11 +349,11 @@
 
       <!-- Worker Identity Context -->
       <section class="worker-hero">
-        <div class="avatar" id="wAvatar">SB</div>
-        <div class="worker-meta" style="flex:1;">
-          <div class="worker-lead">Household Service Verification</div>
-          <h1 class="worker-name" id="wName">Sunita Bai</h1>
-          <div class="worker-craft" id="wCraft">Senior Household & Culinary Specialist</div>
+        <div class="avatar" id="wAvatar">SD</div>
+        <div class="worker-meta">
+          <div class="worker-lead">Domestic Specialist Under Attestation</div>
+          <h1 class="worker-name" id="wName">Sunita Devi</h1>
+          <div class="worker-craft" id="wCraft">Senior Household &amp; Culinary Specialist</div>
           <div style="margin-top: 10px;">
             <label class="form-label" for="workerSelectDropdown" style="font-size: 11px; margin-bottom: 4px;">Active Worker Being Endorsed:</label>
             <select id="workerSelectDropdown" class="form-select" onchange="onWorkerDropdownChange(this.value)" style="padding: 8px 12px; font-size: 16px; min-height: 44px; background: #FFFFFF; cursor: pointer;">
@@ -316,7 +368,7 @@
         <!-- Society / Complex Selection -->
         <div class="form-group">
           <label class="form-label" for="resSociety">Housing Society / Complex</label>
-          <select id="resSociety" class="form-select" onchange="onSocietyChange()">
+          <select id="resSociety" class="form-select" onchange="onSocietyChange()" style="font-size: 16px; min-height: 44px;">
             <option value="Vasudev Complex" selected>Vasudev Complex, Opp. Shanti Park</option>
             <option value="Maryland Palms CHS">Maryland Palms CHS, Silver Park</option>
             <option value="Greenwood Palms CHS">Greenwood Palms CHS</option>
@@ -327,16 +379,16 @@
             <option value="Pleasant Park">Pleasant Park, Mira Road</option>
             <option value="OTHER">Other Registered Society...</option>
           </select>
-          <input type="text" id="resSocietyCustom" class="form-input" style="display:none; margin-top:8px;" placeholder="Enter Registered Society Name (e.g. Royal Complex CHS)">
+          <input type="text" id="resSocietyCustom" class="form-input" style="display:none; margin-top:8px; font-size:16px; min-height:44px;" placeholder="Enter Registered Society Name (e.g. Royal Complex CHS)">
         </div>
 
         <!-- Flat / Household (Anti-Defamation Deterministic Unit Selector) -->
         <div class="form-group">
-          <label class="form-label">Your Wing & Flat / Unit Number</label>
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+          <label class="form-label">Your Residence (Wing &amp; Flat)</label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label for="resWing" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Wing / Block</label>
-              <select id="resWing" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
+              <label for="resWing" style="font-size:11px; font-weight:700; color:var(--ink-secondary, #57534E); text-transform:uppercase; margin-bottom:4px; display:block;">Wing / Block</label>
+              <select id="resWing" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700; font-size:16px; min-height:44px;">
                 <option value="A">Wing A</option>
                 <option value="B" selected>Wing B</option>
                 <option value="C">Wing C</option>
@@ -352,281 +404,220 @@
               </select>
             </div>
             <div>
-              <label for="resFloor" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Floor</label>
-              <select id="resFloor" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
-                <option value="G">Ground</option>
-                <option value="1">1st Floor</option>
-                <option value="2">2nd Floor</option>
-                <option value="3">3rd Floor</option>
-                <option value="4" selected>4th Floor</option>
-                <option value="5">5th Floor</option>
-                <option value="6">6th Floor</option>
-                <option value="7">7th Floor</option>
-                <option value="8">8th Floor</option>
-                <option value="9">9th Floor</option>
-                <option value="10">10th Floor</option>
-                <option value="11">11th Floor</option>
-                <option value="12">12th Floor</option>
-                <option value="13">13th Floor</option>
-                <option value="14">14th Floor</option>
-                <option value="15">15th Floor</option>
-                <option value="16">16th Floor</option>
-                <option value="17">17th Floor</option>
-                <option value="18">18th Floor</option>
-                <option value="19">19th Floor</option>
-                <option value="20">20th Floor</option>
-                <option value="21">21st Floor</option>
-                <option value="22">22nd Floor</option>
-              </select>
-            </div>
-            <div>
-              <label for="resFlatNum" style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:4px; display:block;">Flat / Unit</label>
-              <select id="resFlatNum" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700;">
-                <option value="01">01</option>
-                <option value="02" selected>02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
+              <label for="resFlatNum" style="font-size:11px; font-weight:700; color:var(--ink-secondary, #57534E); text-transform:uppercase; margin-bottom:4px; display:block;">Flat / Unit</label>
+              <select id="resFlatNum" class="form-select" onchange="syncHouseholdUnit()" style="font-weight:700; font-size:16px; min-height:44px;">
+                <option value="101">Flat 101</option>
+                <option value="102">Flat 102</option>
+                <option value="103">Flat 103</option>
+                <option value="104">Flat 104</option>
+                <option value="201">Flat 201</option>
+                <option value="202">Flat 202</option>
+                <option value="203">Flat 203</option>
+                <option value="204">Flat 204</option>
+                <option value="301">Flat 301</option>
+                <option value="302">Flat 302</option>
+                <option value="303">Flat 303</option>
+                <option value="304">Flat 304</option>
+                <option value="401">Flat 401</option>
+                <option value="402" selected>Flat 402</option>
+                <option value="403">Flat 403</option>
+                <option value="404">Flat 404</option>
+                <option value="501">Flat 501</option>
+                <option value="502">Flat 502</option>
+                <option value="503">Flat 503</option>
+                <option value="504">Flat 504</option>
+                <option value="601">Flat 601</option>
+                <option value="602">Flat 602</option>
+                <option value="701">Flat 701</option>
+                <option value="702">Flat 702</option>
+                <option value="801">Flat 801</option>
+                <option value="802">Flat 802</option>
+                <option value="901">Flat 901</option>
+                <option value="902">Flat 902</option>
+                <option value="1001">Flat 1001</option>
+                <option value="1002">Flat 1002</option>
+                <option value="1101">Flat 1101</option>
+                <option value="1201">Flat 1201</option>
+                <option value="1401">Flat 1401</option>
+                <option value="1501">Flat 1501</option>
               </select>
             </div>
           </div>
           <!-- Hidden synthesized canonical unit passed to storage and guards -->
           <input type="hidden" id="resHousehold" value="Flat B-402">
-          <div class="form-hint" id="resHouseholdHint" style="margin-top:6px; font-weight:600; color:#0284C7;">
-            Selected Canonical Address: <span id="resHouseholdPreview" style="font-weight:800; color:#0F172A;">Flat B-402</span> (Privacy-masked on public passes)
+          
+          <!-- Prominent Attesting As Badge -->
+          <div class="attesting-identity-badge" id="attestingIdentityBadge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald, #16A34A)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Attesting as: <span id="resHouseholdPreview" style="color:var(--terracotta, #C85A32); font-weight:800;">Flat B-402</span> (Resident)</span>
           </div>
         </div>
 
         <!-- Resident Peer Callback (Anti-Sybil Grounding) -->
         <div class="form-group">
           <label class="form-label" for="resContact">Resident Mobile or WhatsApp (Peer Verification)</label>
-          <input type="tel" id="resContact" class="form-input" placeholder="e.g. +91 98200 12345 (Masked in public views)" autocomplete="off">
-          <div class="form-hint">Allows prospective employers to confirm your attestation via a 30-second peer callback. Only last digits displayed publicly.</div>
+          <input type="tel" id="resContact" class="form-input" placeholder="e.g. +91 98200 12345 (Masked in public views)" autocomplete="off" style="font-size:16px; min-height:44px;">
         </div>
 
         <!-- Resident Verification Security Passcode (Anti-Self-Endorsement) -->
         <div class="form-group">
           <label class="form-label" for="resPasscode">Resident Verification Key / Passcode</label>
-          <input type="password" id="resPasscode" class="form-input" placeholder="Enter your 4-digit resident security passcode or flat PIN" required autocomplete="off">
-          <div class="form-hint">Sybil Defense: Attestations strictly require flat authorization key to prevent unauthorized or self-endorsements.</div>
+          <input type="password" id="resPasscode" class="form-input" placeholder="Enter your 4-digit resident security passcode or flat PIN" required autocomplete="off" style="font-size:16px; min-height:44px;">
         </div>
 
         <!-- Dynamic Tenure Selection -->
         <div class="form-group">
-          <label class="form-label" for="resTenure" id="tenureLabel">How long have they served your household?</label>
-          <select id="resTenure" class="form-select">
+          <label class="form-label" for="resTenure" id="tenureLabel">How long has Sunita served your household?</label>
+          <select id="resTenure" class="form-select" style="font-size:16px; min-height:44px;">
             <!-- Populated dynamically via populateYears() using current calendar year -->
           </select>
         </div>
 
-        <!-- EXPANDED CRAFT & COMPETENCY TAXONOMY -->
-        <div class="form-group taxonomy-section">
-          <label class="form-label">Recognize What They Did Well (Tap to select)</label>
-          
-          <!-- Automotive Care -->
-          <div class="taxonomy-cat" data-craft="automotive">
-            <div class="taxonomy-cat-title">Automotive Care</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Exterior Wash & Glass')">
-                <span>Exterior Wash & Glass</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Interior Dusting & Vacuum')">
-                <span>Interior Dusting & Vacuum</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Tire & Fluid Check')">
-                <span>Tire & Fluid Check</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Early Morning Shift')">
-                <span>Early Morning Shift</span><span class="chip-check"></span>
-              </button>
-            </div>
+        <!-- CORE UNIVERSAL TRUST BADGES (Top Tier: Always Visible) -->
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label" style="margin-bottom: 8px;">Universal Trust Badges</label>
+          <div class="trait-chips-wrap">
+            <button type="button" class="trait-chip selected" onclick="toggleTrait(this, 'Punctual &amp; Reliable')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Punctual &amp; Reliable</span>
+              <span class="chip-check">&#10003;</span>
+            </button>
+            <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Honest &amp; Trustworthy')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>Honest &amp; Trustworthy</span>
+              <span class="chip-check">&#10003;</span>
+            </button>
+            <button type="button" class="trait-chip" onclick="toggleTrait(this, 'High Quality Work')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>High Quality Work</span>
+              <span class="chip-check">&#10003;</span>
+            </button>
+            <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Polite &amp; Respectful')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+              <span>Polite &amp; Respectful</span>
+              <span class="chip-check">&#10003;</span>
+            </button>
           </div>
-
-          <!-- Security & Facility Operations -->
-          <div class="taxonomy-cat" data-craft="security">
-            <div class="taxonomy-cat-title">Security & Operations</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Turnstile & Gate Access')">
-                <span>Turnstile & Gate Access</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Perimeter Night Patrol')">
-                <span>Perimeter Night Patrol</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Visitor Gate Muster')">
-                <span>Visitor Gate Muster</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Emergency First Response')">
-                <span>Emergency First Response</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'CCTV Monitoring')">
-                <span>CCTV Monitoring</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Technical & Maintenance Trades -->
-          <div class="taxonomy-cat" data-craft="maintenance">
-            <div class="taxonomy-cat-title">Facility & Maintenance Trades</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Plumbing & Pipe Repair')">
-                <span>Plumbing & Pipe Repair</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pump & Motor Operations')">
-                <span>Pump & Motor Operations</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Electrical & Switchgear')">
-                <span>Electrical & Switchgear</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'General Repairs')">
-                <span>General Repairs</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Transport & Chauffeur Services -->
-          <div class="taxonomy-cat" data-craft="transport">
-            <div class="taxonomy-cat-title">Transport & Chauffeur</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Safe City Driving')">
-                <span>Safe City Driving</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'School Transit Route')">
-                <span>School Transit Route</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Vehicle Maintenance')">
-                <span>Vehicle Maintenance</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Culinary -->
-          <div class="taxonomy-cat" data-craft="culinary">
-            <div class="taxonomy-cat-title">Culinary & Cooking</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'North Indian Cooking')">
-                <span>North Indian Cooking</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Jain & Pure Satvik')">
-                <span>Jain & Pure Satvik</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Maharashtrian & Malvani')">
-                <span>Maharashtrian & Malvani</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Traditional Cuisine')">
-                <span>Traditional Cuisine</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Gujarati & Kathiyawadi')">
-                <span>Gujarati & Kathiyawadi</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Diabetic & Healthy Diet')">
-                <span>Diabetic & Healthy Diet</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Housekeeping -->
-          <div class="taxonomy-cat" data-craft="housekeeping">
-            <div class="taxonomy-cat-title">Housekeeping</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Deep Scrub & Hygiene')">
-                <span>Deep Scrub & Hygiene</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'High Dusting & Fans')">
-                <span>High Dusting & Fans</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Steam Iron & Laundry')">
-                <span>Steam Iron & Laundry</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Mandi Accounting')">
-                <span>Mandi Accounting</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Caregiving -->
-          <div class="taxonomy-cat" data-craft="caregiving">
-            <div class="taxonomy-cat-title">Caregiving & Assistance</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Infant Care & Maalish')">
-                <span>Infant Care & Maalish</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Toddler Watch & Homework')">
-                <span>Toddler Watch & Homework</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Elderly & Bedridden Care')">
-                <span>Elderly & Bedridden Care</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Wheelchair & Clinic Escort')">
-                <span>Wheelchair & Clinic Escort</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pet Care & Walking')">
-                <span>Pet Care & Walking</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Reliability -->
-          <div class="taxonomy-cat" data-craft="reliability">
-            <div class="taxonomy-cat-title" style="display:flex; align-items:center; gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Reliability & Trust</div>
-            <div class="trait-chips-wrap">
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Punctual (<07:00 AM)')">
-                <span>Punctual (<07:00 AM)</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Trusted With House Keys')">
-                <span>Trusted With House Keys</span><span class="chip-check"></span>
-              </button>
-              <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Emergency Availability')">
-                <span>Emergency Availability</span><span class="chip-check"></span>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-hint">Select at least one craft or reliability badge to endorse.</div>
         </div>
 
-        <!-- USER-CONTROLLED PRIVACY RADIUS SELECTOR -->
-        <div class="form-group">
-          <label class="form-label">Physical Attestation Radius</label>
-          <div class="radius-selector-grid">
-            <button type="button" class="radius-chip selected" data-radius="100" onclick="selectRadius(100, this)">
-              <span class="radius-title">100m (Compound Gate)</span>
-              <span class="radius-sub">Highest Trust (Default)</span>
+        <!-- PROGRESSIVE CRAFT HIERARCHY ACCORDION / CATEGORY SELECTOR -->
+        <div class="form-group craft-hierarchy-section" style="margin-bottom: 20px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px;">
+            <label class="form-label" style="margin-bottom: 0;">Add Specific Craft Badges <span style="font-size:11px; font-weight:600; color:var(--ink-muted, #716B67); text-transform:none;">(Optional)</span></label>
+            <span id="selectedCraftCount" style="font-size: 11px; font-weight: 700; color: var(--terracotta, #C85A32);"></span>
+          </div>
+
+          <!-- Category Selector Buttons -->
+          <div class="craft-category-selector" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 10px;">
+            <button type="button" class="craft-cat-btn active" data-cat="cooking" onclick="switchCraftCategory('cooking', this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+              <span>Cooking &amp; Meals</span>
             </button>
-            <button type="button" class="radius-chip" data-radius="250" onclick="selectRadius(250, this)">
-              <span class="radius-title">250m (Immediate Perimeter)</span>
-              <span class="radius-sub">Campus Bounds</span>
+            <button type="button" class="craft-cat-btn" data-cat="housekeeping" onclick="switchCraftCategory('housekeeping', this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+              <span>Housekeeping &amp; Cleaning</span>
             </button>
-            <button type="button" class="radius-chip" data-radius="500" onclick="selectRadius(500, this)">
-              <span class="radius-title">500m (Neighborhood Sector)</span>
-              <span class="radius-sub">Local Sector</span>
+            <button type="button" class="craft-cat-btn" data-cat="automotive" onclick="switchCraftCategory('automotive', this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></svg>
+              <span>Automotive &amp; Wash</span>
             </button>
-            <button type="button" class="radius-chip" data-radius="remote" onclick="selectRadius('remote', this)">
-              <span class="radius-title">Remote / Office Attestation</span>
-              <span class="radius-sub">Self-Declared Off-Site</span>
+            <button type="button" class="craft-cat-btn" data-cat="caregiving" onclick="switchCraftCategory('caregiving', this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+              <span>Caregiving &amp; Escort</span>
             </button>
           </div>
-          <div class="form-hint" id="radiusStatusHint">Compound Gate: Checks physical presence within 100m of society centroid. Raw GPS coordinates are never leaked publicly.</div>
+
+          <!-- Category Craft Panels (smooth reveal) -->
+          <div class="craft-panels-container">
+            <!-- Cooking & Meals -->
+            <div id="craft-panel-cooking" class="craft-panel">
+              <div class="trait-chips-wrap">
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Great Meals &amp; Curries')">
+                  <span>Great Meals &amp; Curries</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pure Vegetarian / Satvik')">
+                  <span>Pure Vegetarian / Satvik</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Clean &amp; Fast Prep')">
+                  <span>Clean &amp; Fast Prep</span><span class="chip-check">&#10003;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Housekeeping & Cleaning -->
+            <div id="craft-panel-housekeeping" class="craft-panel" style="display:none;">
+              <div class="trait-chips-wrap">
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Deep Scrub &amp; Hygiene')">
+                  <span>Deep Scrub &amp; Hygiene</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'High Dusting &amp; Fans')">
+                  <span>High Dusting &amp; Fans</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Steam Iron &amp; Laundry')">
+                  <span>Steam Iron &amp; Laundry</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Mandi &amp; Daily Accounts')">
+                  <span>Mandi &amp; Daily Accounts</span><span class="chip-check">&#10003;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Automotive & Wash -->
+            <div id="craft-panel-automotive" class="craft-panel" style="display:none;">
+              <div class="trait-chips-wrap">
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Exterior Wash &amp; Polish')">
+                  <span>Exterior Wash &amp; Polish</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Interior Vacuum &amp; Clean')">
+                  <span>Interior Vacuum &amp; Clean</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Tire &amp; Fluid Checks')">
+                  <span>Tire &amp; Fluid Checks</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Safe City Driving')">
+                  <span>Safe City Driving</span><span class="chip-check">&#10003;</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Caregiving & Escort -->
+            <div id="craft-panel-caregiving" class="craft-panel" style="display:none;">
+              <div class="trait-chips-wrap">
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Infant Care &amp; Massage')">
+                  <span>Infant Care &amp; Massage</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Elder &amp; Bedridden Care')">
+                  <span>Elder &amp; Bedridden Care</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Clinic Escort')">
+                  <span>Clinic Escort</span><span class="chip-check">&#10003;</span>
+                </button>
+                <button type="button" class="trait-chip" onclick="toggleTrait(this, 'Pet Care &amp; Walking')">
+                  <span>Pet Care &amp; Walking</span><span class="chip-check">&#10003;</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn-submit">
-          <span>Send Endorsement ️</span>
+        <button type="submit" class="btn-submit" style="min-height: 48px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Send Endorsement</span>
         </button>
 
       </form>
 
       <!-- Back Link -->
-      <button type="button" class="back-btn" onclick="goToPortfolio()">
-        ← View Full Sovereign Portfolio
+      <button type="button" class="back-btn" onclick="goToPortfolio()" style="min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>View Full Sovereign Portfolio</span>
       </button>
 
     </main>
 
     <footer>
-      Project Maanyata • Portable, Sovereign Work History for India's Essential Workforce
+      Project Maanyata &bull; Portable, Sovereign Work History for India's Essential Workforce
     </footer>
 
   </div>
@@ -639,7 +630,7 @@
       <p class="success-desc" id="successDesc">
         Your affirmation has been added to their lifetime sovereign work pass. Tenure and community trust signals have been updated.
       </p>
-      <button class="btn-modal-action" onclick="goToPortfolio()">
+      <button class="btn-modal-action" onclick="goToPortfolio()" style="min-height: 44px;">
         <span>View Updated Portfolio</span>
       </button>
     </div>
@@ -680,6 +671,56 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
+    // Known Workers Directory Mapping
+    const KNOWN_WORKERS = {
+      "sunita-devi-01": { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist", initials: "SD" },
+      "demo-sunita-01": { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist", initials: "SD" },
+      "sunita-bai": { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist", initials: "SD" },
+      "sunita": { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist", initials: "SD" },
+      "ramesh-kumar-02": { id: "ramesh-kumar-02", name: "Ramesh Kumar", role: "Specialist Chauffeur & Driver", initials: "RK" },
+      "asha-kumari-03": { id: "asha-kumari-03", name: "Asha Kumari", role: "Childcare & Elder Nurse Aide", initials: "AK" }
+    };
+
+    // Format arbitrary slug into clean display name and proper initials
+    function formatWorkerSlug(slug) {
+      if (!slug) return { id: "sunita-devi-01", name: "Sunita Devi", role: "Senior Household & Culinary Specialist", initials: "SD" };
+      const raw = String(slug).trim();
+      const cleanKey = raw.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      
+      if (KNOWN_WORKERS[cleanKey]) {
+        return KNOWN_WORKERS[cleanKey];
+      }
+      for (const [k, v] of Object.entries(KNOWN_WORKERS)) {
+        if (cleanKey.includes(k) || k.includes(cleanKey)) {
+          return v;
+        }
+      }
+
+      // If already human readable name like "Ramesh Kumar"
+      if (!raw.includes("-") && !raw.includes("_") && raw.includes(" ")) {
+        const words = raw.replace(/\[.*?\]/g, "").trim().split(/\s+/).filter(Boolean);
+        const name = words.join(" ");
+        const initials = words.length >= 2 
+          ? (words[0][0] + words[words.length - 1][0]).toUpperCase()
+          : (name.length >= 2 ? name.slice(0, 2).toUpperCase() : name.toUpperCase());
+        return { id: cleanKey, name, role: "Independent Specialist", initials };
+      }
+
+      // Format arbitrary slug like w_first_last_123 or first-last
+      let s = raw.replace(/^w[_-]/i, "");
+      s = s.replace(/[-_]\d+$/, "");
+      const words = s.split(/[-_\s]+/).filter(Boolean);
+      if (words.length === 0) return { id: cleanKey, name: "Worker", role: "Independent Specialist", initials: "W" };
+      
+      const formattedWords = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+      const name = formattedWords.join(" ");
+      const initials = formattedWords.length >= 2
+        ? (formattedWords[0][0] + formattedWords[formattedWords.length - 1][0]).toUpperCase()
+        : (name.length >= 2 ? name.slice(0, 2).toUpperCase() : name.toUpperCase());
+      
+      return { id: cleanKey, name, role: "Independent Specialist", initials };
+    }
+
     // URL Query Parsing & Dynamic Worker Identification
     const urlParams = new URLSearchParams(window.location.search);
     const workerParam = urlParams.get("id") || urlParams.get("workerId") || urlParams.get("worker") || urlParams.get("name") || "";
@@ -689,12 +730,13 @@
     const DEFAULT_STORAGE_KEY = "maanyata_sunita_portfolio_v1";
     let STORAGE_KEY = DEFAULT_STORAGE_KEY;
 
-    if (targetWorkerId && targetWorkerId !== "sunita-bai" && targetWorkerId !== "sunita-devi-01" && targetWorkerId !== "sunita") {
+    if (targetWorkerId && targetWorkerId !== "sunita-bai" && targetWorkerId !== "sunita-devi-01" && targetWorkerId !== "sunita" && targetWorkerId !== "demo-sunita-01") {
       STORAGE_KEY = `maanyata_worker_${targetWorkerId}_portfolio`;
     }
 
     const DEFAULT_PORTFOLIO = {
-      name: "Sunita Bai",
+      id: "sunita-devi-01",
+      name: "Sunita Devi",
       role: "Senior Household & Culinary Specialist",
       uan: "UAN ****-****-4921",
       tenure: "8.5 Yrs",
@@ -706,11 +748,11 @@
         "30-Min Midday Lunch Break on Full Shifts"
       ],
       traits: {
-        "Punctual (<07:00 AM)": { count: 24, icon: "clock" },
-        "Trusted With House Keys": { count: 18, icon: "key" },
-        "North Indian Cooking": { count: 14, icon: "pot" },
-        "Deep Scrubbing & Hygiene": { count: 11, icon: "sparkles" },
-        "Emergency Availability": { count: 5, icon: "star" }
+        "Punctual & Reliable": { count: 24, icon: "clock" },
+        "Honest & Trustworthy": { count: 18, icon: "key" },
+        "Great Meals & Curries": { count: 14, icon: "pot" },
+        "Deep Scrub & Hygiene": { count: 11, icon: "sparkles" },
+        "High Quality Work": { count: 5, icon: "star" }
       },
       references: [
         {
@@ -739,23 +781,21 @@
       "Pleasant Park": { lat: 19.2870, lng: 72.8590 }
     };
 
+    // Underlying verification radius state
     let selectedRadius = 100;
 
-    // User-Controlled Privacy Radius Selector
     function selectRadius(val, btn) {
       selectedRadius = val;
-      document.querySelectorAll(".radius-chip").forEach(b => b.classList.remove("selected"));
-      if (btn) btn.classList.add("selected");
       const hint = document.getElementById("radiusStatusHint");
       if (!hint) return;
       if (val === 100) {
-        hint.textContent = "Compound Gate: Checks physical presence within 100m of society centroid. Highest trust verification.";
+        hint.textContent = "Compound Gate: Checks physical presence within 100m of society centroid.";
       } else if (val === 250) {
         hint.textContent = "Immediate Perimeter: Verified within 250m campus perimeter.";
       } else if (val === 500) {
         hint.textContent = "Neighborhood Sector: Verified within 500m neighborhood radius.";
       } else {
-        hint.textContent = "Remote / Office Attestation: Self-declared remote verification (GPS check bypassed).";
+        hint.textContent = "Remote / Office Attestation: Self-declared remote verification.";
       }
     }
 
@@ -784,23 +824,20 @@
     // Canonical Household Unit Synthesizer (No-Keyboard Deterministic Engine)
     function syncHouseholdUnit() {
       const wingEl = document.getElementById("resWing");
-      const floorEl = document.getElementById("resFloor");
       const flatEl = document.getElementById("resFlatNum");
       const targetInput = document.getElementById("resHousehold");
       const preview = document.getElementById("resHouseholdPreview");
 
-      if (!wingEl || !floorEl || !flatEl || !targetInput) return;
+      if (!wingEl || !flatEl || !targetInput) return;
 
       const wing = wingEl.value;
-      const floor = floorEl.value;
       const flat = flatEl.value;
 
       let canonical = "";
       if (wing === "Row House" || wing === "Bungalow") {
-        canonical = `${wing} ${floor === "G" ? "Ground" : floor}-${flat}`;
+        canonical = `${wing} ${flat}`;
       } else {
-        const floorPrefix = floor === "G" ? "G" : floor;
-        canonical = `Flat ${wing}-${floorPrefix}${flat}`;
+        canonical = `Flat ${wing}-${flat}`;
       }
 
       targetInput.value = canonical;
@@ -870,15 +907,42 @@
         .replace(/'/g, '&#039;');
     }
 
-    let selectedTraits = new Set(["Punctual (<07:00 AM)"]);
+    // Preselected Default Universal Trust Badge
+    let selectedTraits = new Set(["Punctual & Reliable"]);
 
     function loadPortfolio() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.name) {
+            parsed.name = parsed.name.replace(/\[.*?\]/g, "").trim();
+            if (parsed.name.includes("-") || parsed.name.includes("_")) {
+              const res = formatWorkerSlug(parsed.name);
+              parsed.name = res.name;
+              if (res.role && (!parsed.role || parsed.role === "Independent Specialist")) parsed.role = res.role;
+            }
+            return parsed;
+          }
+        }
         if (STORAGE_KEY !== DEFAULT_STORAGE_KEY) {
-          const fallback = localStorage.getItem(DEFAULT_STORAGE_KEY);
-          if (fallback) return JSON.parse(fallback);
+          if (targetWorkerId && KNOWN_WORKERS[targetWorkerId]) {
+            const kw = KNOWN_WORKERS[targetWorkerId];
+            return {
+              id: kw.id,
+              name: kw.name,
+              role: kw.role,
+              uan: "UAN ****-****-8812",
+              tenure: "7 Yrs",
+              households: 6,
+              traits: {
+                "Punctual & Reliable": { count: 22, icon: "clock" },
+                "Honest & Trustworthy": { count: 9, icon: "key" },
+                "Safe City Driving": { count: 16, icon: "car" }
+              },
+              references: []
+            };
+          }
         }
       } catch (e) {}
       return JSON.parse(JSON.stringify(DEFAULT_PORTFOLIO));
@@ -915,7 +979,7 @@
         { val: "12", text: `12 Years (Serving since ${currentYear - 12})` },
         { val: "15", text: `15 Years (Serving since ${currentYear - 15})` },
         { val: "20", text: `20 Years (Serving since ${currentYear - 20})` },
-        { val: "25", text: `25 Years (Serving since ${currentYear - 25})` },
+        { val: "25", text: `25 Years (Serving bronze/silver since ${currentYear - 25})` },
         { val: "30", text: `30 Years (Serving since ${currentYear - 30})` },
         { val: "35", text: `35+ Years Lifetime Veteran (Serving since ${currentYear - 35} or earlier)` }
       ];
@@ -929,35 +993,56 @@
       });
     }
 
-    // Initialize Worker Context from URL or Local Storage
+    // Initialize Worker Context from URL or Local Storage (Zero Slug Leak)
     function initWorkerContext() {
       const params = new URLSearchParams(window.location.search);
-      const urlName = params.get("worker") || params.get("name");
+      const urlWorkerRaw = params.get("worker") || params.get("workerId") || params.get("id") || params.get("name") || "";
       const urlCraft = params.get("craft");
       const urlUnit = params.get("unit");
 
-      if (urlName) {
-        portfolio.name = urlName;
+      if (urlWorkerRaw) {
+        const resolved = formatWorkerSlug(urlWorkerRaw);
+        portfolio.name = resolved.name;
+        portfolio.id = resolved.id || targetWorkerId;
+        if (resolved.role && !urlCraft) {
+          portfolio.role = resolved.role;
+        }
         portfolio.isUnknown = false;
       } else if (!targetWorkerId) {
         const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(DEFAULT_STORAGE_KEY);
         if (!raw) {
-          portfolio.name = "Unknown User";
-          portfolio.role = "No Worker Selected";
-          portfolio.isUnknown = true;
+          portfolio.name = "Sunita Devi";
+          portfolio.role = "Senior Household & Culinary Specialist";
+          portfolio.id = "sunita-devi-01";
+          portfolio.isUnknown = false;
         }
       }
+
       if (urlCraft) {
         portfolio.role = urlCraft;
       }
 
-      // Name parts and initials
+      // Ensure clean human formatting without brackets or raw slugs
+      if (portfolio.name) {
+        portfolio.name = portfolio.name.replace(/\[.*?\]/g, "").trim();
+        if (portfolio.name.includes("-") || portfolio.name.includes("_")) {
+          const resolved = formatWorkerSlug(portfolio.name);
+          portfolio.name = resolved.name;
+          if (resolved.role && !urlCraft) portfolio.role = resolved.role;
+        }
+      }
+
       const isUnknown = portfolio.isUnknown || portfolio.name === "Unknown User";
-      const nameParts = (portfolio.name || "Worker").trim().split(/\s+/);
+      const nameParts = (portfolio.name || "Worker").trim().split(/\s+/).filter(Boolean);
       const firstName = isUnknown ? "Worker" : nameParts[0];
-      const initials = isUnknown ? "?" : (nameParts.length >= 2 
-        ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
-        : (portfolio.name || "MK").slice(0, 2).toUpperCase());
+      
+      let initials = "SD";
+      if (isUnknown) {
+        initials = "?";
+      } else {
+        const resolved = formatWorkerSlug(targetWorkerId || portfolio.id || portfolio.name);
+        initials = resolved.initials;
+      }
 
       document.getElementById("wName").textContent = portfolio.name;
       document.getElementById("wCraft").textContent = portfolio.role;
@@ -979,114 +1064,88 @@
         const preview = document.getElementById("resHouseholdPreview");
         if (preview) preview.textContent = urlUnit;
         
-        // Attempt to parse wing, floor, flat into selects if formatted like Flat B-402
-        const m = urlUnit.match(/Flat\s+([A-Za-z])-(G|\d)(\d{2})/i);
+        // Attempt to parse wing and flat
+        const m = urlUnit.match(/(?:Flat|Wing)?\s*([A-Za-z0-9\s]+?)[-\s]+([G\d]+)/i);
         if (m) {
           const wEl = document.getElementById("resWing");
-          const flEl = document.getElementById("resFloor");
           const fnEl = document.getElementById("resFlatNum");
-          if (wEl) wEl.value = m[1].toUpperCase();
-          if (flEl) flEl.value = m[2];
-          if (fnEl) fnEl.value = m[3];
+          const parsedWing = m[1].trim();
+          const parsedFlat = m[2].trim();
+          if (wEl) {
+            Array.from(wEl.options).forEach(opt => {
+              if (opt.value.toLowerCase() === parsedWing.toLowerCase() || opt.value.toLowerCase().includes(parsedWing.toLowerCase())) {
+                opt.selected = true;
+              }
+            });
+          }
+          if (fnEl) {
+            let foundFlat = false;
+            Array.from(fnEl.options).forEach(opt => {
+              if (opt.value === parsedFlat || opt.value.endsWith(parsedFlat)) {
+                opt.selected = true;
+                foundFlat = true;
+              }
+            });
+            if (!foundFlat) {
+              const customFlatOpt = document.createElement("option");
+              customFlatOpt.value = parsedFlat;
+              customFlatOpt.textContent = `Flat ${parsedFlat}`;
+              customFlatOpt.selected = true;
+              fnEl.appendChild(customFlatOpt);
+            }
+          }
         }
       } else {
         syncHouseholdUnit();
       }
 
-      // Filter and order trait categories dynamically based on worker's craft
+      // Auto-activate corresponding craft category based on worker role
       filterAndOrderTaxonomy(portfolio.role);
 
       // Populate Worker Dropdown
       populateWorkerDropdown();
 
-      // Highlight preselected default trait
+      // Highlight preselected universal trait
       document.querySelectorAll(".trait-chip").forEach(btn => {
-        if (btn.textContent.includes("Punctual (<07:00 AM)")) {
+        const text = btn.querySelector("span") ? btn.querySelector("span").textContent.trim() : btn.textContent.trim();
+        if (selectedTraits.has(text)) {
           btn.classList.add("selected");
         }
       });
+      updateCategoryIndicators();
     }
 
     function normalizeWorkerKey(str) {
       return (str || "").toLowerCase().replace(/\[.*?\]|\(.*?\)/g, "").replace(/[^a-z0-9]/g, "");
     }
 
-    function filterAndOrderTaxonomy(role) {
-      const container = document.querySelector(".taxonomy-section");
-      if (!container) return;
-      const cats = Array.from(container.querySelectorAll(".taxonomy-cat"));
-      if (cats.length === 0) return;
-
-      const r = (role || "").toLowerCase();
-      let primaryCraft = "culinary";
-      let secondaryCraft = "housekeeping";
-
-      if (r.includes("chauffeur") || r.includes("driver") || r.includes("mobility")) {
-        primaryCraft = "transport";
-        secondaryCraft = "automotive";
-      } else if (r.includes("child") || r.includes("nanny") || r.includes("elder") || r.includes("nurse") || r.includes("aide")) {
-        primaryCraft = "caregiving";
-        secondaryCraft = "housekeeping";
-      } else if (r.includes("security") || r.includes("guard") || r.includes("patrol")) {
-        primaryCraft = "security";
-        secondaryCraft = "maintenance";
-      } else if (r.includes("plumb") || r.includes("electr") || r.includes("repair") || r.includes("maintenance")) {
-        primaryCraft = "maintenance";
-        secondaryCraft = "security";
-      } else if (r.includes("housekeep") || r.includes("maid") || r.includes("clean")) {
-        primaryCraft = "housekeeping";
-        secondaryCraft = "culinary";
-      } else if (r.includes("cook") || r.includes("culinary")) {
-        primaryCraft = "culinary";
-        secondaryCraft = "housekeeping";
+    // Progressive Disclosure: Category switcher and smart activation
+    function switchCraftCategory(catName, btn) {
+      document.querySelectorAll(".craft-cat-btn").forEach(b => b.classList.remove("active"));
+      if (btn) {
+        btn.classList.add("active");
+      } else {
+        const activeBtn = document.querySelector(`.craft-cat-btn[data-cat="${catName}"]`);
+        if (activeBtn) activeBtn.classList.add("active");
       }
+      document.querySelectorAll(".craft-panel").forEach(p => p.style.display = "none");
+      const targetPanel = document.getElementById(`craft-panel-${catName}`);
+      if (targetPanel) {
+        targetPanel.style.display = "block";
+      }
+    }
 
-      const priorityOrder = [primaryCraft, "reliability", secondaryCraft];
-
-      cats.sort((a, b) => {
-        const craftA = a.getAttribute("data-craft") || "";
-        const craftB = b.getAttribute("data-craft") || "";
-        let idxA = priorityOrder.indexOf(craftA);
-        let idxB = priorityOrder.indexOf(craftB);
-        if (idxA === -1) idxA = 99;
-        if (idxB === -1) idxB = 99;
-        return idxA - idxB;
-      });
-
-      const hint = container.querySelector(".form-hint");
-      cats.forEach((cat) => {
-        const craft = cat.getAttribute("data-craft");
-        const titleEl = cat.querySelector(".taxonomy-cat-title");
-        const existingBadge = cat.querySelector(".primary-craft-badge");
-        if (existingBadge) existingBadge.remove();
-
-        if (craft === primaryCraft) {
-          cat.style.border = "1.5px solid var(--terracotta-border, #F1D2C5)";
-          cat.style.background = "var(--terracotta-bg, #FDF4F0)";
-          cat.style.padding = "10px 12px";
-          cat.style.borderRadius = "12px";
-          cat.style.marginBottom = "10px";
-          if (titleEl) {
-            const badge = document.createElement("span");
-            badge.className = "primary-craft-badge";
-            badge.style = "font-size:10px; font-weight:800; background:var(--terracotta); color:#FFFFFF; border-radius:999px; padding:2px 8px; margin-left:8px; text-transform:uppercase; letter-spacing:0.04em;";
-            badge.textContent = "Primary Craft";
-            titleEl.appendChild(badge);
-          }
-        } else {
-          cat.style.border = "";
-          cat.style.background = "";
-          cat.style.padding = "";
-          cat.style.borderRadius = "";
-          cat.style.marginBottom = "";
-        }
-
-        if (hint) {
-          container.insertBefore(cat, hint);
-        } else {
-          container.appendChild(cat);
-        }
-      });
+    function filterAndOrderTaxonomy(role) {
+      const r = (role || "").toLowerCase();
+      let defaultCat = "cooking";
+      if (r.includes("chauffeur") || r.includes("driver") || r.includes("mobility") || r.includes("automotive")) {
+        defaultCat = "automotive";
+      } else if (r.includes("child") || r.includes("elder") || r.includes("nurse") || r.includes("aide") || r.includes("care")) {
+        defaultCat = "caregiving";
+      } else if (r.includes("housekeep") || r.includes("clean") || r.includes("maid")) {
+        defaultCat = "housekeeping";
+      }
+      switchCraftCategory(defaultCat);
     }
 
     function populateWorkerDropdown() {
@@ -1099,25 +1158,25 @@
         { id: "asha-kumari-03", name: "Asha Kumari", role: "Childcare & Elder Nurse Aide" }
       ];
 
-      // Check if custom worker exists in localStorage (prevent duplicate if already in workerOptions or Sunita)
+      // Check if custom worker exists in localStorage
       try {
         const rawOnboard = localStorage.getItem("maanyata_sunita_portfolio_v1");
         if (rawOnboard) {
           const ob = JSON.parse(rawOnboard);
           if (ob && ob.name) {
-            const normId = normalizeWorkerKey(ob.id);
-            const normName = normalizeWorkerKey(ob.name);
+            const resolved = formatWorkerSlug(ob.name);
+            const normId = normalizeWorkerKey(ob.id || resolved.name);
             const isDuplicate = workerOptions.some(w => {
               const wNormId = normalizeWorkerKey(w.id);
               const wNormName = normalizeWorkerKey(w.name);
               return (normId && (normId === wNormId || normId.includes("sunita"))) ||
-                     (normName && (normName === wNormName || normName.includes("sunitadevi")));
+                     (wNormName && wNormName.includes("sunitadevi"));
             });
             if (!isDuplicate) {
               workerOptions.unshift({
                 id: ob.id || ob.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-                name: ob.name.replace(/\[.*?\]/, "").trim(),
-                role: ob.role || "Independent Specialist"
+                name: resolved.name,
+                role: ob.role || resolved.role || "Independent Specialist"
               });
             }
           }
@@ -1125,7 +1184,7 @@
       } catch (e) {}
 
       let currentMatched = false;
-      const currentNormId = portfolio && portfolio.id ? normalizeWorkerKey(portfolio.id) : "";
+      const currentNormId = targetWorkerId ? normalizeWorkerKey(targetWorkerId) : (portfolio && portfolio.id ? normalizeWorkerKey(portfolio.id) : "");
       const currentNormName = portfolio && portfolio.name ? normalizeWorkerKey(portfolio.name) : "";
 
       workerOptions.forEach(w => {
@@ -1152,8 +1211,9 @@
 
       if (!currentMatched && !isAlreadyInOptions && portfolio && portfolio.name && !portfolio.name.startsWith("Unknown")) {
         const customOpt = document.createElement("option");
-        customOpt.value = portfolio.id || "custom-worker";
-        customOpt.textContent = `${portfolio.name.replace(/\[.*?\]/, "").trim()} • ${portfolio.role || "Specialist"}`;
+        customOpt.value = portfolio.id || targetWorkerId || "custom-worker";
+        const res = formatWorkerSlug(portfolio.name);
+        customOpt.textContent = `${res.name} • ${portfolio.role || "Specialist"}`;
         customOpt.selected = true;
         select.insertBefore(customOpt, select.firstChild);
       }
@@ -1173,6 +1233,19 @@
         selectedTraits.add(traitName);
         btn.classList.add("selected");
       }
+      updateCategoryIndicators();
+    }
+
+    function updateCategoryIndicators() {
+      const countEl = document.getElementById("selectedCraftCount");
+      const universalBadges = new Set(["Punctual & Reliable", "Honest & Trustworthy", "High Quality Work", "Polite & Respectful"]);
+      let optionalCount = 0;
+      selectedTraits.forEach(t => {
+        if (!universalBadges.has(t)) optionalCount++;
+      });
+      if (countEl) {
+        countEl.textContent = optionalCount > 0 ? `${optionalCount} optional badge${optionalCount > 1 ? "s" : ""} selected` : "";
+      }
     }
 
     // Form Submission with User-Controlled Privacy Radius & Haversine Distance Check
@@ -1185,7 +1258,7 @@
       }
 
       if (selectedTraits.size === 0) {
-        alert("Please select at least one craft or reliability badge to recognize their work.");
+        alert("Please select at least one trust or craft badge to recognize their work.");
         return;
       }
 
@@ -1480,7 +1553,6 @@
         portfolio.households = (parseInt(portfolio.households) || 0) + 1;
 
         // Calendar Span Union Invariant (Consistent Across Online & Offline):
-        // Compute span from earliest verified startYear to currentYear
         const validStartYears = portfolio.references
           .map(r => parseInt(r.startYear, 10))
           .filter(y => !isNaN(y) && y > 1990 && y <= new Date().getFullYear());
@@ -1533,7 +1605,7 @@
       const firstName = ((portfolio.name || "").trim().split(/\s+/)[0]) || "their";
       document.getElementById("successDesc").innerHTML = 
         `Your endorsement has been added to ${escapeHTML(firstName)}'s permanent record.<br><br>` +
-        `<strong>Tenure:</strong> ${escapeHTML(portfolio.tenure)} • <strong>Location:</strong> ${escapeHTML(currentPending.payload.locationTag)}`;
+        `<strong>Tenure:</strong> ${escapeHTML(portfolio.tenure)} &bull; <strong>Location:</strong> ${escapeHTML(currentPending.payload.locationTag)}`;
       document.getElementById("successOverlay").style.display = "flex";
     }
 

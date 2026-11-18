@@ -1724,7 +1724,20 @@ const TRAIT_MAP_HI = {
   "Deep Scrub & Hygiene": "गहन स्वच्छता एवं सफाई",
   "Steam Iron & Laundry": "वस्त्र धुलाई एवं स्टीम इस्त्री",
   "Mandi Accounting": "सब्जी मंडी व दैनिक हिसाब",
-  "Emergency Availability": "आपातकालीन उपलब्धता"
+  "Emergency Availability": "आपातकालीन उपलब्धता",
+  "Punctual & Reliable": "समयनिष्ठ एवं विश्वसनीय",
+  "Honest & Trustworthy": "ईमानदार एवं भरोसेमंद",
+  "High Quality Work": "उत्कृष्ट गुणवत्ता कार्य",
+  "Polite & Respectful": "विनम्र एवं आदरयुक्त",
+  "Great Meals & Curries": "स्वादिष्ट भोजन व करी",
+  "Pure Vegetarian / Satvik": "शुद्ध शाकाहारी / सात्विक",
+  "Clean & Fast Prep": "स्वच्छ एवं त्वरित तैयारी",
+  "Mandi & Daily Accounts": "सब्जी मंडी व दैनिक हिसाब",
+  "Exterior Wash & Polish": "वाहन बाहरी धुलाई व पॉलिश",
+  "Interior Vacuum & Clean": "वाहन आंतरिक सफाई व वैक्यूम",
+  "Tire & Fluid Checks": "टायर व फ्लूइड जांच",
+  "Infant Care & Massage": "शिशु देखभाल एवं मालिश",
+  "Clinic Escort": "अस्पताल सहायता"
 };
 
 const BOUNDARY_MAP_HI = {
