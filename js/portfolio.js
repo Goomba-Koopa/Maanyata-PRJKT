@@ -122,7 +122,7 @@ function verifyEd25519Token(tokenStr) {
 const SAMPLES = {
   sunita_devi: {
     id: "sunita-devi-01",
-    name: "Sunita Devi [Demo Record]",
+    name: "Sunita Devi",
     role: "Senior Household & Culinary Specialist",
     uan: "UAN ****-****-4921",
     tenureBaseline: "8.5 Yrs",
@@ -157,7 +157,7 @@ const SAMPLES = {
   },
   ramesh_kumar: {
     id: "ramesh-kumar-02",
-    name: "Ramesh Kumar [Demo Record]",
+    name: "Ramesh Kumar",
     role: "Senior Chauffeur & Mobility Assistant",
     uan: "UAN ****-****-8812",
     tenureBaseline: "12 Yrs",
@@ -184,8 +184,30 @@ const SAMPLES = {
         locationTag: "✓ On-Premises Attestation (Demo CHS)"
       }
     ]
+  },
+  "asha-kumari-03": {
+    id: "asha-kumari-03",
+    name: "Asha Kumari",
+    role: "Deep Cleaning & Sanitization Specialist",
+    uan: "UAN ****-****-6641",
+    tenureBaseline: "4 Yrs",
+    tenureAttested: "4 Yrs",
+    tenure: "4 Yrs",
+    households: 12,
+    statusText: "Active Status: Employed across 2 Societies",
+    traits: {
+      "Deep Cleaning & Sanitization": { count: 18, iconName: "sparkles" },
+      "Always On Time": { count: 20, iconName: "clock" },
+      "Trusted With House Keys": { count: 10, iconName: "key" }
+    },
+    boundaries: ["Access to clean water and soap", "Minimum 1 Agreed Weekly Rest Day"],
+    references: []
   }
 };
+
+SAMPLES.asha_kumari = SAMPLES["asha-kumari-03"];
+SAMPLES["ramesh-kumar-02"] = SAMPLES.ramesh_kumar;
+SAMPLES["sunita-devi-01"] = SAMPLES.sunita_devi;
 
 const UNKNOWN_PORTFOLIO = {
   name: "Unknown Worker",
@@ -311,9 +333,7 @@ function savePortfolio() {
     if (portfolio && portfolio.id) {
       localStorage.setItem("mny_worker_" + portfolio.id, JSON.stringify(portfolio));
     }
-    if (!portfolio || !portfolio.id || portfolio.id === "sunita-devi-01") {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
   } catch (e) {}
 }
 
@@ -814,7 +834,10 @@ function calculateCumulativeHours(port) {
 
 // Rendering
 function renderPortfolio() {
-  document.getElementById("pName").textContent = portfolio.name;
+  const pNameEl = document.getElementById("pName");
+  if (pNameEl) {
+    pNameEl.textContent = (portfolio && portfolio.name ? portfolio.name : "").replace(/\s*\[Demo Record\]\s*/i, "").trim();
+  }
 
   const ROLE_MAP_HI = {
     "Senior Household & Culinary Specialist": "वरिष्ठ गृह एवं पाक कला विशेषज्ञ",
@@ -2067,24 +2090,24 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && studio && studio.style.display === "flex") {
     closeStudioModal();
   }
-  const editProfile = document.getElementById("editProfileModal");
+  const editProfile = document.getElementById("profileEditModal") || document.getElementById("editProfileModal");
   if (e.key === "Escape" && editProfile && editProfile.style.display === "flex") {
     closeEditProfileModal();
   }
 });
 
 function openEditProfileModal() {
-  const modal = document.getElementById("editProfileModal");
+  const modal = document.getElementById("profileEditModal") || document.getElementById("editProfileModal");
   if (!modal) return;
   lastFocusedBeforeModal = document.activeElement;
 
-  const nameInput = document.getElementById("inputWorkerName");
-  const roleSelect = document.getElementById("selectWorkerRole");
-  const uanInput = document.getElementById("inputWorkerUan");
-  const phoneInput = document.getElementById("inputWorkerPhone");
+  const nameInput = document.getElementById("editWorkerName") || document.getElementById("inputWorkerName");
+  const roleSelect = document.getElementById("editWorkerRole") || document.getElementById("selectWorkerRole");
+  const uanInput = document.getElementById("editWorkerUan") || document.getElementById("inputWorkerUan");
+  const phoneInput = document.getElementById("editWorkerPhone") || document.getElementById("inputWorkerPhone");
 
   if (nameInput) {
-    nameInput.value = (portfolio && portfolio.name) ? portfolio.name : "";
+    nameInput.value = (portfolio && portfolio.name) ? String(portfolio.name).replace(/\s*\[Demo Record\]\s*/i, "").trim() : "";
   }
 
   if (roleSelect) {
@@ -2125,7 +2148,7 @@ function openEditProfileModal() {
 }
 
 function closeEditProfileModal() {
-  const modal = document.getElementById("editProfileModal");
+  const modal = document.getElementById("profileEditModal") || document.getElementById("editProfileModal");
   if (modal) modal.style.display = "none";
   if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function") {
     lastFocusedBeforeModal.focus();
@@ -2137,10 +2160,10 @@ function saveWorkerProfile(e) {
     e.preventDefault();
   }
 
-  const nameInput = document.getElementById("inputWorkerName");
-  const roleSelect = document.getElementById("selectWorkerRole");
-  const uanInput = document.getElementById("inputWorkerUan");
-  const phoneInput = document.getElementById("inputWorkerPhone");
+  const nameInput = document.getElementById("editWorkerName") || document.getElementById("inputWorkerName");
+  const roleSelect = document.getElementById("editWorkerRole") || document.getElementById("selectWorkerRole");
+  const uanInput = document.getElementById("editWorkerUan") || document.getElementById("inputWorkerUan");
+  const phoneInput = document.getElementById("editWorkerPhone") || document.getElementById("inputWorkerPhone");
 
   function sanitize(str, maxLen = 120) {
     if (str == null) return "";
@@ -2165,11 +2188,20 @@ function saveWorkerProfile(e) {
   portfolio.phone = cleanPhone;
   portfolio.cleanName = portfolio.name;
 
+  if (portfolio.id) {
+    try {
+      localStorage.setItem("mny_worker_" + portfolio.id, JSON.stringify(portfolio));
+    } catch (err) {}
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
+  } catch (err) {}
+
   savePortfolio();
   renderPortfolio();
   renderOfflineQR();
   closeEditProfileModal();
-  showToast("Passbook details updated!");
+  showToast("Profile updated!");
 }
 
 function setupEditProfileListeners() {
@@ -2206,11 +2238,15 @@ function setupEditProfileListeners() {
   }
 }
 
+function regenerateQrPass() {
+  return renderOfflineQR();
+}
+
 if (typeof window !== "undefined") {
   window.openEditProfileModal = openEditProfileModal;
   window.closeEditProfileModal = closeEditProfileModal;
   window.saveWorkerProfile = saveWorkerProfile;
-  window.regenerateQrPass = renderOfflineQR;
+  window.regenerateQrPass = regenerateQrPass;
 }
 
 function saveCustomProfile(event) {

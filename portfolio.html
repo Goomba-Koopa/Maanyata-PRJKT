@@ -230,7 +230,7 @@
             </div>
           </div>
           <div class="profile-meta">
-            <h1 id="pName">Sunita Devi [Demo Record]</h1>
+            <h1 id="pName">Sunita Devi</h1>
             <div class="profile-role" id="pRole">Senior Household & Culinary Specialist</div>
             <div class="profile-gov-id">
               <span data-i18n="badgeEShram">e-Shram Verified</span>
@@ -239,9 +239,9 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn-action is-outline" id="btnEditProfile" onclick="openEditProfileModal()" style="min-height: 44px; margin-top: 12px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <button type="button" class="btn-action is-outline" id="btnEditProfile" onclick="openEditProfileModal()" style="min-height: 48px; margin-top: 12px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg class="mny-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          <span>Edit Passbook Details</span>
+          <span>Edit Profile</span>
         </button>
       </div>
 
@@ -473,34 +473,33 @@
   </div>
 
   <!-- Modal: Edit Profile Details -->
-  <div id="editProfileModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editProfileModalTitle" style="display:none;">
+  <div id="profileEditModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editProfileModalTitle" style="display:none;">
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="editProfileModalTitle">Edit Passbook Details</h2>
+        <h2 class="modal-title" id="editProfileModalTitle">Edit Profile</h2>
         <button class="modal-close" id="btnCloseProfileModal" type="button" onclick="closeEditProfileModal()" aria-label="Close" style="min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center;">&times;</button>
       </div>
       <form id="editProfileForm" onsubmit="saveWorkerProfile(event)">
         <div class="form-group" style="margin-bottom: 14px;">
-          <label class="form-label" for="inputWorkerName" style="display:block; margin-bottom: 6px; font-weight:700;">Full Legal / Preferred Name</label>
-          <input type="text" id="inputWorkerName" class="form-input" required autocomplete="name" style="width:100%; font-size:16px; min-height:44px; padding: 10px 12px; box-sizing: border-box;">
+          <label class="form-label" for="editWorkerName" style="display:block; margin-bottom: 6px; font-weight:700;">Full Legal / Preferred Name</label>
+          <input type="text" id="editWorkerName" class="form-input" style="width:100%; font-size: 16px; min-height: 44px; padding: 10px 12px; box-sizing: border-box;" required autocomplete="name">
         </div>
         <div class="form-group" style="margin-bottom: 14px;">
-          <label class="form-label" for="selectWorkerRole" style="display:block; margin-bottom: 6px; font-weight:700;">Primary Craft / Role</label>
-          <select id="selectWorkerRole" class="form-select" required style="width:100%; font-size:16px; min-height:44px; padding: 10px 12px; box-sizing: border-box;">
-            <option value="Senior Culinary Specialist &amp; Meal Prep">Senior Culinary Specialist &amp; Meal Prep</option>
-            <option value="Deep Cleaning &amp; Sanitization Specialist">Deep Cleaning &amp; Sanitization Specialist</option>
-            <option value="Chauffeur &amp; Senior Mobility Assistant">Chauffeur &amp; Senior Mobility Assistant</option>
-            <option value="Childcare &amp; Eldercare Attendant">Childcare &amp; Eldercare Attendant</option>
-            <option value="General Household Specialist">General Household Specialist</option>
+          <label class="form-label" for="editWorkerRole" style="display:block; margin-bottom: 6px; font-weight:700;">Primary Craft / Role</label>
+          <select id="editWorkerRole" class="form-select" style="width:100%; font-size: 16px; min-height: 44px; padding: 10px 12px; box-sizing: border-box;" required>
+            <option value="Senior Culinary Specialist">Senior Culinary Specialist</option>
+            <option value="Housekeeping &amp; Childcare">Housekeeping &amp; Childcare</option>
+            <option value="Chauffeur / Driver">Chauffeur / Driver</option>
+            <option value="General Home Maintenance">General Home Maintenance</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom: 14px;">
-          <label class="form-label" for="inputWorkerUan" style="display:block; margin-bottom: 6px; font-weight:700;">Government ID / UAN</label>
-          <input type="text" id="inputWorkerUan" class="form-input" placeholder="e.g. UAN 1009-8821-4921" autocomplete="off" style="width:100%; font-size:16px; min-height:44px; padding: 10px 12px; box-sizing: border-box;">
+          <label class="form-label" for="editWorkerUan" style="display:block; margin-bottom: 6px; font-weight:700;">e-Shram / UAN</label>
+          <input type="text" id="editWorkerUan" class="form-input" placeholder="e.g. UAN 1009-8821-4921" autocomplete="off" style="width:100%; font-size: 16px; min-height: 44px; padding: 10px 12px; box-sizing: border-box;">
         </div>
         <div class="form-group" style="margin-bottom: 18px;">
-          <label class="form-label" for="inputWorkerPhone" style="display:block; margin-bottom: 6px; font-weight:700;">Primary Mobile / WhatsApp</label>
-          <input type="tel" id="inputWorkerPhone" class="form-input" placeholder="e.g. +91 98200 12345" autocomplete="tel" style="width:100%; font-size:16px; min-height:44px; padding: 10px 12px; box-sizing: border-box;">
+          <label class="form-label" for="editWorkerPhone" style="display:block; margin-bottom: 6px; font-weight:700;">Contact Phone</label>
+          <input type="tel" id="editWorkerPhone" class="form-input" placeholder="e.g. +91 98200 12345" autocomplete="tel" style="width:100%; font-size: 16px; min-height: 44px; padding: 10px 12px; box-sizing: border-box;">
         </div>
         <div class="form-actions" style="display:flex; gap:10px;">
           <button type="submit" class="btn-action is-primary" id="btnSaveProfile" style="flex:1; min-height:48px; background:var(--terracotta); display:inline-flex; align-items:center; justify-content:center; gap:6px;">Save Profile</button>
