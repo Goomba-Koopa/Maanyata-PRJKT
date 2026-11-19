@@ -1261,12 +1261,16 @@ if (typeof window !== "undefined") {
   window.toggleSolMode = toggleSolMode;
   window.resetLocalDemo = resetLocalDemo;
   window.renderOfflineQR = renderOfflineQR;
+  window.regenerateQrPass = renderOfflineQR;
   window.startLiveTicker = startLiveTicker;
   window.restoreCustomizationStudio = restoreCustomizationStudio;
   window.generateEd25519Token = generateEd25519Token;
   window.renderPortfolio = renderPortfolio;
   window.loadPortfolio = loadPortfolio;
   window.savePortfolio = savePortfolio;
+  window.openEditProfileModal = openEditProfileModal;
+  window.closeEditProfileModal = closeEditProfileModal;
+  window.saveWorkerProfile = saveWorkerProfile;
   window.initApp = initApp;
 }
 
@@ -2063,7 +2067,151 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && studio && studio.style.display === "flex") {
     closeStudioModal();
   }
+  const editProfile = document.getElementById("editProfileModal");
+  if (e.key === "Escape" && editProfile && editProfile.style.display === "flex") {
+    closeEditProfileModal();
+  }
 });
+
+function openEditProfileModal() {
+  const modal = document.getElementById("editProfileModal");
+  if (!modal) return;
+  lastFocusedBeforeModal = document.activeElement;
+
+  const nameInput = document.getElementById("inputWorkerName");
+  const roleSelect = document.getElementById("selectWorkerRole");
+  const uanInput = document.getElementById("inputWorkerUan");
+  const phoneInput = document.getElementById("inputWorkerPhone");
+
+  if (nameInput) {
+    nameInput.value = (portfolio && portfolio.name) ? portfolio.name : "";
+  }
+
+  if (roleSelect) {
+    const currentRole = (portfolio && portfolio.role) ? portfolio.role : "";
+    const opts = roleSelect.options || roleSelect.children || [];
+    let matchFound = false;
+    for (let i = 0; i < opts.length; i++) {
+      if (opts[i].value === currentRole) {
+        if (roleSelect.options) roleSelect.selectedIndex = i;
+        roleSelect.value = currentRole;
+        matchFound = true;
+        break;
+      }
+    }
+    if (!matchFound && currentRole) {
+      const opt = document.createElement("option");
+      opt.value = currentRole;
+      opt.textContent = currentRole;
+      opt.selected = true;
+      roleSelect.appendChild(opt);
+      if (roleSelect.options) roleSelect.selectedIndex = opts.length - 1;
+      roleSelect.value = currentRole;
+    }
+  }
+
+  if (uanInput) {
+    uanInput.value = (portfolio && portfolio.uan) ? portfolio.uan : "";
+  }
+
+  if (phoneInput) {
+    phoneInput.value = (portfolio && portfolio.phone) ? portfolio.phone : "";
+  }
+
+  modal.style.display = "flex";
+  if (nameInput && typeof nameInput.focus === "function") {
+    nameInput.focus();
+  }
+}
+
+function closeEditProfileModal() {
+  const modal = document.getElementById("editProfileModal");
+  if (modal) modal.style.display = "none";
+  if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function") {
+    lastFocusedBeforeModal.focus();
+  }
+}
+
+function saveWorkerProfile(e) {
+  if (e && typeof e.preventDefault === "function") {
+    e.preventDefault();
+  }
+
+  const nameInput = document.getElementById("inputWorkerName");
+  const roleSelect = document.getElementById("selectWorkerRole");
+  const uanInput = document.getElementById("inputWorkerUan");
+  const phoneInput = document.getElementById("inputWorkerPhone");
+
+  function sanitize(str, maxLen = 120) {
+    if (str == null) return "";
+    return String(str).replace(/<[^>]*>/g, "").trim().slice(0, maxLen);
+  }
+
+  const cleanName = sanitize(nameInput ? nameInput.value : "", 80);
+  const cleanRole = sanitize(roleSelect ? roleSelect.value : "", 100);
+  const cleanUan = sanitize(uanInput ? uanInput.value : "", 50);
+  const cleanPhone = sanitize(phoneInput ? phoneInput.value : "", 30);
+
+  if (!portfolio) portfolio = {};
+  if (cleanName) {
+    portfolio.name = cleanName;
+  }
+  if (cleanRole) {
+    portfolio.role = cleanRole;
+  }
+  if (cleanUan) {
+    portfolio.uan = cleanUan;
+  }
+  portfolio.phone = cleanPhone;
+  portfolio.cleanName = portfolio.name;
+
+  savePortfolio();
+  renderPortfolio();
+  renderOfflineQR();
+  closeEditProfileModal();
+  showToast("Passbook details updated!");
+}
+
+function setupEditProfileListeners() {
+  const btnEdit = document.getElementById("btnEditProfile");
+  if (btnEdit && !btnEdit.dataset.wired) {
+    btnEdit.dataset.wired = "1";
+    btnEdit.addEventListener("click", openEditProfileModal);
+  }
+  const btnClose = document.getElementById("btnCloseProfileModal");
+  if (btnClose && !btnClose.dataset.wired) {
+    btnClose.dataset.wired = "1";
+    btnClose.addEventListener("click", closeEditProfileModal);
+  }
+  const btnCancel = document.getElementById("btnCancelProfileModal");
+  if (btnCancel && !btnCancel.dataset.wired) {
+    btnCancel.dataset.wired = "1";
+    btnCancel.addEventListener("click", closeEditProfileModal);
+  }
+  const btnSave = document.getElementById("btnSaveProfile");
+  if (btnSave && !btnSave.dataset.wired) {
+    btnSave.dataset.wired = "1";
+    btnSave.addEventListener("click", (e) => {
+      if (e && typeof e.preventDefault === "function") e.preventDefault();
+      saveWorkerProfile(e);
+    });
+  }
+  const form = document.getElementById("editProfileForm");
+  if (form && !form.dataset.wired) {
+    form.dataset.wired = "1";
+    form.addEventListener("submit", (e) => {
+      if (e && typeof e.preventDefault === "function") e.preventDefault();
+      saveWorkerProfile(e);
+    });
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.openEditProfileModal = openEditProfileModal;
+  window.closeEditProfileModal = closeEditProfileModal;
+  window.saveWorkerProfile = saveWorkerProfile;
+  window.regenerateQrPass = renderOfflineQR;
+}
 
 function saveCustomProfile(event) {
   if (event) event.preventDefault();
@@ -2084,6 +2232,7 @@ function initApp() {
   renderPortfolio();
   hydrateFromEdge();
   showTab("pass");
+  setupEditProfileListeners();
 }
 
 if (document.readyState === "loading") {
